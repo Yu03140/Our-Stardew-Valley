@@ -9,8 +9,10 @@
 
 #include "cocos2d.h"
 
+using namespace cocos2d;
+
 //当节点进入场景时调用
-void onEnter() {
+void HelloWorld::onEnter() {
     // 调用父类的 onEnter() 方法，保持场景的生命周期逻辑
     Layer::onEnter();
 
