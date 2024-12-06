@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\06f4b8328fbdc9ccf1cb1018f1a669ac\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{C97A0C1C-9493-3BC3-B0D7-33B5E1017B30}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
