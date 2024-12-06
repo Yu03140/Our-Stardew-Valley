@@ -1,0 +1,892 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|win32">
+      <Configuration>Debug</Configuration>
+      <Platform>win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|win32">
+      <Configuration>Release</Configuration>
+      <Platform>win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7967CA0A-839B-3872-86D9-475A465C8DEC}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <Platform>win32</Platform>
+    <ProjectName>cocos</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">D:\Our Stardew Valley\cocos\proj.win32\bin\cocos\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">cocos.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">cocos</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|win32'">D:\Our Stardew Valley\cocos\proj.win32\bin\cocos\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|win32'">cocos.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|win32'">cocos</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">D:\Our Stardew Valley\cocos\proj.win32\bin\cocos\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">cocos.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">cocos</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">D:\Our Stardew Valley\cocos\proj.win32\bin\cocos\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">cocos.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">cocos</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Our Stardew Valley\cocos\Classes;D:\Our Stardew Valley\cocos\cocos2d\cocos\audio\include;D:\Our Stardew Valley\cocos\cocos2d;D:\Our Stardew Valley\cocos\cocos2d\cocos;D:\Our Stardew Valley\cocos\cocos2d\extensions;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform;D:\Our Stardew Valley\cocos\cocos2d\cocos\editor-support;D:\Our Stardew Valley\cocos\cocos2d\cocos\base;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform\win32;D:\Our Stardew Valley\cocos\cocos2d\external\recast\..;D:\Our Stardew Valley\cocos\cocos2d\external\tinyxml2\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxhash\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxtea\.;D:\Our Stardew Valley\cocos\cocos2d\external\clipper\.;D:\Our Stardew Valley\cocos\cocos2d\external\edtaa3func\.;D:\Our Stardew Valley\cocos\cocos2d\external\ConvertUTF\.;D:\Our Stardew Valley\cocos\cocos2d\external\poly2tri\..;D:\Our Stardew Valley\cocos\cocos2d\external\md5\..;D:\Our Stardew Valley\cocos\cocos2d\external\unzip\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/Box2D/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/chipmunk/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/freetype2/include/win32/freetype2" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/bullet/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/bullet/include/bullet" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/jpeg/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/openssl/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/uv/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/webp/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/websockets/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/curl/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/png/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/gles/include/OGLES" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/icon/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/MP3Decoder/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OggDecoder/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OpenalSoft/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/glfw3/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/zlib/../win32-specific/zlib/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;COCOS2D_DEBUG=1;_WIN32;UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_STATIC;LWS_WITH_LIBUV;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;COCOS2D_DEBUG=1;_WIN32;UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_STATIC;LWS_WITH_LIBUV;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Our Stardew Valley\cocos\Classes;D:\Our Stardew Valley\cocos\cocos2d\cocos\audio\include;D:\Our Stardew Valley\cocos\cocos2d;D:\Our Stardew Valley\cocos\cocos2d\cocos;D:\Our Stardew Valley\cocos\cocos2d\extensions;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform;D:\Our Stardew Valley\cocos\cocos2d\cocos\editor-support;D:\Our Stardew Valley\cocos\cocos2d\cocos\base;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform\win32;D:\Our Stardew Valley\cocos\cocos2d\external\recast\..;D:\Our Stardew Valley\cocos\cocos2d\external\tinyxml2\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxhash\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxtea\.;D:\Our Stardew Valley\cocos\cocos2d\external\clipper\.;D:\Our Stardew Valley\cocos\cocos2d\external\edtaa3func\.;D:\Our Stardew Valley\cocos\cocos2d\external\ConvertUTF\.;D:\Our Stardew Valley\cocos\cocos2d\external\poly2tri\..;D:\Our Stardew Valley\cocos\cocos2d\external\md5\..;D:\Our Stardew Valley\cocos\cocos2d\external\unzip\.;D:\Our Stardew Valley\cocos\cocos2d\external\Box2D\include;D:\Our Stardew Valley\cocos\cocos2d\external\chipmunk\include;D:\Our Stardew Valley\cocos\cocos2d\external\freetype2\include\win32\freetype2;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\include;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\include\bullet;D:\Our Stardew Valley\cocos\cocos2d\external\jpeg\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\openssl\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\uv\include;D:\Our Stardew Valley\cocos\cocos2d\external\webp\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\websockets\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\curl\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\png\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\gles\include\OGLES;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\icon\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\MP3Decoder\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OpenalSoft\include;D:\Our Stardew Valley\cocos\cocos2d\external\glfw3\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Our Stardew Valley\cocos\Classes;D:\Our Stardew Valley\cocos\cocos2d\cocos\audio\include;D:\Our Stardew Valley\cocos\cocos2d;D:\Our Stardew Valley\cocos\cocos2d\cocos;D:\Our Stardew Valley\cocos\cocos2d\extensions;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform;D:\Our Stardew Valley\cocos\cocos2d\cocos\editor-support;D:\Our Stardew Valley\cocos\cocos2d\cocos\base;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform\win32;D:\Our Stardew Valley\cocos\cocos2d\external\recast\..;D:\Our Stardew Valley\cocos\cocos2d\external\tinyxml2\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxhash\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxtea\.;D:\Our Stardew Valley\cocos\cocos2d\external\clipper\.;D:\Our Stardew Valley\cocos\cocos2d\external\edtaa3func\.;D:\Our Stardew Valley\cocos\cocos2d\external\ConvertUTF\.;D:\Our Stardew Valley\cocos\cocos2d\external\poly2tri\..;D:\Our Stardew Valley\cocos\cocos2d\external\md5\..;D:\Our Stardew Valley\cocos\cocos2d\external\unzip\.;D:\Our Stardew Valley\cocos\cocos2d\external\Box2D\include;D:\Our Stardew Valley\cocos\cocos2d\external\chipmunk\include;D:\Our Stardew Valley\cocos\cocos2d\external\freetype2\include\win32\freetype2;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\include;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\include\bullet;D:\Our Stardew Valley\cocos\cocos2d\external\jpeg\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\openssl\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\uv\include;D:\Our Stardew Valley\cocos\cocos2d\external\webp\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\websockets\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\curl\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\png\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\gles\include\OGLES;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\icon\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\MP3Decoder\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OpenalSoft\include;D:\Our Stardew Valley\cocos\cocos2d\external\glfw3\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>
+      </Message>
+      <Command>setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/openssl/prebuilt/win32/libssl-1_1.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Debug/libssl-1_1.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/openssl/prebuilt/win32/libcrypto-1_1.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Debug/libcrypto-1_1.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/uv/prebuilt/win32/uv.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Debug/uv.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/websockets/prebuilt/win32/websockets.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Debug/websockets.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/curl/prebuilt/win32/libcurl.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Debug/libcurl.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/gles/prebuilt/glew32.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Debug/glew32.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/icon/prebuilt/iconv.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Debug/iconv.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/MP3Decoder/prebuilt/libmpg123.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Debug/libmpg123.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OggDecoder/prebuilt/libogg.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Debug/libogg.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OggDecoder/prebuilt/libvorbis.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Debug/libvorbis.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OggDecoder/prebuilt/libvorbisfile.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Debug/libvorbisfile.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OpenalSoft/prebuilt/OpenAL32.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Debug/OpenAL32.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/zlib/../win32-specific/zlib/prebuilt/zlib1.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Debug/zlib1.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>lib\Debug\cocos2d.lib;lib\Debug\external.lib;D:\Our Stardew Valley\cocos\cocos2d\external\Box2D\prebuilt\win32\debug\libbox2d.lib;D:\Our Stardew Valley\cocos\cocos2d\external\chipmunk\prebuilt\win32\debug-lib\libchipmunk.lib;D:\Our Stardew Valley\cocos\cocos2d\external\freetype2\prebuilt\win32\freetype.lib;lib\Debug\ext_recast.lib;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\prebuilt\win32\debug\libbullet.lib;D:\Our Stardew Valley\cocos\cocos2d\external\jpeg\prebuilt\win32\libjpeg.lib;D:\Our Stardew Valley\cocos\cocos2d\external\webp\prebuilt\win32\libwebp.lib;D:\Our Stardew Valley\cocos\cocos2d\external\websockets\prebuilt\win32\websockets.lib;D:\Our Stardew Valley\cocos\cocos2d\external\openssl\prebuilt\win32\libssl.lib;D:\Our Stardew Valley\cocos\cocos2d\external\openssl\prebuilt\win32\libcrypto.lib;D:\Our Stardew Valley\cocos\cocos2d\external\uv\prebuilt\win32\uv_a.lib;lib\Debug\ext_tinyxml2.lib;lib\Debug\ext_xxhash.lib;lib\Debug\ext_xxtea.lib;lib\Debug\ext_clipper.lib;lib\Debug\ext_edtaa3func.lib;lib\Debug\ext_convertUTF.lib;lib\Debug\ext_poly2tri.lib;lib\Debug\ext_md5.lib;D:\Our Stardew Valley\cocos\cocos2d\external\curl\prebuilt\win32\libcurl.lib;D:\Our Stardew Valley\cocos\cocos2d\external\png\prebuilt\win32\libpng.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\gles\prebuilt\glew32.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\icon\prebuilt\libiconv.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\MP3Decoder\prebuilt\libmpg123.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\prebuilt\libogg.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\prebuilt\libvorbis.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\prebuilt\libvorbisfile.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OpenalSoft\prebuilt\OpenAL32.lib;D:\Our Stardew Valley\cocos\cocos2d\external\glfw3\prebuilt\win32\glfw3.lib;D:\Our Stardew Valley\cocos\cocos2d\external\zlib\..\win32-specific\zlib\prebuilt\libzlib.lib;lib\Debug\ext_unzip.lib;ws2_32.lib;userenv.lib;psapi.lib;winmm.lib;Version.lib;Iphlpapi.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Our Stardew Valley/cocos/proj.win32/Debug/cocos.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Debug/cocos.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Our Stardew Valley\cocos\Classes;D:\Our Stardew Valley\cocos\cocos2d\cocos\audio\include;D:\Our Stardew Valley\cocos\cocos2d;D:\Our Stardew Valley\cocos\cocos2d\cocos;D:\Our Stardew Valley\cocos\cocos2d\extensions;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform;D:\Our Stardew Valley\cocos\cocos2d\cocos\editor-support;D:\Our Stardew Valley\cocos\cocos2d\cocos\base;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform\win32;D:\Our Stardew Valley\cocos\cocos2d\external\recast\..;D:\Our Stardew Valley\cocos\cocos2d\external\tinyxml2\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxhash\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxtea\.;D:\Our Stardew Valley\cocos\cocos2d\external\clipper\.;D:\Our Stardew Valley\cocos\cocos2d\external\edtaa3func\.;D:\Our Stardew Valley\cocos\cocos2d\external\ConvertUTF\.;D:\Our Stardew Valley\cocos\cocos2d\external\poly2tri\..;D:\Our Stardew Valley\cocos\cocos2d\external\md5\..;D:\Our Stardew Valley\cocos\cocos2d\external\unzip\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/Box2D/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/chipmunk/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/freetype2/include/win32/freetype2" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/bullet/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/bullet/include/bullet" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/jpeg/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/openssl/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/uv/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/webp/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/websockets/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/curl/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/png/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/gles/include/OGLES" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/icon/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/MP3Decoder/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OggDecoder/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OpenalSoft/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/glfw3/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/zlib/../win32-specific/zlib/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_WIN32;UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_STATIC;LWS_WITH_LIBUV;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_WIN32;UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_STATIC;LWS_WITH_LIBUV;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Our Stardew Valley\cocos\Classes;D:\Our Stardew Valley\cocos\cocos2d\cocos\audio\include;D:\Our Stardew Valley\cocos\cocos2d;D:\Our Stardew Valley\cocos\cocos2d\cocos;D:\Our Stardew Valley\cocos\cocos2d\extensions;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform;D:\Our Stardew Valley\cocos\cocos2d\cocos\editor-support;D:\Our Stardew Valley\cocos\cocos2d\cocos\base;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform\win32;D:\Our Stardew Valley\cocos\cocos2d\external\recast\..;D:\Our Stardew Valley\cocos\cocos2d\external\tinyxml2\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxhash\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxtea\.;D:\Our Stardew Valley\cocos\cocos2d\external\clipper\.;D:\Our Stardew Valley\cocos\cocos2d\external\edtaa3func\.;D:\Our Stardew Valley\cocos\cocos2d\external\ConvertUTF\.;D:\Our Stardew Valley\cocos\cocos2d\external\poly2tri\..;D:\Our Stardew Valley\cocos\cocos2d\external\md5\..;D:\Our Stardew Valley\cocos\cocos2d\external\unzip\.;D:\Our Stardew Valley\cocos\cocos2d\external\Box2D\include;D:\Our Stardew Valley\cocos\cocos2d\external\chipmunk\include;D:\Our Stardew Valley\cocos\cocos2d\external\freetype2\include\win32\freetype2;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\include;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\include\bullet;D:\Our Stardew Valley\cocos\cocos2d\external\jpeg\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\openssl\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\uv\include;D:\Our Stardew Valley\cocos\cocos2d\external\webp\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\websockets\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\curl\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\png\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\gles\include\OGLES;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\icon\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\MP3Decoder\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OpenalSoft\include;D:\Our Stardew Valley\cocos\cocos2d\external\glfw3\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Our Stardew Valley\cocos\Classes;D:\Our Stardew Valley\cocos\cocos2d\cocos\audio\include;D:\Our Stardew Valley\cocos\cocos2d;D:\Our Stardew Valley\cocos\cocos2d\cocos;D:\Our Stardew Valley\cocos\cocos2d\extensions;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform;D:\Our Stardew Valley\cocos\cocos2d\cocos\editor-support;D:\Our Stardew Valley\cocos\cocos2d\cocos\base;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform\win32;D:\Our Stardew Valley\cocos\cocos2d\external\recast\..;D:\Our Stardew Valley\cocos\cocos2d\external\tinyxml2\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxhash\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxtea\.;D:\Our Stardew Valley\cocos\cocos2d\external\clipper\.;D:\Our Stardew Valley\cocos\cocos2d\external\edtaa3func\.;D:\Our Stardew Valley\cocos\cocos2d\external\ConvertUTF\.;D:\Our Stardew Valley\cocos\cocos2d\external\poly2tri\..;D:\Our Stardew Valley\cocos\cocos2d\external\md5\..;D:\Our Stardew Valley\cocos\cocos2d\external\unzip\.;D:\Our Stardew Valley\cocos\cocos2d\external\Box2D\include;D:\Our Stardew Valley\cocos\cocos2d\external\chipmunk\include;D:\Our Stardew Valley\cocos\cocos2d\external\freetype2\include\win32\freetype2;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\include;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\include\bullet;D:\Our Stardew Valley\cocos\cocos2d\external\jpeg\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\openssl\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\uv\include;D:\Our Stardew Valley\cocos\cocos2d\external\webp\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\websockets\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\curl\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\png\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\gles\include\OGLES;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\icon\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\MP3Decoder\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OpenalSoft\include;D:\Our Stardew Valley\cocos\cocos2d\external\glfw3\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>
+      </Message>
+      <Command>setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/openssl/prebuilt/win32/libssl-1_1.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Release/libssl-1_1.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/openssl/prebuilt/win32/libcrypto-1_1.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Release/libcrypto-1_1.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/uv/prebuilt/win32/uv.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Release/uv.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/websockets/prebuilt/win32/websockets.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Release/websockets.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/curl/prebuilt/win32/libcurl.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Release/libcurl.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/gles/prebuilt/glew32.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Release/glew32.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/icon/prebuilt/iconv.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Release/iconv.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/MP3Decoder/prebuilt/libmpg123.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Release/libmpg123.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OggDecoder/prebuilt/libogg.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Release/libogg.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OggDecoder/prebuilt/libvorbis.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Release/libvorbis.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OggDecoder/prebuilt/libvorbisfile.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Release/libvorbisfile.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OpenalSoft/prebuilt/OpenAL32.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Release/OpenAL32.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/zlib/../win32-specific/zlib/prebuilt/zlib1.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Release/zlib1.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>lib\Release\cocos2d.lib;lib\Release\external.lib;D:\Our Stardew Valley\cocos\cocos2d\external\Box2D\prebuilt\win32\release\libbox2d.lib;D:\Our Stardew Valley\cocos\cocos2d\external\chipmunk\prebuilt\win32\release-lib\libchipmunk.lib;D:\Our Stardew Valley\cocos\cocos2d\external\freetype2\prebuilt\win32\freetype.lib;lib\Release\ext_recast.lib;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\prebuilt\win32\release\libbullet.lib;D:\Our Stardew Valley\cocos\cocos2d\external\jpeg\prebuilt\win32\libjpeg.lib;D:\Our Stardew Valley\cocos\cocos2d\external\webp\prebuilt\win32\libwebp.lib;D:\Our Stardew Valley\cocos\cocos2d\external\websockets\prebuilt\win32\websockets.lib;D:\Our Stardew Valley\cocos\cocos2d\external\openssl\prebuilt\win32\libssl.lib;D:\Our Stardew Valley\cocos\cocos2d\external\openssl\prebuilt\win32\libcrypto.lib;D:\Our Stardew Valley\cocos\cocos2d\external\uv\prebuilt\win32\uv_a.lib;lib\Release\ext_tinyxml2.lib;lib\Release\ext_xxhash.lib;lib\Release\ext_xxtea.lib;lib\Release\ext_clipper.lib;lib\Release\ext_edtaa3func.lib;lib\Release\ext_convertUTF.lib;lib\Release\ext_poly2tri.lib;lib\Release\ext_md5.lib;D:\Our Stardew Valley\cocos\cocos2d\external\curl\prebuilt\win32\libcurl.lib;D:\Our Stardew Valley\cocos\cocos2d\external\png\prebuilt\win32\libpng.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\gles\prebuilt\glew32.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\icon\prebuilt\libiconv.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\MP3Decoder\prebuilt\libmpg123.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\prebuilt\libogg.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\prebuilt\libvorbis.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\prebuilt\libvorbisfile.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OpenalSoft\prebuilt\OpenAL32.lib;D:\Our Stardew Valley\cocos\cocos2d\external\glfw3\prebuilt\win32\glfw3.lib;D:\Our Stardew Valley\cocos\cocos2d\external\zlib\..\win32-specific\zlib\prebuilt\libzlib.lib;lib\Release\ext_unzip.lib;ws2_32.lib;userenv.lib;psapi.lib;winmm.lib;Version.lib;Iphlpapi.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Our Stardew Valley/cocos/proj.win32/Release/cocos.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/Release/cocos.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Our Stardew Valley\cocos\Classes;D:\Our Stardew Valley\cocos\cocos2d\cocos\audio\include;D:\Our Stardew Valley\cocos\cocos2d;D:\Our Stardew Valley\cocos\cocos2d\cocos;D:\Our Stardew Valley\cocos\cocos2d\extensions;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform;D:\Our Stardew Valley\cocos\cocos2d\cocos\editor-support;D:\Our Stardew Valley\cocos\cocos2d\cocos\base;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform\win32;D:\Our Stardew Valley\cocos\cocos2d\external\recast\..;D:\Our Stardew Valley\cocos\cocos2d\external\tinyxml2\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxhash\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxtea\.;D:\Our Stardew Valley\cocos\cocos2d\external\clipper\.;D:\Our Stardew Valley\cocos\cocos2d\external\edtaa3func\.;D:\Our Stardew Valley\cocos\cocos2d\external\ConvertUTF\.;D:\Our Stardew Valley\cocos\cocos2d\external\poly2tri\..;D:\Our Stardew Valley\cocos\cocos2d\external\md5\..;D:\Our Stardew Valley\cocos\cocos2d\external\unzip\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/Box2D/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/chipmunk/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/freetype2/include/win32/freetype2" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/bullet/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/bullet/include/bullet" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/jpeg/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/openssl/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/uv/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/webp/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/websockets/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/curl/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/png/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/gles/include/OGLES" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/icon/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/MP3Decoder/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OggDecoder/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OpenalSoft/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/glfw3/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/zlib/../win32-specific/zlib/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_WIN32;UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_STATIC;LWS_WITH_LIBUV;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_WIN32;UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_STATIC;LWS_WITH_LIBUV;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Our Stardew Valley\cocos\Classes;D:\Our Stardew Valley\cocos\cocos2d\cocos\audio\include;D:\Our Stardew Valley\cocos\cocos2d;D:\Our Stardew Valley\cocos\cocos2d\cocos;D:\Our Stardew Valley\cocos\cocos2d\extensions;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform;D:\Our Stardew Valley\cocos\cocos2d\cocos\editor-support;D:\Our Stardew Valley\cocos\cocos2d\cocos\base;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform\win32;D:\Our Stardew Valley\cocos\cocos2d\external\recast\..;D:\Our Stardew Valley\cocos\cocos2d\external\tinyxml2\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxhash\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxtea\.;D:\Our Stardew Valley\cocos\cocos2d\external\clipper\.;D:\Our Stardew Valley\cocos\cocos2d\external\edtaa3func\.;D:\Our Stardew Valley\cocos\cocos2d\external\ConvertUTF\.;D:\Our Stardew Valley\cocos\cocos2d\external\poly2tri\..;D:\Our Stardew Valley\cocos\cocos2d\external\md5\..;D:\Our Stardew Valley\cocos\cocos2d\external\unzip\.;D:\Our Stardew Valley\cocos\cocos2d\external\Box2D\include;D:\Our Stardew Valley\cocos\cocos2d\external\chipmunk\include;D:\Our Stardew Valley\cocos\cocos2d\external\freetype2\include\win32\freetype2;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\include;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\include\bullet;D:\Our Stardew Valley\cocos\cocos2d\external\jpeg\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\openssl\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\uv\include;D:\Our Stardew Valley\cocos\cocos2d\external\webp\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\websockets\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\curl\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\png\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\gles\include\OGLES;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\icon\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\MP3Decoder\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OpenalSoft\include;D:\Our Stardew Valley\cocos\cocos2d\external\glfw3\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Our Stardew Valley\cocos\Classes;D:\Our Stardew Valley\cocos\cocos2d\cocos\audio\include;D:\Our Stardew Valley\cocos\cocos2d;D:\Our Stardew Valley\cocos\cocos2d\cocos;D:\Our Stardew Valley\cocos\cocos2d\extensions;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform;D:\Our Stardew Valley\cocos\cocos2d\cocos\editor-support;D:\Our Stardew Valley\cocos\cocos2d\cocos\base;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform\win32;D:\Our Stardew Valley\cocos\cocos2d\external\recast\..;D:\Our Stardew Valley\cocos\cocos2d\external\tinyxml2\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxhash\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxtea\.;D:\Our Stardew Valley\cocos\cocos2d\external\clipper\.;D:\Our Stardew Valley\cocos\cocos2d\external\edtaa3func\.;D:\Our Stardew Valley\cocos\cocos2d\external\ConvertUTF\.;D:\Our Stardew Valley\cocos\cocos2d\external\poly2tri\..;D:\Our Stardew Valley\cocos\cocos2d\external\md5\..;D:\Our Stardew Valley\cocos\cocos2d\external\unzip\.;D:\Our Stardew Valley\cocos\cocos2d\external\Box2D\include;D:\Our Stardew Valley\cocos\cocos2d\external\chipmunk\include;D:\Our Stardew Valley\cocos\cocos2d\external\freetype2\include\win32\freetype2;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\include;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\include\bullet;D:\Our Stardew Valley\cocos\cocos2d\external\jpeg\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\openssl\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\uv\include;D:\Our Stardew Valley\cocos\cocos2d\external\webp\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\websockets\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\curl\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\png\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\gles\include\OGLES;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\icon\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\MP3Decoder\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OpenalSoft\include;D:\Our Stardew Valley\cocos\cocos2d\external\glfw3\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>
+      </Message>
+      <Command>setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/openssl/prebuilt/win32/libssl-1_1.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/MinSizeRel/libssl-1_1.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/openssl/prebuilt/win32/libcrypto-1_1.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/MinSizeRel/libcrypto-1_1.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/uv/prebuilt/win32/uv.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/MinSizeRel/uv.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/websockets/prebuilt/win32/websockets.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/MinSizeRel/websockets.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/curl/prebuilt/win32/libcurl.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/MinSizeRel/libcurl.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/gles/prebuilt/glew32.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/MinSizeRel/glew32.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/icon/prebuilt/iconv.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/MinSizeRel/iconv.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/MP3Decoder/prebuilt/libmpg123.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/MinSizeRel/libmpg123.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OggDecoder/prebuilt/libogg.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/MinSizeRel/libogg.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OggDecoder/prebuilt/libvorbis.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/MinSizeRel/libvorbis.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OggDecoder/prebuilt/libvorbisfile.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/MinSizeRel/libvorbisfile.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OpenalSoft/prebuilt/OpenAL32.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/MinSizeRel/OpenAL32.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/zlib/../win32-specific/zlib/prebuilt/zlib1.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/MinSizeRel/zlib1.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>lib\MinSizeRel\cocos2d.lib;lib\MinSizeRel\external.lib;D:\Our Stardew Valley\cocos\cocos2d\external\Box2D\prebuilt\win32\release\libbox2d.lib;D:\Our Stardew Valley\cocos\cocos2d\external\chipmunk\prebuilt\win32\release-lib\libchipmunk.lib;D:\Our Stardew Valley\cocos\cocos2d\external\freetype2\prebuilt\win32\freetype.lib;lib\MinSizeRel\ext_recast.lib;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\prebuilt\win32\release\libbullet.lib;D:\Our Stardew Valley\cocos\cocos2d\external\jpeg\prebuilt\win32\libjpeg.lib;D:\Our Stardew Valley\cocos\cocos2d\external\webp\prebuilt\win32\libwebp.lib;D:\Our Stardew Valley\cocos\cocos2d\external\websockets\prebuilt\win32\websockets.lib;D:\Our Stardew Valley\cocos\cocos2d\external\openssl\prebuilt\win32\libssl.lib;D:\Our Stardew Valley\cocos\cocos2d\external\openssl\prebuilt\win32\libcrypto.lib;D:\Our Stardew Valley\cocos\cocos2d\external\uv\prebuilt\win32\uv_a.lib;lib\MinSizeRel\ext_tinyxml2.lib;lib\MinSizeRel\ext_xxhash.lib;lib\MinSizeRel\ext_xxtea.lib;lib\MinSizeRel\ext_clipper.lib;lib\MinSizeRel\ext_edtaa3func.lib;lib\MinSizeRel\ext_convertUTF.lib;lib\MinSizeRel\ext_poly2tri.lib;lib\MinSizeRel\ext_md5.lib;D:\Our Stardew Valley\cocos\cocos2d\external\curl\prebuilt\win32\libcurl.lib;D:\Our Stardew Valley\cocos\cocos2d\external\png\prebuilt\win32\libpng.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\gles\prebuilt\glew32.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\icon\prebuilt\libiconv.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\MP3Decoder\prebuilt\libmpg123.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\prebuilt\libogg.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\prebuilt\libvorbis.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\prebuilt\libvorbisfile.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OpenalSoft\prebuilt\OpenAL32.lib;D:\Our Stardew Valley\cocos\cocos2d\external\glfw3\prebuilt\win32\glfw3.lib;D:\Our Stardew Valley\cocos\cocos2d\external\zlib\..\win32-specific\zlib\prebuilt\libzlib.lib;lib\MinSizeRel\ext_unzip.lib;ws2_32.lib;userenv.lib;psapi.lib;winmm.lib;Version.lib;Iphlpapi.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Our Stardew Valley/cocos/proj.win32/MinSizeRel/cocos.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/MinSizeRel/cocos.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Our Stardew Valley\cocos\Classes;D:\Our Stardew Valley\cocos\cocos2d\cocos\audio\include;D:\Our Stardew Valley\cocos\cocos2d;D:\Our Stardew Valley\cocos\cocos2d\cocos;D:\Our Stardew Valley\cocos\cocos2d\extensions;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform;D:\Our Stardew Valley\cocos\cocos2d\cocos\editor-support;D:\Our Stardew Valley\cocos\cocos2d\cocos\base;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform\win32;D:\Our Stardew Valley\cocos\cocos2d\external\recast\..;D:\Our Stardew Valley\cocos\cocos2d\external\tinyxml2\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxhash\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxtea\.;D:\Our Stardew Valley\cocos\cocos2d\external\clipper\.;D:\Our Stardew Valley\cocos\cocos2d\external\edtaa3func\.;D:\Our Stardew Valley\cocos\cocos2d\external\ConvertUTF\.;D:\Our Stardew Valley\cocos\cocos2d\external\poly2tri\..;D:\Our Stardew Valley\cocos\cocos2d\external\md5\..;D:\Our Stardew Valley\cocos\cocos2d\external\unzip\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/Box2D/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/chipmunk/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/freetype2/include/win32/freetype2" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/bullet/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/bullet/include/bullet" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/jpeg/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/openssl/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/uv/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/webp/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/websockets/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/curl/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/png/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/gles/include/OGLES" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/icon/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/MP3Decoder/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OggDecoder/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OpenalSoft/include" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/glfw3/include/win32" /external:I "D:/Our Stardew Valley/cocos/cocos2d/external/zlib/../win32-specific/zlib/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_WIN32;UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_STATIC;LWS_WITH_LIBUV;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_WIN32;UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_STATIC;LWS_WITH_LIBUV;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Our Stardew Valley\cocos\Classes;D:\Our Stardew Valley\cocos\cocos2d\cocos\audio\include;D:\Our Stardew Valley\cocos\cocos2d;D:\Our Stardew Valley\cocos\cocos2d\cocos;D:\Our Stardew Valley\cocos\cocos2d\extensions;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform;D:\Our Stardew Valley\cocos\cocos2d\cocos\editor-support;D:\Our Stardew Valley\cocos\cocos2d\cocos\base;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform\win32;D:\Our Stardew Valley\cocos\cocos2d\external\recast\..;D:\Our Stardew Valley\cocos\cocos2d\external\tinyxml2\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxhash\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxtea\.;D:\Our Stardew Valley\cocos\cocos2d\external\clipper\.;D:\Our Stardew Valley\cocos\cocos2d\external\edtaa3func\.;D:\Our Stardew Valley\cocos\cocos2d\external\ConvertUTF\.;D:\Our Stardew Valley\cocos\cocos2d\external\poly2tri\..;D:\Our Stardew Valley\cocos\cocos2d\external\md5\..;D:\Our Stardew Valley\cocos\cocos2d\external\unzip\.;D:\Our Stardew Valley\cocos\cocos2d\external\Box2D\include;D:\Our Stardew Valley\cocos\cocos2d\external\chipmunk\include;D:\Our Stardew Valley\cocos\cocos2d\external\freetype2\include\win32\freetype2;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\include;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\include\bullet;D:\Our Stardew Valley\cocos\cocos2d\external\jpeg\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\openssl\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\uv\include;D:\Our Stardew Valley\cocos\cocos2d\external\webp\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\websockets\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\curl\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\png\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\gles\include\OGLES;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\icon\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\MP3Decoder\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OpenalSoft\include;D:\Our Stardew Valley\cocos\cocos2d\external\glfw3\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Our Stardew Valley\cocos\Classes;D:\Our Stardew Valley\cocos\cocos2d\cocos\audio\include;D:\Our Stardew Valley\cocos\cocos2d;D:\Our Stardew Valley\cocos\cocos2d\cocos;D:\Our Stardew Valley\cocos\cocos2d\extensions;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform;D:\Our Stardew Valley\cocos\cocos2d\cocos\editor-support;D:\Our Stardew Valley\cocos\cocos2d\cocos\base;D:\Our Stardew Valley\cocos\cocos2d\cocos\platform\win32;D:\Our Stardew Valley\cocos\cocos2d\external\recast\..;D:\Our Stardew Valley\cocos\cocos2d\external\tinyxml2\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxhash\.;D:\Our Stardew Valley\cocos\cocos2d\external\xxtea\.;D:\Our Stardew Valley\cocos\cocos2d\external\clipper\.;D:\Our Stardew Valley\cocos\cocos2d\external\edtaa3func\.;D:\Our Stardew Valley\cocos\cocos2d\external\ConvertUTF\.;D:\Our Stardew Valley\cocos\cocos2d\external\poly2tri\..;D:\Our Stardew Valley\cocos\cocos2d\external\md5\..;D:\Our Stardew Valley\cocos\cocos2d\external\unzip\.;D:\Our Stardew Valley\cocos\cocos2d\external\Box2D\include;D:\Our Stardew Valley\cocos\cocos2d\external\chipmunk\include;D:\Our Stardew Valley\cocos\cocos2d\external\freetype2\include\win32\freetype2;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\include;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\include\bullet;D:\Our Stardew Valley\cocos\cocos2d\external\jpeg\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\openssl\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\uv\include;D:\Our Stardew Valley\cocos\cocos2d\external\webp\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\websockets\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\curl\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\png\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\gles\include\OGLES;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\icon\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\MP3Decoder\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\include;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OpenalSoft\include;D:\Our Stardew Valley\cocos\cocos2d\external\glfw3\include\win32;D:\Our Stardew Valley\cocos\cocos2d\external\zlib\..\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>
+      </Message>
+      <Command>setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/openssl/prebuilt/win32/libssl-1_1.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/RelWithDebInfo/libssl-1_1.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/openssl/prebuilt/win32/libcrypto-1_1.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/RelWithDebInfo/libcrypto-1_1.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/uv/prebuilt/win32/uv.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/RelWithDebInfo/uv.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/websockets/prebuilt/win32/websockets.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/RelWithDebInfo/websockets.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/curl/prebuilt/win32/libcurl.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/RelWithDebInfo/libcurl.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/gles/prebuilt/glew32.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/RelWithDebInfo/glew32.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/icon/prebuilt/iconv.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/RelWithDebInfo/iconv.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/MP3Decoder/prebuilt/libmpg123.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/RelWithDebInfo/libmpg123.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OggDecoder/prebuilt/libogg.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/RelWithDebInfo/libogg.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OggDecoder/prebuilt/libvorbis.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/RelWithDebInfo/libvorbis.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OggDecoder/prebuilt/libvorbisfile.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/RelWithDebInfo/libvorbisfile.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/win32-specific/OpenalSoft/prebuilt/OpenAL32.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/RelWithDebInfo/OpenAL32.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_if_different "D:/Our Stardew Valley/cocos/cocos2d/external/zlib/../win32-specific/zlib/prebuilt/zlib1.dll" "D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/RelWithDebInfo/zlib1.dll"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>lib\RelWithDebInfo\cocos2d.lib;lib\RelWithDebInfo\external.lib;D:\Our Stardew Valley\cocos\cocos2d\external\Box2D\prebuilt\win32\release\libbox2d.lib;D:\Our Stardew Valley\cocos\cocos2d\external\chipmunk\prebuilt\win32\release-lib\libchipmunk.lib;D:\Our Stardew Valley\cocos\cocos2d\external\freetype2\prebuilt\win32\freetype.lib;lib\RelWithDebInfo\ext_recast.lib;D:\Our Stardew Valley\cocos\cocos2d\external\bullet\prebuilt\win32\release\libbullet.lib;D:\Our Stardew Valley\cocos\cocos2d\external\jpeg\prebuilt\win32\libjpeg.lib;D:\Our Stardew Valley\cocos\cocos2d\external\webp\prebuilt\win32\libwebp.lib;D:\Our Stardew Valley\cocos\cocos2d\external\websockets\prebuilt\win32\websockets.lib;D:\Our Stardew Valley\cocos\cocos2d\external\openssl\prebuilt\win32\libssl.lib;D:\Our Stardew Valley\cocos\cocos2d\external\openssl\prebuilt\win32\libcrypto.lib;D:\Our Stardew Valley\cocos\cocos2d\external\uv\prebuilt\win32\uv_a.lib;lib\RelWithDebInfo\ext_tinyxml2.lib;lib\RelWithDebInfo\ext_xxhash.lib;lib\RelWithDebInfo\ext_xxtea.lib;lib\RelWithDebInfo\ext_clipper.lib;lib\RelWithDebInfo\ext_edtaa3func.lib;lib\RelWithDebInfo\ext_convertUTF.lib;lib\RelWithDebInfo\ext_poly2tri.lib;lib\RelWithDebInfo\ext_md5.lib;D:\Our Stardew Valley\cocos\cocos2d\external\curl\prebuilt\win32\libcurl.lib;D:\Our Stardew Valley\cocos\cocos2d\external\png\prebuilt\win32\libpng.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\gles\prebuilt\glew32.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\icon\prebuilt\libiconv.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\MP3Decoder\prebuilt\libmpg123.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\prebuilt\libogg.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\prebuilt\libvorbis.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OggDecoder\prebuilt\libvorbisfile.lib;D:\Our Stardew Valley\cocos\cocos2d\external\win32-specific\OpenalSoft\prebuilt\OpenAL32.lib;D:\Our Stardew Valley\cocos\cocos2d\external\glfw3\prebuilt\win32\glfw3.lib;D:\Our Stardew Valley\cocos\cocos2d\external\zlib\..\win32-specific\zlib\prebuilt\libzlib.lib;lib\RelWithDebInfo\ext_unzip.lib;ws2_32.lib;userenv.lib;psapi.lib;winmm.lib;Version.lib;Iphlpapi.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Our Stardew Valley/cocos/proj.win32/RelWithDebInfo/cocos.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Our Stardew Valley/cocos/proj.win32/bin/cocos/RelWithDebInfo/cocos.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Our Stardew Valley\cocos\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">Building Custom Rule D:/Our Stardew Valley/cocos/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" "-SD:/Our Stardew Valley/cocos" "-BD:/Our Stardew Valley/cocos/proj.win32" --check-stamp-file "D:/Our Stardew Valley/cocos/proj.win32/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeCInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeParseArguments.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\Our Stardew Valley\cocos\cocos2d\cmake\Modules\CocosBuildHelpers.cmake;D:\Our Stardew Valley\cocos\cocos2d\cmake\Modules\CocosBuildSet.cmake;D:\Our Stardew Valley\cocos\cocos2d\cmake\Modules\CocosConfigDefine.cmake;D:\Our Stardew Valley\cocos\cocos2d\cmake\Modules\CocosConfigDepend.cmake;D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\3.27.2-msvc1\CMakeCCompiler.cmake;D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\3.27.2-msvc1\CMakeCXXCompiler.cmake;D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\3.27.2-msvc1\CMakeRCCompiler.cmake;D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\3.27.2-msvc1\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|win32'">Building Custom Rule D:/Our Stardew Valley/cocos/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|win32'">setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" "-SD:/Our Stardew Valley/cocos" "-BD:/Our Stardew Valley/cocos/proj.win32" --check-stamp-file "D:/Our Stardew Valley/cocos/proj.win32/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|win32'">C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeCInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeParseArguments.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\Our Stardew Valley\cocos\cocos2d\cmake\Modules\CocosBuildHelpers.cmake;D:\Our Stardew Valley\cocos\cocos2d\cmake\Modules\CocosBuildSet.cmake;D:\Our Stardew Valley\cocos\cocos2d\cmake\Modules\CocosConfigDefine.cmake;D:\Our Stardew Valley\cocos\cocos2d\cmake\Modules\CocosConfigDepend.cmake;D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\3.27.2-msvc1\CMakeCCompiler.cmake;D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\3.27.2-msvc1\CMakeCXXCompiler.cmake;D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\3.27.2-msvc1\CMakeRCCompiler.cmake;D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\3.27.2-msvc1\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|win32'">D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">Building Custom Rule D:/Our Stardew Valley/cocos/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" "-SD:/Our Stardew Valley/cocos" "-BD:/Our Stardew Valley/cocos/proj.win32" --check-stamp-file "D:/Our Stardew Valley/cocos/proj.win32/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeCInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeParseArguments.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\Our Stardew Valley\cocos\cocos2d\cmake\Modules\CocosBuildHelpers.cmake;D:\Our Stardew Valley\cocos\cocos2d\cmake\Modules\CocosBuildSet.cmake;D:\Our Stardew Valley\cocos\cocos2d\cmake\Modules\CocosConfigDefine.cmake;D:\Our Stardew Valley\cocos\cocos2d\cmake\Modules\CocosConfigDepend.cmake;D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\3.27.2-msvc1\CMakeCCompiler.cmake;D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\3.27.2-msvc1\CMakeCXXCompiler.cmake;D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\3.27.2-msvc1\CMakeRCCompiler.cmake;D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\3.27.2-msvc1\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">Building Custom Rule D:/Our Stardew Valley/cocos/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" "-SD:/Our Stardew Valley/cocos" "-BD:/Our Stardew Valley/cocos/proj.win32" --check-stamp-file "D:/Our Stardew Valley/cocos/proj.win32/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeCInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeParseArguments.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\Our Stardew Valley\cocos\cocos2d\cmake\Modules\CocosBuildHelpers.cmake;D:\Our Stardew Valley\cocos\cocos2d\cmake\Modules\CocosBuildSet.cmake;D:\Our Stardew Valley\cocos\cocos2d\cmake\Modules\CocosConfigDefine.cmake;D:\Our Stardew Valley\cocos\cocos2d\cmake\Modules\CocosConfigDepend.cmake;D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\3.27.2-msvc1\CMakeCCompiler.cmake;D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\3.27.2-msvc1\CMakeCXXCompiler.cmake;D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\3.27.2-msvc1\CMakeRCCompiler.cmake;D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\3.27.2-msvc1\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">D:\Our Stardew Valley\cocos\proj.win32\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\Our Stardew Valley\cocos\Classes\AppDelegate.h" />
+    <ClInclude Include="D:\Our Stardew Valley\cocos\Classes\HelloWorldScene.h" />
+    <ClInclude Include="D:\Our Stardew Valley\cocos\proj.win32\resource.h" />
+    <ClCompile Include="D:\Our Stardew Valley\cocos\Classes\AppDelegate.cpp" />
+    <ClCompile Include="D:\Our Stardew Valley\cocos\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="Gamemain.cpp" />
+    <ResourceCompile Include="D:\Our Stardew Valley\cocos\proj.win32\game.rc" />
+    <ClInclude Include="D:\Our Stardew Valley\cocos\Resources\CloseNormal.png" />
+    <ClInclude Include="D:\Our Stardew Valley\cocos\Resources\CloseSelected.png" />
+    <ClInclude Include="D:\Our Stardew Valley\cocos\Resources\HelloWorld.png" />
+    <ClInclude Include="D:\Our Stardew Valley\cocos\Resources\fonts\Marker Felt.ttf" />
+    <ClInclude Include="D:\Our Stardew Valley\cocos\Resources\fonts\arial.ttf" />
+    <ClInclude Include="D:\Our Stardew Valley\cocos\Resources\res\.gitkeep" />
+    <ClCompile Include="D:\Our Stardew Valley\cocos\cocos2d\cocos\precheader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:\Our Stardew Valley\cocos\proj.win32\ZERO_CHECK.vcxproj">
+      <Project>{A8D15BAC-FB21-309B-91DE-DFF1281F9F91}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="D:\Our Stardew Valley\cocos\proj.win32\SYNC_RESOURCE-cocos.vcxproj">
+      <Project>{29728C9A-4EAF-398F-8095-29556E115238}</Project>
+      <Name>SYNC_RESOURCE-cocos</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="D:\Our Stardew Valley\cocos\proj.win32\engine\cocos\core\cocos2d.vcxproj">
+      <Project>{A73C61CE-0998-39B0-A807-75D0B87B70EB}</Project>
+      <Name>cocos2d</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\Our Stardew Valley\cocos\proj.win32\engine\external\clipper\ext_clipper.vcxproj">
+      <Project>{701F6C93-5D59-3299-B722-139B598368BD}</Project>
+      <Name>ext_clipper</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\Our Stardew Valley\cocos\proj.win32\engine\external\ConvertUTF\ext_convertUTF.vcxproj">
+      <Project>{0AB3D254-2339-3ECE-A420-AE04A5798E6F}</Project>
+      <Name>ext_convertUTF</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\Our Stardew Valley\cocos\proj.win32\engine\external\edtaa3func\ext_edtaa3func.vcxproj">
+      <Project>{7E648D93-08CE-35F2-9AA1-C8C012A74697}</Project>
+      <Name>ext_edtaa3func</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\Our Stardew Valley\cocos\proj.win32\engine\external\md5\ext_md5.vcxproj">
+      <Project>{7872E983-8E64-3E4A-9636-B2084EE7E330}</Project>
+      <Name>ext_md5</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\Our Stardew Valley\cocos\proj.win32\engine\external\poly2tri\ext_poly2tri.vcxproj">
+      <Project>{2E15A208-2FDB-32F7-89FD-05271075308A}</Project>
+      <Name>ext_poly2tri</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\Our Stardew Valley\cocos\proj.win32\engine\external\recast\ext_recast.vcxproj">
+      <Project>{F1C3AE98-6F67-3D84-8F9F-468E13241A1D}</Project>
+      <Name>ext_recast</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\Our Stardew Valley\cocos\proj.win32\engine\external\tinyxml2\ext_tinyxml2.vcxproj">
+      <Project>{FE39EF7D-C944-36DE-BA4C-D7FA0F01A3A1}</Project>
+      <Name>ext_tinyxml2</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\Our Stardew Valley\cocos\proj.win32\engine\external\unzip\ext_unzip.vcxproj">
+      <Project>{F799602C-F696-364A-BF6F-67837C09D08B}</Project>
+      <Name>ext_unzip</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\Our Stardew Valley\cocos\proj.win32\engine\external\xxhash\ext_xxhash.vcxproj">
+      <Project>{1D8DEA31-72AD-34C4-95B8-B28B692B876D}</Project>
+      <Name>ext_xxhash</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\Our Stardew Valley\cocos\proj.win32\engine\external\xxtea\ext_xxtea.vcxproj">
+      <Project>{BB8B4D68-67D4-371F-92BA-9C1669D70FD6}</Project>
+      <Name>ext_xxtea</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\Our Stardew Valley\cocos\proj.win32\engine\external\external.vcxproj">
+      <Project>{6092EC04-3D52-3C99-B0DE-DE831C746F2F}</Project>
+      <Name>external</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
