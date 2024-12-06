@@ -1,76 +1,54 @@
-/****************************************************************************
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
- 
- http://www.cocos2d-x.org
- 
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
- 
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
- 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- THE SOFTWARE.
- ****************************************************************************/
+#include "AppDelegate.h"   // 引入应用程序委托类头文件
+#include "HelloWorldScene.h"  // 引入HelloWorld 场景类头文件
 
-#include "AppDelegate.h"
-#include "HelloWorldScene.h"
-
+// 是否启用音频引擎
 // #define USE_AUDIO_ENGINE 1
-
 #if USE_AUDIO_ENGINE
 #include "audio/include/AudioEngine.h"
 using namespace cocos2d::experimental;
 #endif
 
-USING_NS_CC;
+// 使用cocos2d的全局命名空间，避免每次都写Cocos2d::
+USING_NS_CC;  
 
+// 用于设置设计分辨率
 static cocos2d::Size designResolutionSize = cocos2d::Size(480, 320);
 static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 320);
 static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
 static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
 
-AppDelegate::AppDelegate()
-{
-}
 
+// 析构函数
 AppDelegate::~AppDelegate() 
 {
 #if USE_AUDIO_ENGINE
-    AudioEngine::end();
+    AudioEngine::end();   // 如果启用了音频引擎，释放资源
 #endif
 }
 
-// if you want a different context, modify the value of glContextAttrs
-// it will affect all platforms
+// 初始化OpenGL上下文属性
 void AppDelegate::initGLContextAttrs()
 {
-    // set OpenGL context attributes: red,green,blue,alpha,depth,stencil,multisamplesCount
     GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8, 0};
-
     GLView::setGLContextAttrs(glContextAttrs);
 }
 
-// if you want to use the package manager to install more packages,  
-// don't modify or remove this function
+//如果使用第三方库，需要在这里注册
 static int register_all_packages()
 {
-    return 0; //flag for packages manager
+    return 0; // 表示没有外部包需要注册
 }
 
+// 应用程序完成启动并准备进入主循环时调用
 bool AppDelegate::applicationDidFinishLaunching() {
-    // initialize director
+
+    // 获取导演类实例，导演类负责管理场景切换和帧率控制
     auto director = Director::getInstance();
+
+	// 获取OpenGL视图
     auto glview = director->getOpenGLView();
+
+	// 如果OpenGL视图为空,创造一个新的视图
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
         glview = GLViewImpl::createWithRect("cocos", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
@@ -80,55 +58,58 @@ bool AppDelegate::applicationDidFinishLaunching() {
         director->setOpenGLView(glview);
     }
 
-    // turn on display FPS
+    // 打开 FPS 显示，便于调试
     director->setDisplayStats(true);
 
-    // set FPS. the default value is 1.0/60 if you don't call this
+    // 设置帧率，默认值为 1.0/60，即每秒 60 帧
     director->setAnimationInterval(1.0f / 60);
 
-    // Set the design resolution
+    // 设置设计分辨率
     glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
+    
+    // 获取设备的实际分辨率
     auto frameSize = glview->getFrameSize();
-    // if the frame's height is larger than the height of medium size.
+    // 根据设备分辨率调整内容缩放比例
     if (frameSize.height > mediumResolutionSize.height)
     {        
         director->setContentScaleFactor(MIN(largeResolutionSize.height/designResolutionSize.height, largeResolutionSize.width/designResolutionSize.width));
     }
-    // if the frame's height is larger than the height of small size.
     else if (frameSize.height > smallResolutionSize.height)
     {        
         director->setContentScaleFactor(MIN(mediumResolutionSize.height/designResolutionSize.height, mediumResolutionSize.width/designResolutionSize.width));
     }
-    // if the frame's height is smaller than the height of medium size.
     else
     {        
         director->setContentScaleFactor(MIN(smallResolutionSize.height/designResolutionSize.height, smallResolutionSize.width/designResolutionSize.width));
     }
 
+    // 注册所有外部包（暂时没有）
     register_all_packages();
 
-    // create a scene. it's an autorelease object
+    // 创建一个场景对象，并运行
     auto scene = HelloWorld::createScene();
-
-    // run
     director->runWithScene(scene);
 
     return true;
 }
 
-// This function will be called when the app is inactive. Note, when receiving a phone call it is invoked.
+// 当应用程序进入后台时调用（如接到电话或用户按下 Home 键）
 void AppDelegate::applicationDidEnterBackground() {
+    // 停止动画，暂停游戏
     Director::getInstance()->stopAnimation();
 
+// 音频引擎调控
 #if USE_AUDIO_ENGINE
     AudioEngine::pauseAll();
 #endif
 }
 
-// this function will be called when the app is active again
+// 当应用程序重新进入前台时调用
 void AppDelegate::applicationWillEnterForeground() {
+    // 恢复动画，继续游戏
     Director::getInstance()->startAnimation();
 
+// 音频引擎调控
 #if USE_AUDIO_ENGINE
     AudioEngine::resumeAll();
 #endif

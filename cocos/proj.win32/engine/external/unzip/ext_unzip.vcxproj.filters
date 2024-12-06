@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\Our Stardew Valley\cocos\cocos2d\external\unzip\ioapi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Our Stardew Valley\cocos\cocos2d\external\unzip\unzip.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Our Stardew Valley\cocos\cocos2d\external\unzip\ioapi_mem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Our Stardew Valley\cocos\cocos2d\external\unzip\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{75CB092F-6BB0-39B7-B454-5F3FAEF8ECAC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
