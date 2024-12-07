@@ -1,26 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="D:\Our Stardew Valley\cocos\Classes\AppDelegate.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="D:\Our Stardew Valley\cocos\Classes\HelloWorldScene.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="Gamemain.cpp">
       <Filter>Source Files\proj.win32</Filter>
     </ClCompile>
     <ClCompile Include="D:\Our Stardew Valley\cocos\cocos2d\cocos\precheader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate\AppDelegate.cpp">
+      <Filter>Source Files\Classes\AppDelegate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scene\BackGround.cpp">
+      <Filter>Source Files\Classes\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scene\FarmGround.cpp">
+      <Filter>Source Files\Classes\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scene\MenuScene.cpp">
+      <Filter>Source Files\Classes\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Player\Multiplayer.cpp">
+      <Filter>Source Files\Classes\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Player\PlayerAccount.cpp">
+      <Filter>Source Files\Classes\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Charactor\Beg.cpp">
+      <Filter>Source Files\Classes\Charactor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Charactor\BegManager.cpp">
+      <Filter>Source Files\Classes\Charactor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="D:\Our Stardew Valley\cocos\Classes\AppDelegate.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="D:\Our Stardew Valley\cocos\Classes\HelloWorldScene.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
     <ClInclude Include="D:\Our Stardew Valley\cocos\proj.win32\resource.h">
       <Filter>Source Files\proj.win32</Filter>
     </ClInclude>
@@ -41,6 +53,30 @@
     </ClInclude>
     <ClInclude Include="D:\Our Stardew Valley\cocos\Resources\res\.gitkeep">
       <Filter>Resources\res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate\AppDelegate.h">
+      <Filter>Source Files\Classes\AppDelegate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\BackGround.h">
+      <Filter>Source Files\Classes\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\FarmGround.h">
+      <Filter>Source Files\Classes\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player\Multiplayer.h">
+      <Filter>Source Files\Classes\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player\PlayerAccount.h">
+      <Filter>Source Files\Classes\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Charactor\Beg.h">
+      <Filter>Source Files\Classes\Charactor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Charactor\BegManager.h">
+      <Filter>Source Files\Classes\Charactor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\MenuScene.h">
+      <Filter>Source Files\Classes\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +105,18 @@
     </Filter>
     <Filter Include="Source Files\proj.win32">
       <UniqueIdentifier>{134D8EDB-5099-3902-AFC6-CDDF67BDBDF2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\AppDelegate">
+      <UniqueIdentifier>{4b467b8e-f7a5-405f-9fd0-050393af16a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\Scene">
+      <UniqueIdentifier>{84438407-bede-4e33-8ac1-6d32dbca612d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\Player">
+      <UniqueIdentifier>{e59f5c14-1259-4f02-a52a-042e5ac66c57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\Charactor">
+      <UniqueIdentifier>{9d1b49a0-4fd4-4180-8b7c-222526dbbc47}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

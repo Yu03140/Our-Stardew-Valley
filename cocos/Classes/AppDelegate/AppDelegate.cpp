@@ -1,5 +1,5 @@
 #include "AppDelegate.h"   // 引入应用程序委托类头文件
-#include "HelloWorldScene.h"  // 引入HelloWorld 场景类头文件
+#include "Scene/MenuScene.h"  // 引入场景类头文件
 
 // 是否启用音频引擎
 // #define USE_AUDIO_ENGINE 1
@@ -12,10 +12,10 @@ using namespace cocos2d::experimental;
 USING_NS_CC;  
 
 // 用于设置设计分辨率
-static cocos2d::Size designResolutionSize = cocos2d::Size(480, 320);
-static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 320);
-static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
-static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
+static cocos2d::Size designResolutionSize = cocos2d::Size(2560, 1600);  //设计分辨率
+static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 320);     //小分辨率
+static cocos2d::Size mediumResolutionSize = cocos2d::Size(1280, 800);	//中分辨率
+static cocos2d::Size largeResolutionSize = cocos2d::Size(2560, 1600);	//大分辨率
 
 
 // 析构函数
@@ -87,7 +87,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // 创建一个场景对象，并运行
-    auto scene = HelloWorld::createScene();
+    auto scene = MenuScene::createScene();
     director->runWithScene(scene);
 
     return true;

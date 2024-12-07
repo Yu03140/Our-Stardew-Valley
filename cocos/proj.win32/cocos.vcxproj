@@ -809,11 +809,25 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="D:\Our Stardew Valley\cocos\Classes\AppDelegate.h" />
-    <ClInclude Include="D:\Our Stardew Valley\cocos\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\AppDelegate\AppDelegate.h" />
+    <ClInclude Include="..\Classes\Charactor\Beg.h" />
+    <ClInclude Include="..\Classes\Charactor\BegManager.h" />
+    <ClInclude Include="..\Classes\Player\Multiplayer.h" />
+    <ClInclude Include="..\Classes\Player\PlayerAccount.h" />
+    <ClInclude Include="..\Classes\Scene\BackGround.h" />
+    <ClInclude Include="..\Classes\Scene\FarmGround.h" />
+    <ClInclude Include="..\Classes\Scene\MenuScene.h" />
     <ClInclude Include="D:\Our Stardew Valley\cocos\proj.win32\resource.h" />
-    <ClCompile Include="D:\Our Stardew Valley\cocos\Classes\AppDelegate.cpp" />
-    <ClCompile Include="D:\Our Stardew Valley\cocos\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\AppDelegate\AppDelegate.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">D:\Our Stardew Valley\cocos\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Charactor\Beg.cpp" />
+    <ClCompile Include="..\Classes\Charactor\BegManager.cpp" />
+    <ClCompile Include="..\Classes\Player\Multiplayer.cpp" />
+    <ClCompile Include="..\Classes\Player\PlayerAccount.cpp" />
+    <ClCompile Include="..\Classes\Scene\BackGround.cpp" />
+    <ClCompile Include="..\Classes\Scene\FarmGround.cpp" />
+    <ClCompile Include="..\Classes\Scene\MenuScene.cpp" />
     <ClCompile Include="Gamemain.cpp" />
     <ResourceCompile Include="D:\Our Stardew Valley\cocos\proj.win32\game.rc" />
     <ClInclude Include="D:\Our Stardew Valley\cocos\Resources\CloseNormal.png" />
