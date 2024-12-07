@@ -6,7 +6,7 @@
     <property name="Warp" type="string" value="80 15 BusStop 11 23 80 18 BusStop 11 24 80 16 BusStop 11 23 80 17 BusStop 11 23 40 65 Forest 68 0 41 65 Forest 68 0 42 65 Forest 68 0 40 -1 Backwoods 14 39 41 -1 Backwoods 14 39 34 5 FarmCave 8 11" />
   </properties>
   <tileset firstgid="1" name="extra_tiles" tilewidth="16" tileheight="16" tilecount="64" columns="8">
-    <image source="spring_outdoorTileSheet_extra" width="128" height="128" />
+    <image source="spring_outdoorTileSheet_extra.png" width="128" height="128" />
     <tile id="0">
       <properties>
         <property name="Buildable" type="bool" value="True" />
@@ -71,10 +71,10 @@
     </tile>
   </tileset>
   <tileset firstgid="65" name="Paths" tilewidth="16" tileheight="16" tilecount="64" columns="4">
-    <image source="paths" width="64" height="256" />
+    <image source="paths.png" width="64" height="256" />
   </tileset>
   <tileset firstgid="129" name="untitled tile sheet" tilewidth="16" tileheight="16" tilecount="1975" columns="25">
-    <image source="spring_outdoorsTileSheet" width="400" height="1264" />
+    <image source="spring_outdoorsTileSheet.png" width="400" height="1264" />
     <tile id="150">
       <properties>
         <property name="Buildable" type="bool" value="True" />
@@ -1768,7 +1768,7 @@
     </tile>
   </tileset>
   <tileset firstgid="2104" name="v16_Outdoors2" tilewidth="16" tileheight="16" tilecount="1120" columns="16">
-    <image source="spring_outdoorsTileSheet2" width="256" height="1120" />
+    <image source="spring_outdoorsTileSheet2.png" width="256" height="1120" />
     <tile id="816">
       <properties>
         <property name="Water" type="string" value="T" />
