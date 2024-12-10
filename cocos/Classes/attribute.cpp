@@ -57,6 +57,18 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
 
+class Player {
+public:
+    class PlayerPosition{//这里初始化应该为中间 后续改一下！！！！！！！！！！！！！！！
+        int player_x=0;
+        int player_y=0;
+    };
+    class playerInformation;  // 玩家信息
+    class playerProperty;        // 玩家财产属性
+
+};
+
+
 //玩家本身属性：玩家基本信息（姓名 ID 手机号码）
 class PlayerInformation {
 public:
@@ -281,100 +293,6 @@ private:
 
 
 
-class NPC : public cocos2d::Node {
-private:
-    std::string name;       // NPC的名字
-    int affection;          // 好感度，范围为-100到100
-    std::string dialogue;   // NPC的对话内容
-
-public:
-    // 构造函数，初始化NPC的名字、好感度和默认对话
-    NPC(std::string npcName, int initialAffection, std::string npcDialogue)
-        : name(npcName), affection(initialAffection), dialogue(npcDialogue) {}
-
-    // 获取NPC的名字
-    const std::string& getName() const {
-        return name;
-    }
-
-    // 获取NPC的好感度
-    int getAffection() const {
-        return affection;
-    }
-
-    // 获取NPC的对话内容
-    std::string getDialogue() const {
-        return dialogue;
-    }
-
-    // 玩家与NPC的对话
-    void talkToPlayer() {
-        // 打印对话内容到控制台
-        std::cout << name << " says: " << dialogue << std::endl;
-
-        // 在游戏界面上显示对话
-        // 使用cocos2d的Label显示文本
-        cocos2d::Label* dialogueLabel = cocos2d::Label::createWithSystemFont(dialogue, "Arial", 24);
-        dialogueLabel->setPosition(cocos2d::Vec2(500, 300));  // 设置位置（可以根据需要调整）
-        this->addChild(dialogueLabel);  // 将标签添加到NPC节点下
-    }
-
-    // 玩家提高与NPC的好感度
-    void increaseAffection(int amount) {
-        affection += amount;
-        if (affection > 100) affection = 100;  // 限制最大好感度
-
-        std::cout << name << "'s affection increased by " << amount << "!" << std::endl;
-    }
-
-    // 玩家降低与NPC的好感度
-    void decreaseAffection(int amount) {
-        affection -= amount;
-        if (affection < -100) affection = -100; // 限制最小好感度
-
-        std::cout << name << "'s affection decreased by " << amount << "!" << std::endl;
-    }
-
-    // 展示NPC的当前状态（后续变为面板）
-    void showStatus() const {
-        std::cout << "NPC: " << name << "\n"
-            << "Affection: " << affection << "\n"
-            << "Dialogue: " << dialogue << "\n";
-    }
-
-    // 创建NPC的工厂方法
-    static NPC* createNPC(std::string npcName, int initialAffection, std::string npcDialogue) {
-        NPC* npc = new NPC(npcName, initialAffection, npcDialogue);
-        if (npc) {
-            npc->autorelease(); // 自动释放内存
-        }
-        return npc;
-    }
-};
-
-// 在Cocos2d场景中使用这个NPC类(后续更改)
-class NPCtalk : public cocos2d::Scene {
-public:
-    NPCtalk() {
-        // 创建一个NPC实例
-        NPC* npc1 = NPC::createNPC("Mysterious Stranger", 50, "Hello, traveler. Care to talk?");
-
-        // 将NPC添加到场景
-        this->addChild(npc1);
-
-        // 显示NPC的状态
-        npc1->showStatus();
-
-        // 玩家与NPC对话
-        npc1->talkToPlayer();
-
-        // 玩家增加好感度
-        npc1->increaseAffection(10);
-
-        // 再次展示NPC状态
-        npc1->showStatus();
-    }
-};
 
 /* 程序入口
 int main(int argc, char** argv) {

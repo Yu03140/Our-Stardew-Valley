@@ -30,5 +30,5 @@ class Seed;// 种子类，继承自 Item 类，表示背包中的种子
 class Material;// 材料类，继承自 Item 类，表示背包中的材料
 class Crop;// 农作物类，继承自 Item 类，表示背包中的农作物
 class Fertilizer;// 肥料类，继承自 Item 类，表示背包中的肥料
-class NPC;// NPC 类，表示游戏中的 NPC，包括Farmer（农民）等
-class NPCtalk;// NPC 对话类，用于管理 NPC 对话
+
+class Player;//汇总
