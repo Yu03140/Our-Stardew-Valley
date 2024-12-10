@@ -4,6 +4,8 @@
 #include "cocos2d.h"
 
 class FarmScene : public cocos2d::Scene {
+    cocos2d::TMXTiledMap* tileMap;
+    cocos2d::Sprite* _player;
 public:
     // ´´½¨ FarmScene
     static FarmScene* createScene();

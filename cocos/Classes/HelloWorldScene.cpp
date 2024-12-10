@@ -1,26 +1,3 @@
-/****************************************************************************
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
- 
- http://www.cocos2d-x.org
- 
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
- 
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
- 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- THE SOFTWARE.
- ****************************************************************************/
 
 #include "HelloWorldScene.h"
 #include "FarmGround.h"
@@ -28,8 +5,8 @@
 
 USING_NS_CC;
 
+// 切换到 MenuScene
 void HelloWorld::onMenuItemClicked(Ref* sender) {
-    // 切换到 MenuScene
     Director::getInstance()->replaceScene(FarmScene::createScene());
 }
 
@@ -49,8 +26,6 @@ static void problemLoading(const char* filename)
 // on "init" you need to initialize your instance
 bool HelloWorld::init()
 {
-    //////////////////////////////
-    // 1. super init first
     if (!Scene::init())
     {
         return false;
@@ -58,30 +33,6 @@ bool HelloWorld::init()
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
-
-    // add a "close" icon to exit the progress. it's an autorelease object
-    auto closeItem = MenuItemImage::create(
-        "CloseNormal.png",
-        "CloseSelected.png",
-        CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
-
-    if (closeItem == nullptr ||
-        closeItem->getContentSize().width <= 0 ||
-        closeItem->getContentSize().height <= 0)
-    {
-        problemLoading("'CloseNormal.png' and 'CloseSelected.png'");
-    }
-    else
-    {
-        float x = origin.x + visibleSize.width - closeItem->getContentSize().width / 2;
-        float y = origin.y + closeItem->getContentSize().height / 2;
-        closeItem->setPosition(Vec2(x, y));
-    }
 
 // 添加背景图片
     auto background = Sprite::create("homepage.jpg");
@@ -94,31 +45,14 @@ bool HelloWorld::init()
     this->addChild(background, -1);                    // 添加到场景，设置 z-order 为 -1 使其位于最底层
 
 
-    // 加载原始图片纹理
-    auto texture = Director::getInstance()->getTextureCache()->addImage("menu.png");
-    if (!texture) {
-        CCLOG("Failed to load menu image.");
-        return false;
-    }
-
-    //截取menu的上部分，即标题
-    Rect titleRect(0, 0,
-        texture->getContentSize().width,  // 宽度是纹理宽度
-        texture->getContentSize().height / 4 + 50); // 高度是纹理高度的一半
-    auto title_sprite = Sprite::createWithTexture(texture, titleRect);  // 创建裁剪后的精灵
-    if (!title_sprite) {
-        CCLOG("Failed to create title_sprite.");
-        return false;
-    }
+    auto title_sprite = Sprite::create("menu.png");
     title_sprite->setScale(1.5f); // 将精灵放大 1.5 倍
-    title_sprite->setPosition(origin + Vec2(visibleSize.width / 2, visibleSize.height * 3 / 4));// 设置裁剪后的精灵位置（屏幕顶部中间）
+    title_sprite->setPosition(origin + Vec2(visibleSize.width / 2, visibleSize.height * 3 / 4));// 设置位置（屏幕顶部中间）
     this->addChild(title_sprite, 0); // z-order 为 0，确保在背景上方
 
 
-
-
     auto menuItem1 = MenuItemImage::create("load1.png", "load2.png"); // 创建按钮，指定正常状态和选中状态的图片
-    menuItem1->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
+    menuItem1->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2-500));
 
     // 创建鼠标事件监听器
     auto listener = EventListenerMouse::create();
@@ -126,9 +60,14 @@ bool HelloWorld::init()
         // 获取鼠标位置
         Vec2 mousePos = Director::getInstance()->convertToGL(static_cast<EventMouse*>(event)->getLocationInView());
 
-        // 判断鼠标是否悬停在按钮上
+        // 转换鼠标位置到 menuItem1 父节点的局部坐标
+        Vec2 localMousePos = menuItem1->getParent()->convertToNodeSpace(mousePos);
+
+        // 获取 menuItem1 的边界框
         Rect menuItemRect = menuItem1->getBoundingBox();
-        if (menuItemRect.containsPoint(mousePos)) {
+
+        // 判断鼠标是否悬停在按钮上
+        if (menuItemRect.containsPoint(localMousePos)) {
             // 鼠标悬停在按钮上，放大按钮并切换到 load2.png
             menuItem1->setScale(1.2f);  // 放大按钮
             menuItem1->setNormalImage(Sprite::create("load2.png")); // 修改普通状态为 load2.png
@@ -145,7 +84,7 @@ bool HelloWorld::init()
     // 定义点击按钮时切换场景的回调函数
     auto onButtonClicked = [](Ref* sender) {
         // 切换到下一个场景
-        Director::getInstance()->replaceScene(FarmScene::createScene());  // 替换为下一个场景（这里使用 MenuScene 作为例子）
+        Director::getInstance()->replaceScene(FarmScene::createScene());  // 替换为下一个场景
         };
 
     // 设置按钮的点击回调函数
