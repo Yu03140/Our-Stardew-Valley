@@ -25,11 +25,11 @@
     <ClCompile Include="..\Classes\Player\PlayerAccount.cpp">
       <Filter>Source Files\Classes\Player</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Charactor\Beg.cpp">
+    <ClCompile Include="..\Classes\Charactor\BackpackLayer.cpp">
       <Filter>Source Files\Classes\Charactor</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Charactor\BegManager.cpp">
-      <Filter>Source Files\Classes\Charactor</Filter>
+    <ClCompile Include="..\Classes\Button\hover_button.cpp">
+      <Filter>Source Files\Classes\Botton</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -69,14 +69,14 @@
     <ClInclude Include="..\Classes\Player\PlayerAccount.h">
       <Filter>Source Files\Classes\Player</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Charactor\Beg.h">
-      <Filter>Source Files\Classes\Charactor</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Charactor\BegManager.h">
-      <Filter>Source Files\Classes\Charactor</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Scene\MenuScene.h">
       <Filter>Source Files\Classes\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Button\hover_button.h">
+      <Filter>Source Files\Classes\Botton</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Charactor\BackpackLayer.h">
+      <Filter>Source Files\Classes\Charactor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +117,9 @@
     </Filter>
     <Filter Include="Source Files\Classes\Charactor">
       <UniqueIdentifier>{9d1b49a0-4fd4-4180-8b7c-222526dbbc47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\Botton">
+      <UniqueIdentifier>{5a0f6295-0f8a-49d1-872f-0f25253f4583}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

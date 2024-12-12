@@ -733,6 +733,8 @@ void TMXMapInfo::endElement(void* /*ctx*/, const char *name)
                 string sGID;
                 istringstream rowstr(sRow);
                 while (getline(rowstr, sGID, ',')) {
+                    if (sGID == "\r")
+                        break;
                     gidTokens.push_back(sGID);
                 }
             }

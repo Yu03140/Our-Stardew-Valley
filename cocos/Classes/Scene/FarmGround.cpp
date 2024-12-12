@@ -1,4 +1,5 @@
 #include "FarmGround.h"
+#include "Charactor/BackpackLayer.h"
 
 USING_NS_CC;
 
@@ -8,16 +9,15 @@ FarmScene* FarmScene::createScene() {
 }
 
 
-
 bool FarmScene::init() {
     // 调用父类的初始化函数
     if (!Scene::init()) {
         return false;
     }
 
-
     // 加载瓦片地图（需要将 example.tmx 放在 Resources/ 目录中）
-    auto tileMap = TMXTiledMap::create("Farm.tmx");
+    auto tileMap = Sprite::create("homepage.jpg");
+    //auto tileMap = TMXTiledMap::create("Farm.tmx");
 
     if (tileMap) {
         // 成功加载地图，将其作为场景的子节点
@@ -27,15 +27,17 @@ bool FarmScene::init() {
         CCLOG("Failed to load the tile map");
     }
 
+    // 创建背包图层，并将其添加到场景中
+    auto backpackLayer = BackpackLayer::create(); 
+    if (backpackLayer) {
+        // 设置背景图的尺寸为 2560x1600
+        tileMap->setContentSize(Size(2560, 1600)); // 设置背景图的大小
 
-    // 示例：获取一个对象组并读取对象
-    auto objectGroup = tileMap->getObjectGroup("Objects"); // 假设对象组名为 "Objects"
-    if (objectGroup) {
-        // 获取一个对象（例如：PlayerStart）的位置
-        auto playerStart = objectGroup->getObject("PlayerStart");
-        float x = playerStart["x"].asFloat();
-        float y = playerStart["y"].asFloat();
-        CCLOG("Player spawn point: (%f, %f)", x, y);
+        // 将背景图的位置设置为场景的中心
+        tileMap->setPosition(Director::getInstance()->getVisibleSize() / 2);
+        
+        // 将背包图层添加到场景的子节点，确保它在背景图层上方
+        this->addChild(backpackLayer, 1);  
     }
 
     return true;
