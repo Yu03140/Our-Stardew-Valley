@@ -12,7 +12,7 @@ using namespace cocos2d::experimental;
 
 USING_NS_CC;
 
-static cocos2d::Size designResolutionSize = cocos2d::Size(4800, 2000);//改动 占满屏
+static cocos2d::Size designResolutionSize = cocos2d::Size(3200, 2000);//改动 占满屏
 static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 750);
 static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
 static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);

@@ -52,7 +52,7 @@ bool HelloWorld::init()
 
 
     auto menuItem1 = MenuItemImage::create("load1.png", "load2.png"); // 创建按钮，指定正常状态和选中状态的图片
-    menuItem1->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2-500));
+    menuItem1->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
 
     // 创建鼠标事件监听器
     auto listener = EventListenerMouse::create();
