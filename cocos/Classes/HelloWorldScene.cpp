@@ -23,6 +23,9 @@
  ****************************************************************************/
 
 #include "HelloWorldScene.h"
+#include "moveable_sprite_key.h"
+#include "hover_button.h"
+#include "FarmGround.h"
 
 USING_NS_CC;
 
@@ -48,72 +51,142 @@ bool HelloWorld::init()
         return false;
     }
 
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+   auto visibleSize = Director::getInstance()->getVisibleSize();
+   Vec2 origin = Director::getInstance()->getVisibleOrigin();
+   
+   ///////////////////////////////
+   //// 2. add a menu item with "X" image, which is clicked to quit the program
+   ////    you may modify it.
+   //
+   //// add a "close" icon to exit the progress. it's an autorelease object
+   //auto closeItem = MenuItemImage::create(
+   //                                       "CloseNormal.png",
+   //                                       "CloseSelected.png",
+   //                                       CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
+   //
+   //if (closeItem == nullptr ||
+   //    closeItem->getContentSize().width <= 0 ||
+   //    closeItem->getContentSize().height <= 0)
+   //{
+   //    problemLoading("'CloseNormal.png' and 'CloseSelected.png'");
+   //}
+   //else
+   //{
+   //    float x = origin.x + visibleSize.width - closeItem->getContentSize().width/2;
+   //    float y = origin.y + closeItem->getContentSize().height/2;
+   //    closeItem->setPosition(Vec2(x,y));
+   //}
+   //
+   //// create menu, it's an autorelease object
+   //auto menu = Menu::create(closeItem, NULL);
+   //menu->setPosition(Vec2::ZERO);
+   //this->addChild(menu, 1);
+   //
+   ///////////////////////////////
+   //// 3. add your codes below...
+   //
+   //// add a label shows "Hello World"
+   //// create and initialize a label
+   //
+   //auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
+   //if (label == nullptr)
+   //{
+   //    problemLoading("'fonts/Marker Felt.ttf'");
+   //}
+   //else
+   //{
+   //    // position the label on the center of the screen
+   //    label->setPosition(Vec2(origin.x + visibleSize.width/2,
+   //                            origin.y + visibleSize.height - label->getContentSize().height));
+   //
+   //    // add the label as a child to this layer
+   //    this->addChild(label, 1);
+   //}
+   //
+   //// add "HelloWorld" splash screen"
+   //auto sprite = Sprite::create("HelloWorld.png");
+   //if (sprite == nullptr)
+   //{
+   //    problemLoading("'HelloWorld.png'");
+   //}
+   //else
+   //{
+   //    // position the sprite on the center of the screen
+   //    sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+   //
+   //    // add the sprite as a child to this layer
+   //    this->addChild(sprite, 0);
+   //}
+   //
+   //测试
 
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
-
-    // add a "close" icon to exit the progress. it's an autorelease object
-    auto closeItem = MenuItemImage::create(
-                                           "CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
-
-    if (closeItem == nullptr ||
-        closeItem->getContentSize().width <= 0 ||
-        closeItem->getContentSize().height <= 0)
+    auto sprite_move = moveable_sprite_key_walk::create("Jas_Winter.plist","Jas_Winter");
+    if (sprite_move)
     {
-        problemLoading("'CloseNormal.png' and 'CloseSelected.png'");
+        // 设置初始位置
+        sprite_move->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+        // 将精灵添加到场景中
+        this->addChild(sprite_move,1);
+    
+        // 初始化键盘监听器
+        sprite_move->init_keyboardlistener();
+    
+        // 定时调用 update 更新精灵的位置
+        sprite_move->schedule([sprite_move](float dt) {
+            sprite_move->update(dt);
+            }, "update_key_person");
     }
-    else
-    {
-        float x = origin.x + visibleSize.width - closeItem->getContentSize().width/2;
-        float y = origin.y + closeItem->getContentSize().height/2;
-        closeItem->setPosition(Vec2(x,y));
-    }
+   
+    // 获取精灵的原始尺寸
+    Size originalSize = sprite_move->getContentSize();
+    // 获取精灵的缩放比例
+    float scale = sprite_move->getScale();
+    // 计算经过缩放后的实际尺寸
+    Size scaledSize = Size(originalSize.width * scale, originalSize.height * scale);
+   
+   // auto sprite_move_tool = moveable_sprite_key_tool::create("Tools.plist",1,1);
+   // if (sprite_move_tool)
+   // {
+   //     // 设置初始位置
+   //     sprite_move_tool->setPosition(Vec2(visibleSize.width / 2 + origin.x + scaledSize.width/2, visibleSize.height / 2 + origin.y));
+   //     // 将精灵添加到场景中
+   //     this->addChild(sprite_move_tool, 2);
+   // 
+   //     // 初始化键盘监听器
+   //     sprite_move_tool->init_keyboardlistener();
+   //     // 初始化鼠标监听器
+   //     sprite_move_tool->init_mouselistener();
+   //
+   //     // 定时调用 update 更新精灵的位置
+   //     sprite_move_tool->schedule([sprite_move_tool](float dt) {
+   //         sprite_move_tool->update(dt);
+   //         }, "update_key_tool");
+   // }
+   //
+   //// 创建 hover_button 实例
+   //auto button = hover_button::create("Tools.plist", "Pick1-left");
+   //if (button)
+   //{
+   //    // 设置按钮的位置
+   //    button->setPosition(Vec2(300, 200));  // 例如放在 (300, 200) 位置
+   //    // 将按钮添加到当前层
+   //    this->addChild(button);
+   //    // 初始化鼠标监听器
+   //    button->init_mouselistener();
+   //}
+   //
+   //auto button1 = hover_button::create("Tools.plist", "Axe1-left");
+   //if (button1)
+   //{
+   //    // 设置按钮的位置
+   //    button1->setPosition(Vec2(300, 300));  // 例如放在 (300, 200) 位置
+   //    // 将按钮添加到当前层
+   //    this->addChild(button1);
+   //    // 初始化鼠标监听器
+   //    button1->init_mouselistener();
+   //}
 
-    // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
 
-    /////////////////////////////
-    // 3. add your codes below...
-
-    // add a label shows "Hello World"
-    // create and initialize a label
-
-    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
-    if (label == nullptr)
-    {
-        problemLoading("'fonts/Marker Felt.ttf'");
-    }
-    else
-    {
-        // position the label on the center of the screen
-        label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                                origin.y + visibleSize.height - label->getContentSize().height));
-
-        // add the label as a child to this layer
-        this->addChild(label, 1);
-    }
-
-    // add "HelloWorld" splash screen"
-    auto sprite = Sprite::create("HelloWorld.png");
-    if (sprite == nullptr)
-    {
-        problemLoading("'HelloWorld.png'");
-    }
-    else
-    {
-        // position the sprite on the center of the screen
-        sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-
-        // add the sprite as a child to this layer
-        this->addChild(sprite, 0);
-    }
     return true;
 }
 
@@ -127,6 +200,4 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
     //EventCustom customEndEvent("game_scene_close_event");
     //_eventDispatcher->dispatchEvent(&customEndEvent);
-
-
 }

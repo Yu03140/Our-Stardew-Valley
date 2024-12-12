@@ -11,8 +11,8 @@ hover_button* hover_button::create(const std::string& plist_name, const std::str
     hover_button* button = new hover_button();
 
     // 获取普通、悬停状态下的精灵帧
-    button->default_sprite = cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName(sprite_framename + "-default.png");
-    button->hover_sprite = cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName(sprite_framename + "-hover.png");
+    button->default_sprite = cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName(sprite_framename + ".png");
+    button->hover_sprite = cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName(sprite_framename + ".png");
     button->click_sprite = cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName(sprite_framename + "-clicked.png");
 
     // 判断是否成功获取精灵帧

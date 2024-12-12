@@ -9,7 +9,7 @@ public:
     virtual ~hover_button() { ; }
 
     // 创建实例
-    static hover_button* hover_button::create(const std::string& plist_name, const std::string& sprite_framename);
+    static hover_button* create(const std::string& plist_name, const std::string& sprite_framename);
 
     // 初始化鼠标监听器
     void init_mouselistener();
