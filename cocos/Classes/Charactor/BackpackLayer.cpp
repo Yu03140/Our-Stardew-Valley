@@ -64,7 +64,7 @@ bool BackpackLayer::init() {
         float posY = object["y"].asFloat();
         float width = object["width"].asFloat();
         float height = object["height"].asFloat();
-        log("Player Position: x=%d, y=%d", posX, posY);  // 打印坐标信息
+
 
 
         // 创建透明纹理的精灵
@@ -83,38 +83,40 @@ bool BackpackLayer::init() {
     addItem("Can1");
     addItem("Hoe1");
     addItem("Pick1");
-    addItem("Axe1");
-    removeItem("Can1");
+    //addItem("Axe1");
+    //removeItem("Can1");
     addItem("Rod1");
     return true;
 }
 
 // 添加物品
-void BackpackLayer::addItem(const std::string& itemName) {
+bool BackpackLayer::addItem(const std::string& itemName, const int num) {
     for (int i = 0; i < itemSlots.size(); ++i) {
         if (itemSlots[i].name == itemName) {
             // 如果物品已存在，增加数量并更新显示
-            itemSlots[i].quantity++;
+            itemSlots[i].quantity+=num;
             updateItemTexture(i);
-            return;
+			return true;// 添加物品成功
         }
     }
     for (int i = 0; i < itemSlots.size(); ++i) {
         if (itemSlots[i].name == "") {
             // 找到空格子，放入物品
             itemSlots[i].name = itemName;
-            itemSlots[i].quantity = 1;
+            itemSlots[i].quantity = num;
             updateItemTexture(i);
-            return;
+			return true; // 添加物品成功
         }
     }
+	return false; // 添加物品失败
 }
 
 // 减少物品
-void BackpackLayer::removeItem(const std::string& itemName) {
+bool BackpackLayer::removeItem(const std::string& itemName, const int num) {
     for (int i = 0; i < itemSlots.size(); ++i) {
-        if (itemSlots[i].name == itemName && itemSlots[i].quantity > 0) {
-            itemSlots[i].quantity--;
+		// 存在该物品且数量足够
+        if (itemSlots[i].name == itemName && itemSlots[i].quantity >= num) {
+            itemSlots[i].quantity -= num;
             if (itemSlots[i].quantity == 0) {
                 // 物品数量为 0，清空该位置的纹理
                 itemSlots[i].name = "";
@@ -123,9 +125,10 @@ void BackpackLayer::removeItem(const std::string& itemName) {
             else {
                 updateItemTexture(i);
             }
-            return;
+            return true; // 删除物品成功
         }
     }
+    return false;
 }
 
 // 更新物品显示纹理
@@ -153,6 +156,7 @@ void BackpackLayer::updateItemTexture(int slotIndex) {
         label->setPosition(slot.sprite->getContentSize().width, 0);
         label->setTextColor(Color4B::BLACK);
         slot.sprite->addChild(label, 1);
+        log("%d %d",slot.sprite->getContentSize().width, 0);
 		label->setTag(1001);// 设置tag值
     }
 }

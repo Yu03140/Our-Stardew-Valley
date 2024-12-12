@@ -18,8 +18,8 @@ public:
     virtual bool init();
 
     // 添加或移除物品
-    void addItem(const std::string& itemName);
-    void removeItem(const std::string& itemName);
+    bool BackpackLayer::addItem(const std::string& itemName, const int num = 1);
+    bool BackpackLayer::removeItem(const std::string& itemName, const int num = 1);
 
 private:
     // 更新和清除物品纹理

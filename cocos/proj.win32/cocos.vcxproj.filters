@@ -31,6 +31,9 @@
     <ClCompile Include="..\Classes\Button\hover_button.cpp">
       <Filter>Source Files\Classes\Botton</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\TimeSystem\TimeSystem.cpp">
+      <Filter>Source Files\Classes\TimeSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D:\Our Stardew Valley\cocos\proj.win32\resource.h">
@@ -78,6 +81,9 @@
     <ClInclude Include="..\Classes\Charactor\BackpackLayer.h">
       <Filter>Source Files\Classes\Charactor</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\TimeSystem\TimeSystem.h">
+      <Filter>Source Files\Classes\TimeSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="D:\Our Stardew Valley\cocos\CMakeLists.txt" />
@@ -120,6 +126,9 @@
     </Filter>
     <Filter Include="Source Files\Classes\Botton">
       <UniqueIdentifier>{5a0f6295-0f8a-49d1-872f-0f25253f4583}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\TimeSystem">
+      <UniqueIdentifier>{7f321eb6-5262-46ee-adfc-b64476a66e65}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

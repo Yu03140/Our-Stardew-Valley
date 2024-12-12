@@ -1,5 +1,6 @@
 #include "FarmGround.h"
 #include "Charactor/BackpackLayer.h"
+#include "TimeSystem/TimeSystem.h"
 
 USING_NS_CC;
 
@@ -39,6 +40,18 @@ bool FarmScene::init() {
         // 将背包图层添加到场景的子节点，确保它在背景图层上方
         this->addChild(backpackLayer, 1);  
     }
+
+	// 创建时间系统实例
+    // 假设 TimeSystem 继承自 Node
+    TimeSystem* timeSystem = TimeSystem::getInstance();  // 获取 TimeSystem 的实例
+
+    // 确保当前节点是 Node 类型（通常是 Layer 或 Scene）
+    Node* parentNode = this;  
+
+    // 添加 TimeSystem 到 parentNode 中
+    parentNode->addChild(timeSystem);
+
+
 
     return true;
 }

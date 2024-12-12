@@ -1,5 +1,6 @@
 #include "AppDelegate.h"   // 引入应用程序委托类头文件
 #include "Scene/MenuScene.h"  // 引入场景类头文件
+#include "Scene/FarmGround.h"
 
 // 是否启用音频引擎
 // #define USE_AUDIO_ENGINE 1
@@ -87,7 +88,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // 创建一个场景对象，并运行
-    auto scene = MenuScene::createScene();
+    auto scene = FarmScene::createScene();
     director->runWithScene(scene);
 
     return true;

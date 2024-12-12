@@ -820,6 +820,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\Scene\BackGround.h" />
     <ClInclude Include="..\Classes\Scene\FarmGround.h" />
     <ClInclude Include="..\Classes\Scene\MenuScene.h" />
+    <ClInclude Include="..\Classes\TimeSystem\TimeSystem.h" />
     <ClInclude Include="D:\Our Stardew Valley\cocos\proj.win32\resource.h" />
     <ClCompile Include="..\Classes\AppDelegate\AppDelegate.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">D:\Our Stardew Valley\cocos\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -835,6 +836,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\Scene\BackGround.cpp" />
     <ClCompile Include="..\Classes\Scene\FarmGround.cpp" />
     <ClCompile Include="..\Classes\Scene\MenuScene.cpp" />
+    <ClCompile Include="..\Classes\TimeSystem\TimeSystem.cpp" />
     <ClCompile Include="Gamemain.cpp" />
     <ResourceCompile Include="D:\Our Stardew Valley\cocos\proj.win32\game.rc" />
     <ClInclude Include="D:\Our Stardew Valley\cocos\Resources\CloseNormal.png" />
