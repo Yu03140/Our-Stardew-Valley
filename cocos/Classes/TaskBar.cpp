@@ -1,4 +1,5 @@
 #include "TaskBar.h"
+#include "UI_Scene.h"
 
 // 创建任务栏对象，任务描述、NPC名字和完成任务的回调函数作为参数
 TaskBar* TaskBar::create(const std::string& taskDescription, const std::string& npcName,

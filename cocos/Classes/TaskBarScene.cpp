@@ -1,4 +1,5 @@
 #include "TaskBarScene.h"
+#include "UI_Scene.h"
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //! 注意！这里是图层，添加到场景中的语句有所不同，如下
@@ -42,24 +43,32 @@ bool TaskBarScene::init() {
         "Bouncer", // NPC 名字
         []() {
             // 完成任务后的回调函数，用于修改玩家财产和 NPC 好感度
+            player.playerproperty.addExperience(50);
+            player.playerproperty.addReputation(50);
+            player.playerproperty.addMoney(50);
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@修改背包
+            //bool函数检测是否可以完成任务
+
+
+
             cocos2d::log("玩家财产和好感度已更新！");
         });
     // 设置任务栏到屏幕中心
     auto visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
     auto origin = cocos2d::Director::getInstance()->getVisibleOrigin();
-    taskBar->setPosition(cocos2d::Vec2(origin.x + visibleSize.width / 2,
-        origin.y + visibleSize.height / 2));
+    taskBar->setPosition(cocos2d::Vec2(origin.x + visibleSize.width / 2,origin.y + visibleSize.height / 2));
+    taskBar->setVisible(false); // 初始不可见
 
     this->addChild(taskBar); // 将任务栏添加到当前层中
 
     // 创建按钮，用于显示任务栏
     auto showTaskBarButton = cocos2d::MenuItemImage::create(
-        "ShowTaskBarNormal.png", // 按钮的正常状态图像
-        "ShowTaskBarSelected.png", // 按钮的选中状态图像
+        "TaskBarOrigin.png", // 按钮的正常状态图像
+        "TaskBarOrigin.png", // 按钮的选中状态图像
         [taskBar](Ref* sender) { // 按钮回调函数，点击后显示任务栏
             taskBar->show();
         });
-    showTaskBarButton->setPosition(cocos2d::Vec2(240, 320)); // 设置按钮位置
+    showTaskBarButton->setPosition(cocos2d::Vec2(200, 1000)); // 设置按钮位置
 
     // 创建菜单并将按钮添加到菜单中
     auto menu = cocos2d::Menu::create(showTaskBarButton, nullptr);

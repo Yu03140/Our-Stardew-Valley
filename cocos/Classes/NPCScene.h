@@ -23,8 +23,8 @@ public:
 
 private:
     cocos2d::Sprite* playerSprite; // 玩家精灵
-    NPC* npc;                      // NPC对象
-
+    NPC* npc1;                      // NPC对象
+    NPC* npc2;
     // 检查玩家是否与NPC接近并触发互动
     void checkNPCInteraction();
 };

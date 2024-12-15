@@ -1,4 +1,5 @@
 #include "NPC.h"
+#include "UI_Scene.h"
 
 NPC::NPC()
     : npcSprite(nullptr), npcName("Unnamed"), affection(0), currentChatIndex(0), isChatting(false) {}
