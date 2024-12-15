@@ -1,5 +1,9 @@
 #ifndef __FARM_GROUND_H__
 #define __FARM_GROUND_H__
+#include "hover_button.h"
+#include "moveable_sprite_key.h"
+#include "BackpackLayer.h"
+#include "TimeSystem.h"
 
 #include "cocos2d.h"
 struct Crops {
@@ -20,7 +24,7 @@ public:
     virtual bool init();
     // 添加或移除物品
     void addItem(const std::string& itemName);
-    void removeItem(const std::string& itemName);
+  //  void removeItem(const std::string& itemName);
 
     // 宏定义，用于创建场景
     CREATE_FUNC(FarmScene);

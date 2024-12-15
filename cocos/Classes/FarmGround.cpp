@@ -1,5 +1,5 @@
-
 #include "FarmGround.h"
+
 using namespace cocos2d;
 USING_NS_CC;
 
@@ -7,6 +7,7 @@ FarmScene* FarmScene::createScene() {
     // 创建并返回 FarmScene 场景对象
     return FarmScene::create();
 }
+// FarmGround.cpp
 
 bool FarmScene::init() {
     // 调用父类的初始化函数
@@ -14,9 +15,25 @@ bool FarmScene::init() {
         return false;
     }
 
+
+    /*    // 获取 TimeSystem 实例
+    TimeSystem* timeSystem = TimeSystem::getInstance();
+
+    // 检查 TimeSystem 是否已经被添加到父节点
+    if (timeSystem->getParent() == nullptr) {
+        this->addChild(timeSystem);  // 将 TimeSystem 添加到 FarmGround
+    }
+    else {
+        CCLOG("TimeSystem 已经被添加！");
+    }
+*/
+
     // 获取屏幕可见区域的大小和原点
     Size visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();//为了人物添加的
   //    Size winSize = Director::getInstance()->getWinSize();
+
+
 
     // 创建并添加TMX地图
     tileMap = TMXTiledMap::create("Myfarm.tmx");
@@ -37,6 +54,65 @@ bool FarmScene::init() {
     }
 
 
+    //添加人物
+    auto sprite_move = moveable_sprite_key_walk::create("Jas_Winter.plist", "Jas_Winter");
+
+   if (sprite_move)
+    {
+
+        sprite_move->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+        this->addChild(sprite_move, 1);
+
+        sprite_move->init_keyboardlistener();
+
+        sprite_move->schedule([sprite_move](float dt) {
+            sprite_move->update(dt);
+            }, "update_key_person");
+    }
+/*
+     if (sprite_move)
+    {
+        // 定时更新人物位置，并更新背景的位置和缩放
+        sprite_move->schedule([this, sprite_move](float dt) {
+            sprite_move->update(dt);
+            // 获取人物当前位置
+            Vec2 playerPos = sprite_move->getPosition();
+
+            // 更新背景位置：背景跟随人物
+            tileMap->setPosition(Vec2(playerPos.x, playerPos.y));
+
+
+            }, "update_key_person");
+    }
+
+    */
+
+
+
+
+
+
+
+    // 创建背包图层，并将其添加到场景中
+   BackpackLayer* backpackLayer = BackpackLayer::create();
+    if (backpackLayer) {
+        // 设置背景图的尺寸为 2560x1600
+      //  tileMap->setContentSize(Size(2560, 1600)); // 设置背景图的大小
+
+        // 将背景图的位置设置为场景的中心
+    //    tileMap->setPosition(Director::getInstance()->getVisibleSize() / 2);
+
+        // 将背包图层添加到场景的子节点，确保它在背景图层上方
+        this->addChild(backpackLayer, 1);
+    }
+
+
+
+
+
+
+
+
     // 获取对象层（每个背包格子的位置）
     auto objectGroup = tileMap->getObjectGroup("crops_layer");
     if (!objectGroup) {
@@ -47,28 +123,25 @@ bool FarmScene::init() {
     // 作物格子管理（假设最大36格）
     crops.resize(36);
     for (int i = 0; i < 36; ++i) {
-    
-            crops[i].name = "";      // 作物名
-            //  crops[i].quantity = 0;   // 物品数量
 
-            // 获取对象层中每个格子的坐标
-            auto object = objectGroup->getObject("crop" + std::to_string(i + 1));  // 获取第 i+1 个格子
-            float posX = object["x"].asFloat();
-            float posY = object["y"].asFloat();
-            float width = object["width"].asFloat();
-            float height = object["height"].asFloat();
-            log("Player Position: x=%d, y=%d", posX, posY);  // 打印坐标信息
+        crops[i].name = "";      // 作物名
+
+        // 获取对象层中每个格子的坐标
+        auto object = objectGroup->getObject("crop" + std::to_string(i + 1));  // 获取第 i+1 个格子
+        float posX = object["x"].asFloat();
+        float posY = object["y"].asFloat();
+        float width = object["width"].asFloat();
+        float height = object["height"].asFloat();
+        log("Player Position: x=%d, y=%d", posX, posY);  // 打印坐标信息
 
 
-            // 创建透明纹理的精灵
-            auto sprite = Sprite::create("load1.png");  // 默认无纹理
-            sprite->setPosition(Vec2(posX, posY));        // 设置位置
-            sprite->setAnchorPoint(Vec2(0, 0));     // 设置锚点
-            sprite->setContentSize(Size(width, height));  // 设置大小
-            tileMap->addChild(sprite, 1);  // 添加到瓦片地图
-            crops[i].sprite = sprite;
-
-     
+        // 创建透明纹理的精灵
+        auto sprite = Sprite::create("load1.png");  // 默认无纹理
+        sprite->setPosition(Vec2(posX, posY));        // 设置位置
+        sprite->setAnchorPoint(Vec2(0, 0));     // 设置锚点
+        sprite->setContentSize(Size(width, height));  // 设置大小
+        tileMap->addChild(sprite, 1);  // 添加到瓦片地图
+        crops[i].sprite = sprite;
     }
 
     // 初始添加
@@ -97,7 +170,6 @@ void FarmScene::addItem(const std::string& itemName) {
         }
     }
 }
-
 
 // 更新物品显示纹理
 void FarmScene::updateItemTexture(int slotIndex) {
