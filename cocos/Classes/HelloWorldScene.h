@@ -26,6 +26,12 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
+#include "global_properties.h"
+#include "moveable_sprite_key.h"
+#include "hover_button.h"
+#include "FarmGround.h"
+#include "crop.h"
+
 class HelloWorld : public cocos2d::Scene
 {
 public:

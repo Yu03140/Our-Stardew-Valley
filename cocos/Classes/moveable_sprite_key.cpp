@@ -18,6 +18,7 @@
 //void moveable_sprite_key_tool::update(float deltaTime) 需补充！
 
 #include "moveable_sprite_key.h"
+
 // 静态成员变量定义
 std::string moveable_sprite_key::sprite_name = ""; 
 std::string moveable_sprite_key_walk::sprite_name_walk = "";
@@ -103,7 +104,6 @@ void moveable_sprite_key::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, 
 //松开键盘后，将对应方向参数修改会false
 void moveable_sprite_key::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 {
-    std::string default_framename = sprite_name + "-front1.png";
     if (keyCode == cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW)
     {
         movement[0] = false;
@@ -127,7 +127,6 @@ void moveable_sprite_key::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode,
     isAnimating = false;  // 标记动画停止
 
 }
-
 
 //更新位置
 void moveable_sprite_key::update(float deltaTime)
@@ -285,7 +284,7 @@ void moveable_sprite_key_tool::update(float deltaTime){
     // 先调用父类的 update
     moveable_sprite_key::update(deltaTime);
 
-    if (/*现在手上的物品名称！= sprite_name_tool*/true) {
+    if (/*现在手上的物品名称！= sprite_name_tool*/false) {
         if (/*现在手上的物品名称 属于工具 */true) {
             sprite_name_tool = "现在手上的物品名称";
             this->setSpriteFrame(sprite_name_tool + direc + ".png");
@@ -337,7 +336,8 @@ void moveable_sprite_key_tool::on_mouse_click(cocos2d::Event* event)
     if (mouse_pos.x > tool_pos.x - range &&
         mouse_pos.x < tool_pos.x + range &&
         mouse_pos.y > tool_pos.y - range &&
-        mouse_pos.y < tool_pos.y + range)
+        mouse_pos.y < tool_pos.y + range && 
+        sprite_name_tool != "")
     {
         // 切换纹理
         this->setSpriteFrame(sprite_name_tool + direc + "-clicked.png");

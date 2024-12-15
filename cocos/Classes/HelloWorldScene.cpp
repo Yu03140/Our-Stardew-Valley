@@ -23,9 +23,6 @@
  ****************************************************************************/
 
 #include "HelloWorldScene.h"
-#include "moveable_sprite_key.h"
-#include "hover_button.h"
-#include "FarmGround.h"
 
 USING_NS_CC;
 
@@ -51,73 +48,15 @@ bool HelloWorld::init()
         return false;
     }
 
+    //每10s增加TODAY
+    this->schedule([](float dt) {
+        TODAY++;CCLOG("TODAY: %d", TODAY);
+        }, 10.0f, "global_variable_increment");
+
+
    auto visibleSize = Director::getInstance()->getVisibleSize();
    Vec2 origin = Director::getInstance()->getVisibleOrigin();
-   
-   ///////////////////////////////
-   //// 2. add a menu item with "X" image, which is clicked to quit the program
-   ////    you may modify it.
-   //
-   //// add a "close" icon to exit the progress. it's an autorelease object
-   //auto closeItem = MenuItemImage::create(
-   //                                       "CloseNormal.png",
-   //                                       "CloseSelected.png",
-   //                                       CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
-   //
-   //if (closeItem == nullptr ||
-   //    closeItem->getContentSize().width <= 0 ||
-   //    closeItem->getContentSize().height <= 0)
-   //{
-   //    problemLoading("'CloseNormal.png' and 'CloseSelected.png'");
-   //}
-   //else
-   //{
-   //    float x = origin.x + visibleSize.width - closeItem->getContentSize().width/2;
-   //    float y = origin.y + closeItem->getContentSize().height/2;
-   //    closeItem->setPosition(Vec2(x,y));
-   //}
-   //
-   //// create menu, it's an autorelease object
-   //auto menu = Menu::create(closeItem, NULL);
-   //menu->setPosition(Vec2::ZERO);
-   //this->addChild(menu, 1);
-   //
-   ///////////////////////////////
-   //// 3. add your codes below...
-   //
-   //// add a label shows "Hello World"
-   //// create and initialize a label
-   //
-   //auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
-   //if (label == nullptr)
-   //{
-   //    problemLoading("'fonts/Marker Felt.ttf'");
-   //}
-   //else
-   //{
-   //    // position the label on the center of the screen
-   //    label->setPosition(Vec2(origin.x + visibleSize.width/2,
-   //                            origin.y + visibleSize.height - label->getContentSize().height));
-   //
-   //    // add the label as a child to this layer
-   //    this->addChild(label, 1);
-   //}
-   //
-   //// add "HelloWorld" splash screen"
-   //auto sprite = Sprite::create("HelloWorld.png");
-   //if (sprite == nullptr)
-   //{
-   //    problemLoading("'HelloWorld.png'");
-   //}
-   //else
-   //{
-   //    // position the sprite on the center of the screen
-   //    sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-   //
-   //    // add the sprite as a child to this layer
-   //    this->addChild(sprite, 0);
-   //}
-   //
+
    //测试
 
     auto sprite_move = moveable_sprite_key_walk::create("Jas_Winter.plist","Jas_Winter");
@@ -144,25 +83,43 @@ bool HelloWorld::init()
     // 计算经过缩放后的实际尺寸
     Size scaledSize = Size(originalSize.width * scale, originalSize.height * scale);
    
-   // auto sprite_move_tool = moveable_sprite_key_tool::create("Tools.plist",1,1);
-   // if (sprite_move_tool)
-   // {
-   //     // 设置初始位置
-   //     sprite_move_tool->setPosition(Vec2(visibleSize.width / 2 + origin.x + scaledSize.width/2, visibleSize.height / 2 + origin.y));
-   //     // 将精灵添加到场景中
-   //     this->addChild(sprite_move_tool, 2);
-   // 
-   //     // 初始化键盘监听器
-   //     sprite_move_tool->init_keyboardlistener();
-   //     // 初始化鼠标监听器
-   //     sprite_move_tool->init_mouselistener();
-   //
-   //     // 定时调用 update 更新精灵的位置
-   //     sprite_move_tool->schedule([sprite_move_tool](float dt) {
-   //         sprite_move_tool->update(dt);
-   //         }, "update_key_tool");
-   // }
-   //
+    //auto sprite_move_tool = moveable_sprite_key_tool::create("Tools.plist",1,1);
+    //if (sprite_move_tool)
+    //{
+    //    // 设置初始位置
+    //    sprite_move_tool->setPosition(Vec2(visibleSize.width / 2 + origin.x + scaledSize.width/2, visibleSize.height / 2 + origin.y));
+    //    // 将精灵添加到场景中
+    //    this->addChild(sprite_move_tool, 2);
+    //
+    //    // 初始化键盘监听器
+    //    sprite_move_tool->init_keyboardlistener();
+    //
+    //    // 初始化鼠标监听器
+    //    sprite_move_tool->init_mouselistener();
+    //
+    //    // 定时调用 update 更新精灵的位置
+    //    sprite_move_tool->schedule([sprite_move_tool](float dt) {
+    //        sprite_move_tool->update(dt);
+    //        }, "update_key_tool");
+    //}
+   
+    auto crop = crop::create("crop.plist", scaledSize.width, scaledSize.height);
+    if (crop)
+    {
+        // 设置初始位置
+        crop->setPosition(Vec2(visibleSize.width / 4 + origin.x, visibleSize.height / 4 + origin.y));
+        // 将精灵添加到场景中
+        this->addChild(crop, 4);
+
+        // 初始化键盘监听器
+        crop->init_mouselistener();
+
+        // 定时调用 update 更新精灵的位置
+        crop->schedule([crop](float dt) {
+            crop->update(dt);
+            }, "update_crop");
+    }
+
    //// 创建 hover_button 实例
    //auto button = hover_button::create("Tools.plist", "Pick1-left");
    //if (button)
