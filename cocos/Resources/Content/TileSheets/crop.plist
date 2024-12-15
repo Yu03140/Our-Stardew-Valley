@@ -4,6 +4,21 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>-1.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{12,11}</string>
+                <key>spriteSourceSize</key>
+                <string>{12,11}</string>
+                <key>textureRect</key>
+                <string>{{0,45},{12,11}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>pumpkin-1.png</key>
             <dict>
                 <key>aliases</key>
@@ -15,9 +30,9 @@
                 <key>spriteSourceSize</key>
                 <string>{6,8}</string>
                 <key>textureRect</key>
-                <string>{{130,20},{6,8}}</string>
+                <string>{{0,5},{6,8}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>pumpkin-2.png</key>
             <dict>
@@ -30,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{14,12}</string>
                 <key>textureRect</key>
-                <string>{{90,1},{14,12}}</string>
+                <string>{{0,98},{14,12}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,7 +60,7 @@
                 <key>spriteSourceSize</key>
                 <string>{15,19}</string>
                 <key>textureRect</key>
-                <string>{{113,1},{15,19}}</string>
+                <string>{{0,110},{15,19}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -60,9 +75,9 @@
                 <key>spriteSourceSize</key>
                 <string>{15,20}</string>
                 <key>textureRect</key>
-                <string>{{71,16},{15,20}}</string>
+                <string>{{0,129},{15,20}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>pumpkin-5.png</key>
             <dict>
@@ -75,9 +90,9 @@
                 <key>spriteSourceSize</key>
                 <string>{16,18}</string>
                 <key>textureRect</key>
-                <string>{{93,15},{16,18}}</string>
+                <string>{{0,214},{16,18}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>pumpkin.png</key>
             <dict>
@@ -90,9 +105,9 @@
                 <key>spriteSourceSize</key>
                 <string>{4,5}</string>
                 <key>textureRect</key>
-                <string>{{8,27},{4,5}}</string>
+                <string>{{0,0},{4,5}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>strawberry-1.png</key>
             <dict>
@@ -105,9 +120,9 @@
                 <key>spriteSourceSize</key>
                 <string>{9,6}</string>
                 <key>textureRect</key>
-                <string>{{113,22},{9,6}}</string>
+                <string>{{6,5},{9,6}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>strawberry-2.png</key>
             <dict>
@@ -120,7 +135,7 @@
                 <key>spriteSourceSize</key>
                 <string>{11,13}</string>
                 <key>textureRect</key>
-                <string>{{65,1},{11,13}}</string>
+                <string>{{0,32},{11,13}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -135,7 +150,7 @@
                 <key>spriteSourceSize</key>
                 <string>{15,17}</string>
                 <key>textureRect</key>
-                <string>{{130,1},{15,17}}</string>
+                <string>{{0,149},{15,17}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -150,9 +165,9 @@
                 <key>spriteSourceSize</key>
                 <string>{15,24}</string>
                 <key>textureRect</key>
-                <string>{{19,16},{15,24}}</string>
+                <string>{{0,166},{15,24}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>strawberry-5.png</key>
             <dict>
@@ -165,7 +180,7 @@
                 <key>spriteSourceSize</key>
                 <string>{16,24}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{16,24}}</string>
+                <string>{{0,232},{16,24}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -180,7 +195,7 @@
                 <key>spriteSourceSize</key>
                 <string>{10,13}</string>
                 <key>textureRect</key>
-                <string>{{78,1},{10,13}}</string>
+                <string>{{0,19},{10,13}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -195,9 +210,9 @@
                 <key>spriteSourceSize</key>
                 <string>{4,5}</string>
                 <key>textureRect</key>
-                <string>{{106,1},{4,5}}</string>
+                <string>{{4,0},{4,5}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>sunflower-2.png</key>
             <dict>
@@ -210,9 +225,9 @@
                 <key>spriteSourceSize</key>
                 <string>{9,6}</string>
                 <key>textureRect</key>
-                <string>{{121,22},{9,6}}</string>
+                <string>{{0,13},{9,6}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>sunflower-3.png</key>
             <dict>
@@ -225,9 +240,9 @@
                 <key>spriteSourceSize</key>
                 <string>{13,15}</string>
                 <key>textureRect</key>
-                <string>{{48,1},{13,15}}</string>
+                <string>{{0,56},{13,15}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>sunflower-4.png</key>
             <dict>
@@ -240,9 +255,9 @@
                 <key>spriteSourceSize</key>
                 <string>{15,24}</string>
                 <key>textureRect</key>
-                <string>{{45,16},{15,24}}</string>
+                <string>{{0,190},{15,24}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>sunflower-5.png</key>
             <dict>
@@ -255,9 +270,9 @@
                 <key>spriteSourceSize</key>
                 <string>{13,27}</string>
                 <key>textureRect</key>
-                <string>{{19,1},{13,27}}</string>
+                <string>{{0,71},{13,27}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>sunflower.png</key>
             <dict>
@@ -270,7 +285,7 @@
                 <key>spriteSourceSize</key>
                 <string>{5,4}</string>
                 <key>textureRect</key>
-                <string>{{1,27},{5,4}}</string>
+                <string>{{8,0},{5,4}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -286,9 +301,9 @@
             <key>realTextureFileName</key>
             <string>crop.png</string>
             <key>size</key>
-            <string>{146,32}</string>
+            <string>{16,256}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:03039148e2b0ab55b5a499e4c6c9403b:60736f08c48a12243230f510b4cb8dc4:be2e5b24d12d15a65d23f031cf32a7da$</string>
+            <string>$TexturePacker:SmartUpdate:57952ea9ced81dd43ce97d14d39575fd:88e1eeabfc59c6a5332254c42d4711eb:be2e5b24d12d15a65d23f031cf32a7da$</string>
             <key>textureFileName</key>
             <string>crop.png</string>
         </dict>
