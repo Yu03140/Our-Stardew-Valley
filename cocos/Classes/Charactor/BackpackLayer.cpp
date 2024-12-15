@@ -1,5 +1,6 @@
 #include "BackpackLayer.h"
 #include "cocos2d.h"
+#include "Scene/FarmGround.h"
 
 USING_NS_CC;
 
@@ -41,9 +42,9 @@ bool BackpackLayer::init() {
     auto mapSize = tilemap->getContentSize();
 
     // 设置瓦片地图位置
-    float x = (visibleSize.width - mapSize.width) / 2;  // 居中
-    float y = visibleSize.height * 0.05f;              // 距底部偏移一点
-    tilemap->setPosition(Vec2(x, y));
+    X0 = (visibleSize.width - mapSize.width) / 2;  // 居中
+    Y0 = visibleSize.height * 0.05f;              // 距底部偏移一点
+    tilemap->setPosition(Vec2(X0, Y0));
 
     // 获取对象层（每个背包格子的位置）
     auto objectGroup = tilemap->getObjectGroup("Slots");  // 假设名为 "Slots"
@@ -65,8 +66,6 @@ bool BackpackLayer::init() {
         float width = object["width"].asFloat();
         float height = object["height"].asFloat();
 
-
-
         // 创建透明纹理的精灵
         auto sprite = Sprite::create();  // 默认无纹理
 		sprite->setPosition(Vec2(posX, posY));        // 设置位置
@@ -83,11 +82,53 @@ bool BackpackLayer::init() {
     addItem("Can1");
     addItem("Hoe1");
     addItem("Pick1");
-    //addItem("Axe1");
-    //removeItem("Can1");
     addItem("Rod1");
+
+    // 添加点击事件监听器
+    auto listener = EventListenerMouse::create();
+    listener->onMouseDown = CC_CALLBACK_1(BackpackLayer::onMouseDown, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
     return true;
 }
+
+// 鼠标点击事件处理函数
+void BackpackLayer::onMouseDown(Event* event) {
+    EventMouse* mouseEvent = static_cast<EventMouse*>(event);
+    Vec2 clickPosition = mouseEvent->getLocation();  // 获取鼠标点击位置
+
+    // 获取屏幕的高度
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    float visibleHeight = visibleSize.height;
+
+    // 转换为 Tiled 坐标
+    clickPosition.y = visibleHeight - clickPosition.y;  // Tiled 的 y 坐标需要反转
+
+    CCLOG("Backpack clicked at(%f, %f)", clickPosition.x, clickPosition.y);
+
+
+    // 遍历每个背包格子，检查是否点击了物品
+    for (int i = 0; i < itemSlots.size(); ++i) {
+        auto& slot = itemSlots[i];
+        Rect slotRect(slot.sprite->getPositionX()+X0, slot.sprite->getPositionY()+Y0- slot.sprite->getContentSize().height,
+            slot.sprite->getContentSize().width, slot.sprite->getContentSize().height);
+
+        // 打印slotRect
+		CCLOG("slotRect: (%f, %f, %f, %f)", slotRect.origin.x, slotRect.origin.y, slotRect.size.width, slotRect.size.height);
+
+        // 如果点击的位置在当前格子内
+        if (slotRect.containsPoint(clickPosition)) {
+            // 更新全局变量 selectedItem
+            selectedItem = slot.name;
+
+            // 在控制台打印选中的物品名（可以根据需求删除或修改）
+            CCLOG("Clicked item: %s", selectedItem.c_str());
+
+            break;  // 找到对应物品后就可以退出循环
+        }
+    }
+}
+
 
 // 添加物品
 bool BackpackLayer::addItem(const std::string& itemName, const int num) {

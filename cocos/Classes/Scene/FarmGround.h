@@ -3,6 +3,8 @@
 
 #include "cocos2d.h"
 
+extern std::string selectedItem;
+
 class FarmScene : public cocos2d::Scene {
 public:
     // ´´½¨ FarmScene

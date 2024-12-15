@@ -17,11 +17,17 @@ public:
     static BackpackLayer* create();
     virtual bool init();
 
+    // 鼠标点击事件处理函数
+    void onMouseDown(cocos2d::Event* event);
+
     // 添加或移除物品
     bool BackpackLayer::addItem(const std::string& itemName, const int num = 1);
     bool BackpackLayer::removeItem(const std::string& itemName, const int num = 1);
 
 private:
+
+    float X0;
+    float Y0;
     // 更新和清除物品纹理
     void updateItemTexture(int slotIndex);
     void clearItemTexture(int slotIndex);

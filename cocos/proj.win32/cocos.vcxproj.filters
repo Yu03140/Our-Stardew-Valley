@@ -28,11 +28,11 @@
     <ClCompile Include="..\Classes\Charactor\BackpackLayer.cpp">
       <Filter>Source Files\Classes\Charactor</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Button\hover_button.cpp">
-      <Filter>Source Files\Classes\Botton</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\TimeSystem\TimeSystem.cpp">
       <Filter>Source Files\Classes\TimeSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Moveable\moveable_sprite_key.cpp">
+      <Filter>Source Files\Moveable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,14 +75,14 @@
     <ClInclude Include="..\Classes\Scene\MenuScene.h">
       <Filter>Source Files\Classes\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Button\hover_button.h">
-      <Filter>Source Files\Classes\Botton</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Charactor\BackpackLayer.h">
       <Filter>Source Files\Classes\Charactor</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\TimeSystem\TimeSystem.h">
       <Filter>Source Files\Classes\TimeSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Moveable\moveable_sprite_key.h">
+      <Filter>Source Files\Moveable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -124,11 +124,11 @@
     <Filter Include="Source Files\Classes\Charactor">
       <UniqueIdentifier>{9d1b49a0-4fd4-4180-8b7c-222526dbbc47}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Classes\Botton">
-      <UniqueIdentifier>{5a0f6295-0f8a-49d1-872f-0f25253f4583}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Classes\TimeSystem">
       <UniqueIdentifier>{7f321eb6-5262-46ee-adfc-b64476a66e65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Moveable">
+      <UniqueIdentifier>{afbeff4d-b7a2-4055-9753-8efb9ca6e3e6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

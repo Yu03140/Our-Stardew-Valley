@@ -33,7 +33,6 @@ TimeSystem::TimeSystem() {
 
     Node::onEnter();
     schedule([this](float deltaTime) {
-        log("Updating TimeSystem...");  // 调试日志
         update(deltaTime);
         }, 10.0f, "update_key");  // 设置每 5 秒调用一次 update
     this->scheduleUpdate();
@@ -65,7 +64,6 @@ TimeSystem* TimeSystem::getInstance() {
 
 // 更新游戏时间
 void TimeSystem::update(float deltaTime) {
-    log("Entering update method");
 
     // 根据deltaTime和TIME_SCALE来增加小时
     hour += (deltaTime * TIME_SCALE);
@@ -132,11 +130,11 @@ void TimeSystem::updateDisplay() {
 
     // 创建显示干旱日状态的字符串
     std::string droughtText = "Drought Day: " + std::string(droughtDay ? "Yes" : "No");
-    log("TimeLabel Updated: %s", timeText.c_str()); // 调试日志
+    //log("TimeLabel Updated: %s", timeText.c_str()); // 调试日志
 
     // 更新干旱日标签的内容
     droughtLabel->setString(droughtText);
 
-    log("TimeLabel Position: x = %f, y = %f", timeLabel->getPositionX(), timeLabel->getPositionY());
+    //log("TimeLabel Position: x = %f, y = %f", timeLabel->getPositionX(), timeLabel->getPositionY());
 }
 

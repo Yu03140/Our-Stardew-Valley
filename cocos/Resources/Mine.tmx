@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="20" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="157">
- <tileset firstgid="1" name="mine" tilewidth="16" tileheight="16" tilecount="288" columns="16">
-  <image source="mine" width="256" height="288"/>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="20" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="160">
+ <tileset firstgid="1" name="mine" tilewidth="16" tileheight="16" tilecount="37" columns="0">
+  <image source="mine" width="15" height="15"/>
   <tile id="0">
    <properties>
     <property name="Type" value="Dirt"/>
@@ -188,8 +188,8 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="289" source="../../../paths.tsx"/>
- <tileset firstgid="353" source="../../../Objects_2.tsx"/>
+ <tileset firstgid="238" source="paths.tsx"/>
+ <tileset firstgid="302" source="Objects_2.tsx"/>
  <objectgroup id="8" name="Stone">
   <object id="2" gid="2" x="111.541" y="128.807" width="16" height="16"/>
   <object id="3" gid="2" x="137.374" y="112.598" width="16" height="16"/>
@@ -327,6 +327,8 @@
   <object id="145" gid="2" x="63.9272" y="204.742" width="16" height="16"/>
   <object id="146" name="Stone12" gid="2" x="64.4337" y="206.515" width="16" height="16"/>
   <object id="147" name="BigStone1" x="160.063" y="159.557" width="32.6712" height="32.4179"/>
+  <object id="157" x="159.204" y="92.5059"/>
+  <object id="158" x="166.578" y="61.0003"/>
  </objectgroup>
  <objectgroup id="9" name="Mine">
   <object id="148" name="Mine1" x="95.4808" y="176.019" width="16.9687" height="17.222"/>

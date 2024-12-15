@@ -4,6 +4,8 @@
 
 USING_NS_CC;
 
+std::string selectedItem = "";
+
 FarmScene* FarmScene::createScene() {
     // 创建并返回 FarmScene 场景对象
     return FarmScene::create();
@@ -51,7 +53,10 @@ bool FarmScene::init() {
     // 添加 TimeSystem 到 parentNode 中
     parentNode->addChild(timeSystem);
 
+	// 设置 TimeSystem 的位置
 
+
+   
 
     return true;
 }
