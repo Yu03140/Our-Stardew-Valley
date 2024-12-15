@@ -118,13 +118,9 @@ void BackpackLayer::onMouseDown(Event* event) {
 
         // 如果点击的位置在当前格子内
         if (slotRect.containsPoint(clickPosition)) {
-            // 更新全局变量 selectedItem
             selectedItem = slot.name;
-
-            // 在控制台打印选中的物品名（可以根据需求删除或修改）
             CCLOG("Clicked item: %s", selectedItem.c_str());
-
-            break;  // 找到对应物品后就可以退出循环
+            break;  
         }
     }
 }
@@ -170,6 +166,10 @@ bool BackpackLayer::removeItem(const std::string& itemName, const int num) {
         }
     }
     return false;
+}
+
+std::string BackpackLayer::getSelectedItem() const {
+    return selectedItem; 
 }
 
 // 更新物品显示纹理

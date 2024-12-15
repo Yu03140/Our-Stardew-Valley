@@ -2,6 +2,8 @@
 #define __MENUSCENE_SCENE_H__
 
 #include "cocos2d.h"
+#include "Charactor/BackpackLayer.h"
+
 
 class MenuScene : public cocos2d::Scene
 {

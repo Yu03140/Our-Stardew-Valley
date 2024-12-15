@@ -24,10 +24,14 @@ public:
     bool BackpackLayer::addItem(const std::string& itemName, const int num = 1);
     bool BackpackLayer::removeItem(const std::string& itemName, const int num = 1);
 
+	// 得到选中的物品
+    std::string getSelectedItem() const;
+
 private:
 
     float X0;
     float Y0;
+    std::string selectedItem;
     // 更新和清除物品纹理
     void updateItemTexture(int slotIndex);
     void clearItemTexture(int slotIndex);

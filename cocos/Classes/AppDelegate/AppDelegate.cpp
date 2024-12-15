@@ -13,7 +13,7 @@ using namespace cocos2d::experimental;
 USING_NS_CC;  
 
 // 用于设置设计分辨率
-static cocos2d::Size designResolutionSize = cocos2d::Size(2560, 1600);  //设计分辨率
+static cocos2d::Size designResolutionSize = cocos2d::Size(3200, 2000);  //设计分辨率
 static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 320);     //小分辨率
 static cocos2d::Size mediumResolutionSize = cocos2d::Size(1280, 800);	//中分辨率
 static cocos2d::Size largeResolutionSize = cocos2d::Size(2560, 1600);	//大分辨率
@@ -58,6 +58,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #endif
         director->setOpenGLView(glview);
     }
+
 
     // 打开 FPS 显示，便于调试
     director->setDisplayStats(true);

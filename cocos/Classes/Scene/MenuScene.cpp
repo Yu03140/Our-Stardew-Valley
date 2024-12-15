@@ -144,6 +144,7 @@ bool MenuScene::init()
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 0);
 
+
 }
 
 // 关闭按钮的回调函数
