@@ -111,7 +111,7 @@ void BackpackLayer::onMouseDown(Event* event) {
     for (int i = 0; i < itemSlots.size(); ++i) {
         auto& slot = itemSlots[i];
         Rect slotRect(slot.sprite->getPositionX()+X0, slot.sprite->getPositionY()+Y0- slot.sprite->getContentSize().height,
-            slot.sprite->getContentSize().width, slot.sprite->getContentSize().height);
+            slot.sprite->getContentSize().width*3, slot.sprite->getContentSize().height*3);
 
         // ¥Ú”°slotRect
 		CCLOG("slotRect: (%f, %f, %f, %f)", slotRect.origin.x, slotRect.origin.y, slotRect.size.width, slotRect.size.height);
