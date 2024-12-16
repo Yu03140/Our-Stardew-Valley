@@ -14,6 +14,9 @@ bool FarmScene::init() {
         return false;
     }
 
+     //人物初始化
+    Player* player = Player::getInstance("me");
+
      // 加载地图，放在中间
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();//为了人物添加的
@@ -31,7 +34,7 @@ bool FarmScene::init() {
         CCLOG("Failed to load the tile map");
     }
 
-    // 创建背包图层，并将其添加到场景中
+    // 将背包图层添加到场景中
     backpackLayer = BackpackLayer::create();
     if (backpackLayer) {
         this->addChild(backpackLayer, 2);  
@@ -39,7 +42,7 @@ bool FarmScene::init() {
     else
 		CCLOG("Failed to load the backpack layer");
 
-	// 创建时间系统实例
+	// 添加时间系统
     timeSystem = TimeSystem::getInstance();  
     Node* parentNode = this;  
     parentNode->addChild(timeSystem);
@@ -58,6 +61,11 @@ bool FarmScene::init() {
             sprite_move->update(dt);
             }, "update_key_person");
     }
+
+	// 添加任务栏
+    taskBarScene = TaskBarLayer::create(); 
+    tileMap->addChild(taskBarScene,3);     
+
 
     // 作物模块
     // 获取对象层（每个作物格子的位置）

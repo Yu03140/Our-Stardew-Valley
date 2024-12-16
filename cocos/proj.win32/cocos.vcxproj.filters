@@ -37,6 +37,15 @@
     <ClCompile Include="..\Classes\Global\Global.cpp">
       <Filter>Source Files\Classes\Global</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Attribute\attribute.cpp">
+      <Filter>Source Files\Classes\Attribute</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TaskBar\TaskBar.cpp">
+      <Filter>Source Files\Classes\TaskBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TaskBar\TaskBarScene.cpp">
+      <Filter>Source Files\Classes\TaskBar</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D:\Our Stardew Valley\cocos\proj.win32\resource.h">
@@ -90,6 +99,15 @@
     <ClInclude Include="..\Classes\Global\Global.h">
       <Filter>Source Files\Classes\Global</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Attribute\attribute.h">
+      <Filter>Source Files\Classes\Attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TaskBar\TaskBar.h">
+      <Filter>Source Files\Classes\TaskBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TaskBar\TaskBarScene.h">
+      <Filter>Source Files\Classes\TaskBar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="D:\Our Stardew Valley\cocos\CMakeLists.txt" />
@@ -138,6 +156,12 @@
     </Filter>
     <Filter Include="Source Files\Classes\Moveable">
       <UniqueIdentifier>{afbeff4d-b7a2-4055-9753-8efb9ca6e3e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\Attribute">
+      <UniqueIdentifier>{4dbf419c-f83d-4daf-bbde-169d460976c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\TaskBar">
+      <UniqueIdentifier>{b1b097a0-2da8-4aac-a3e6-5d2b8d9e118e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
