@@ -6,9 +6,10 @@
 #include "Moveable/moveable_sprite_key.h"
 #include "Global/Global.h"
 
+
 struct Crops {
+	bool isPlanted;         // 是否种植了作物
     std::string name;        // 物品名称
-    //  int quantity;            // 物品数量
     cocos2d::Sprite* sprite; // 显示物品的精灵
 };
 
@@ -32,6 +33,9 @@ private:
     // 更新和清除物品纹理
     void updateItemTexture(int slotIndex);
     void clearItemTexture(int slotIndex);
+
+	// 更新摄像机位置
+    void updateCamera(Node* player);
 
     // 农作物数据
     std::vector<Crops> crops;

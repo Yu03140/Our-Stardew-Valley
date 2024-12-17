@@ -143,7 +143,7 @@ void moveable_sprite_key::update(float deltaTime)
     cocos2d::Vec2 origin = cocos2d::Director::getInstance()->getVisibleOrigin();
 
     // 判断精灵是否超出边界
-   if (sprite_pos.y + this->getContentSize().height / 2 >= origin.y + visibleSize.height) {
+   if (sprite_pos.y + this->getContentSize().height / 2 >= SceneHeight) {
        is_hit_edge[0] = true;
        CCLOG("Sprite hit the top edge");
     }
@@ -155,7 +155,7 @@ void moveable_sprite_key::update(float deltaTime)
         is_hit_edge[2] = true;
         CCLOG("Sprite hit the left edge");
     }
-    else if (sprite_pos.x + this->getContentSize().width / 2 >= origin.x + visibleSize.width) {
+    else if (sprite_pos.x + this->getContentSize().width / 2 >= SceneWidth) {
         is_hit_edge[3] = true;
         CCLOG("Sprite hit the right edge");
     }

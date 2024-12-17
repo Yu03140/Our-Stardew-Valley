@@ -18,14 +18,17 @@ TimeSystem::TimeSystem() {
     timeLabel = Label::createWithSystemFont("", "Arial", 30);
     droughtLabel = Label::createWithSystemFont("", "Arial", 30);
 
-    timeLabel->setPosition(Vec2(2400, 1450));  // 标签显示位置
-    droughtLabel->setPosition(Vec2(2400, 1380));  // 干旱日状态标签位置
+	//获得屏幕大小
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+
+    timeLabel->setPosition(Vec2(visibleSize.width*0.8, visibleSize.height*0.8));  // 标签显示位置
+    //droughtLabel->setPosition(Vec2(2400, 1380));  // 干旱日状态标签位置
 
     timeLabel->setMaxLineWidth(500);  // 设置最大宽度
-    droughtLabel->setMaxLineWidth(500);  // 设置最大宽度
+    //droughtLabel->setMaxLineWidth(500);  // 设置最大宽度
 
-    timeLabel->setTextColor(Color4B::BLACK);
-    droughtLabel->setTextColor(Color4B::BLACK);
+    timeLabel->setTextColor(Color4B::WHITE);
+    //droughtLabel->setTextColor(Color4B::BLACK);
     
 
     this->addChild(timeLabel,2);  // 添加到场景

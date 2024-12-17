@@ -31,11 +31,10 @@ bool TaskBarLayer::init() {
         });
     // 设置任务栏到屏幕中心
     auto visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
-    taskBar->setAnchorPoint(Vec2(1, 1));
-    taskBar->setPosition(cocos2d::Vec2(visibleSize.width / 4, visibleSize.height / 4));
-	CCLOG("visibleSize.width / 4=%f,visibleSize.height / 4=%f", visibleSize.width / 4, visibleSize.height / 4);
+    taskBar->setAnchorPoint(Vec2(0.5, 0.5));
+    taskBar->setPosition(cocos2d::Vec2(visibleSize.width / 2, visibleSize.height / 2));
     taskBar->setVisible(false); // 初始不可见
-    this->addChild(taskBar); // 将任务栏添加到当前层中
+    this->addChild(taskBar,2); // 将任务栏添加到当前层中
 
     // 创建按钮，用于显示任务栏
     auto showTaskBarButton = cocos2d::MenuItemImage::create(
@@ -45,12 +44,13 @@ bool TaskBarLayer::init() {
             taskBar->show();
         });
     //?????????????????????????????????????????????????????
-    showTaskBarButton->setPosition(cocos2d::Vec2(200, 1000)); // 设置按钮位置
+    showTaskBarButton->setPosition(cocos2d::Vec2(visibleSize.width*0.5, visibleSize.height * 0.5)); // 设置按钮位置
+	CCLOG("showTaskBarButton->getPosition().x = %f", showTaskBarButton->getPosition().x);
 
     // 创建菜单并将按钮添加到菜单中
     auto menu = cocos2d::Menu::create(showTaskBarButton, nullptr);
     menu->setPosition(cocos2d::Vec2::ZERO); // 设置菜单位置为原点
-    this->addChild(menu); // 将菜单添加到当前层中
+    this->addChild(menu,2); // 将菜单添加到当前层中
 
 
     return true; // 初始化成功

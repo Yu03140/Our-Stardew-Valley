@@ -2,5 +2,6 @@
 
 BackpackLayer* backpackLayer = nullptr;
 TimeSystem* timeSystem = nullptr;
-TaskBarLayer* taskBarScene = nullptr;
+float SceneWidth;
+float SceneHeight;
 

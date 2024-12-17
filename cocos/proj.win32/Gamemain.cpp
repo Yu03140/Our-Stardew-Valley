@@ -10,7 +10,7 @@
 
 #endif    
 
-#include "AppDelegate.h"
+#include "AppDelegate/AppDelegate.h"
 
 // 该宏定义排除 Windows 头文件中不常用的部分
 #define WIN32_LEAN_AND_MEAN          

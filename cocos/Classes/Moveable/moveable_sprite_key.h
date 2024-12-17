@@ -2,6 +2,7 @@
 #define __MOVEABLE_SPRITE_KEY_H__
 
 #include "cocos2d.h"
+#include "Global/Global.h"
 #define SPEED 30.0f
 
 class moveable_sprite_key : public cocos2d::Sprite

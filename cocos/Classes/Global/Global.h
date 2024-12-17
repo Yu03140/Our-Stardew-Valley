@@ -11,7 +11,13 @@
 
 extern BackpackLayer* backpackLayer;
 extern TimeSystem* timeSystem;
-extern TaskBarLayer* taskBarScene;
+extern float SceneWidth;
+extern float SceneHeight;
+
+#define Playerlayer 1
+#define Backpacklayer 2
+#define Timesystemlayer 3
+#define Taskbarlayer 4
 
 #endif // GLOBAL_H
 
