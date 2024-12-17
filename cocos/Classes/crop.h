@@ -2,22 +2,27 @@
 #define __CROP_H__
 
 #include "cocos2d.h"
-#include "global_properties.h"
+#include "Global/Global.h"
 
-#define DIE_DRY 3
 #define MAX_LEVEL 5
-#define SEASON 1
-#define SPRING 1
-#define SUMMER 2
-#define AUTUMN 3
-#define WINTER 4
-#define IS_DRY_DAY 0
+#define DIE_DRY 3
+struct GOODS_INHAND {
+    std::string goods_name;
+};
 
-const std::map<std::string, std::map<std::string,int>> CROP_MAP =
+//作物种植相关信息
+const std::unordered_map<std::string, std::unordered_map<std::string,int>> CROP_MAP =
 {
     {"strawberry",{{"develop_day",3},{"season",SPRING}}},
     {"sunflour",{{"develop_day",4},{"season",SUMMER}}},
-    {"pumpkin",{{"develop_day",5},{"season",WINTER}}}
+    {"pumpkin",{{"develop_day",5},{"season",AUTUMN}}}
+};
+//作物成熟后得到的生成品
+const std::unordered_map<std::string, std::string> HARVEST_MAP =
+{
+    {"strawberry","strawberry_fruit"},
+    {"sunflour","sunflour_fruit"},
+    {"pumpkin","sunflour_fruit"}
 };
 
 class crop : public cocos2d::Sprite
@@ -30,7 +35,7 @@ private:
 	int water_count = 0;                         //浇水总天数
     int unwater_count = 0;                       //没有浇水的连续天数
 	int develop_level = 0;                       //目前生长阶段
-	int watered_today = 1;                       //今天剩余浇水次数
+	int watered_today = 2;                       //今天剩余浇水次数
 
     static cocos2d::Texture2D* transparent_texture;
     static cocos2d::Size crop_size;
@@ -48,10 +53,10 @@ public:
     void planting(std::string name);
 
     //浇水功能的实现
-    void water();
+    void water(std::string name);
 
     //施肥功能
-    void fertilize();
+    void fertilize(std::string name);
 
     //清除
     void clear();
@@ -61,6 +66,9 @@ public:
     
     //新一天的更新
     void update_day();
+
+    //除虫
+    void deinsectization();
 
 };
 #endif __CROP_H__

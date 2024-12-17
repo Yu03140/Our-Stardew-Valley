@@ -14,9 +14,11 @@ animals* animals::create(const std::string& plist_name, std::string name, cocos2
     //加载plist文件
     cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(plist_name);
     
+    //设置基本信息
     animals_name = name;
     produce_size = size;
     produce_pos = pos;
+    produce_day = ANIMAL_MAP.at(name);
 
     //创建实例
     animals* animals_sprite = new animals();
@@ -79,7 +81,7 @@ void animals::on_mouse_click(cocos2d::Event* event)
         mouse_pos.y > animals_pos.y - animals_size.height / 2 &&
         mouse_pos.y < animals_pos.y + animals_size.height / 2)//点击动物
     {
-        if (TOOL == FOOD) {
+        if (backpackLayer->getSelectedItem() == FOOD) {
             this->feed();
         }
     }
@@ -99,7 +101,12 @@ void animals::feed()
 {
     if (feed_today) {
         feed_today--;
+        //背包食物-1
+        backpackLayer->removeItem(FOOD);
+        CCLOG("feed successfully");
     }
+    else 
+        CCLOG("couldn't feed today");
 }
 
 //生成附属品
@@ -107,19 +114,19 @@ void animals::create_produce()
 {
     if (feed_count % produce_day == 0 && feed_count) 
     {
-        produce.setSpriteFrame(animals_name + "-produce.png");
+        produce.setSpriteFrame(animals_name + "-produce.png");//显示生成物
         is_produce = 1;
-        produce_count++;
+        CCLOG("create produce");
     }
 }
 
 //收获功能
 void animals::harvest()
-{
-    produce.setTexture(transparent_texture);
+{    
     //把生成物加入背包
+    backpackLayer->addItem(PRODUCE_MAP.at(animals_name));
+    produce.setTexture(transparent_texture);
     is_produce = 0;
-    produce_count = 0;
 }
 
 // 根据移动方向设置精灵的图片
@@ -144,7 +151,6 @@ void animals::updateDirection(const cocos2d::Vec2& movementDirection) {
         this->setSpriteFrame(animals_name + "-left.png");
     }
 }
-
 //游荡
 void animals::randmove(cocos2d::TMXTiledMap* tileMap)
 {
@@ -169,7 +175,7 @@ void animals::randmove(cocos2d::TMXTiledMap* tileMap)
     auto moveAction = cocos2d::MoveTo::create(2.0f, targetPosition);  // 2秒钟到目标位置
     this->runAction(moveAction);
 }
-
+//不定时游荡
 void animals::scheduleRandomMove(cocos2d::TMXTiledMap* tileMap) {
     // 每3秒随机移动一次
     this->schedule([this, tileMap](float dt) {
@@ -180,17 +186,17 @@ void animals::scheduleRandomMove(cocos2d::TMXTiledMap* tileMap) {
 //新一天的更新
 void animals::update_day()
 {
-    if (TODAY != now_day)//今天结束了
+    if (timeSystem->getDay() != now_day)//今天结束了
     {
         if (animals_name != "") {
-            if (feed_today == 0)//说明今天浇水次数没有达到要求
+            if (feed_today == 0)//说明今天喂养次数达到要求
             {
                 feed_count++;
                 //查看是否需要更新成长状态
-                this->harvest();
+                this->create_produce();
             }
         }
-        now_day = TODAY;
+        now_day = timeSystem->getDay();
         feed_today = 1;
     }
 }

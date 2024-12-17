@@ -1,12 +1,17 @@
 #ifndef __ANIMALS_H__
 #define __ANIMALS_H__
 
-///////////////////////////////////////////////////////////////////要添加动物和附属品
 #include "cocos2d.h"
-#define TOOL "Pick"
+#include "Global/Global.h"
+
 #define FOOD "straw"
 #define SPEED 10.0f
-#define TODAY 0 //全局变量的时间中获取
+
+//动物的成长图鉴
+const std::unordered_map<std::string, int> ANIMAL_MAP ={ {"pig",5},{"sheep",4},{"chicken",3} };
+//动物生成物
+const std::unordered_map<std::string, std::string> PRODUCE_MAP = { {"pig","pig"},{"sheep","pig"},{"chicken","pig"} };
+
 
 class animals : public cocos2d::Sprite
 {
@@ -15,11 +20,10 @@ private:
     int now_day = 0;                             //当前日期
     static std::string animals_name;                //动物的名称
     static int produce_day;                      //每次生成附属品所需要的天数
-    bool is_produce = 0;                        //是否生成附属品
+    bool is_produce = 0;                         //是否生成附属品
 
     int feed_count = 0;                         //喂养总天数
-    int feed_today = 1;                       //今天剩余喂养次数
-    int produce_count = 0;
+    int feed_today = 1;                         //今天剩余喂养次数
 
     static cocos2d::Texture2D* transparent_texture;
     static cocos2d::Size produce_size;
@@ -27,7 +31,7 @@ private:
 
 public:
     // 创建实例
-    static  animals* create(const std::string& plist_name, std::string name, cocos2d::Vec2 loc, cocos2d::Size size);
+    static animals* create(const std::string& plist_name, std::string name, cocos2d::Vec2 pos, cocos2d::Size size);
 
     // 初始化鼠标监听器
     void init_mouselistener();
@@ -37,8 +41,8 @@ public:
 
     //游荡
     void updateDirection(const cocos2d::Vec2& movementDirection);
-    void scheduleRandomMove(cocos2d::TMXTiledMap* tileMap);
     void randmove(cocos2d::TMXTiledMap* tileMap);
+    void scheduleRandomMove(cocos2d::TMXTiledMap* tileMap);
 
     //喂食
     void feed();

@@ -15,7 +15,6 @@
     }
 使用要求：plist文件中上下左右移动的后缀分别为{"-back","-front","-left","-right"}，并且每个方向有四个走路的动画，后缀为{"1","2","3","4"}
  ****************************************************************************/
-//void moveable_sprite_key_tool::update(float deltaTime) 需补充！
 
 #include "moveable_sprite_key.h"
 
@@ -25,6 +24,10 @@ std::string moveable_sprite_key_walk::sprite_name_walk = "";
 std::string moveable_sprite_key_tool::sprite_name_tool = "";
 cocos2d::Texture2D* moveable_sprite_key_tool::transparent_texture = nullptr;
 cocos2d::Texture2D* moveable_sprite_key::transparent_texture = nullptr;
+
+std::unordered_set<std::string> TOOLS_MAP =
+{ "Axe1", "Rod1", "Hoe1", "Pick1", "Can1" ,"Axe2", "Rod2", "Hoe2", "Pick2", "Can2" };
+
 
 //创建一个moveable_sprite_key的实例
 moveable_sprite_key* moveable_sprite_key::create(const std::string& plist_name, float width, float height)
@@ -179,6 +182,8 @@ void moveable_sprite_key::move_act(int direction)
     this->runAction(move_action);
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////创建moveable_sprite_key_walk实例
 moveable_sprite_key_walk* moveable_sprite_key_walk::create(const std::string& plist_name, const std::string& sprite_framename)
 
 {
@@ -236,10 +241,19 @@ void moveable_sprite_key_walk :: move_act(int direction)
         this->runAction(repeat);
         isAnimating = true;  // 标记动画正在播放
     }
+
+    character_pos = this->getPosition();
+    CCLOG("charactor position: (%f, %f)", character_pos.x, character_pos.y);
 }
 
+cocos2d::Vec2 moveable_sprite_key_walk::get_pos()
+{
+    auto pos = this->getPosition();
+    CCLOG("pos at: (%.2f, %.2f)", pos.x, pos.y);
+    return pos;
+}
 
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //创建moveable_sprite_key_tool实例
 moveable_sprite_key_tool* moveable_sprite_key_tool::create(const std::string& plist_name, float width, float height)
 
@@ -281,12 +295,15 @@ moveable_sprite_key_tool* moveable_sprite_key_tool::create(const std::string& pl
 }
 
 void moveable_sprite_key_tool::update(float deltaTime){
+
     // 先调用父类的 update
     moveable_sprite_key::update(deltaTime);
 
-    if (/*现在手上的物品名称！= sprite_name_tool*/false) {
-        if (/*现在手上的物品名称 属于工具 */true) {
-            sprite_name_tool = "现在手上的物品名称";
+    //如果手上现在的工具与背包选中的不一致，则需更新
+    if (backpackLayer->getSelectedItem()!= sprite_name_tool) {
+        //如果该物品需要拿在手上，则显示，否则显示透明纹理
+        if (TOOLS_MAP.count(backpackLayer->getSelectedItem())) {
+            sprite_name_tool = backpackLayer->getSelectedItem();
             this->setSpriteFrame(sprite_name_tool + direc + ".png");
         }
         else{
@@ -346,7 +363,7 @@ void moveable_sprite_key_tool::on_mouse_click(cocos2d::Event* event)
         this->scheduleOnce([this](float dt) {
             this->setSpriteFrame(sprite_name_tool + direc + ".png");
             }, 0.2f, "reset_texture_key");
-        CCLOG("Mouse Position: (%f, %f)", mouse_pos.x, mouse_pos.y);
+        CCLOG("Mouse Position（tool）: (%f, %f)", mouse_pos.x, mouse_pos.y);
         click_pos = mouse_pos;
     }
 

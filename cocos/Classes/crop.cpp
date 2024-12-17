@@ -1,8 +1,5 @@
 #include "crop.h"
-
-//全局变量的时间中获取
-
-
+#define MAG_TIME_CROP 3.0f
 // 定义静态成员变量并初始化
 std::string crop::crop_name = "";
 int crop::develop_day = 0;
@@ -83,72 +80,100 @@ void crop::on_mouse_click(cocos2d::Event* event)
         mouse_pos.y < crop_pos.y + crop_size.height / 2)
     {
         CCLOG("click crop");
-        if (develop_level == -1) //作物枯萎，点击铲除
+        switch (develop_level) 
         {
+        case -1: //作物枯萎，点击铲除
             this->clear();
             CCLOG("clear the dead crop");
-        }
-        else if (develop_level == 5) {
+            break;
+        case 5: //作物成熟，点击收获
             this->harvest();
             CCLOG("harvest the crop");
+        case 0://此时为空地
+            if (CROP_MAP.count(backpackLayer->getSelectedItem())) //手上拿的物品是植物种子
+            {
+                this->planting(backpackLayer->getSelectedItem());
+                CCLOG("plant a crop");
+            }
+            break;
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+            if (backpackLayer->getSelectedItem().find("Can") != std::string::npos) //手上的工具为水壶，执行浇水
+            {
+                this->water(backpackLayer->getSelectedItem());
+                CCLOG("water this crop");
+            }
+            else if (backpackLayer->getSelectedItem().find("Fertilizer") != std::string::npos)//手上的工具为肥料，执行施肥
+            {
+                this->fertilize(backpackLayer->getSelectedItem());
+                CCLOG("fertilize this crop");
+            }
+            break;
+        default:
+            CCLOG("ERROR develop_level!!!!");
+            break;
         }
-        else if (goods_inhand.goods_name == "Can" && develop_level > 0) //需要手上的工具为水壶，执行浇水
-        {
-            this->water();
-            CCLOG("water this crop successfully");
-        }
-        else if (CROP_MAP.count(goods_inhand.goods_name) && develop_level == 0) //如果手上拿的物品是种植植物
-        {
-            this->planting(goods_inhand.goods_name);
-            CCLOG("plant a crop");
-        }
-        else{
-            CCLOG("water crop should take can in hand");
-        }
+
     }
 }
 
 //浇水
-void crop::water()
+void crop::water(std::string name)
 {
     if(watered_today)//如果今天还有浇水次数
     {
-        watered_today -= 1;
+        char last_char = name[name.size() - 1];
+        int level = last_char - '0';
+        watered_today = std::min(watered_today - level, 0);
+        //背包水-1
+        backpackLayer->removeItem(name);
+        CCLOG("water successfully");
     }
+    else
+        CCLOG("couldn't water today");
 }
 
 //种植
 void crop::planting(std::string name) {
-    if (CROP_MAP.at(name).at("season") == SEASON) {
+    if (CROP_MAP.at(name).at("season") == timeSystem->getSeason()) //此时是种植这个作物的季节
+    {
         crop_name = name;
         develop_level = 1;
-        develop_day = 1; /************************************************/
-        std::string framename = this->crop_name + "-" + std::to_string(this->develop_level) + ".png";
+        develop_day = CROP_MAP.at(name).at("develop_day"); 
+        std::string framename = this->crop_name + "-1.png";//显示第一阶段种植图片，表示种植成功
         this->setSpriteFrame(framename);
-        this->setScale(6.0f);  // 将精灵放大 4 倍
+        this->setScale(MAG_TIME_CROP);
 
         //背包里种子-1
+        backpackLayer->removeItem(name);
         CCLOG("plant successfully");
     }
     else
-        CCLOG("the crop couldn't plant in this season");
+        CCLOG("the crop couldn't be planted in this season");
 }
 
 //施肥
-void crop::fertilize()
+void crop::fertilize(std::string name)
 {
     develop_level += 1;
     std::string framename = this->crop_name + "-" + std::to_string(this->develop_level) + ".png";
     this->setSpriteFrame(framename);
+    backpackLayer->removeItem(name);
+
     //背包里肥料-1
+    backpackLayer->removeItem(name);
+    CCLOG("fertilize successfully");
 }
 
 //丰收
 void crop::harvest()
 {
     //把生成物加入背包 
+    backpackLayer->addItem(HARVEST_MAP.at(crop_name));
+    //清空土地
     this->clear();
-
 }
 
 //清除
@@ -159,14 +184,14 @@ void crop::clear()
     develop_day = 0;
     develop_level = 0;
     crop_name = "";
-    watered_today = 1 + IS_DRY_DAY;
+    watered_today = 2 + timeSystem->isDroughtDay();
     this->initWithTexture(transparent_texture);
 }
 
 //更新
 void crop::update_day()
 {
-    if (TODAY != now_day)//今天结束了
+    if (timeSystem->getDay() != now_day)//今天结束了
     {
         if (develop_level > 0) {
             if (watered_today)//说明今天浇水次数没有达到要求
@@ -190,8 +215,8 @@ void crop::update_day()
                 }
             }
         }
-        now_day = TODAY;
-        watered_today = 1 + IS_DRY_DAY;
+        now_day = timeSystem->getDay();
+        watered_today =2 + timeSystem->isDroughtDay();
 
     }
 }

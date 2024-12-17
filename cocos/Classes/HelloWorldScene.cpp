@@ -48,18 +48,18 @@ bool HelloWorld::init()
         return false;
     }
 
-    //每10s增加TODAY
-    this->schedule([](float dt) {
-        TODAY++;CCLOG("TODAY: %d", TODAY);
-        }, 10.0f, "global_variable_increment");
+    ////每10s增加TODAY
+    //this->schedule([](float dt) {
+    //    TODAY++;CCLOG("TODAY: %d", TODAY);
+    //    }, 10.0f, "global_variable_increment");
 
 
    auto visibleSize = Director::getInstance()->getVisibleSize();
    Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
    //测试
+   auto sprite_move = moveable_sprite_key_walk::create("Jas_Winter.plist", "Jas_Winter");
 
-    auto sprite_move = moveable_sprite_key_walk::create("Jas_Winter.plist","Jas_Winter");
     if (sprite_move)
     {
         // 设置初始位置
@@ -70,10 +70,10 @@ bool HelloWorld::init()
         // 初始化键盘监听器
         sprite_move->init_keyboardlistener();
     
-        // 定时调用 update 更新精灵的位置
-        sprite_move->schedule([sprite_move](float dt) {
-            sprite_move->update(dt);
-            }, "update_key_person");
+        //// 定时调用 update 更新精灵的位置
+        //sprite_move->schedule([sprite_move](float dt) {
+        //    sprite_move->update(dt);
+        //    }, "update_key_person");
     }
    
     // 获取精灵的原始尺寸
