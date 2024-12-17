@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 
+
 USING_NS_CC;
 
 // 宏定义部分
@@ -13,6 +14,11 @@ USING_NS_CC;
 #define MAX_DAYS_IN_MONTH 30    // 每个季节最多30天（简化处理）
 #define TIME_SCALE 1.0/10.0     // 时间流速倍率，现实中30s=游戏中1小时
 #define DROUGHT_DAY_PROBABILITY 0.1 // 干旱日的概率，10%的概率会生成干旱日
+#define SPRING 1
+#define SUMMER 2
+#define AUTUMN 3
+#define WINTER 4
+
 
 // TimeSystem类，管理游戏时间的流逝和显示
 class TimeSystem : public cocos2d::Node {
@@ -30,7 +36,7 @@ public:
 
     // 获取当前游戏时间相关信息
     int getYear() const { return year; }
-    int changeSeason() const { return season; }
+    int getSeason() const { return season; }
     int getDay() const { return day; }
     int getHour() const { return hour; }
     bool isDroughtDay() const { return droughtDay; }
