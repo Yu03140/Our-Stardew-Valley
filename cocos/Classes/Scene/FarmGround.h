@@ -26,7 +26,6 @@ public:
     virtual bool init();
     // 添加或移除物品
     void addItem(const std::string& itemName);
-    //  void removeItem(const std::string& itemName);
 
       // 宏定义，用于创建场景
     CREATE_FUNC(FarmScene);

@@ -84,7 +84,7 @@ bool BackpackLayer::init() {
     addItem("Pick1");
     addItem("Rod1");
     addItem("strawberry", 5);
-	removeItem("strawberry", 5);
+    addItem("pumpkin", 5);
     addItem("Rod1");
 
 
@@ -107,12 +107,15 @@ void BackpackLayer::onMouseDown(Event* event) {
 
     // 转换为 Tiled 坐标
     clickPosition.y = visibleHeight - clickPosition.y;  // Tiled 的 y 坐标需要反转
+    CCLOG("Click position: (%f, %f)", clickPosition.x, clickPosition.y);
 
     // 遍历每个背包格子，检查是否点击了物品
     for (int i = 0; i < itemSlots.size(); ++i) {
         auto& slot = itemSlots[i];
         Rect slotRect(slot.sprite->getPositionX()+X0, slot.sprite->getPositionY()+Y0- slot.sprite->getContentSize().height,
             slot.sprite->getContentSize().width*3, slot.sprite->getContentSize().height*3);
+
+        CCLOG("Slot %d: (%f, %f, %f, %f)", i, slotRect.origin.x, slotRect.origin.y, slotRect.size.width, slotRect.size.height);
 
         // 如果点击的位置在当前格子内
         if (slotRect.containsPoint(clickPosition)) {
@@ -219,3 +222,5 @@ void BackpackLayer::clearItemTexture(int slotIndex) {
     delete[] transparentData;
 
 }
+
+

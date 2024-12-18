@@ -212,7 +212,15 @@ void FarmScene::updateCameraPosition(float dt, Node* player)
     // 设置摄像头位置
     if (camera) {
         camera->setPosition3D(Vec3(cameraX, cameraY, camera->getPosition3D().z));
-		CCLOG("Camera position: (%f, %f)", cameraX, cameraY);
+		//CCLOG("Camera position: (%f, %f)", cameraX, cameraY);
+        if (backpackLayer) {
+            // 获取屏幕的可见大小
+            float backpackX = cameraX - visibleSize.width / 2 ;
+            float backpackY = cameraY - visibleSize.height / 2;
+
+            // 设置背包层的位置
+            backpackLayer->setPosition(Vec2(backpackX, backpackY));
+        }
     }
 }
 
