@@ -88,7 +88,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // 创建一个场景对象，并运行
-    auto scene = FarmScene::createScene();
+    auto scene = MenuScene::createScene();
     director->runWithScene(scene);
 
     return true;

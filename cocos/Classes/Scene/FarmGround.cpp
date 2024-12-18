@@ -54,7 +54,10 @@ bool FarmScene::init() {
     //----------------------------------------------------
     timeSystem = TimeSystem::getInstance();  
     Node* parentNode = this;  
-    parentNode->addChild(timeSystem, Timesystemlayer);
+    if (timeSystem->getParent() == nullptr) {
+        parentNode->addChild(timeSystem, Timesystemlayer);
+    }
+
 
 
     //----------------------------------------------------
