@@ -37,7 +37,7 @@ private:
     void clearItemTexture(int slotIndex);
 
 	// 更新摄像机位置
-    void updateCamera(Node* player);
+    void updateCameraPosition(float dt, Node* player);
 
     // 农作物数据
     std::vector<Crops> crops;

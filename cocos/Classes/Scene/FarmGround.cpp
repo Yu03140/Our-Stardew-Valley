@@ -1,5 +1,4 @@
 #include "FarmGround.h"
-
 USING_NS_CC;
 
 bool FarmScene::init() {
@@ -42,6 +41,7 @@ bool FarmScene::init() {
     backpackLayer = BackpackLayer::create();
     if (backpackLayer) {
         this->addChild(backpackLayer, Backpacklayer);
+        backpackLayer->setPosition(Vec2(20, visibleSize.height - backpackLayer->getContentSize().height - 20));
     }
     else
 		CCLOG("Failed to load the backpack layer");
@@ -72,7 +72,7 @@ bool FarmScene::init() {
 
         sprite_move->schedule([this, sprite_move](float dt) { // 捕获 `this` 和 `sprite_move`
             sprite_move->update(dt);                         // 更新人物移动逻辑
-            this->updateCamera(sprite_move);                 // 更新相机位置
+            updateCameraPosition(dt, sprite_move);                 // 更新相机位置
             }, "update_key_person");
 
     }
@@ -189,29 +189,30 @@ void FarmScene::clearItemTexture(int slotIndex) {
     slot.sprite->removeAllChildren();  // 清空子节点（如数量标签）
 }
 
-void FarmScene::updateCamera(Node* player) {
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-    // 获取人物位置
-    Vec2 playerPos = player->getPosition();
-
-    // 计算地图的初始偏移量（由于锚点在中心）
-    float mapOffsetX = visibleSize.width / 2;
-    float mapOffsetY = visibleSize.height / 2;
-
-    // 计算场景新的位置（人物在屏幕中央）
-    float x = playerPos.x - visibleSize.width / 2;
-    float y = playerPos.y - visibleSize.height / 2;
-
-    // 限制场景边界（防止场景超出地图范围）
-    float maxX = SceneWidth - visibleSize.width;
-    float maxY = SceneHeight - visibleSize.height;
-
-    x = std::min(x, maxX);
-    y = std::min(y, maxY);
-
-    // 设置场景位置，考虑锚点偏移
-    tileMap->setPosition(Vec2(mapOffsetX - x, mapOffsetY - y));
-	//CCLOG("Camera position: (%f, %f)", x, y);
+template <typename T>
+T clamp(T value, T low, T high) {
+    if (value < low) return low;
+    if (value > high) return high;
+    return value;
 }
+
+
+void FarmScene::updateCameraPosition(float dt, Node* player)
+{
+    auto playerPosition = player->getPosition();
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+
+    // 镜头位置要保持在地图边界内
+    float cameraX = clamp(playerPosition.x, visibleSize.width / 2 - SceneWidth, SceneWidth - visibleSize.width / 2);
+    float cameraY = clamp(playerPosition.y, visibleSize.height / 2 - SceneHeight, SceneHeight - visibleSize.height / 2);
+
+    // 获取默认摄像头
+    auto camera = Director::getInstance()->getRunningScene()->getDefaultCamera();
+
+    // 设置摄像头位置
+    if (camera) {
+        camera->setPosition3D(Vec3(cameraX, cameraY, camera->getPosition3D().z));
+		CCLOG("Camera position: (%f, %f)", cameraX, cameraY);
+    }
+}
+

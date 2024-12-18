@@ -295,7 +295,7 @@ void moveable_sprite_key_tool::update(float deltaTime){
     }
 }
 
-/*
+
 //生成移动指令
 void moveable_sprite_key_tool::move_act(int direction)
 {
@@ -310,7 +310,7 @@ void moveable_sprite_key_tool::move_act(int direction)
     auto move_action = cocos2d::MoveBy::create(0.1f, cocos2d::Vec2(move_vecx[direction], move_vecy[direction]));
     this->runAction(move_action);
 }
-*/
+
 
 // 初始化鼠标监听器
 void moveable_sprite_key_tool::init_mouselistener()
