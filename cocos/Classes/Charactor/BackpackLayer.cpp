@@ -75,14 +75,15 @@ bool BackpackLayer::init() {
         itemSlots[i].sprite = sprite;
     }
 
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Tools.plist");        //传入纹理图集
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("bag.plist");        //传入纹理图集
 
 	// 初始添加五件工具
     addItem("Axe1");
-    addItem("Can1");
+    addItem("Can1",555);
     addItem("Hoe1");
     addItem("Pick1");
     addItem("Rod1");
+    addItem("strawberry",1000);
 
     // 添加点击事件监听器
     auto listener = EventListenerMouse::create();
@@ -114,7 +115,7 @@ void BackpackLayer::onMouseDown(Event* event) {
             slot.sprite->getContentSize().width*3, slot.sprite->getContentSize().height*3);
 
         // 打印slotRect
-		CCLOG("slotRect: (%f, %f, %f, %f)", slotRect.origin.x, slotRect.origin.y, slotRect.size.width, slotRect.size.height);
+		//CCLOG("slotRect: (%f, %f, %f, %f)", slotRect.origin.x, slotRect.origin.y, slotRect.size.width, slotRect.size.height);
 
         // 如果点击的位置在当前格子内
         if (slotRect.containsPoint(clickPosition)) {
@@ -178,7 +179,7 @@ void BackpackLayer::updateItemTexture(int slotIndex) {
 
     auto& slot = itemSlots[slotIndex];
     if (slot.name != "") {
-        std::string spriteFrameName = slot.name + "-right.png";  
+        std::string spriteFrameName = slot.name + ".png";  
         auto spriteFrame = SpriteFrameCache::getInstance()->getSpriteFrameByName(spriteFrameName);
         if (spriteFrame) {
             slot.sprite->setSpriteFrame(spriteFrame);  // 使用spriteFrame更新纹理

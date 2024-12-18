@@ -5,7 +5,7 @@
 #include "Global/Global.h"
 #include <unordered_set>
 
-#define SPEED 30.0f
+#define SPEED 35.0f
 
 class moveable_sprite_key : public cocos2d::Sprite
 {
@@ -68,7 +68,6 @@ private:
     static std::string sprite_name_tool;
     cocos2d::Vec2 click_pos;
     std::string direc = "-front";
-    int range = 50;
     static cocos2d::Texture2D* transparent_texture;
 
 public:

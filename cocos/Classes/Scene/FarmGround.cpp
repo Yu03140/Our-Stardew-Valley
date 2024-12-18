@@ -1,7 +1,7 @@
 #include "FarmGround.h"
 
 USING_NS_CC;
-
+#define MAG_TIMES 4.0f
 FarmScene* FarmScene::createScene() {
     // 创建并返回 FarmScene 场景对象
     return FarmScene::create();
@@ -27,8 +27,7 @@ bool FarmScene::init() {
         float posY = visibleSize.height / 2;
         tileMap->setPosition(Vec2(posX, posY));
         this->addChild(tileMap, 0);
-        tileMap->setScale(2);
-        
+        tileMap->setScale(MAG_TIMES);
     }
     else {
         CCLOG("Failed to load the tile map");
@@ -51,21 +50,46 @@ bool FarmScene::init() {
     auto sprite_move = moveable_sprite_key_walk::create("Jas_Winter.plist", "Jas_Winter");
     if(sprite_move)
     {
-
         sprite_move->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+        character_pos = Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y);
         this->addChild(sprite_move, 1);
-
         sprite_move->init_keyboardlistener();
-
         sprite_move->schedule([sprite_move](float dt) {
             sprite_move->update(dt);
             }, "update_key_person");
     }
+    auto animal = animals::create("Animals.plist", "Pig", Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y),Size(100,100));
+    if (animal)
+    {
+        animal->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+        this->addChild(animal, 1);
+        animal->init_mouselistener();
+        animal->scheduleRandomMove(tileMap);
+        animal->schedule([animal](float dt) {
+            animal->update(dt);
+            }, "update_animal");
+    }
+    // 计算经过缩放后的实际尺寸
+    Size originalSize = sprite_move->getContentSize();
+    float scale = sprite_move->getScale();
+    Size scaledSize = Size(originalSize.width * scale, originalSize.height * scale);
+    auto sprite_tool = moveable_sprite_key_tool::create("Tools.plist", TOOL_WIDTH, TOOL_HEIGHT);
+    if (sprite_tool)
+    {
+        sprite_tool->setPosition(Vec2(visibleSize.width / 2 + origin.x + scaledSize.width / 2, visibleSize.height / 2 + origin.y));
+        this->addChild(sprite_tool, 1);
+        sprite_tool->init_keyboardlistener();
+        sprite_tool->init_mouselistener();
+        sprite_tool->schedule([sprite_tool](float dt) {
+            sprite_tool->update(dt);
+            }, "update_key_tool");
+    }
+
+
 
 	// 添加任务栏
     taskBarScene = TaskBarLayer::create(); 
     tileMap->addChild(taskBarScene,3);     
-
 
     // 作物模块
     // 获取对象层（每个作物格子的位置）
@@ -91,25 +115,23 @@ bool FarmScene::init() {
 
 
         // 创建透明纹理的精灵
-        auto sprite = Sprite::create("load1.png");  // 默认无纹理
+        auto sprite = crop::create("crop_m.plist", width, height); // 默认无纹理
+
         sprite->setPosition(Vec2(posX, posY));        // 设置位置
         sprite->setAnchorPoint(Vec2(0, 0));     // 设置锚点
         sprite->setContentSize(Size(width, height));  // 设置大小
-        tileMap->addChild(sprite, 1);  // 添加到瓦片地图
+        tileMap->addChild(sprite, 2);  // 添加到瓦片地图
+        sprite->init_mouselistener();
         crops[i].sprite = sprite;
-    }
+        sprite->schedule([sprite](float dt) {
+            sprite->update_day(dt);
+            }, "update_crop");
 
+    }
     return true;
 }
 
 void FarmScene::addItem(const std::string& itemName) {
-    for (int i = 0; i < crops.size(); ++i) {
-        if (crops[i].name == itemName) {
-            // 如果物品已存在，更新显示
-            updateItemTexture(i);
-            return;
-        }
-    }
     for (int i = 0; i < crops.size(); ++i) {
         if (crops[i].name == "") {
             // 找到空格子，放入物品

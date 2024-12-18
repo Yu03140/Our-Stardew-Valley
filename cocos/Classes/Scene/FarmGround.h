@@ -5,11 +5,15 @@
 #include "Charactor/BackpackLayer.h"
 #include "Moveable/moveable_sprite_key.h"
 #include "Global/Global.h"
+#include "GetableItem/crop.h"
+#include "GetableItem/animals.h"
+
+#define TOOL_WIDTH 40
+#define TOOL_HEIGHT 60
 
 struct Crops {
     std::string name;        // 物品名称
-    //  int quantity;            // 物品数量
-    cocos2d::Sprite* sprite; // 显示物品的精灵
+    crop* sprite; // 显示物品的精灵
 };
 
 class FarmScene : public cocos2d::Scene {

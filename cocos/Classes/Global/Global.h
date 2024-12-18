@@ -9,11 +9,14 @@
 #include "Attribute/attribute.h"
 #include "TaskBar/TaskBarScene.h"
 
+//全局定义
+#define CONTROL_RANGE 300
+
 extern BackpackLayer* backpackLayer;
 extern TimeSystem* timeSystem;
 extern TaskBarLayer* taskBarScene;
 extern cocos2d::Vec2 character_pos;
-
+extern bool is_in_control;
 #endif // GLOBAL_H
 
 
