@@ -17,9 +17,9 @@ bool FarmScene::init() {
         float posY = visibleSize.height / 2;
         tileMap->setPosition(Vec2(posX, posY));
         this->addChild(tileMap, 0);
-        tileMap->setScale(2);
-		SceneWidth = tileMap->getContentSize().width*2;
-		SceneHeight = tileMap->getContentSize().height*2;
+        tileMap->setScale(MapSize);
+		SceneWidth = tileMap->getContentSize().width* MapSize;
+		SceneHeight = tileMap->getContentSize().height* MapSize;
 
 		CCLOG("Loaded the tile map successfully: (%f,%f)", SceneWidth, SceneHeight);
     }
@@ -192,8 +192,6 @@ void FarmScene::clearItemTexture(int slotIndex) {
 void FarmScene::updateCamera(Node* player) {
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-    Size mapSize = tileMap->getContentSize();
-    float scale = tileMap->getScale();
 
     // 获取人物位置
     Vec2 playerPos = player->getPosition();
@@ -203,12 +201,12 @@ void FarmScene::updateCamera(Node* player) {
     float mapOffsetY = visibleSize.height / 2;
 
     // 计算场景新的位置（人物在屏幕中央）
-    float x = std::max(playerPos.x - visibleSize.width / 2, 0.0f);
-    float y = std::max(playerPos.y - visibleSize.height / 2, 0.0f);
+    float x = playerPos.x - visibleSize.width / 2;
+    float y = playerPos.y - visibleSize.height / 2;
 
     // 限制场景边界（防止场景超出地图范围）
-    float maxX = mapSize.width * scale - visibleSize.width;
-    float maxY = mapSize.height * scale - visibleSize.height;
+    float maxX = SceneWidth - visibleSize.width;
+    float maxY = SceneHeight - visibleSize.height;
 
     x = std::min(x, maxX);
     y = std::min(y, maxY);

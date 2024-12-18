@@ -85,6 +85,7 @@ bool BackpackLayer::init() {
     addItem("Rod1");
     addItem("strawberry", 5);
 	removeItem("strawberry", 5);
+    addItem("Rod1");
 
 
     // 添加点击事件监听器

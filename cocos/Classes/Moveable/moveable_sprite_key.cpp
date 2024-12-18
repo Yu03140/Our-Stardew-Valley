@@ -143,19 +143,19 @@ void moveable_sprite_key::update(float deltaTime)
     cocos2d::Vec2 origin = cocos2d::Director::getInstance()->getVisibleOrigin();
 
     // 判断精灵是否超出边界
-   if (sprite_pos.y + this->getContentSize().height / 2 >= SceneHeight) {
+    if (sprite_pos.y + this->getContentSize().height * 2 >=  SceneHeight/2) {
        is_hit_edge[0] = true;
        CCLOG("Sprite hit the top edge");
     }
-    else  if (sprite_pos.y - this->getContentSize().height / 2 <= origin.y) {
+   else  if (sprite_pos.y - this->getContentSize().height * 2 <= visibleSize.height - SceneHeight/2) {
        is_hit_edge[1] = true;
        CCLOG("Sprite hit the bottom edge");
     }
-    if (sprite_pos.x - this->getContentSize().width / 2 <= origin.x) {
+    if (sprite_pos.x - this->getContentSize().width *2 <= visibleSize.width - SceneWidth / 2) {
         is_hit_edge[2] = true;
         CCLOG("Sprite hit the left edge");
     }
-    else if (sprite_pos.x + this->getContentSize().width / 2 >= SceneWidth) {
+    else if (sprite_pos.x + this->getContentSize().width * 2 >= SceneWidth/2) {
         is_hit_edge[3] = true;
         CCLOG("Sprite hit the right edge");
     }
@@ -165,8 +165,6 @@ void moveable_sprite_key::update(float deltaTime)
             move_act(i);
     }
 
-    //获取精灵的位置
-    sprite_pos = this->getPosition();
 }
 
 //生成移动指令
@@ -297,6 +295,7 @@ void moveable_sprite_key_tool::update(float deltaTime){
     }
 }
 
+/*
 //生成移动指令
 void moveable_sprite_key_tool::move_act(int direction)
 {
@@ -311,6 +310,7 @@ void moveable_sprite_key_tool::move_act(int direction)
     auto move_action = cocos2d::MoveBy::create(0.1f, cocos2d::Vec2(move_vecx[direction], move_vecy[direction]));
     this->runAction(move_action);
 }
+*/
 
 // 初始化鼠标监听器
 void moveable_sprite_key_tool::init_mouselistener()

@@ -6,6 +6,8 @@
 #include "Moveable/moveable_sprite_key.h"
 #include "Global/Global.h"
 
+#define MapSize 4
+
 
 struct Crops {
 	bool isPlanted;         // 是否种植了作物
