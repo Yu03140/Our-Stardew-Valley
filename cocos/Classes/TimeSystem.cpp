@@ -11,17 +11,30 @@ TimeSystem::TimeSystem() {
     season = 1;               
     droughtDay = false;      
 
-    timeLabel = Label::createWithSystemFont("", "Arial", 30);
-    droughtLabel = Label::createWithSystemFont("", "Arial", 30);
 
-    timeLabel->setPosition(Vec2(2400, 1450));  
-    droughtLabel->setPosition(Vec2(2400, 1380)); 
+    // 获取屏幕尺寸
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+
+    // 计算右上角的位置
+
+
+    timeLabel = Label::createWithSystemFont("", "arial", 30);
+    droughtLabel = Label::createWithSystemFont("", "arial", 30);
+    Vec2 timeLabelPosition = Vec2(visibleSize.width - timeLabel->getContentSize().width - 10, visibleSize.height - timeLabel->getContentSize().height - 10);
+    Vec2 droughtLabelPosition = Vec2(visibleSize.width - droughtLabel->getContentSize().width - 10, visibleSize.height - droughtLabel->getContentSize().height - 50);
+
+    //timeLabel->setPosition(Vec2(2400, 1450));  
+   // droughtLabel->setPosition(Vec2(2400, 1380)); 
+        // 设置位置
+    timeLabel->setPosition(timeLabelPosition);
+    droughtLabel->setPosition(droughtLabelPosition);
+
 
     timeLabel->setMaxLineWidth(500);  
     droughtLabel->setMaxLineWidth(500); 
 
-    timeLabel->setTextColor(Color4B::BLACK);
-    droughtLabel->setTextColor(Color4B::BLACK);
+    timeLabel->setTextColor(Color4B::WHITE);
+    droughtLabel->setTextColor(Color4B::WHITE);
 
 
     this->addChild(timeLabel, 2);  

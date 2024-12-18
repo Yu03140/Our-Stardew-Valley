@@ -1,8 +1,19 @@
 #ifndef __MOVEABLE_SPRITE_KEY_H__
 #define __MOVEABLE_SPRITE_KEY_H__
-#include "FarmGround.h"
+
 #include "cocos2d.h"
+#include "Global.h"
 #define SPEED 30.0f
+
+
+struct Barrier {
+    bool is_obstacles;         // 是否种植了作物
+    std::string name;        // 物品名称
+};
+
+
+
+
 
 class moveable_sprite_key : public cocos2d::Sprite
 {
@@ -18,9 +29,13 @@ private:
     static cocos2d::Texture2D* transparent_texture;
     bool is_passable = 1;
     cocos2d::Vec2 sprite_pos;
+    //=======================================================================================================================================
+    std::vector<Barrier> barrier;
+
+    bool isCollidingWithBorder(const Vec2& playerPos);
+    //=======================================================================================================================================
 public:
     virtual ~moveable_sprite_key(){}
-
 
     //创建一个moveable_sprite_key的实例
     static moveable_sprite_key* create(const std::string& plist_name, float width, float height);

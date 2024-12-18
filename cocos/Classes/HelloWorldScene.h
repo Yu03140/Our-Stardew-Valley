@@ -1,6 +1,10 @@
 
 #ifndef __HELLOWORLD_SCENE_H__
 #define __HELLOWORLD_SCENE_H__
+#include "FarmGround.h"
+#include "moveable_sprite_key.h"
+#include "hover_button.h"
+
 
 #include "cocos2d.h"
 

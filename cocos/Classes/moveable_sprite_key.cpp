@@ -15,16 +15,15 @@
     }
 使用要求：plist文件中上下左右移动的后缀分别为{"-back","-front","-left","-right"}，并且每个方向有四个走路的动画，后缀为{"1","2","3","4"}
  ****************************************************************************/
-//void moveable_sprite_key_tool::update(float deltaTime) 需补充！
+ //void moveable_sprite_key_tool::update(float deltaTime) 需补充！
+
 #include "moveable_sprite_key.h"
 // 静态成员变量定义
-std::string moveable_sprite_key::sprite_name = ""; 
+std::string moveable_sprite_key::sprite_name = "";
 std::string moveable_sprite_key_walk::sprite_name_walk = "";
 std::string moveable_sprite_key_tool::sprite_name_tool = "";
 cocos2d::Texture2D* moveable_sprite_key_tool::transparent_texture = nullptr;
 cocos2d::Texture2D* moveable_sprite_key::transparent_texture = nullptr;
-
-
 
 //创建一个moveable_sprite_key的实例
 moveable_sprite_key* moveable_sprite_key::create(const std::string& plist_name, float width, float height)
@@ -144,19 +143,19 @@ void moveable_sprite_key::update(float deltaTime)
     cocos2d::Vec2 origin = cocos2d::Director::getInstance()->getVisibleOrigin();
 
     // 判断精灵是否超出边界
-   if (sprite_pos.y + this->getContentSize().height / 2 >= origin.y + visibleSize.height) {
-       is_hit_edge[0] = true;
-       CCLOG("Sprite hit the top edge");
+    if (sprite_pos.y + this->getContentSize().height * 2 >= SceneHeight / 2) {
+        is_hit_edge[0] = true;
+        CCLOG("Sprite hit the top edge");
     }
-    else  if (sprite_pos.y - this->getContentSize().height / 2 <= origin.y) {
-       is_hit_edge[1] = true;
-       CCLOG("Sprite hit the bottom edge");
+    else  if (sprite_pos.y - this->getContentSize().height * 2 <= visibleSize.height - SceneHeight / 2) {
+        is_hit_edge[1] = true;
+        CCLOG("Sprite hit the bottom edge");
     }
-    if (sprite_pos.x - this->getContentSize().width / 2 <= origin.x) {
+    if (sprite_pos.x - this->getContentSize().width * 2 <= visibleSize.width - SceneWidth / 2) {
         is_hit_edge[2] = true;
         CCLOG("Sprite hit the left edge");
     }
-    else if (sprite_pos.x + this->getContentSize().width / 2 >= origin.x + visibleSize.width) {
+    else if (sprite_pos.x + this->getContentSize().width * 2 >= SceneWidth / 2) {
         is_hit_edge[3] = true;
         CCLOG("Sprite hit the right edge");
     }
@@ -166,13 +165,59 @@ void moveable_sprite_key::update(float deltaTime)
             move_act(i);
     }
 
+    //=======================================================================================================================================
 
-    //获取精灵的位置
-    sprite_pos = this->getPosition();
+    // 获取角色的当前位置
+    Vec2 playerPos = this->getPosition();
+    CCLOG("Player position: x=%f, y=%f", playerPos.x, playerPos.y);
+    if (isCollidingWithBorder(playerPos)) {
+        CCLOG("Player is colliding with an obstacle. Cannot move.");
+        // 阻止玩家继续移动，或者做其他的碰撞处理
+    }
+    else {
+        CCLOG("Player can move freely.");
+        // 玩家可以继续移动
+    }
 }
+bool moveable_sprite_key::isCollidingWithBorder(const Vec2& playerPos) {
+    // 获取角色的大小（假设为正方形）
+    Size playerSize = this->getContentSize();
+    Rect playerRect(playerPos.x - playerSize.width / 2, playerPos.y - playerSize.height / 2, playerSize.width, playerSize.height);
 
+    // 获取对象层
+    auto objectGroup = tileMap->getObjectGroup("barriers");
+    if (!objectGroup) {
+        CCLOG("Failed to get object group 'barriers'");
+        return false;
+    }
+    CCLOG("ok to get object group 'barriers'");
 
+    // 格子管理（最大36格）
+    barrier.resize(20);
+    for (int i = 0; i < 20; ++i) {
 
+        barrier[i].is_obstacles = false; // 是否是障碍物
+        barrier[i].name = "";     
+        CCLOG("get barrier %d successfully",i+1);
+        // 获取对象层中每个格子的坐标
+        auto object = objectGroup->getObject("barrier" + std::to_string(i + 1));  // 获取第 i+1 个格子
+        float posX = object["x"].asFloat();
+        float posY = object["y"].asFloat();
+        float width = object["width"].asFloat();
+        float height = object["height"].asFloat();
+        // 输出障碍物的位置和大小
+        CCLOG("Obstacle %d position: x=%f, y=%f, width=%f, height=%f", i + 1, posX, posY, width, height);
+        // 判断玩家的位置是否在障碍物的区域内
+        if (playerPos.x >= posX && playerPos.x <= posX + width &&
+            playerPos.y >= posY && playerPos.y <= posY + height) {
+            CCLOG("Player is colliding with obstacle %d", i + 1);
+            return true;
+        }
+    }
+
+    return false;
+}
+//=======================================================================================================================================
 
 //生成移动指令
 void moveable_sprite_key::move_act(int direction)
@@ -217,13 +262,13 @@ moveable_sprite_key_walk* moveable_sprite_key_walk::create(const std::string& pl
 }
 
 //生成带有移动动画的移动指令
-void moveable_sprite_key_walk :: move_act(int direction)
+void moveable_sprite_key_walk::move_act(int direction)
 {
     //各方向对应图片后缀
     std::string dic[4] = { "-back","-front","-left","-right" };
 
     //创建移动动作
-    auto move_action = cocos2d::MoveBy::create(0.1f, cocos2d::Vec2( move_vecx[direction], move_vecy[direction]));
+    auto move_action = cocos2d::MoveBy::create(0.1f, cocos2d::Vec2(move_vecx[direction], move_vecy[direction]));
     //创建动画
     cocos2d::Vector<cocos2d::SpriteFrame*> frames;
     frames.pushBack(cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName(sprite_name_walk + dic[direction] + ".png"));
@@ -286,7 +331,7 @@ moveable_sprite_key_tool* moveable_sprite_key_tool::create(const std::string& pl
     return nullptr;
 }
 
-void moveable_sprite_key_tool::update(float deltaTime){
+void moveable_sprite_key_tool::update(float deltaTime) {
     // 先调用父类的 update
     moveable_sprite_key::update(deltaTime);
 
@@ -295,18 +340,19 @@ void moveable_sprite_key_tool::update(float deltaTime){
             sprite_name_tool = "现在手上的物品名称";
             this->setSpriteFrame(sprite_name_tool + direc + ".png");
         }
-        else{
+        else {
             sprite_name_tool = "";
             this->setTexture(transparent_texture);
         }
     }
 }
 
+
 //生成移动指令
 void moveable_sprite_key_tool::move_act(int direction)
 {
     std::string dic[4] = { "-back","-front","-left","-right" };
-    if(sprite_name_tool != "") {
+    if (sprite_name_tool != "") {
         //各方向对应图片后缀
         this->setSpriteFrame(sprite_name_tool + dic[direction] + ".png");
     }
@@ -316,6 +362,7 @@ void moveable_sprite_key_tool::move_act(int direction)
     auto move_action = cocos2d::MoveBy::create(0.1f, cocos2d::Vec2(move_vecx[direction], move_vecy[direction]));
     this->runAction(move_action);
 }
+
 
 // 初始化鼠标监听器
 void moveable_sprite_key_tool::init_mouselistener()
@@ -356,4 +403,3 @@ void moveable_sprite_key_tool::on_mouse_click(cocos2d::Event* event)
     }
 
 }
-

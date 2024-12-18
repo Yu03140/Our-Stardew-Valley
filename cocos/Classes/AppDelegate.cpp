@@ -1,6 +1,4 @@
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
-#include "FarmGround.h"
 
 
 // #define USE_AUDIO_ENGINE 1
@@ -12,11 +10,10 @@ using namespace cocos2d::experimental;
 
 USING_NS_CC;
 
-static cocos2d::Size designResolutionSize = cocos2d::Size(3200, 2000);//改动 占满屏
-static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 750);
-static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
-static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
-
+static cocos2d::Size designResolutionSize = cocos2d::Size(1024, 768);  // 设计分辨率
+static cocos2d::Size smallResolutionSize = cocos2d::Size(800, 600);    // 小分辨率
+static cocos2d::Size mediumResolutionSize = cocos2d::Size(1600, 1200); // 中分辨率
+static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);  // 大分辨率
 AppDelegate::AppDelegate()
 {
 }
@@ -57,7 +54,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #endif
         director->setOpenGLView(glview);
     }
-
+    glview->setFrameSize(3200, 2000);
     // 是否显示帧率
     director->setDisplayStats(false);
 

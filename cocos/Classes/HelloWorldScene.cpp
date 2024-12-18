@@ -1,12 +1,7 @@
-
 #include "HelloWorldScene.h"
-#include "FarmGround.h"
-#include "moveable_sprite_key.h"
-#include "hover_button.h"
-
 USING_NS_CC;
 
-// ÇÐ»»µ½ MenuScene
+// ÇÐ»»µ½ FarmScene
 void HelloWorld::onMenuItemClicked(Ref* sender) {
     Director::getInstance()->replaceScene(FarmScene::createScene());
 }
