@@ -1,3 +1,17 @@
+//auto animal = animals::create("Animals.plist", "Pig", Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y),Size(100,100));
+//if (animal)
+//{
+//    animal->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+//    this->addChild(animal, 1);
+//    animal->init_mouselistener();
+//    animal->scheduleRandomMove(tileMap);
+//    animal->schedule([animal](float dt) {
+//        animal->update(dt);
+//        }, "update_animal");
+//}
+
+
+
 #ifndef __ANIMALS_H__
 #define __ANIMALS_H__
 

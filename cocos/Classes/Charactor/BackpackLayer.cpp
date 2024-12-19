@@ -158,7 +158,7 @@ bool BackpackLayer::removeItem(const std::string& itemName, const int num) {
             if (itemSlots[i].quantity == 0) {
                 // 物品数量为 0，清空该位置的纹理
                 itemSlots[i].name = "";
-				selectedItemImage = "";
+				selectedItem = "";
                 clearItemTexture(i);
             }
             else {

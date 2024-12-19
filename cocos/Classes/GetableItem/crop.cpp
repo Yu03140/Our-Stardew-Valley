@@ -61,8 +61,8 @@ void crop::init_mouselistener()
 // 鼠标按下时的回调
 void crop::on_mouse_click(cocos2d::Event* event)
 {
+    //获取鼠标在窗口中的位置,转换到地图坐标
     auto mouse_event = dynamic_cast<cocos2d::EventMouse*>(event);
-    // 1. 获取鼠标在窗口中的位置,转换到地图坐标
     Vec2 mousePosition = mouse_event->getLocationInView();
     auto camera = Director::getInstance()->getRunningScene()->getDefaultCamera();
     auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -72,9 +72,9 @@ void crop::on_mouse_click(cocos2d::Event* event)
     Vec2 crop_pos = this->convertToWorldSpace(Vec2(0, 0));
     // 计算点击的有效范围
     float min_x = crop_pos.x;
-    float max_x = crop_pos.x + crop_size.width * MAG_TIME_CROP;
+    float max_x = crop_pos.x + crop_size.width * MapSize;
     float min_y = crop_pos.y;
-    float max_y = crop_pos.y + crop_size.height * MAG_TIME_CROP;
+    float max_y = crop_pos.y + crop_size.height * MapSize;
     if (is_in_control) {
         //输出鼠标点击位置和有效范围
         if ((mouse_pos.x > min_x  &&
@@ -82,10 +82,6 @@ void crop::on_mouse_click(cocos2d::Event* event)
             mouse_pos.y > min_y &&
             mouse_pos.y < max_y))
         {
-            CCLOG("Mouse clicked at(crop): (%.2f, %.2f)", mouse_pos.x, mouse_pos.y);
-            CCLOG("crop at: (%.2f, %.2f)", crop_pos.x, crop_pos.y);
-            CCLOG("Crop valid range: X[%.2f, %.2f], Y[%.2f, %.2f]", min_x, max_x, min_y, max_y);
-
             CCLOG("click crop:%d", develop_level);
             switch (develop_level)
             {
@@ -99,6 +95,7 @@ void crop::on_mouse_click(cocos2d::Event* event)
             case 0://此时为空地
                 if (CROP_MAP.count(backpackLayer->getSelectedItem())) //手上拿的物品是植物种子
                 {
+                    CCLOG("!!!!%d", backpackLayer->getSelectedItem() == "");
                     CCLOG("plant a crop");
                     this->planting(backpackLayer->getSelectedItem());
                 }

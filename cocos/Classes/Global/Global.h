@@ -24,6 +24,8 @@ extern float SceneHeight;
 #define Backpacklayer 2
 #define Timesystemlayer 3
 #define Taskbarlayer 4
+#define MapSize 4
+
 #endif // GLOBAL_H
 
 
