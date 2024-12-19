@@ -3,6 +3,7 @@
 USING_NS_CC;
 
 FarmScene* FarmScene::instance = nullptr;
+Vec2  FarmScene::cameraPosBeforeSwitch = Vec2(0, 0);
 
 bool FarmScene::init() {
     // 调用父类的初始化函数
@@ -13,15 +14,15 @@ bool FarmScene::init() {
 
     init_mouselistener();
 
-        // 加载地图，放在中间
+    // 加载地图，放在中间
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     tileMap = TMXTiledMap::create("Myfarm.tmx");
     if (tileMap) {
         tileMap->setAnchorPoint(Vec2(0.5, 0.5));
-        float posX = visibleSize.width / 2;
-        float posY = visibleSize.height / 2;
-        tileMap->setPosition(Vec2(posX, posY));
+        float Map_posX = visibleSize.width / 2;
+        float Map_posY = visibleSize.height / 2;
+        tileMap->setPosition(Vec2(Map_posX, Map_posY));
         this->addChild(tileMap, 0);
         tileMap->setScale(MapSize);
         SceneWidth = tileMap->getContentSize().width * MapSize;
@@ -49,6 +50,7 @@ bool FarmScene::init() {
     backpackLayer = BackpackLayer::create();
     if (backpackLayer) {
         this->addChild(backpackLayer, Backpacklayer);
+        backpackLayer->retain();
     }
     else
         CCLOG("Failed to load the backpack layer");
@@ -75,7 +77,6 @@ bool FarmScene::init() {
     {
         sprite_move->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
         this->addChild(sprite_move, Playerlayer);
-
         sprite_move->init_keyboardlistener();
 
         sprite_move->schedule([this, sprite_move](float dt) { // 捕获 `this` 和 `sprite_move`
@@ -99,19 +100,6 @@ bool FarmScene::init() {
             sprite_tool->update(dt);
             }, "update_key_tool");
     }
-
-
-    //auto animal = animals::create("Animals.plist", "Pig", Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y),Size(100,100));
-    //if (animal)
-    //{
-    //    animal->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-    //    this->addChild(animal, 1);
-    //    animal->init_mouselistener();
-    //    animal->scheduleRandomMove(tileMap);
-    //    animal->schedule([animal](float dt) {
-    //        animal->update(dt);
-    //        }, "update_animal");
-    //}
 
 
     //----------------------------------------------------
@@ -160,9 +148,6 @@ bool FarmScene::init() {
         tileMap->addChild(sprite, 2);  // 添加到瓦片地图
         sprite->init_mouselistener();
         crops[i].sprite = sprite;
-        //Vec2 worldPos = sprite->convertToWorldSpace(Vec2(0, 0));
-        //log("World Position: x=%f, y=%f", worldPos.x, worldPos.y);
-
 
         sprite->schedule([sprite](float dt) {
             sprite->update_day(dt);
@@ -260,7 +245,7 @@ void FarmScene::updateCameraPosition(float dt, Node* player)
     // 镜头位置要保持在地图边界内
     float cameraX = clamp(playerPosition.x, visibleSize.width / 2 - SceneWidth, SceneWidth - visibleSize.width / 2);
     float cameraY = clamp(playerPosition.y, visibleSize.height / 2 - SceneHeight, SceneHeight - visibleSize.height / 2);
-
+;
     // 获取默认摄像头
     auto camera = Director::getInstance()->getRunningScene()->getDefaultCamera();
 
@@ -304,9 +289,56 @@ void FarmScene::on_mouse_click(cocos2d::Event* event)
     Vec2 mouse_pos = mousePosition + windowOrigin;
     MOUSE_POS = mouse_pos;
     CCLOG("Mouse Position(global): (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
+    checkForDoorClick(mouse_pos);
     // 0.1秒后将 MOUSE_POS 置为 (0, 0)，并且不影响其他程序运行
     this->scheduleOnce([this](float dt) {
         MOUSE_POS = Vec2::ZERO;
         CCLOG("Mouse Position reset to: (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
         }, 1.5f, "reset_mouse_pos_key");
 }
+
+// 功能：检测是否点击了门（Door）并切换到 MinesScene
+void FarmScene::checkForDoorClick(Vec2 mousePosition)
+{
+    // 获取 Button 对象层（Button 层的名称为 "Button"）
+    auto objectGroup = tileMap->getObjectGroup("Button");
+    if (!objectGroup) {
+        CCLOG("Failed to get object group 'Button'");
+        return;
+    }
+
+    CCLOG("Successed to get object grouo 'Button'");
+
+    // 获取 Door 对象的坐标和尺寸
+    auto object = objectGroup->getObject("Door");
+    float posX = object["x"].asFloat();
+    float posY = object["y"].asFloat();
+    float width = object["width"].asFloat();
+    float height = object["height"].asFloat();
+
+    auto sprite = Sprite::create();
+    sprite->setPosition(Vec2(posX, posY));
+    sprite->setAnchorPoint(Vec2(0, 0)); 
+    sprite->setContentSize(Size(width, height));
+    tileMap->addChild(sprite);
+
+    Vec2 door_pos = sprite->convertToWorldSpace(Vec2(0, 0));
+
+    // 判断点击位置是否在 Door 区域内
+    if (mousePosition.x >= door_pos.x && mousePosition.x <= door_pos.x + width &&
+        mousePosition.y >= door_pos.y && mousePosition.y <= door_pos.y + height) {
+
+        CCLOG("Door clicked! Switching to MinesScene...");
+
+        // 在切换场景之前保存相机位置
+        cameraPosBeforeSwitch = Director::getInstance()->getRunningScene()->getDefaultCamera()->getPosition();
+
+        // 切换到 MinesScene
+        auto minesScene = MinesScene::createScene();
+        minesScene->retain();
+        Director::getInstance()->pushScene(minesScene);
+    }
+}
+
+
+

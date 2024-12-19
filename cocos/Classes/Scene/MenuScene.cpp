@@ -82,15 +82,8 @@ bool MenuScene::init()
         return false;
     }
 
-    // 截取 menu.png 的上部分作为标题
-    Rect titleRect(0, 0,
-        texture->getContentSize().width,  // 宽度是纹理宽度
-        texture->getContentSize().height / 4 + 50); // 高度是纹理高度的一部分
-    auto title_sprite = Sprite::createWithTexture(texture, titleRect);  // 创建裁剪后的精灵
-    if (!title_sprite) {
-        CCLOG("创建标题精灵失败.");
-        return false;
-    }
+    auto title_sprite = Sprite::createWithTexture(texture);  // 创建裁剪后的精灵
+   
     title_sprite->setScale(1.5f); // 放大标题精灵 1.5 倍
     title_sprite->setPosition(origin + Vec2(visibleSize.width / 2, visibleSize.height * 3 / 4)); // 设置标题位置（屏幕顶部中间）
     this->addChild(title_sprite, 0); // z-order 为 0，确保标题在背景上方

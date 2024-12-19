@@ -27,7 +27,7 @@ public:
 
 private:
     // 瓦片地图的指针
-    cocos2d::TMXTiledMap* _tileMap;
+    cocos2d::TMXTiledMap* MinetileMap;
 
     // 碰撞层或特定的瓦片图层（如果需要处理障碍物或特殊逻辑）
     cocos2d::TMXLayer* _collisionLayer;

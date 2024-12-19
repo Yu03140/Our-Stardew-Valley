@@ -343,14 +343,14 @@ void moveable_sprite_key_tool::on_mouse_click(cocos2d::Event* event)
         MOUSE_POS.y < character_pos.y + CONTROL_RANGE)
     {
         is_in_control = 1;
-        if (TOOLS_MAP.count(sprite_name_tool)) {
+        if(TOOLS_MAP.count(sprite_name_tool)){
             CCLOG("tool click!");
             // ÇÐ»»ÎÆÀí
             this->setSpriteFrame(sprite_name_tool + direc + "-clicked.png");
 
             // ÔÚ 0.2 Ãëºó»Ö¸´Ô­Í¼
             this->scheduleOnce([this](float dt) {
-                if (sprite_name_tool != "")
+                if(sprite_name_tool != "")
                     this->setSpriteFrame(sprite_name_tool + direc + ".png");
                 }, 0.2f, "reset_texture_key");
         }

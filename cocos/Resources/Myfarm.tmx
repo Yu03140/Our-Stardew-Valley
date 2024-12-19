@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="80" height="65" tilewidth="16" tileheight="16" infinite="0" nextlayerid="26" nextobjectid="181">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="80" height="65" tilewidth="16" tileheight="16" infinite="0" nextlayerid="26" nextobjectid="193">
  <tileset firstgid="1" source="spring_outdoorsTileSheet2.tsx"/>
  <tileset firstgid="1121" source="1spring_outdoorsTileSheet..tsx"/>
  <tileset firstgid="3096" name="spring_outdoorTileSheet_extra" tilewidth="16" tileheight="16" tilecount="64" columns="8">
@@ -487,7 +487,10 @@
 </data>
  </layer>
  <objectgroup id="25" name="Button">
-  <object id="180" name="Door" x="496" y="72" width="48" height="51"/>
+  <object id="181" x="508" y="82"/>
+  <object id="182" x="524" y="92"/>
+  <object id="191" x="754" y="-40" width="1"/>
+  <object id="192" name="Door" x="511.25" y="79.75" width="18.25" height="32.25"/>
  </objectgroup>
  <layer id="16" name="myhouse" width="80" height="65">
   <data encoding="csv">
