@@ -2,6 +2,7 @@
 #define __TIMESYSTEM_H__
 
 #include "cocos2d.h"
+#include "Christmas/Christmas.h"
 #include <string>
 #include <cstdlib>
 #include <ctime>
@@ -42,12 +43,16 @@ public:
         }
     }
 
+    //void TimeSystem::checkForHoliday();
+    void checkForHoliday();
+
 private:
     int year;               // 当前年份
     int day;                // 当前日期
     int hour;               // 当前小时
     int season;             // 当前季节（春1，夏2，秋3，冬4）
     std::string weather;        // 天气
+    bool hasEnteredChristmasScene = false; // 标志变量，记录是否已经进入圣诞场景
 
 
     static TimeSystem* instance;  // 静态成员变量，保存类的唯一实例
@@ -61,8 +66,10 @@ private:
     // 改变一年，年份加一
     void changeYear();
 
-    // 随机决定是否为干旱日
+    // 随机决定天气
     void randomWeather();
+
+
 };
 
 #endif // __TIMESYSTEM_H__

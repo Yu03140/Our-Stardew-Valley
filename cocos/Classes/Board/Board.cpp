@@ -19,10 +19,6 @@ bool Board::init(const std::string& weather, int money, int experience) {
         return false;
     }
 
-
-
-
-
     //人物初始化
     Player* player = Player::getInstance("me");
 
@@ -54,7 +50,10 @@ bool Board::init(const std::string& weather, int money, int experience) {
     moneyLabel->setColor(Color3B::BLACK);
     moneyLabel->setScale(0.5);
     this->addChild(moneyLabel);
-
+    // 每秒更新一次钱财标签
+    schedule([this](float dt) {
+        this->updateMoneyLabel();
+        }, 1.0f, "money_update_key");
 
 
     // 4. 添加时间标签（背景上方）
@@ -76,6 +75,10 @@ bool Board::init(const std::string& weather, int money, int experience) {
     experienceLabel->setColor(Color3B::BLACK);
     experienceLabel->setScale(0.4);
     this->addChild(experienceLabel);
+    // 每秒更新一次经验标签
+    schedule([this](float dt) {
+        this->updateExperienceLabel();
+        }, 1.0f, "experience_update_key");
 
 
 
@@ -90,6 +93,10 @@ void Board::updateTimeLabel(float dt) {
         std::to_string(timeSystem->getHour());
     timeLabel->setString(timeStr);  // 更新标签显示
 }
+
+
+
+
 
 
 
@@ -117,9 +124,22 @@ void Board::setWeatherSprite(const std::string& weather) {
     weatherSprite->setTexture(imagePath);
 }
 
-// 更新玩家钱财
-void Board::updateMoney(int money) {
-    moneyLabel->setString("Money: " + std::to_string(money));
+
+
+// 更新玩家钱财标签
+void Board::updateMoneyLabel() {
+    //人物初始化
+    Player* player = Player::getInstance("me");
+    // 更新 moneyLabel 的文本
+    moneyLabel->setString("Money: " + std::to_string(player->playerproperty.getMoney()));
 }
 
 
+
+// 更新玩家经验标签
+void Board::updateExperienceLabel() {
+    //人物初始化
+    Player* player = Player::getInstance("me");
+    // 更新 moneyLabel 的文本
+    experienceLabel->setString("Experience: " + std::to_string(player->playerproperty.getExperience()));
+}

@@ -6,6 +6,8 @@
 #include "Moveable/moveable_sprite_key.h"
 #include "Global/Global.h"
 #include "NPC/NPC.h"//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2这里！！！！记得修改文件夹路径
+#include "TimeSystem/TimeSystem.h"
+
 
 struct Crops {
     std::string name;        // 物品名称

@@ -10,8 +10,9 @@ public:
     virtual bool init(const std::string& weather, int money, int experience);
 
     void updateWeather(const std::string& weather);  // 更新天气
-    void updateMoney(int money);                    // 更新玩家钱财
     void updateTimeLabel(float dt);
+    void updateMoneyLabel();
+    void updateExperienceLabel();
 
 private:
     // 私有成员变量

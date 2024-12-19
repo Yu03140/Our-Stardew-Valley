@@ -51,15 +51,17 @@ bool FarmScene::init() {
     //board->setPosition(1050, 1050);
     //board->setPosition(Vec2(visibleSize.width / 4, visibleSize.height - 150));
     this->addChild(board);
-    //-----------end-----------------------------------------------------------------------------
 
     // 添加时间系统
     timeSystem = TimeSystem::getInstance();
     Node* parentNode = this;
     parentNode->addChild(timeSystem);
+    // 每帧更新时检查时间
+    schedule([this](float deltaTime) {
+        timeSystem->checkForHoliday();
+        }, "time_check_key");
 
 
-    //--------------renew（dxn）-------------------------------------------------------------------------
     //初始化NPC
     //这里修改一下设置的位置
     npc1 = NPC::create(cocos2d::Vec2(1050, 1050), "Bouncer", 50, {
