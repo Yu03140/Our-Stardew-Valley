@@ -10,7 +10,7 @@
     <ClCompile Include="..\Classes\AppDelegate\AppDelegate.cpp">
       <Filter>Source Files\Classes\AppDelegate</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Scene\BackGround.cpp">
+    <ClCompile Include="..\Classes\Scene\MinesScene.cpp">
       <Filter>Source Files\Classes\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Scene\FarmGround.cpp">
@@ -46,6 +46,12 @@
     <ClCompile Include="..\Classes\TaskBar\TaskBarScene.cpp">
       <Filter>Source Files\Classes\TaskBar</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GetableItem\Crop.cpp">
+      <Filter>Source Files\Classes\GetableItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GetableItem\Animals.cpp">
+      <Filter>Source Files\Classes\GetableItem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D:\Our Stardew Valley\cocos\proj.win32\resource.h">
@@ -72,7 +78,7 @@
     <ClInclude Include="..\Classes\AppDelegate\AppDelegate.h">
       <Filter>Source Files\Classes\AppDelegate</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Scene\BackGround.h">
+    <ClInclude Include="..\Classes\Scene\MinesScene.h">
       <Filter>Source Files\Classes\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Scene\FarmGround.h">
@@ -107,6 +113,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\TaskBar\TaskBarScene.h">
       <Filter>Source Files\Classes\TaskBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GetableItem\Crop.h">
+      <Filter>Source Files\Classes\GetableItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GetableItem\Animals.h">
+      <Filter>Source Files\Classes\GetableItem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +174,9 @@
     </Filter>
     <Filter Include="Source Files\Classes\TaskBar">
       <UniqueIdentifier>{b1b097a0-2da8-4aac-a3e6-5d2b8d9e118e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\GetableItem">
+      <UniqueIdentifier>{898add44-8acc-4d91-a4ab-b22207cd7f28}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

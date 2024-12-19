@@ -9,15 +9,24 @@
 #include "Attribute/attribute.h"
 #include "TaskBar/TaskBarScene.h"
 
+
+
+//全局定义
+#define CONTROL_RANGE 150 
+
 extern BackpackLayer* backpackLayer;
 extern TimeSystem* timeSystem;
+extern cocos2d::Vec2 character_pos;
+extern bool is_in_control;
 extern float SceneWidth;
 extern float SceneHeight;
+extern cocos2d::Vec2 MOUSE_POS;
 
 #define Playerlayer 1
 #define Backpacklayer 2
 #define Timesystemlayer 3
 #define Taskbarlayer 4
+#define MapSize 4
 
 #endif // GLOBAL_H
 

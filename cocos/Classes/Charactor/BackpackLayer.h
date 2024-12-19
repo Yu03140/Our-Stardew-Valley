@@ -42,9 +42,6 @@ private:
 
     // 背包格子数据
     std::vector<ItemSlot> itemSlots;
-
-    // 保存选择的物品
-    std::string selectedItemImage;
 };
 
 #endif // BACKPACK_LAYER_H

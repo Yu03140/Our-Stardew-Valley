@@ -5,7 +5,7 @@
 USING_NS_CC;
 
 BackpackLayer::BackpackLayer()
-    : selectedItemImage(""), tilemap(nullptr), X0(0), Y0(0) {}
+    : selectedItem(""), tilemap(nullptr), X0(0), Y0(0) {}
 
 BackpackLayer::~BackpackLayer() {
     itemSlots.clear();
@@ -107,20 +107,16 @@ void BackpackLayer::onMouseDown(Event* event) {
 
     // 转换为 Tiled 坐标
     clickPosition.y = visibleHeight - clickPosition.y;  // Tiled 的 y 坐标需要反转
-    CCLOG("Click position: (%f, %f)", clickPosition.x, clickPosition.y);
 
     // 遍历每个背包格子，检查是否点击了物品
     for (int i = 0; i < itemSlots.size(); ++i) {
         auto& slot = itemSlots[i];
-        Rect slotRect(slot.sprite->getPositionX()+X0, slot.sprite->getPositionY()+Y0- slot.sprite->getContentSize().height,
-            slot.sprite->getContentSize().width*3, slot.sprite->getContentSize().height*3);
-
-        CCLOG("Slot %d: (%f, %f, %f, %f)", i, slotRect.origin.x, slotRect.origin.y, slotRect.size.width, slotRect.size.height);
+        Rect slotRect(slot.sprite->getPositionX() + X0, slot.sprite->getPositionY() + Y0 - slot.sprite->getContentSize().height,
+            slot.sprite->getContentSize().width * 3, slot.sprite->getContentSize().height * 3);
 
         // 如果点击的位置在当前格子内
         if (slotRect.containsPoint(clickPosition)) {
             selectedItem = slot.name;
-            CCLOG("Clicked item: %s", selectedItem.c_str());
             break;  
         }
     }
@@ -158,8 +154,9 @@ bool BackpackLayer::removeItem(const std::string& itemName, const int num) {
             if (itemSlots[i].quantity == 0) {
                 // 物品数量为 0，清空该位置的纹理
                 itemSlots[i].name = "";
-				selectedItemImage = "";
+				selectedItem = "";
                 clearItemTexture(i);
+
             }
             else {
                 updateItemTexture(i);
@@ -220,7 +217,6 @@ void BackpackLayer::clearItemTexture(int slotIndex) {
     transparentTexture->initWithData(transparentData, dataSize, cocos2d::backend::PixelFormat::RGBA8888, spriteSize.width, spriteSize.width, cocos2d::Size(spriteSize.width, spriteSize.width));
     slot.sprite->setTexture(transparentTexture);  
     delete[] transparentData;
-
 }
 
 

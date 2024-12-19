@@ -1603,6 +1603,8 @@ void Sprite::setSpriteFrame(SpriteFrame *spriteFrame)
         _spriteFrame = spriteFrame;
         spriteFrame->retain();
     }
+
+
     _unflippedOffsetPositionFromCenter = spriteFrame->getOffset();
 
     Texture2D *texture = spriteFrame->getTexture();

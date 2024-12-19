@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "Charactor/BackpackLayer.h"
+#include "Global/Global.h"
 
 
 class MenuScene : public cocos2d::Scene

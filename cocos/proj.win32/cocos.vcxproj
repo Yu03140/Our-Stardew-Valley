@@ -815,11 +815,13 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\AppDelegate\AppDelegate.h" />
     <ClInclude Include="..\Classes\Attribute\attribute.h" />
     <ClInclude Include="..\Classes\Charactor\BackpackLayer.h" />
+    <ClInclude Include="..\Classes\GetableItem\Animals.h" />
+    <ClInclude Include="..\Classes\GetableItem\Crop.h" />
     <ClInclude Include="..\Classes\Global\Global.h" />
     <ClInclude Include="..\Classes\Moveable\moveable_sprite_key.h" />
     <ClInclude Include="..\Classes\Player\Multiplayer.h" />
     <ClInclude Include="..\Classes\Player\PlayerAccount.h" />
-    <ClInclude Include="..\Classes\Scene\BackGround.h" />
+    <ClInclude Include="..\Classes\Scene\MinesScene.h" />
     <ClInclude Include="..\Classes\Scene\FarmGround.h" />
     <ClInclude Include="..\Classes\Scene\MenuScene.h" />
     <ClInclude Include="..\Classes\TaskBar\TaskBar.h" />
@@ -833,11 +835,13 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\Charactor\BackpackLayer.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">D:\Our Stardew Valley\cocos\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <ClCompile Include="..\Classes\GetableItem\Animals.cpp" />
+    <ClCompile Include="..\Classes\GetableItem\Crop.cpp" />
     <ClCompile Include="..\Classes\Global\Global.cpp" />
     <ClCompile Include="..\Classes\Moveable\moveable_sprite_key.cpp" />
     <ClCompile Include="..\Classes\Player\Multiplayer.cpp" />
     <ClCompile Include="..\Classes\Player\PlayerAccount.cpp" />
-    <ClCompile Include="..\Classes\Scene\BackGround.cpp" />
+    <ClCompile Include="..\Classes\Scene\MinesScene.cpp" />
     <ClCompile Include="..\Classes\Scene\FarmGround.cpp" />
     <ClCompile Include="..\Classes\Scene\MenuScene.cpp" />
     <ClCompile Include="..\Classes\TaskBar\TaskBar.cpp" />
