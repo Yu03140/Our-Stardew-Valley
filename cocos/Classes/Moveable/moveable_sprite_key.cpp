@@ -363,7 +363,8 @@ void moveable_sprite_key_tool::on_mouse_click(cocos2d::Event* event)
 
             // ÔÚ 0.2 Ãëºó»Ö¸´Ô­Í¼
             this->scheduleOnce([this](float dt) {
-                this->setSpriteFrame(sprite_name_tool + direc + ".png");
+                if(sprite_name_tool != "")
+                    this->setSpriteFrame(sprite_name_tool + direc + ".png");
                 }, 0.2f, "reset_texture_key");
             click_pos = mouse_pos;
         }
