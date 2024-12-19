@@ -24,8 +24,12 @@ public:
     bool BackpackLayer::addItem(const std::string& itemName, const int num = 1);
     bool BackpackLayer::removeItem(const std::string& itemName, const int num = 1);
 
+
 	// 得到选中的物品
     std::string getSelectedItem() const;
+
+    // 瓦片地图
+    cocos2d::TMXTiledMap* tilemap;
 
 private:
 
@@ -38,9 +42,6 @@ private:
 
     // 背包格子数据
     std::vector<ItemSlot> itemSlots;
-
-    // 瓦片地图
-    cocos2d::TMXTiledMap* tilemap;
 
     // 保存选择的物品
     std::string selectedItemImage;

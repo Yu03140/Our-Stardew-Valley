@@ -1,7 +1,6 @@
 #include "FarmGround.h"
 
 USING_NS_CC;
-#define MAG_TIMES 4.0f
 FarmScene* FarmScene::createScene() {
     // 创建并返回 FarmScene 场景对象
     return FarmScene::create();
@@ -14,12 +13,9 @@ bool FarmScene::init() {
         return false;
     }
 
-     //人物初始化
-    Player* player = Player::getInstance("me");
-
-     // 加载地图，放在中间
+    // 加载地图，放在中间
     Size visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();//为了人物添加的
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
     tileMap = TMXTiledMap::create("Myfarm.tmx");
     if (tileMap) {
         tileMap->setAnchorPoint(Vec2(0.5, 0.5));
@@ -27,48 +23,67 @@ bool FarmScene::init() {
         float posY = visibleSize.height / 2;
         tileMap->setPosition(Vec2(posX, posY));
         this->addChild(tileMap, 0);
-        tileMap->setScale(MAG_TIMES);
+        tileMap->setScale(MapSize);
+        SceneWidth = tileMap->getContentSize().width * MapSize;
+        SceneHeight = tileMap->getContentSize().height * MapSize;
+
+        CCLOG("Loaded the tile map successfully: (%f,%f)", SceneWidth, SceneHeight);
     }
     else {
         CCLOG("Failed to load the tile map");
     }
 
-    // 将背包图层添加到场景中
+
+    //----------------------------------------------------
+    // 功能：人物初始化
+    // 说明：创建人物对象，初始化人物属性
+    // 图层：
+    //----------------------------------------------------
+    Player* player = Player::getInstance("me");
+
+    //----------------------------------------------------
+    // 功能：添加背包图层
+    // 说明：添加背包图层到当前场景，初始化背包
+    // 图层：Backpacklayer
+    //----------------------------------------------------
     backpackLayer = BackpackLayer::create();
     if (backpackLayer) {
-        this->addChild(backpackLayer, 2);  
+        this->addChild(backpackLayer, Backpacklayer);
     }
     else
-		CCLOG("Failed to load the backpack layer");
+        CCLOG("Failed to load the backpack layer");
 
-	// 添加时间系统
-    timeSystem = TimeSystem::getInstance();  
-    Node* parentNode = this;  
-    parentNode->addChild(timeSystem);
 
-    // 添加主角
+    //----------------------------------------------------
+    // 功能：添加时间系统
+    // 说明：添加时间系统到当前场景，初始化时间系统
+    // 图层：Timesystemlayer
+    //----------------------------------------------------
+    timeSystem = TimeSystem::getInstance();
+    Node* parentNode = this;
+    if (timeSystem->getParent() == nullptr) {
+        parentNode->addChild(timeSystem, Timesystemlayer);
+    }
+
+    //----------------------------------------------------
+    // 功能：添加移动主角
+    // 说明：添加主角，主角位于地图中央
+    // 图层：Playerlayer
+    //----------------------------------------------------
     auto sprite_move = moveable_sprite_key_walk::create("Jas_Winter.plist", "Jas_Winter");
-    if(sprite_move)
+    if (sprite_move)
     {
         sprite_move->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-        character_pos = Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y);
-        this->addChild(sprite_move, 1);
+        this->addChild(sprite_move, Playerlayer);
+
         sprite_move->init_keyboardlistener();
-        sprite_move->schedule([sprite_move](float dt) {
-            sprite_move->update(dt);
+
+        sprite_move->schedule([this, sprite_move](float dt) { // 捕获 `this` 和 `sprite_move`
+            sprite_move->update(dt);                         // 更新人物移动逻辑
+            updateCameraPosition(dt, sprite_move);                 // 更新相机位置
             }, "update_key_person");
-    }
-    auto animal = animals::create("Animals.plist", "Pig", Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y),Size(100,100));
-    if (animal)
-    {
-        animal->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-        this->addChild(animal, 1);
-        animal->init_mouselistener();
-        animal->scheduleRandomMove(tileMap);
-        animal->schedule([animal](float dt) {
-            animal->update(dt);
-            }, "update_animal");
-    }
+
+    }    
     // 计算经过缩放后的实际尺寸
     Size originalSize = sprite_move->getContentSize();
     float scale = sprite_move->getScale();
@@ -86,12 +101,32 @@ bool FarmScene::init() {
     }
 
 
+    //auto animal = animals::create("Animals.plist", "Pig", Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y),Size(100,100));
+    //if (animal)
+    //{
+    //    animal->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+    //    this->addChild(animal, 1);
+    //    animal->init_mouselistener();
+    //    animal->scheduleRandomMove(tileMap);
+    //    animal->schedule([animal](float dt) {
+    //        animal->update(dt);
+    //        }, "update_animal");
+    //}
 
-	// 添加任务栏
+
+    //----------------------------------------------------
+    // 功能：添加任务栏
+    // 说明：添加任务栏到当前场景
+    // 图层：Taskbarlayer
+    //----------------------------------------------------
     taskBarScene = TaskBarLayer::create(); 
     tileMap->addChild(taskBarScene,3);     
 
-    // 作物模块
+    //----------------------------------------------------
+    // 功能：作物模块
+    // 说明：在地图上添加作物格子，用于种植作物
+    // 图层：Playerlayer
+    //----------------------------------------------------
     // 获取对象层（每个作物格子的位置）
     auto objectGroup = tileMap->getObjectGroup("crops_layer");
     if (!objectGroup) {
@@ -99,6 +134,7 @@ bool FarmScene::init() {
         return false;
     }
 
+    Vec2 map_pos = tileMap->getPosition();
     // 作物格子管理（假设最大36格）
     crops.resize(36);
     for (int i = 0; i < 36; ++i) {
@@ -111,7 +147,6 @@ bool FarmScene::init() {
         float posY = object["y"].asFloat();
         float width = object["width"].asFloat();
         float height = object["height"].asFloat();
-        log("Player Position: x=%d, y=%d", posX, posY);  // 打印坐标信息
 
 
         // 创建透明纹理的精灵
@@ -123,6 +158,10 @@ bool FarmScene::init() {
         tileMap->addChild(sprite, 2);  // 添加到瓦片地图
         sprite->init_mouselistener();
         crops[i].sprite = sprite;
+        //Vec2 worldPos = sprite->convertToWorldSpace(Vec2(0, 0));
+        //log("World Position: x=%f, y=%f", worldPos.x, worldPos.y);
+
+
         sprite->schedule([sprite](float dt) {
             sprite->update_day(dt);
             }, "update_crop");
@@ -189,5 +228,41 @@ void FarmScene::clearItemTexture(int slotIndex) {
     auto& slot = crops[slotIndex];
     slot.sprite->setTexture(nullptr);  // 清空纹理
     slot.sprite->removeAllChildren();  // 清空子节点（如数量标签）
+}
+
+
+template <typename T>
+T clamp(T value, T low, T high) {
+    if (value < low) return low;
+    if (value > high) return high;
+    return value;
+}
+
+
+void FarmScene::updateCameraPosition(float dt, Node* player)
+{
+    auto playerPosition = player->getPosition();
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+
+    // 镜头位置要保持在地图边界内
+    float cameraX = clamp(playerPosition.x, visibleSize.width / 2 - SceneWidth, SceneWidth - visibleSize.width / 2);
+    float cameraY = clamp(playerPosition.y, visibleSize.height / 2 - SceneHeight, SceneHeight - visibleSize.height / 2);
+
+    // 获取默认摄像头
+    auto camera = Director::getInstance()->getRunningScene()->getDefaultCamera();
+
+    // 设置摄像头位置
+    if (camera) {
+        camera->setPosition3D(Vec3(cameraX, cameraY, camera->getPosition3D().z));
+        //CCLOG("Camera position: (%f, %f)", cameraX, cameraY);
+        if (backpackLayer) {
+            // 获取屏幕的可见大小
+            float backpackX = cameraX - visibleSize.width / 2;
+            float backpackY = cameraY - visibleSize.height / 2;
+
+            // 设置背包层的位置
+            backpackLayer->setPosition(Vec2(backpackX, backpackY));
+        }
+    }
 }
 

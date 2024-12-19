@@ -8,6 +8,7 @@
 #include "GetableItem/crop.h"
 #include "GetableItem/animals.h"
 
+#define MapSize 4
 #define TOOL_WIDTH 40
 #define TOOL_HEIGHT 60
 
@@ -36,6 +37,9 @@ private:
     // 更新和清除物品纹理
     void updateItemTexture(int slotIndex);
     void clearItemTexture(int slotIndex);
+
+    // 更新摄像机位置
+    void updateCameraPosition(float dt, Node* player);
 
     // 农作物数据
     std::vector<Crops> crops;

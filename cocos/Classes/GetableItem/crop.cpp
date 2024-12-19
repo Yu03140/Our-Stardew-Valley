@@ -36,6 +36,7 @@ crop* crop::create(const std::string& plist_name, float width, float height)
     if (transparentTexture)
     {
         crop_sprite->initWithTexture(transparentTexture);
+
         crop_sprite->autorelease();
         crop_sprite->init_mouselistener();
         CCLOG("Creation cope successfully!");
@@ -61,24 +62,30 @@ void crop::init_mouselistener()
 void crop::on_mouse_click(cocos2d::Event* event)
 {
     auto mouse_event = dynamic_cast<cocos2d::EventMouse*>(event);
-    auto mouse_pos = this->getParent()->convertToNodeSpace(mouse_event->getLocationInView());
-    auto crop_pos = this->getPosition();
+    // 1. 获取鼠标在窗口中的位置,转换到地图坐标
+    Vec2 mousePosition = mouse_event->getLocationInView();
+    auto camera = Director::getInstance()->getRunningScene()->getDefaultCamera();
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 windowOrigin = camera->getPosition() - Vec2(visibleSize.width / 2, visibleSize.height / 2);
+    Vec2 mouse_pos = mousePosition + windowOrigin;
+    //获取作物位置
+    Vec2 crop_pos = this->convertToWorldSpace(Vec2(0, 0));
     // 计算点击的有效范围
-    float min_x = crop_pos.x - crop_size.width / 2;
-    float max_x = crop_pos.x + crop_size.width / 2;
-    float min_y = crop_pos.y - crop_size.height / 2;
-    float max_y = crop_pos.y + crop_size.height / 2;
-    //CCLOG("Mouse Position(CROP): (%f, %f)", mouse_pos.x, mouse_pos.y);
-
+    float min_x = crop_pos.x;
+    float max_x = crop_pos.x + crop_size.width * MAG_TIME_CROP;
+    float min_y = crop_pos.y;
+    float max_y = crop_pos.y + crop_size.height * MAG_TIME_CROP;
     if (is_in_control) {
         //输出鼠标点击位置和有效范围
-        if (mouse_pos.x > crop_pos.x - crop_size.width / 2 &&
-            mouse_pos.x < crop_pos.x + crop_size.width / 2 &&
-            mouse_pos.y > crop_pos.y - crop_size.height / 2 &&
-            mouse_pos.y < crop_pos.y + crop_size.height / 2)
+        if ((mouse_pos.x > min_x  &&
+            mouse_pos.x < max_x &&
+            mouse_pos.y > min_y &&
+            mouse_pos.y < max_y))
         {
-        CCLOG("Mouse clicked at: (%.2f, %.2f)", mouse_pos.x, mouse_pos.y);
-        CCLOG("Crop valid range: X[%.2f, %.2f], Y[%.2f, %.2f]", min_x, max_x, min_y, max_y);
+            CCLOG("Mouse clicked at(crop): (%.2f, %.2f)", mouse_pos.x, mouse_pos.y);
+            CCLOG("crop at: (%.2f, %.2f)", crop_pos.x, crop_pos.y);
+            CCLOG("Crop valid range: X[%.2f, %.2f], Y[%.2f, %.2f]", min_x, max_x, min_y, max_y);
+
             CCLOG("click crop:%d", develop_level);
             switch (develop_level)
             {

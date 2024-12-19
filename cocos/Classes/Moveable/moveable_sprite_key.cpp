@@ -126,19 +126,19 @@ void moveable_sprite_key::update(float deltaTime)
     cocos2d::Vec2 origin = cocos2d::Director::getInstance()->getVisibleOrigin();
 
     // 判断精灵是否超出边界
-   if (sprite_pos.y + this->getContentSize().height / 2 >= origin.y + visibleSize.height) {
-       is_hit_edge[0] = true;
-       CCLOG("Sprite hit the top edge");
+    if (sprite_pos.y + this->getContentSize().height * 2 >= SceneHeight / 2) {
+        is_hit_edge[0] = true;
+        CCLOG("Sprite hit the top edge");
     }
-    else  if (sprite_pos.y - this->getContentSize().height / 2 <= origin.y) {
-       is_hit_edge[1] = true;
-       CCLOG("Sprite hit the bottom edge");
+    else  if (sprite_pos.y - this->getContentSize().height * 2 <= visibleSize.height - SceneHeight / 2) {
+        is_hit_edge[1] = true;
+        CCLOG("Sprite hit the bottom edge");
     }
-    if (sprite_pos.x - this->getContentSize().width / 2 <= origin.x) {
+    if (sprite_pos.x - this->getContentSize().width * 2 <= visibleSize.width - SceneWidth / 2) {
         is_hit_edge[2] = true;
         CCLOG("Sprite hit the left edge");
     }
-    else if (sprite_pos.x + this->getContentSize().width / 2 >= origin.x + visibleSize.width) {
+    else if (sprite_pos.x + this->getContentSize().width * 2 >= SceneWidth / 2) {
         is_hit_edge[3] = true;
         CCLOG("Sprite hit the right edge");
     }
@@ -330,13 +330,25 @@ void moveable_sprite_key_tool::init_mouselistener()
 // 鼠标按下时的回调
 void moveable_sprite_key_tool::on_mouse_click(cocos2d::Event* event)
 {
+    /*------------------------------------------------------renew-------------------------------------------------------------*/
 
     auto mouse_event = dynamic_cast<cocos2d::EventMouse*>(event);
-    auto mouse_pos = this->getParent()->convertToNodeSpace(mouse_event->getLocationInView());
-
     auto tool_pos = this->getPosition();
     auto tool_size = this->getContentSize();
-    //CCLOG("Mouse Position(tool): (%f, %f)", mouse_pos.x, mouse_pos.y);
+    // 1. 获取鼠标在窗口中的位置
+    Vec2 mousePosition = mouse_event->getLocationInView();
+    // 2. 获取窗口的原点在地图中的位置
+    auto camera = Director::getInstance()->getRunningScene()->getDefaultCamera();
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 windowOrigin = camera->getPosition() - Vec2(visibleSize.width / 2, visibleSize.height / 2);
+    // 3. 鼠标坐标转换到地图坐标
+    Vec2 mouse_pos = mousePosition + windowOrigin;
+
+    CCLOG("Mouse Position(tool): (%f, %f)", mouse_pos.x, mouse_pos.y);
+    CCLOG("Tool Position: (%f, %f)", tool_pos.x, tool_pos.y);
+    CCLOG("Character Position: (%f, %f)", character_pos.x, character_pos.y);
+
+    /*------------------------------------------------------renew-------------------------------------------------------------*/
 
     if (mouse_pos.x > character_pos.x - CONTROL_RANGE &&
         mouse_pos.x < character_pos.x + CONTROL_RANGE &&

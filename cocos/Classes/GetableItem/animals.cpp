@@ -179,7 +179,8 @@ void animals::randmove(cocos2d::TMXTiledMap* tileMap)
     auto targetPosition = cocos2d::Vec2(worldX, worldY);
     auto movementDirection = targetPosition - currentPos;  // 计算移动方向
     this->updateDirection(movementDirection);
-    auto moveAction = cocos2d::MoveTo::create(2.0f, targetPosition);  // 2秒钟到目标位置
+    float distance = movementDirection.length();
+    auto moveAction = cocos2d::MoveTo::create(distance/SPEED, targetPosition);  // 移动到目标位置
     this->runAction(moveAction);
 }
 //不定时游荡
