@@ -66,7 +66,6 @@ class moveable_sprite_key_tool : public moveable_sprite_key
 {
 private:
     static std::string sprite_name_tool;
-    cocos2d::Vec2 click_pos;
     std::string direc = "-front";
     static cocos2d::Texture2D* transparent_texture;
 

@@ -186,7 +186,7 @@ moveable_sprite_key_walk* moveable_sprite_key_walk::create(const std::string& pl
     {
         sprite->initWithSpriteFrame(frame);
         sprite->autorelease();
-        sprite->setScale(5.0f);  // 将精灵放大 5 倍
+        sprite->setScale(6.0f);  // 将精灵放大 6 倍
         sprite->init_keyboardlistener();
         CCLOG("Creation moveable_sprite_key_walk successfully!");
         return sprite;
@@ -332,28 +332,15 @@ void moveable_sprite_key_tool::on_mouse_click(cocos2d::Event* event)
 {
     /*------------------------------------------------------renew-------------------------------------------------------------*/
 
-    auto mouse_event = dynamic_cast<cocos2d::EventMouse*>(event);
     auto tool_pos = this->getPosition();
     auto tool_size = this->getContentSize();
-    // 1. 获取鼠标在窗口中的位置
-    Vec2 mousePosition = mouse_event->getLocationInView();
-    // 2. 获取窗口的原点在地图中的位置
-    auto camera = Director::getInstance()->getRunningScene()->getDefaultCamera();
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 windowOrigin = camera->getPosition() - Vec2(visibleSize.width / 2, visibleSize.height / 2);
-    // 3. 鼠标坐标转换到地图坐标
-    Vec2 mouse_pos = mousePosition + windowOrigin;
-
-    CCLOG("Mouse Position(tool): (%f, %f)", mouse_pos.x, mouse_pos.y);
-    CCLOG("Tool Position: (%f, %f)", tool_pos.x, tool_pos.y);
-    CCLOG("Character Position: (%f, %f)", character_pos.x, character_pos.y);
 
     /*------------------------------------------------------renew-------------------------------------------------------------*/
 
-    if (mouse_pos.x > character_pos.x - CONTROL_RANGE &&
-        mouse_pos.x < character_pos.x + CONTROL_RANGE &&
-        mouse_pos.y > character_pos.y - CONTROL_RANGE &&
-        mouse_pos.y < character_pos.y + CONTROL_RANGE)
+    if (MOUSE_POS.x > character_pos.x - CONTROL_RANGE &&
+        MOUSE_POS.x < character_pos.x + CONTROL_RANGE &&
+        MOUSE_POS.y > character_pos.y - CONTROL_RANGE &&
+        MOUSE_POS.y < character_pos.y + CONTROL_RANGE)
     {
         is_in_control = 1;
         if(TOOLS_MAP.count(sprite_name_tool)){
@@ -366,7 +353,6 @@ void moveable_sprite_key_tool::on_mouse_click(cocos2d::Event* event)
                 if(sprite_name_tool != "")
                     this->setSpriteFrame(sprite_name_tool + direc + ".png");
                 }, 0.2f, "reset_texture_key");
-            click_pos = mouse_pos;
         }
     }
     else

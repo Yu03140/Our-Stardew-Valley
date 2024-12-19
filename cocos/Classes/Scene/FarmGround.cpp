@@ -12,7 +12,9 @@ bool FarmScene::init() {
     if (!Scene::init()) {
         return false;
     }
-
+    /*-----------------------------RENEW---------------------------------*/
+    init_mouselistener();
+    /*-----------------------------RENEW---------------------------------*/
     // 加载地图，放在中间
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -221,7 +223,6 @@ T clamp(T value, T low, T high) {
     return value;
 }
 
-
 void FarmScene::updateCameraPosition(float dt, Node* player)
 {
     auto playerPosition = player->getPosition();
@@ -249,3 +250,37 @@ void FarmScene::updateCameraPosition(float dt, Node* player)
     }
 }
 
+/*------------------------------------------------------renew-------------------------------------------------------------*/
+
+// 初始化鼠标监听器
+void FarmScene::init_mouselistener()
+{
+    // 创建鼠标监听器
+    auto listener = cocos2d::EventListenerMouse::create();
+
+    // 鼠标回调
+    listener->onMouseDown = CC_CALLBACK_1(FarmScene::on_mouse_click, this);
+
+    // 获取事件分发器，添加监听器
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+}
+
+// 鼠标按下时的回调
+void FarmScene::on_mouse_click(cocos2d::Event* event)
+{
+    //获取鼠标在窗口中的位置,转换到地图坐标
+    auto mouse_event = dynamic_cast<cocos2d::EventMouse*>(event);
+    Vec2 mousePosition = mouse_event->getLocationInView();
+    auto camera = Director::getInstance()->getRunningScene()->getDefaultCamera();
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 windowOrigin = camera->getPosition() - Vec2(visibleSize.width / 2, visibleSize.height / 2);
+    Vec2 mouse_pos = mousePosition + windowOrigin;
+    MOUSE_POS = mouse_pos;
+    CCLOG("Mouse Position(global): (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
+    // 0.1秒后将 MOUSE_POS 置为 (0, 0)，并且不影响其他程序运行
+    this->scheduleOnce([this](float dt) {
+        MOUSE_POS = Vec2::ZERO;
+        CCLOG("Mouse Position reset to: (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
+        }, 1.5f, "reset_mouse_pos_key");
+}
+/*------------------------------------------------------renew-------------------------------------------------------------*/

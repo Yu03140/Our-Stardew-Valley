@@ -9,8 +9,10 @@
 #include "Attribute/attribute.h"
 #include "TaskBar/TaskBarScene.h"
 
+/*-----------------------renew------------------------*/
 //全局定义
-#define CONTROL_RANGE 300
+#define CONTROL_RANGE 150
+/*-----------------------renew------------------------*/
 
 extern BackpackLayer* backpackLayer;
 extern TimeSystem* timeSystem;
@@ -19,7 +21,10 @@ extern cocos2d::Vec2 character_pos;
 extern bool is_in_control;
 extern float SceneWidth;
 extern float SceneHeight;
+/*------------------------------------------------------renew-------------------------------------------------------------*/
 
+extern cocos2d::Vec2 MOUSE_POS;
+/*------------------------------------------------------renew-------------------------------------------------------------*/
 #define Playerlayer 1
 #define Backpacklayer 2
 #define Timesystemlayer 3

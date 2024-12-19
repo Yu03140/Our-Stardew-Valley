@@ -11,7 +11,24 @@
 class getable_good : public cocos2d::Sprite
 {
 private:
+	//根据name 通过map得到click_times\tool等信息
 	std::string sprite_name;
+	//通过点击次数判断是否能被获取
+	int click_count = 0;
+public:
+
+
+	// 创建实例
+	static getable_good* create(const std::string& plist_name);
+
+	// 初始化鼠标监听器
+	void init_mouselistener();
+
+	// 鼠标按下时的回调
+	void on_mouse_click(cocos2d::Event* event);
+
+
+
 
 };
 

@@ -79,7 +79,7 @@ bool BackpackLayer::init() {
 
 	// 初始添加五件工具
     addItem("Axe1");
-    addItem("Can1");
+    addItem("Can1",10);
     addItem("Hoe1");
     addItem("Pick1");
     addItem("Rod1");
