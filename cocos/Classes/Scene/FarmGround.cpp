@@ -100,20 +100,6 @@ bool FarmScene::init() {
             }, "update_key_tool");
     }
 
-
-    //auto animal = animals::create("Animals.plist", "Pig", Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y),Size(100,100));
-    //if (animal)
-    //{
-    //    animal->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-    //    this->addChild(animal, 1);
-    //    animal->init_mouselistener();
-    //    animal->scheduleRandomMove(tileMap);
-    //    animal->schedule([animal](float dt) {
-    //        animal->update(dt);
-    //        }, "update_animal");
-    //}
-
-
     //----------------------------------------------------
     // 功能：添加任务栏
     // 说明：添加任务栏到当前场景
@@ -150,7 +136,7 @@ bool FarmScene::init() {
 
 
         // 创建透明纹理的精灵
-        auto sprite = crop::create("crop_m.plist", width, height); // 默认无纹理
+        auto sprite = crop::create("crop.plist", width, height); // 默认无纹理
 
         sprite->setPosition(Vec2(posX, posY));        // 设置位置
         sprite->setAnchorPoint(Vec2(0, 0));     // 设置锚点
@@ -158,9 +144,6 @@ bool FarmScene::init() {
         tileMap->addChild(sprite, 2);  // 添加到瓦片地图
         sprite->init_mouselistener();
         crops[i].sprite = sprite;
-        //Vec2 worldPos = sprite->convertToWorldSpace(Vec2(0, 0));
-        //log("World Position: x=%f, y=%f", worldPos.x, worldPos.y);
-
 
         sprite->schedule([sprite](float dt) {
             sprite->update_day(dt);

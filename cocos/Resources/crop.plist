@@ -9,7 +9,7 @@
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -17,16 +17,16 @@
                 <key>spriteSourceSize</key>
                 <string>{11,10}</string>
                 <key>textureRect</key>
-                <string>{{6,6},{11,10}}</string>
+                <string>{{143,1},{11,10}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>pumpkin-1.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -34,7 +34,7 @@
                 <key>spriteSourceSize</key>
                 <string>{6,8}</string>
                 <key>textureRect</key>
-                <string>{{0,6},{6,8}}</string>
+                <string>{{155,1},{6,8}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -43,7 +43,7 @@
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -51,7 +51,7 @@
                 <key>spriteSourceSize</key>
                 <string>{14,12}</string>
                 <key>textureRect</key>
-                <string>{{17,6},{14,12}}</string>
+                <string>{{122,18},{14,12}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -60,7 +60,7 @@
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -68,16 +68,16 @@
                 <key>spriteSourceSize</key>
                 <string>{15,19}</string>
                 <key>textureRect</key>
-                <string>{{0,65},{15,19}}</string>
+                <string>{{103,1},{15,19}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>pumpkin-4.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -85,7 +85,7 @@
                 <key>spriteSourceSize</key>
                 <string>{15,20}</string>
                 <key>textureRect</key>
-                <string>{{15,65},{15,20}}</string>
+                <string>{{68,1},{15,20}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -94,7 +94,7 @@
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -102,7 +102,7 @@
                 <key>spriteSourceSize</key>
                 <string>{16,18}</string>
                 <key>textureRect</key>
-                <string>{{15,47},{16,18}}</string>
+                <string>{{85,1},{16,18}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -111,7 +111,7 @@
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -119,16 +119,16 @@
                 <key>spriteSourceSize</key>
                 <string>{4,5}</string>
                 <key>textureRect</key>
-                <string>{{5,0},{4,5}}</string>
+                <string>{{8,27},{4,5}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>strawberry-1.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -136,7 +136,7 @@
                 <key>spriteSourceSize</key>
                 <string>{9,6}</string>
                 <key>textureRect</key>
-                <string>{{13,0},{9,6}}</string>
+                <string>{{68,23},{9,6}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -145,7 +145,7 @@
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -153,7 +153,7 @@
                 <key>spriteSourceSize</key>
                 <string>{11,13}</string>
                 <key>textureRect</key>
-                <string>{{0,18},{11,13}}</string>
+                <string>{{138,18},{11,13}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -162,7 +162,7 @@
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -170,16 +170,16 @@
                 <key>spriteSourceSize</key>
                 <string>{15,17}</string>
                 <key>textureRect</key>
-                <string>{{0,47},{15,17}}</string>
+                <string>{{124,1},{15,17}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>strawberry-4.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -187,7 +187,7 @@
                 <key>spriteSourceSize</key>
                 <string>{15,24}</string>
                 <key>textureRect</key>
-                <string>{{0,85},{15,24}}</string>
+                <string>{{19,1},{15,24}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -196,7 +196,7 @@
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -204,7 +204,7 @@
                 <key>spriteSourceSize</key>
                 <string>{16,24}</string>
                 <key>textureRect</key>
-                <string>{{15,85},{16,24}}</string>
+                <string>{{1,1},{16,24}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -213,7 +213,7 @@
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -221,16 +221,16 @@
                 <key>spriteSourceSize</key>
                 <string>{10,13}</string>
                 <key>textureRect</key>
-                <string>{{11,18},{10,13}}</string>
+                <string>{{90,21},{10,13}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>sunflower-1.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -238,16 +238,16 @@
                 <key>spriteSourceSize</key>
                 <string>{4,5}</string>
                 <key>textureRect</key>
-                <string>{{9,0},{4,5}}</string>
+                <string>{{15,27},{4,5}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>sunflower-2.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -255,7 +255,7 @@
                 <key>spriteSourceSize</key>
                 <string>{9,6}</string>
                 <key>textureRect</key>
-                <string>{{22,0},{9,6}}</string>
+                <string>{{79,23},{9,6}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -264,7 +264,7 @@
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -272,16 +272,16 @@
                 <key>spriteSourceSize</key>
                 <string>{13,15}</string>
                 <key>textureRect</key>
-                <string>{{0,31},{13,15}}</string>
+                <string>{{105,18},{13,15}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>sunflower-4.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -289,7 +289,7 @@
                 <key>spriteSourceSize</key>
                 <string>{15,24}</string>
                 <key>textureRect</key>
-                <string>{{0,109},{15,24}}</string>
+                <string>{{36,1},{15,24}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -298,7 +298,7 @@
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -306,7 +306,7 @@
                 <key>spriteSourceSize</key>
                 <string>{13,27}</string>
                 <key>textureRect</key>
-                <string>{{15,109},{13,27}}</string>
+                <string>{{53,1},{13,27}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -315,7 +315,7 @@
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -323,7 +323,7 @@
                 <key>spriteSourceSize</key>
                 <string>{5,4}</string>
                 <key>textureRect</key>
-                <string>{{0,0},{5,4}}</string>
+                <string>{{1,27},{5,4}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -332,7 +332,7 @@
                 <key>aliases</key>
                 <array/>
                 <key>anchor</key>
-                <string>{0.5,0.5}</string>
+                <string>{0,0}</string>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
@@ -340,7 +340,7 @@
                 <key>spriteSourceSize</key>
                 <string>{16,16}</string>
                 <key>textureRect</key>
-                <string>{{13,31},{16,16}}</string>
+                <string>{{151,14},{16,16}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -354,13 +354,13 @@
             <key>premultiplyAlpha</key>
             <false/>
             <key>realTextureFileName</key>
-            <string>crop.png</string>
+            <string>crop_m.png</string>
             <key>size</key>
-            <string>{31,136}</string>
+            <string>{168,32}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:3b9fc8ce981ff204b4526f6d34e807c8:cae04d7b145de3c8056e5ad5307d1241:be2e5b24d12d15a65d23f031cf32a7da$</string>
+            <string>$TexturePacker:SmartUpdate:732c4ae00497262219206a4915ba5f92:cae04d7b145de3c8056e5ad5307d1241:9ef07bb731d53e539b677093bee209b8$</string>
             <key>textureFileName</key>
-            <string>crop.png</string>
+            <string>crop_m.png</string>
         </dict>
     </dict>
 </plist>
