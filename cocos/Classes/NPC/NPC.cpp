@@ -34,7 +34,7 @@ bool NPC::init(const cocos2d::Vec2& position, const std::string& name, int affec
     // 5. 创建菜单并添加聊天按钮
     auto menu = cocos2d::Menu::create(chatButton, nullptr);  // 创建一个菜单，菜单中只包含一个按钮
     menu->setPosition(cocos2d::Vec2(0, -50));  // 设置菜单的位置，将按钮放置在NPC的下方300个单位的地方
-    
+
     this->addChild(menu, 16);
     //this->addChild(menu);  // 将菜单添加到NPC节点中，这样按钮就能显示出来
 

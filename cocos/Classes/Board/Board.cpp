@@ -5,7 +5,7 @@ USING_NS_CC;
 // 创建 Board 对象
 Board* Board::createBoard(const std::string& weather, int money, int experience) {
     Board* ret = new (std::nothrow) Board();
-    if (ret && ret->init(weather, money,experience)) {
+    if (ret && ret->init(weather, money, experience)) {
         ret->autorelease();
         return ret;
     }
@@ -46,7 +46,7 @@ bool Board::init(const std::string& weather, int money, int experience) {
 
     // 3. 添加玩家钱财标签（背景下方）
     moneyLabel = Label::createWithTTF("Money: " + std::to_string(player->playerproperty.getMoney()), "fonts/arial.ttf", 24);
-    moneyLabel->setPosition(background->getPosition() - Vec2(0, background->getContentSize().height / 2-10));
+    moneyLabel->setPosition(background->getPosition() - Vec2(0, background->getContentSize().height / 2 - 10));
     moneyLabel->setColor(Color3B::BLACK);
     moneyLabel->setScale(0.5);
     this->addChild(moneyLabel);
@@ -71,7 +71,7 @@ bool Board::init(const std::string& weather, int money, int experience) {
 
     //4.5 添加经验值标签
     experienceLabel = Label::createWithTTF("Experience: " + std::to_string(player->playerproperty.getExperience()), "fonts/arial.ttf", 24);
-    experienceLabel->setPosition(background->getPosition() + Vec2(10, background->getContentSize().height / 2-10));
+    experienceLabel->setPosition(background->getPosition() + Vec2(10, background->getContentSize().height / 2 - 10));
     experienceLabel->setColor(Color3B::BLACK);
     experienceLabel->setScale(0.4);
     this->addChild(experienceLabel);
@@ -86,17 +86,13 @@ bool Board::init(const std::string& weather, int money, int experience) {
 }
 
 void Board::updateTimeLabel(float dt) {
-   // _timeSystem->updateTime();  // 更新游戏内的时间
+    // _timeSystem->updateTime();  // 更新游戏内的时间
     std::string timeStr = std::to_string(timeSystem->getYear()) + "-" +
         std::to_string(timeSystem->getSeason()) + "-" +
         std::to_string(timeSystem->getDay()) + "-" +
         std::to_string(timeSystem->getHour());
     timeLabel->setString(timeStr);  // 更新标签显示
 }
-
-
-
-
 
 
 
@@ -125,7 +121,6 @@ void Board::setWeatherSprite(const std::string& weather) {
 }
 
 
-
 // 更新玩家钱财标签
 void Board::updateMoneyLabel() {
     //人物初始化
@@ -133,7 +128,6 @@ void Board::updateMoneyLabel() {
     // 更新 moneyLabel 的文本
     moneyLabel->setString("Money: " + std::to_string(player->playerproperty.getMoney()));
 }
-
 
 
 // 更新玩家经验标签

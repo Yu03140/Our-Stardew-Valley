@@ -16,7 +16,7 @@ USING_NS_CC;
 // 点击菜单项时的回调函数
 void MenuScene::onMenuItemClicked(Ref* sender) {
     // 切换到 FarmScene 场景
-    Director::getInstance()->replaceScene(FarmScene::createScene());
+    Director::getInstance()->replaceScene(FarmScene::getInstance());
 }
 
 // 创建场景
@@ -35,8 +35,6 @@ static void problemLoading(const char* filename)
 // 在初始化时进行实例化
 bool MenuScene::init()
 {
-    //////////////////////////////
-    // 1. 调用父类的初始化方法
     if (!Scene::init())
     {
         return false;
@@ -45,10 +43,6 @@ bool MenuScene::init()
     // 获取屏幕可视区域的大小和原点
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-    /////////////////////////////
-    // 2. 添加一个菜单项，点击后退出程序
-    // 你可以根据需要修改该部分。
 
     // 创建一个“关闭”按钮用于退出程序
     auto closeItem = MenuItemImage::create(
@@ -78,9 +72,7 @@ bool MenuScene::init()
     }
     // 设置背景位置为屏幕中央
     background->setPosition(origin + visibleSize / 2);
-    // 可选：适配屏幕大小
     background->setContentSize(visibleSize);
-    // 添加到场景并设置 z-order 为 -1，使其位于最底层
     this->addChild(background, -1);
 
     // 加载原始图片纹理
@@ -133,7 +125,7 @@ bool MenuScene::init()
     // 定义点击按钮时切换场景的回调函数
     auto onButtonClicked = [](Ref* sender) {
         // 点击按钮后，切换到 FarmScene 场景
-        Director::getInstance()->replaceScene(FarmScene::createScene());
+        Director::getInstance()->replaceScene(FarmScene::getInstance());
         };
 
     // 设置按钮的点击回调函数

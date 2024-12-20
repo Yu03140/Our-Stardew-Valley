@@ -1,7 +1,5 @@
 #include "TimeSystem.h"
 
-
-
 USING_NS_CC;
 
 // 静态成员变量初始化
@@ -13,16 +11,13 @@ TimeSystem::TimeSystem() {
     day = 1;                   // 初始日期为1日
     hour = 0;                  // 初始小时为0点
     season = 1;                // 初始季节为春季（1表示春季）
-    weather="normal";        // 初始时，不是干旱日
+    weather = "normal";        // 初始时，不是干旱日
 
     Node::onEnter();
     schedule([this](float deltaTime) {
         update(deltaTime);
         }, 10.0f, "update_key");  // 设置每 5 秒调用一次 update
     this->scheduleUpdate();
-
-
-
 }
 
 // 析构函数
@@ -39,7 +34,7 @@ TimeSystem* TimeSystem::getInstance() {
     // 确保 TimeSystem 实例被添加到当前运行的场景
     auto currentScene = Director::getInstance()->getRunningScene();
     if (instance->getParent() != currentScene) {
-        currentScene->addChild(instance);
+        //currentScene->addChild(instance);
     }
 
     return instance;
@@ -58,7 +53,7 @@ void TimeSystem::update(float deltaTime) {
         changeDay();  // 改变一天
     }
 
-   
+
 }
 
 // 天数更新

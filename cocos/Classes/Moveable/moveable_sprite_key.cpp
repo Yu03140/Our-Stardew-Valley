@@ -1,25 +1,7 @@
-/****************************************************************************
-精灵特点：按下键盘方向键，按照方向移动并执行移动动画，当到达边界时不移动
-使用方式：
-    auto sprite_move = moveable_sprite_key::create("name.plist","name");
-    if (sprite_move)
-    {
-        // 设置初始位置
-        sprite_move->setPosition());
-        // 将精灵添加到场景中
-        this->addChild(sprite_move);
-        // 定时调用 update 更新精灵的位置
-        sprite_move->schedule([sprite_move](float dt) {
-            sprite_move->update(dt);
-            }, "update_key");
-    }
-使用要求：plist文件中上下左右移动的后缀分别为{"-back","-front","-left","-right"}，并且每个方向有四个走路的动画，后缀为{"1","2","3","4"}
- ****************************************************************************/
-
-#include "Moveable/moveable_sprite_key.h"
+#include "moveable_sprite_key.h"
 
 // 静态成员变量定义
-std::string moveable_sprite_key::sprite_name = ""; 
+std::string moveable_sprite_key::sprite_name = "";
 std::string moveable_sprite_key_walk::sprite_name_walk = "";
 std::string moveable_sprite_key_tool::sprite_name_tool = "";
 cocos2d::Texture2D* moveable_sprite_key_tool::transparent_texture = nullptr;
@@ -126,8 +108,7 @@ void moveable_sprite_key::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode,
 
     // 松开键盘时，停止所有动作
     this->stopAllActions();
-    CCLOG("STOP");
-    isAnimating = false;  // 标记动画停止
+    isAnimating = false;
 
 }
 
@@ -145,19 +126,19 @@ void moveable_sprite_key::update(float deltaTime)
     cocos2d::Vec2 origin = cocos2d::Director::getInstance()->getVisibleOrigin();
 
     // 判断精灵是否超出边界
-   if (sprite_pos.y + this->getContentSize().height / 2 >= origin.y + visibleSize.height) {
-       is_hit_edge[0] = true;
-       CCLOG("Sprite hit the top edge");
+    if (sprite_pos.y + this->getContentSize().height * 2 >= SceneHeight / 2) {
+        is_hit_edge[0] = true;
+        CCLOG("Sprite hit the top edge");
     }
-    else  if (sprite_pos.y - this->getContentSize().height / 2 <= origin.y) {
-       is_hit_edge[1] = true;
-       CCLOG("Sprite hit the bottom edge");
+    else  if (sprite_pos.y - this->getContentSize().height * 2 <= visibleSize.height - SceneHeight / 2) {
+        is_hit_edge[1] = true;
+        CCLOG("Sprite hit the bottom edge");
     }
-    if (sprite_pos.x - this->getContentSize().width / 2 <= origin.x) {
+    if (sprite_pos.x - this->getContentSize().width * 2 <= visibleSize.width - SceneWidth / 2) {
         is_hit_edge[2] = true;
         CCLOG("Sprite hit the left edge");
     }
-    else if (sprite_pos.x + this->getContentSize().width / 2 >= origin.x + visibleSize.width) {
+    else if (sprite_pos.x + this->getContentSize().width * 2 >= SceneWidth / 2) {
         is_hit_edge[3] = true;
         CCLOG("Sprite hit the right edge");
     }
@@ -182,7 +163,7 @@ void moveable_sprite_key::move_act(int direction)
     this->runAction(move_action);
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*----------------------------------------------------------------walk-----------------------------------------------------------------------------*/
 ////创建moveable_sprite_key_walk实例
 moveable_sprite_key_walk* moveable_sprite_key_walk::create(const std::string& plist_name, const std::string& sprite_framename)
 
@@ -205,7 +186,7 @@ moveable_sprite_key_walk* moveable_sprite_key_walk::create(const std::string& pl
     {
         sprite->initWithSpriteFrame(frame);
         sprite->autorelease();
-        sprite->setScale(4.0f);  // 将精灵放大 4 倍
+        sprite->setScale(6.0f);  // 将精灵放大 6 倍
         sprite->init_keyboardlistener();
         CCLOG("Creation moveable_sprite_key_walk successfully!");
         return sprite;
@@ -216,13 +197,13 @@ moveable_sprite_key_walk* moveable_sprite_key_walk::create(const std::string& pl
 }
 
 //生成带有移动动画的移动指令
-void moveable_sprite_key_walk :: move_act(int direction)
+void moveable_sprite_key_walk::move_act(int direction)
 {
     //各方向对应图片后缀
     std::string dic[4] = { "-back","-front","-left","-right" };
 
     //创建移动动作
-    auto move_action = cocos2d::MoveBy::create(0.1f, cocos2d::Vec2( move_vecx[direction], move_vecy[direction]));
+    auto move_action = cocos2d::MoveBy::create(0.1f, cocos2d::Vec2(move_vecx[direction], move_vecy[direction]));
     //创建动画
     cocos2d::Vector<cocos2d::SpriteFrame*> frames;
     frames.pushBack(cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName(sprite_name_walk + dic[direction] + ".png"));
@@ -253,7 +234,7 @@ cocos2d::Vec2 moveable_sprite_key_walk::get_pos()
     return pos;
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*----------------------------------------------------------------tool-----------------------------------------------------------------------------*/
 //创建moveable_sprite_key_tool实例
 moveable_sprite_key_tool* moveable_sprite_key_tool::create(const std::string& plist_name, float width, float height)
 
@@ -294,22 +275,25 @@ moveable_sprite_key_tool* moveable_sprite_key_tool::create(const std::string& pl
     return nullptr;
 }
 
-void moveable_sprite_key_tool::update(float deltaTime){
+void moveable_sprite_key_tool::update(float deltaTime) {
 
     // 先调用父类的 update
     moveable_sprite_key::update(deltaTime);
 
     //如果手上现在的工具与背包选中的不一致，则需更新
-    if (backpackLayer->getSelectedItem()!= sprite_name_tool) {
-        //如果该物品需要拿在手上，则显示，否则显示透明纹理
-        if (TOOLS_MAP.count(backpackLayer->getSelectedItem())) {
-            sprite_name_tool = backpackLayer->getSelectedItem();
-            this->setSpriteFrame(sprite_name_tool + direc + ".png");
+    if (backpackLayer->getSelectedItem() != sprite_name_tool) {
+        sprite_name_tool = backpackLayer->getSelectedItem();
+        //如果该物品为工具，则需要随方向调整
+        if (sprite_name_tool != "") {
+            if (TOOLS_MAP.count(backpackLayer->getSelectedItem())) {
+                this->setSpriteFrame(sprite_name_tool + direc + ".png");
+            }
+            else {
+                this->setSpriteFrame(sprite_name_tool + ".png");
+            }
         }
-        else{
-            sprite_name_tool = "";
+        else
             this->setTexture(transparent_texture);
-        }
     }
 }
 
@@ -317,9 +301,11 @@ void moveable_sprite_key_tool::update(float deltaTime){
 void moveable_sprite_key_tool::move_act(int direction)
 {
     std::string dic[4] = { "-back","-front","-left","-right" };
-    if(sprite_name_tool != "") {
-        //各方向对应图片后缀
-        this->setSpriteFrame(sprite_name_tool + dic[direction] + ".png");
+    if (sprite_name_tool != "") {
+        if (TOOLS_MAP.count(backpackLayer->getSelectedItem())) {
+            //各方向对应图片后缀
+            this->setSpriteFrame(sprite_name_tool + dic[direction] + ".png");
+        }
     }
     direc = dic[direction];
 
@@ -344,28 +330,32 @@ void moveable_sprite_key_tool::init_mouselistener()
 // 鼠标按下时的回调
 void moveable_sprite_key_tool::on_mouse_click(cocos2d::Event* event)
 {
-    CCLOG("tool click!");
-    auto mouse_event = dynamic_cast<cocos2d::EventMouse*>(event);
-    auto mouse_pos = this->getParent()->convertToNodeSpace(mouse_event->getLocationInView());
+    /*------------------------------------------------------renew-------------------------------------------------------------*/
+
     auto tool_pos = this->getPosition();
     auto tool_size = this->getContentSize();
 
-    if (mouse_pos.x > tool_pos.x - range &&
-        mouse_pos.x < tool_pos.x + range &&
-        mouse_pos.y > tool_pos.y - range &&
-        mouse_pos.y < tool_pos.y + range && 
-        sprite_name_tool != "")
-    {
-        // 切换纹理
-        this->setSpriteFrame(sprite_name_tool + direc + "-clicked.png");
+    /*------------------------------------------------------renew-------------------------------------------------------------*/
 
-        // 在 0.2 秒后恢复原图
-        this->scheduleOnce([this](float dt) {
-            this->setSpriteFrame(sprite_name_tool + direc + ".png");
-            }, 0.2f, "reset_texture_key");
-        CCLOG("Mouse Position（tool）: (%f, %f)", mouse_pos.x, mouse_pos.y);
-        click_pos = mouse_pos;
+    if (MOUSE_POS.x > character_pos.x - CONTROL_RANGE &&
+        MOUSE_POS.x < character_pos.x + CONTROL_RANGE &&
+        MOUSE_POS.y > character_pos.y - CONTROL_RANGE &&
+        MOUSE_POS.y < character_pos.y + CONTROL_RANGE)
+    {
+        is_in_control = 1;
+        if (TOOLS_MAP.count(sprite_name_tool)) {
+            CCLOG("tool click!");
+            // 切换纹理
+            this->setSpriteFrame(sprite_name_tool + direc + "-clicked.png");
+
+            // 在 0.2 秒后恢复原图
+            this->scheduleOnce([this](float dt) {
+                if (sprite_name_tool != "")
+                    this->setSpriteFrame(sprite_name_tool + direc + ".png");
+                }, 0.2f, "reset_texture_key");
+        }
     }
+    else
+        is_in_control = 0;
 
 }
-

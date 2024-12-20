@@ -5,7 +5,7 @@
 #include "Global/Global.h"
 #include <unordered_set>
 
-#define SPEED 30.0f
+#define SPEED 35.0f
 
 class moveable_sprite_key : public cocos2d::Sprite
 {
@@ -22,7 +22,7 @@ private:
     bool is_passable = 1;
     cocos2d::Vec2 sprite_pos;
 public:
-    virtual ~moveable_sprite_key(){}
+    virtual ~moveable_sprite_key() {}
 
     //创建一个moveable_sprite_key的实例
     static moveable_sprite_key* create(const std::string& plist_name, float width, float height);
@@ -46,7 +46,7 @@ public:
 
 class moveable_sprite_key_walk : public moveable_sprite_key
 {
-private:    
+private:
     static std::string sprite_name_walk;
     static cocos2d::Texture2D* transparent_texture;
 
@@ -55,7 +55,7 @@ public:
 
     //创建一个moveable_sprite_key的实例
     static moveable_sprite_key_walk* create(const std::string& plist_name, const std::string& sprite_framename);
-   
+
     //生成带有移动动画的移动指令
     void move_act(int direction) override;
 
@@ -68,7 +68,6 @@ private:
     static std::string sprite_name_tool;
     cocos2d::Vec2 click_pos;
     std::string direc = "-front";
-    int range = 50;
     static cocos2d::Texture2D* transparent_texture;
 
 public:
@@ -87,7 +86,7 @@ public:
     void on_mouse_click(cocos2d::Event* event);
 
     void update(float deltaTime) override;
-    
+
 };
 
 #endif __MOVEABLE_SPRITE_KEY_H__

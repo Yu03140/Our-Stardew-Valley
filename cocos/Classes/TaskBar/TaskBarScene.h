@@ -5,7 +5,6 @@
 #include "cocos2d.h"
 #include "TaskBar.h"
 #include "Attribute/attribute.h" 
-#include "TaskBar.h"
 /**
  * @brief TaskBarScene 类用于管理任务栏的场景。
  * 该类继承自 cocos2d::Layer，提供显示任务栏、处理任务交互的功能。
@@ -16,7 +15,7 @@ public:
      * @brief 创建并返回任务栏场景。
      * @return 一个包含任务栏的 cocos2d::Scene 对象。
      */
-    static cocos2d::Layer* createLayer();
+    static cocos2d::Scene* createScene();
 
     /**
      * @brief 初始化任务栏场景。

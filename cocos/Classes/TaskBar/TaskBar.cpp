@@ -75,7 +75,7 @@ void TaskBar::onCompleteTask() {
         if (completeTaskCallback) {
             completeTaskCallback(); // 执行完成任务的回调函数
         }
-        descriptionLabel->setString("Done!"); // 更新任务描述为“任务完成！”
+        descriptionLabel->setString("任务完成！"); // 更新任务描述为“任务完成！”
     }
 }
 
