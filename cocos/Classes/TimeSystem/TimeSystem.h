@@ -7,6 +7,8 @@
 #include <cstdlib>
 #include <ctime>
 
+#include "TimeSystem/NightTransitionScene.h"
+
 
 USING_NS_CC;
 
@@ -51,6 +53,8 @@ public:
 
     //void TimeSystem::checkForHoliday();
     void checkForHoliday();
+
+    void triggerNightTransition();
 
 private:
     int year;               // 当前年份

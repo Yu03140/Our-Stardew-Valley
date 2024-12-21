@@ -45,6 +45,7 @@ bool BackpackLayer::init() {
     X0 = (visibleSize.width - mapSize.width) / 2;  // 居中
     Y0 = visibleSize.height * 0.05f;              // 距底部偏移一点
     tilemap->setPosition(Vec2(X0, Y0));
+    CCLOG("X0: %f, Y0: %f", X0, Y0);
 
     // 获取对象层（每个背包格子的位置）
     auto objectGroup = tilemap->getObjectGroup("Slots");  // 假设名为 "Slots"
@@ -68,16 +69,16 @@ bool BackpackLayer::init() {
 
         // 创建透明纹理的精灵
         auto sprite = Sprite::create();  // 默认无纹理
-		sprite->setPosition(Vec2(posX, posY));        // 设置位置
-		sprite->setAnchorPoint(Vec2(0, 0));     // 设置锚点
-		sprite->setContentSize(Size(width, height));  // 设置大小
+        sprite->setPosition(Vec2(posX, posY));        // 设置位置
+        sprite->setAnchorPoint(Vec2(0, 0));     // 设置锚点
+        sprite->setContentSize(Size(width, height));  // 设置大小
         tilemap->addChild(sprite, 1);  // 添加到瓦片地图
         itemSlots[i].sprite = sprite;
     }
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("bag.plist");        //传入纹理图集
 
-	// 初始添加五件工具
+    // 初始添加五件工具
     addItem("Axe1");
     addItem("Can1");
     addItem("Hoe1");
@@ -117,7 +118,7 @@ void BackpackLayer::onMouseDown(Event* event) {
         // 如果点击的位置在当前格子内
         if (slotRect.containsPoint(clickPosition)) {
             selectedItem = slot.name;
-            break;  
+            break;
         }
     }
 }
@@ -128,9 +129,9 @@ bool BackpackLayer::addItem(const std::string& itemName, const int num) {
     for (int i = 0; i < itemSlots.size(); ++i) {
         if (itemSlots[i].name == itemName) {
             // 如果物品已存在，增加数量并更新显示
-            itemSlots[i].quantity+=num;
+            itemSlots[i].quantity += num;
             updateItemTexture(i);
-			return true;// 添加物品成功
+            return true;// 添加物品成功
         }
     }
     for (int i = 0; i < itemSlots.size(); ++i) {
@@ -139,22 +140,22 @@ bool BackpackLayer::addItem(const std::string& itemName, const int num) {
             itemSlots[i].name = itemName;
             itemSlots[i].quantity = num;
             updateItemTexture(i);
-			return true; // 添加物品成功
+            return true; // 添加物品成功
         }
     }
-	return false; // 添加物品失败
+    return false; // 添加物品失败
 }
 
 // 减少物品
 bool BackpackLayer::removeItem(const std::string& itemName, const int num) {
     for (int i = 0; i < itemSlots.size(); ++i) {
-		// 存在该物品且数量足够
+        // 存在该物品且数量足够
         if (itemSlots[i].name == itemName && itemSlots[i].quantity >= num) {
             itemSlots[i].quantity -= num;
             if (itemSlots[i].quantity == 0) {
                 // 物品数量为 0，清空该位置的纹理
                 itemSlots[i].name = "";
-				selectedItem = "";
+                selectedItem = "";
                 clearItemTexture(i);
 
             }
@@ -168,16 +169,21 @@ bool BackpackLayer::removeItem(const std::string& itemName, const int num) {
 }
 
 std::string BackpackLayer::getSelectedItem() const {
-    return selectedItem; 
+    if (selectedItem.empty()) {
+        // 如果 selectedItem 为空，返回一个默认值或日志
+        return "";  // 或者你可以返回其他默认值
+    }
+    else
+        return selectedItem;
 }
 
-// 更新物品显示纹理
 void BackpackLayer::updateItemTexture(int slotIndex) {
+    // 更新物品显示纹理
     if (slotIndex < 0 || slotIndex >= itemSlots.size()) return;
 
     auto& slot = itemSlots[slotIndex];
     if (slot.name != "") {
-        std::string spriteFrameName = slot.name + ".png";  
+        std::string spriteFrameName = slot.name + ".png";
         auto spriteFrame = SpriteFrameCache::getInstance()->getSpriteFrameByName(spriteFrameName);
         if (spriteFrame) {
             slot.sprite->setSpriteFrame(spriteFrame);  // 使用spriteFrame更新纹理
@@ -187,8 +193,10 @@ void BackpackLayer::updateItemTexture(int slotIndex) {
             CCLOG("Failed to find sprite frame: %s", spriteFrameName.c_str());
         }
 
-		// 移除之前的数量标签
-        slot.sprite->removeChildByTag(1001);
+        if (slot.sprite->getChildByTag(1001)) {
+            // 如果存在子节点，则移除该子节点
+            slot.sprite->removeChildByTag(1001);
+        }
 
         // 更新数量显示
         auto label = Label::createWithSystemFont(std::to_string(slot.quantity), "Arial", 6);
@@ -196,7 +204,7 @@ void BackpackLayer::updateItemTexture(int slotIndex) {
         label->setPosition(slot.sprite->getContentSize().width, 0);
         label->setTextColor(Color4B::BLACK);
         slot.sprite->addChild(label, 1);
-		label->setTag(1001);// 设置tag值
+        label->setTag(1001);// 设置tag值
 
     }
 }
@@ -206,17 +214,15 @@ void BackpackLayer::clearItemTexture(int slotIndex) {
     if (slotIndex < 0 || slotIndex >= itemSlots.size()) return;
 
     auto& slot = itemSlots[slotIndex];
-    slot.sprite->removeAllChildren();  
+    slot.sprite->removeAllChildren();
 
     //清空纹理
-	auto spriteSize = slot.sprite->getContentSize();
-    int dataSize = spriteSize.width * spriteSize.width * 4;  
+    auto spriteSize = slot.sprite->getContentSize();
+    int dataSize = spriteSize.width * spriteSize.width * 4;
     unsigned char* transparentData = new unsigned char[dataSize];
     memset(transparentData, 0, dataSize);
     cocos2d::Texture2D* transparentTexture = new cocos2d::Texture2D();
     transparentTexture->initWithData(transparentData, dataSize, cocos2d::backend::PixelFormat::RGBA8888, spriteSize.width, spriteSize.width, cocos2d::Size(spriteSize.width, spriteSize.width));
-    slot.sprite->setTexture(transparentTexture);  
+    slot.sprite->setTexture(transparentTexture);
     delete[] transparentData;
 }
-
-

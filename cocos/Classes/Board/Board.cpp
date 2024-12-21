@@ -21,32 +21,24 @@ bool Board::init(const std::string& weather, int money, int experience) {
 
     //人物初始化
     Player* player = Player::getInstance("me");
-
-
-    // 1. 添加背景图片
     background = Sprite::create("Board.png");
-
-    // 获取屏幕可见尺寸
-    //cocos2d::Size visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
-
-    // 将背景放置在屏幕的左上角
-    //background->setAnchorPoint(cocos2d::Vec2(0, 1));  // 锚点设置为左上角 (0, 1)
-    //background->setPosition(cocos2d::Vec2(500, 2000));  // 左上角坐标
-    //background->setPosition(Vec2(10, Director::getInstance()->getVisibleSize().height - 10));
-    //background->setAnchorPoint(Vec2(0, 1));  // 设置锚点为左上角
-    //background->setPosition(Vec2(10, Director::getInstance()->getVisibleSize().height));
-    background->setPosition(Director::getInstance()->getVisibleSize() / 2);
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    auto mapSize = background->getContentSize();
+    float X = visibleSize.width / 1.7 - mapSize.width / 4 * 3;
+    float Y = visibleSize.height / 1.7 - mapSize.height / 4 * 3;
+    CCLOG("X: %f, Y: %f", X, Y);
+    background->setPosition(X, Y);
     this->addChild(background);
 
     // 2. 添加天气图片
     weatherSprite = Sprite::create();
     this->addChild(weatherSprite);
     setWeatherSprite(weather);  // 设置初始天气图片
-    weatherSprite->setPosition(background->getPosition()+ Vec2(background->getContentSize().height /16, background->getContentSize().height / 8));
+    weatherSprite->setPosition(background->getPosition() + Vec2(background->getContentSize().height / 16, background->getContentSize().height / 8));
 
     // 3. 添加玩家钱财标签（背景下方）
     moneyLabel = Label::createWithTTF(std::to_string(player->playerproperty.getMoney()), "fonts/arial.ttf", 12);
-    moneyLabel->setPosition(background->getPosition() - Vec2(0, background->getContentSize().height /8*3));
+    moneyLabel->setPosition(background->getPosition() - Vec2(0, background->getContentSize().height / 8 * 3));
     moneyLabel->setColor(Color3B::BLACK);
     moneyLabel->setScale(0.5);
     this->addChild(moneyLabel);
@@ -72,7 +64,7 @@ bool Board::init(const std::string& weather, int money, int experience) {
 
     //4.5 添加经验值标签
     experienceLabel = Label::createWithTTF("Exp: " + std::to_string(player->playerproperty.getExperience()), "fonts/arial.ttf", 11);
-    experienceLabel->setPosition(background->getPosition() + Vec2(10- background->getContentSize().height / 8, background->getContentSize().height / 8*3-2.5));
+    experienceLabel->setPosition(background->getPosition() + Vec2(10 - background->getContentSize().height / 8, background->getContentSize().height / 8 * 3 - 2.5));
     experienceLabel->setColor(Color3B::BLACK);
     experienceLabel->setScale(0.4);
     this->addChild(experienceLabel);
@@ -127,7 +119,7 @@ void Board::updateMoneyLabel() {
     //人物初始化
     Player* player = Player::getInstance("me");
     // 更新 moneyLabel 的文本
-    moneyLabel->setString( std::to_string(player->playerproperty.getMoney()));
+    moneyLabel->setString(std::to_string(player->playerproperty.getMoney()));
 }
 
 

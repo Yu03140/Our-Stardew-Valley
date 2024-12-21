@@ -16,7 +16,7 @@ TimeSystem::TimeSystem() {
     Node::onEnter();
     schedule([this](float deltaTime) {
         update(deltaTime);
-        }, 10.0f, "update_key");  // 设置每 5 秒调用一次 update
+        }, 10.0f, "update_key");  // 设置每10秒调用一次 update
     this->scheduleUpdate();
 }
 
@@ -53,7 +53,6 @@ void TimeSystem::update(float deltaTime) {
         changeDay();  // 改变一天
     }
 
-
 }
 
 // 天数更新
@@ -66,8 +65,10 @@ void TimeSystem::changeDay() {
         day = 1;
         changeSeason();
     }
-}
 
+    // 触发夜晚转场（在改变日期后触发）
+    triggerNightTransition();  // 每天晚上转换到第二天时触发夜晚转场
+}
 // 季节更新
 void TimeSystem::changeSeason() {
     season++;  // 月份增加
@@ -107,7 +108,7 @@ void TimeSystem::checkForHoliday() {
     }
 
     // 检查时间条件
-    if (year == 2024 && season == 1 && day == 1 && hour == 0) {
+    if (season == 1 && day == 1 && hour == 0) {
         // 设置标志为 true，防止再次触发
         hasEnteredChristmasScene = true;
 
@@ -115,5 +116,18 @@ void TimeSystem::checkForHoliday() {
         auto christmasScene = ChristmasScene::createScene();
         cocos2d::Director::getInstance()->pushScene(christmasScene);
     }
+}
+
+
+// 夜晚转场动画，每天晚上转换到第二天时触发
+void TimeSystem::triggerNightTransition() {
+    // 获取当前场景
+    auto currentScene = Director::getInstance()->getRunningScene();
+
+    // 将当前场景压入栈中
+    Director::getInstance()->pushScene(NightTransitionScene::createScene());
+
+    // 如果你需要在夜晚转场场景结束后执行一些逻辑，通常是返回到当前场景并继续时间计时
+    // 可以通过 `scheduleOnce` 来实现，给定一个延迟，等待夜晚转场场景结束。
 }
 

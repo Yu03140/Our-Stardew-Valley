@@ -25,7 +25,7 @@ public:
     bool BackpackLayer::removeItem(const std::string& itemName, const int num = 1);
 
 
-	// 得到选中的物品
+    // 得到选中的物品
     std::string getSelectedItem() const;
 
     // 瓦片地图

@@ -1,4 +1,4 @@
-#ifndef GLOBAL_H
+﻿#ifndef GLOBAL_H
 #define GLOBAL_H
 
 #include <string>
@@ -7,13 +7,11 @@
 #include "Charactor/BackpackLayer.h"
 #include "TimeSystem/TimeSystem.h"
 #include "Attribute/attribute.h"
-#include "TaskBar/TaskBarScene.h"
+#include "TaskBar/TaskBarLayer.h"
 #include "Board/Board.h"
 
 
-
-
-//ȫ�ֶ���
+//È«¾Ö¶¨Òå
 #define CONTROL_RANGE 150 
 
 extern BackpackLayer* backpackLayer;
@@ -24,7 +22,6 @@ extern float SceneWidth;
 extern float SceneHeight;
 extern cocos2d::Vec2 MOUSE_POS;
 
-
 #define Playerlayer 1
 #define Backpacklayer 2
 #define Timesystemlayer 3
@@ -32,5 +29,3 @@ extern cocos2d::Vec2 MOUSE_POS;
 #define MapSize 4
 
 #endif // GLOBAL_H
-
-

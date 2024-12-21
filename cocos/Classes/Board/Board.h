@@ -28,4 +28,3 @@ private:
 };
 
 #endif // __BOARD_H__
-
