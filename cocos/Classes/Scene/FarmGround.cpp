@@ -315,7 +315,7 @@ void FarmScene::checkForButtonClick(Vec2 mousePosition)
     std::string Objectname[3] = { "Mines_Door","Home_Door","Shed_Door" };
     Scene* nextScene = nullptr;
 
-    for(int i=0;i<2;i++){
+    for(int i=0;i<3;i++){
     auto object = objectGroup->getObject(Objectname[i]);
     float posX = object["x"].asFloat();
     float posY = object["y"].asFloat();
@@ -349,6 +349,10 @@ void FarmScene::checkForButtonClick(Vec2 mousePosition)
             // 切换到 HomeScene
             nextScene = HomeScene::createScene();
             break;
+        case 2:
+			// 切换到 ShedScene
+			nextScene = ShedScene::createScene();
+			break;
         }
 
         // 如果我们成功获取到下一个场景，就推入栈中

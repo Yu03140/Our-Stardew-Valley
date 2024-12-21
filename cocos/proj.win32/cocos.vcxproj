@@ -825,6 +825,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\Scene\MinesScene.h" />
     <ClInclude Include="..\Classes\Scene\FarmGround.h" />
     <ClInclude Include="..\Classes\Scene\MenuScene.h" />
+    <ClInclude Include="..\Classes\Scene\ShedScene.h" />
     <ClInclude Include="..\Classes\Scene\SubScene.h" />
     <ClInclude Include="..\Classes\TaskBar\TaskBar.h" />
     <ClInclude Include="..\Classes\TaskBar\TaskBarScene.h" />
@@ -847,6 +848,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\Scene\MinesScene.cpp" />
     <ClCompile Include="..\Classes\Scene\FarmGround.cpp" />
     <ClCompile Include="..\Classes\Scene\MenuScene.cpp" />
+    <ClCompile Include="..\Classes\Scene\ShedScene.cpp" />
     <ClCompile Include="..\Classes\TaskBar\TaskBar.cpp" />
     <ClCompile Include="..\Classes\TaskBar\TaskBarScene.cpp" />
     <ClCompile Include="..\Classes\TimeSystem\TimeSystem.cpp" />

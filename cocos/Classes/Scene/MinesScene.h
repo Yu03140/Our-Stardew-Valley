@@ -2,35 +2,26 @@
 #define __MINES_SCENE_H__
 
 #include "cocos2d.h"
+#include "FarmGround.h"
+#include "SubScene.h"
 
-class MinesScene : public cocos2d::Scene
+class MinesScene : public SubScene
 {
 public:
 
     static MinesScene* getInstance();
     static Scene* createScene();
 
-    // 初始化场景
-    virtual bool init();
-
     // 添加一个初始化地图的函数
     void initTileMap();
 
-    // 重写update方法，便于扩展动态逻辑
-    virtual void update(float delta) override;
-
     // 鼠标点击事件处理
-    void onMouseDown(cocos2d::Event* event);
+    void changeScene(cocos2d::Event* event);
 
     // 使用CREATE_FUNC宏定义create方法
     CREATE_FUNC(MinesScene);
 
-private:
-    // 瓦片地图的指针
-    cocos2d::TMXTiledMap* MinetileMap;
-
-    // 碰撞层或特定的瓦片图层（如果需要处理障碍物或特殊逻辑）
-    cocos2d::TMXLayer* _collisionLayer;
+protected:
 
     static MinesScene* instance;
 };

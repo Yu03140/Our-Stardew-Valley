@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="19" height="17" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="12">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="19" height="17" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="15">
  <tileset firstgid="1" source="townInterior.tsx"/>
  <layer id="2" name="back" width="19" height="17">
   <data encoding="csv">
@@ -22,6 +22,11 @@
 0,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147
 </data>
  </layer>
+ <objectgroup id="4" name="Button">
+  <object id="12" name="Door" x="127.602" y="250.117" width="16.8072" height="21.2301"/>
+  <object id="13" x="10.3939" y="-7.07671" width="19.461" height="5.30753"/>
+  <object id="14" x="152.149" y="47.1044" width="0.221147" height="0.442294"/>
+ </objectgroup>
  <layer id="1" name="border" width="19" height="17">
   <data encoding="csv">
 10,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,12,

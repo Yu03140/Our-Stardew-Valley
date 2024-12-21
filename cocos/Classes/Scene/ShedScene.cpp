@@ -1,31 +1,31 @@
-#include "HomeScene.h"
+#include "ShedScene.h"
 #include "FarmGround.h"
 
 USING_NS_CC;
 
-HomeScene* HomeScene::instance = nullptr;
+ShedScene* ShedScene::instance = nullptr;
 
 //实现单例模式
-HomeScene* HomeScene::getInstance() {
+ShedScene* ShedScene::getInstance() {
     if (instance == nullptr) {
-        instance = HomeScene::create();
+        instance = ShedScene::create();
     }
     return instance;
 }
 
-cocos2d::Scene* HomeScene::createScene() {
+cocos2d::Scene* ShedScene::createScene() {
     return getInstance();
 }
 
 // 初始化瓦片地图
-void HomeScene::initTileMap()
+void ShedScene::initTileMap()
 {
-    // 加载Mines.tmx瓦片地图
-    tileMap = TMXTiledMap::create("HomeScene.tmx");
+    // 加载shed.tmx瓦片地图
+    tileMap = TMXTiledMap::create("shed.tmx");
 
 }
 
-void HomeScene::changeScene(Event* event)
+void ShedScene::changeScene(Event* event)
 {
     // 获取鼠标点击事件
     auto mouseEvent = dynamic_cast<EventMouse*>(event);
@@ -78,13 +78,5 @@ void HomeScene::changeScene(Event* event)
         CCLOG("Door clicked! Switching scenes...");
         Director::getInstance()->popScene();
     }
-}
-
-
-// 每帧更新
-void HomeScene::update(float delta)
-{
-    // 示例：可以在这里更新角色逻辑或其他动态内容
-    //CCLOG("MinesScene is updating...");
 }
 

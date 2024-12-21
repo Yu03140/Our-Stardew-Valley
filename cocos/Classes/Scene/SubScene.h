@@ -3,7 +3,6 @@
 
 #include "cocos2d.h"
 #include "Global/Global.h"
-#include "FarmGround.h"
 
 
 class SubScene : public cocos2d::Scene
@@ -42,7 +41,7 @@ public:
 
         // 添加鼠标点击事件监听器
         auto mouseListener = EventListenerMouse::create();
-        mouseListener->onMouseDown = CC_CALLBACK_1(SubScene::onMouseDown, this);
+        mouseListener->onMouseDown = CC_CALLBACK_1(SubScene::changeScene, this);
         _eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
 
         // 开启update函数
@@ -117,7 +116,7 @@ public:
     virtual void update(float delta) override{}
 
     // 鼠标点击事件处理
-    virtual void onMouseDown(cocos2d::Event* event){}
+    virtual void changeScene(cocos2d::Event* event){}
 
 protected:
     // 瓦片地图的指针

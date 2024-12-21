@@ -9,6 +9,7 @@
 #include "GetableItem/Animals.h"
 #include "MinesScene.h"
 #include "HomeScene.h"
+#include "ShedScene.h"
 
 #define MapSize 4
 #define TOOL_WIDTH 40
