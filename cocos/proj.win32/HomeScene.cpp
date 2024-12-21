@@ -37,7 +37,7 @@ bool MinesScene::init()
     // 开启update函数
     this->scheduleUpdate();
 
-  
+
 
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -59,7 +59,7 @@ bool MinesScene::init()
     CCLOG("BackpackLayer position: (%f, %f)", backpackLayer->getPositionX(), backpackLayer->getPositionY());
     CCLOG("BackpackLayer size: (%f, %f)", backpackLayer->getContentSize().width, backpackLayer->getContentSize().height);
 
-    
+
 
 
     //----------------------------------------------------
@@ -151,7 +151,7 @@ void MinesScene::onMouseDown(Event* event)
     // 将点击位置转换为瓦片地图坐标
     Vec2 mapCoord = MinetileMap->convertToNodeSpace(clickLocation);
     auto visibleSize = Director::getInstance()->getVisibleSize();
-    mapCoord.y = visibleSize.height/MapSize - mapCoord.y;
+    mapCoord.y = visibleSize.height / MapSize - mapCoord.y;
     CCLOG("clickLocation2: ( %f , %f )", mapCoord.x, mapCoord.y);
 
     // 获取对象层

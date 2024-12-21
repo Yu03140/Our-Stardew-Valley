@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="80" height="65" tilewidth="16" tileheight="16" infinite="0" nextlayerid="26" nextobjectid="193">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="80" height="65" tilewidth="16" tileheight="16" infinite="0" nextlayerid="26" nextobjectid="195">
  <tileset firstgid="1" source="spring_outdoorsTileSheet2.tsx"/>
  <tileset firstgid="1121" source="1spring_outdoorsTileSheet..tsx"/>
  <tileset firstgid="3096" name="spring_outdoorTileSheet_extra" tilewidth="16" tileheight="16" tilecount="64" columns="8">
@@ -490,7 +490,9 @@
   <object id="181" x="508" y="82"/>
   <object id="182" x="524" y="92"/>
   <object id="191" x="754" y="-40" width="1"/>
-  <object id="192" name="Door" x="511.25" y="79.75" width="18.25" height="32.25"/>
+  <object id="192" name="Mines_Door" x="511.25" y="79.75" width="18.25" height="32.25"/>
+  <object id="193" x="651" y="376.25"/>
+  <object id="194" name="Home_Door" x="250" y="272.667" width="25.3333" height="48"/>
  </objectgroup>
  <layer id="16" name="myhouse" width="80" height="65">
   <data encoding="csv">
@@ -842,7 +844,6 @@
   <object id="7" name="NPC1" x="1090.67" y="607.333"/>
   <object id="174" name="warm_house" x="192" y="641.5" width="113.5" height="125.5"/>
   <object id="177" x="815.333" y="158.667" width="49" height="33.6667"/>
-  <object id="178" name="shed_door" x="245.333" y="274.667" width="36" height="54.6667"/>
  </objectgroup>
  <objectgroup id="22" name="crops_layer">
   <object id="137" name="crop1" x="320.091" y="384.091" width="15.9091" height="16"/>

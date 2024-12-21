@@ -81,7 +81,6 @@ bool MenuScene::init()
         CCLOG("加载菜单图片失败.");
         return false;
     }
-
     auto title_sprite = Sprite::createWithTexture(texture);  // 创建裁剪后的精灵
    
     title_sprite->setScale(1.5f); // 放大标题精灵 1.5 倍

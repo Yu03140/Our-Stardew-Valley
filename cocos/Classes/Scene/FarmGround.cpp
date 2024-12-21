@@ -1,9 +1,9 @@
 #include "FarmGround.h"
 
+
 USING_NS_CC;
 
 FarmScene* FarmScene::instance = nullptr;
-Vec2  FarmScene::cameraPosBeforeSwitch = Vec2(0, 0);
 
 bool FarmScene::init() {
     // 调用父类的初始化函数
@@ -50,7 +50,7 @@ bool FarmScene::init() {
     backpackLayer = BackpackLayer::create();
     if (backpackLayer) {
         this->addChild(backpackLayer, Backpacklayer);
-        backpackLayer->retain();
+        backpackLayer->setName("backpackLayer");
     }
     else
         CCLOG("Failed to load the backpack layer");
@@ -81,7 +81,7 @@ bool FarmScene::init() {
 
         sprite_move->schedule([this, sprite_move](float dt) { // 捕获 `this` 和 `sprite_move`
             sprite_move->update(dt);                         // 更新人物移动逻辑
-            updateCameraPosition(dt, sprite_move);                 // 更新相机位置
+            updateCameraPosition(dt, sprite_move);           // 更新相机位置
             }, "update_key_person");
 
     }
@@ -289,7 +289,8 @@ void FarmScene::on_mouse_click(cocos2d::Event* event)
     Vec2 mouse_pos = mousePosition + windowOrigin;
     MOUSE_POS = mouse_pos;
     CCLOG("Mouse Position(global): (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
-    checkForDoorClick(mouse_pos);
+    checkForButtonClick(mouse_pos);
+
     // 0.1秒后将 MOUSE_POS 置为 (0, 0)，并且不影响其他程序运行
     this->scheduleOnce([this](float dt) {
         MOUSE_POS = Vec2::ZERO;
@@ -297,24 +298,29 @@ void FarmScene::on_mouse_click(cocos2d::Event* event)
         }, 1.5f, "reset_mouse_pos_key");
 }
 
-// 功能：检测是否点击了门（Door）并切换到 MinesScene
-void FarmScene::checkForDoorClick(Vec2 mousePosition)
+// 功能：检测是否点击了Button并切换场景
+void FarmScene::checkForButtonClick(Vec2 mousePosition)
 {
     // 获取 Button 对象层（Button 层的名称为 "Button"）
     auto objectGroup = tileMap->getObjectGroup("Button");
     if (!objectGroup) {
         CCLOG("Failed to get object group 'Button'");
-        return;
+        return ;
     }
 
     CCLOG("Successed to get object grouo 'Button'");
 
     // 获取 Door 对象的坐标和尺寸
-    auto object = objectGroup->getObject("Door");
+
+    std::string Objectname[3] = { "Mines_Door","Home_Door","Shed_Door" };
+    Scene* nextScene = nullptr;
+
+    for(int i=0;i<2;i++){
+    auto object = objectGroup->getObject(Objectname[i]);
     float posX = object["x"].asFloat();
     float posY = object["y"].asFloat();
-    float width = object["width"].asFloat();
-    float height = object["height"].asFloat();
+    float width = object["width"].asFloat() * MapSize;
+    float height = object["height"].asFloat() * MapSize;
 
     auto sprite = Sprite::create();
     sprite->setPosition(Vec2(posX, posY));
@@ -322,23 +328,55 @@ void FarmScene::checkForDoorClick(Vec2 mousePosition)
     sprite->setContentSize(Size(width, height));
     tileMap->addChild(sprite);
 
-    Vec2 door_pos = sprite->convertToWorldSpace(Vec2(0, 0));
+    Vec2 pos = sprite->convertToWorldSpace(Vec2(0, 0));
+    CCLOG("POS: %f, %f", pos.x, pos.y);
 
     // 判断点击位置是否在 Door 区域内
-    if (mousePosition.x >= door_pos.x && mousePosition.x <= door_pos.x + width &&
-        mousePosition.y >= door_pos.y && mousePosition.y <= door_pos.y + height) {
+    if (mousePosition.x >= pos.x && mousePosition.x <= pos.x + width &&
+        mousePosition.y >= pos.y && mousePosition.y <= pos.y + height) {
 
+       // if (backpackLayer) 
+       //     this->removeChild(backpackLayer);  // 移除背包层
+       // CCLOG("remove backpacklayer successfully!");
         CCLOG("Door clicked! Switching to MinesScene...");
 
-        // 在切换场景之前保存相机位置
-        cameraPosBeforeSwitch = Director::getInstance()->getRunningScene()->getDefaultCamera()->getPosition();
+        switch (i) {
+        case 0:
+            // 切换到 MinesScene
+            nextScene = MinesScene::createScene();
+            break;
+        case 1:
+            // 切换到 HomeScene
+            nextScene = HomeScene::createScene();
+            break;
+        }
 
-        // 切换到 MinesScene
-        auto minesScene = MinesScene::createScene();
-        minesScene->retain();
-        Director::getInstance()->pushScene(minesScene);
+        // 如果我们成功获取到下一个场景，就推入栈中
+        if (nextScene) {
+            nextScene->retain();  // 保留场景，避免被销毁
+            Director::getInstance()->pushScene(nextScene);
+        }
+
+        
+
+        return ;
+        }
     }
 }
+
+// 进入场景时重新加入背包层
+void FarmScene::onEnter()
+{
+    Scene::onEnter();
+
+    // 如果背包层不存在于当前场景，重新添加
+    if (backpackLayer && !this->getChildByName("backpackLayer")) {
+        this->addChild(backpackLayer, Backpacklayer);
+        CCLOG("readd backpacklayer");
+    }
+
+}
+
 
 
 

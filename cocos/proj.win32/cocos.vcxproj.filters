@@ -52,6 +52,9 @@
     <ClCompile Include="..\Classes\GetableItem\Animals.cpp">
       <Filter>Source Files\Classes\GetableItem</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Scene\HomeScene.cpp">
+      <Filter>Source Files\Classes\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D:\Our Stardew Valley\cocos\proj.win32\resource.h">
@@ -119,6 +122,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\GetableItem\Animals.h">
       <Filter>Source Files\Classes\GetableItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\HomeScene.h">
+      <Filter>Source Files\Classes\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\SubScene.h">
+      <Filter>Source Files\Classes\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

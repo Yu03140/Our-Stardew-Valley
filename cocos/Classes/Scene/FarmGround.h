@@ -8,6 +8,7 @@
 #include "GetableItem/Crop.h"
 #include "GetableItem/Animals.h"
 #include "MinesScene.h"
+#include "HomeScene.h"
 
 #define MapSize 4
 #define TOOL_WIDTH 40
@@ -55,10 +56,9 @@
         // 鼠标回调
         void on_mouse_click(cocos2d::Event* event);
 
-        void checkForDoorClick(Vec2 mousePosition);
+        void checkForButtonClick(Vec2 mousePosition);
 
-        // 相机位置保存
-        static Vec2 cameraPosBeforeSwitch;
+        void FarmScene::onEnter();
 
     };
 

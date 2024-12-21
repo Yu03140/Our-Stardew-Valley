@@ -168,11 +168,16 @@ bool BackpackLayer::removeItem(const std::string& itemName, const int num) {
 }
 
 std::string BackpackLayer::getSelectedItem() const {
-    return selectedItem; 
+    if (selectedItem.empty()) {
+        // 如果 selectedItem 为空，返回一个默认值或日志
+        return "";  // 或者你可以返回其他默认值
+    }
+    else 
+        return selectedItem;
 }
 
-// 更新物品显示纹理
 void BackpackLayer::updateItemTexture(int slotIndex) {
+// 更新物品显示纹理
     if (slotIndex < 0 || slotIndex >= itemSlots.size()) return;
 
     auto& slot = itemSlots[slotIndex];
@@ -187,8 +192,10 @@ void BackpackLayer::updateItemTexture(int slotIndex) {
             CCLOG("Failed to find sprite frame: %s", spriteFrameName.c_str());
         }
 
-		// 移除之前的数量标签
-        slot.sprite->removeChildByTag(1001);
+        if (slot.sprite->getChildByTag(1001)) {
+            // 如果存在子节点，则移除该子节点
+            slot.sprite->removeChildByTag(1001);
+        }
 
         // 更新数量显示
         auto label = Label::createWithSystemFont(std::to_string(slot.quantity), "Arial", 6);

@@ -821,9 +821,11 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\Moveable\moveable_sprite_key.h" />
     <ClInclude Include="..\Classes\Player\Multiplayer.h" />
     <ClInclude Include="..\Classes\Player\PlayerAccount.h" />
+    <ClInclude Include="..\Classes\Scene\HomeScene.h" />
     <ClInclude Include="..\Classes\Scene\MinesScene.h" />
     <ClInclude Include="..\Classes\Scene\FarmGround.h" />
     <ClInclude Include="..\Classes\Scene\MenuScene.h" />
+    <ClInclude Include="..\Classes\Scene\SubScene.h" />
     <ClInclude Include="..\Classes\TaskBar\TaskBar.h" />
     <ClInclude Include="..\Classes\TaskBar\TaskBarScene.h" />
     <ClInclude Include="..\Classes\TimeSystem\TimeSystem.h" />
@@ -841,6 +843,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\Moveable\moveable_sprite_key.cpp" />
     <ClCompile Include="..\Classes\Player\Multiplayer.cpp" />
     <ClCompile Include="..\Classes\Player\PlayerAccount.cpp" />
+    <ClCompile Include="..\Classes\Scene\HomeScene.cpp" />
     <ClCompile Include="..\Classes\Scene\MinesScene.cpp" />
     <ClCompile Include="..\Classes\Scene\FarmGround.cpp" />
     <ClCompile Include="..\Classes\Scene\MenuScene.cpp" />

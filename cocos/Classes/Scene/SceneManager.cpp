@@ -1,6 +1,6 @@
 #include "SceneManager.h"
 #include "MenuScene.h"    // 引入具体的场景类头文件
-#include "FarmScene.h"
+#include "FarmGround.h"
 //#include "HomeScene.h"
 #include "MinesScene.h"
 //#include "ShedScene.h"
@@ -11,9 +11,9 @@ SceneManager::SceneManager() {
     // 加载场景
     loadScene(std::make_shared<MenuScene>());
     loadScene(std::make_shared<FarmScene>());
-    loadScene(std::make_shared<HomeScene>());
+    //loadScene(std::make_shared<HomeScene>());
     loadScene(std::make_shared<MinesScene>());
-    loadScene(std::make_shared<ShedScene>());
+    //loadScene(std::make_shared<ShedScene>());
 }
 
 // 加载一个场景
