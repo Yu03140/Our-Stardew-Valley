@@ -72,7 +72,6 @@ public:
     //³ý³æ
     void deinsectization();
 
-    void set_ID(int i) { ID = i; }
 };
 #endif __CROP_H__
 

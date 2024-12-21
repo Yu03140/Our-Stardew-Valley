@@ -35,7 +35,6 @@ crop* crop::create(const std::string& plist_name, float width, float height)
     if (transparentTexture)
     {
         crop_sprite->initWithTexture(transparentTexture);
-
         crop_sprite->autorelease();
         crop_sprite->init_mouselistener();
         CCLOG("Creation cope successfully!");
@@ -69,7 +68,6 @@ void crop::on_mouse_click(cocos2d::Event* event)
     float min_y = crop_pos.y;
     float max_y = crop_pos.y + crop_size.height * MapSize;
     if (is_in_control) {
-        //输出鼠标点击位置和有效范围
         if ((MOUSE_POS.x > min_x  &&
             MOUSE_POS.x < max_x &&
             MOUSE_POS.y > min_y &&
@@ -179,7 +177,6 @@ void crop::fertilize(std::string name)
 //丰收，每次收获增加EXPERIENCE经验值
 void crop::harvest()
 {
-    CCLOG("%s", HARVEST_MAP.at(crop_name));
     //把生成物加入背包 
     backpackLayer->addItem(HARVEST_MAP.at(crop_name));
     //人物经验增加10

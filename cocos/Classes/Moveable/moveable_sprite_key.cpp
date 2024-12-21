@@ -236,7 +236,8 @@ cocos2d::Vec2 moveable_sprite_key_walk::get_pos()
 
 /*----------------------------------------------------------------tool-----------------------------------------------------------------------------*/
 //创建moveable_sprite_key_tool实例
-moveable_sprite_key_tool* moveable_sprite_key_tool::create(const std::string& plist_name, float width, float height)
+/*----------------------------------------------------------------RENEW2-----------------------------------------------------------------------------*/
+moveable_sprite_key_tool* moveable_sprite_key_tool::create(const std::string& plist_name)
 
 {
     //加载plist文件
@@ -246,7 +247,7 @@ moveable_sprite_key_tool* moveable_sprite_key_tool::create(const std::string& pl
     moveable_sprite_key_tool* sprite = new moveable_sprite_key_tool();
 
     // 创建透明的内存块，设置为全透明 (RGBA8888 格式)
-    int dataSize = width * height * 4;  // 每个像素 4 字节（RGBA 格式）
+    int dataSize = TOOL_HEIGHT * TOOL_WIDTH * 4;  // 每个像素 4 字节（RGBA 格式）
     unsigned char* transparentData = new unsigned char[dataSize];
 
     // 填充透明数据 (每个像素的 4 个通道值都为 0)
@@ -254,9 +255,9 @@ moveable_sprite_key_tool* moveable_sprite_key_tool::create(const std::string& pl
 
     // 创建透明纹理
     cocos2d::Texture2D* transparentTexture = new cocos2d::Texture2D();
-    transparentTexture->initWithData(transparentData, dataSize, cocos2d::backend::PixelFormat::RGBA8888, width, height, cocos2d::Size(width, height));
+    transparentTexture->initWithData(transparentData, dataSize, cocos2d::backend::PixelFormat::RGBA8888, TOOL_WIDTH, TOOL_HEIGHT, cocos2d::Size(TOOL_WIDTH, TOOL_HEIGHT));
     transparent_texture = transparentTexture;
-
+    /*----------------------------------------------------------------RENEW2-----------------------------------------------------------------------------*/
     // 释放内存
     delete[] transparentData;
 

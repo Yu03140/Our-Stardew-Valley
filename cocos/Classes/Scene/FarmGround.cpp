@@ -12,9 +12,7 @@ bool FarmScene::init() {
     if (!Scene::init()) {
         return false;
     }
-    /*-----------------------------RENEW---------------------------------*/
     init_mouselistener();
-    /*-----------------------------RENEW---------------------------------*/
     // 加载地图，放在中间
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -90,7 +88,7 @@ bool FarmScene::init() {
     Size originalSize = sprite_move->getContentSize();
     float scale = sprite_move->getScale();
     Size scaledSize = Size(originalSize.width * scale, originalSize.height * scale);
-    auto sprite_tool = moveable_sprite_key_tool::create("Tools.plist", TOOL_WIDTH, TOOL_HEIGHT);
+    auto sprite_tool = moveable_sprite_key_tool::create("Tools.plist");
     if (sprite_tool)
     {
         sprite_tool->setPosition(Vec2(visibleSize.width / 2 + origin.x + scaledSize.width / 2, visibleSize.height / 2 + origin.y));
@@ -110,19 +108,94 @@ bool FarmScene::init() {
     taskBarScene = TaskBarLayer::create(); 
     tileMap->addChild(taskBarScene,3);     
 
+    Vec2 map_pos = tileMap->getPosition();  // 获取瓦片地图的偏移位置
+    Size tileSize = tileMap->getTileSize(); // 获取瓦片尺寸
+    float mapscale = tileMap->getScale();      // 获取瓦片地图的缩放因子（如果有的话）
+    /*--------------------------------------------renew2----------------------------------------*/
+    /*
+    //----------------------------------------------------
+    // 功能：树模块
+    // 说明：在地图上添加树格子，用于生成树
+    // 图层：Playerlayer
+    //----------------------------------------------------
+    // 获取对象层（每个作物格子的位置）
+    auto objectGroup_tree = tileMap->getObjectGroup("forest");
+    if (!objectGroup_tree) {
+        CCLOG("Failed to get object group 'tree'");
+        return false;
+    }
+
+    // 树格子管理
+    GoodsManager* tree_manager = GoodsManager::create();
+    auto objects = objectGroup_tree->getObjects();
+
+    for (const auto& object : objects) {
+        // 通过 object 中的数据判断是否是名称为 'tree' 的对象
+        auto dict = object.asValueMap();
+        std::string objectName = dict["name"].asString();
+        //处理所有名称为草的对象
+        if (objectName == "trees") {
+            auto sprite = getable_goods::create("goos_test.plist");
+            add_goods(dict, sprite, "tree");
+            //加入草格子管理器
+            tree_manager->add_goods(sprite);
+        }
+    }
+    this->addChild(tree_manager);
+    tree_manager->schedule([tree_manager](float delta) {
+        tree_manager->random_access();
+        }, 6.0f, "RandomAccessSchedulerKey");
+   
+ */
+
+    //----------------------------------------------------
+    // 功能：草模块
+    // 说明：在地图上添加草格子，用于生成草
+    // 图层：Playerlayer
+    //----------------------------------------------------
+    // 获取对象层（每个作物格子的位置）
+    auto objectGroup_grass = tileMap->getObjectGroup("grass");
+    if (!objectGroup_grass) {
+        CCLOG("Failed to get object group 'grass'");
+        return false;
+    }
+
+    // 草格子管理
+    GoodsManager* grass_manager = GoodsManager::create();
+    auto objects = objectGroup_grass->getObjects();
+
+    for (const auto& object : objects) {
+        // 通过 object 中的数据判断是否是名称为 'grass' 的对象
+        auto dict = object.asValueMap();
+        std::string objectName = dict["name"].asString();
+        //处理所有名称为草的对象
+        if (objectName == "grass") {
+            auto sprite = getable_goods::create("goos_test.plist");
+            add_goods(dict, sprite,"grass");
+            //加入草格子管理器
+            grass_manager->add_goods(sprite);
+        }
+    }
+    this->addChild(grass_manager);
+    grass_manager->schedule([grass_manager](float delta) {
+         grass_manager->random_access();
+        }, 6.0f, "RandomAccessSchedulerKey");
+
+    /*--------------------------------------------renew2----------------------------------------*/
+    
     //----------------------------------------------------
     // 功能：作物模块
     // 说明：在地图上添加作物格子，用于种植作物
     // 图层：Playerlayer
     //----------------------------------------------------
     // 获取对象层（每个作物格子的位置）
-    auto objectGroup = tileMap->getObjectGroup("crops_layer");
-    if (!objectGroup) {
+    auto objectGroup_crop = tileMap->getObjectGroup("crops_layer");
+    if (!objectGroup_crop) {
         CCLOG("Failed to get object group 'crops_layer'");
         return false;
     }
 
-    Vec2 map_pos = tileMap->getPosition();
+
     // 作物格子管理（假设最大36格）
     crops.resize(36);
     for (int i = 0; i < 36; ++i) {
@@ -130,12 +203,11 @@ bool FarmScene::init() {
         crops[i].name = "";      // 作物名
 
         // 获取对象层中每个格子的坐标
-        auto object = objectGroup->getObject("crop" + std::to_string(i + 1));  // 获取第 i+1 个格子
+        auto object = objectGroup_crop->getObject("crop" + std::to_string(i + 1));  // 获取第 i+1 个格子
         float posX = object["x"].asFloat();
         float posY = object["y"].asFloat();
         float width = object["width"].asFloat();
         float height = object["height"].asFloat();
-
 
         // 创建透明纹理的精灵
         auto sprite = crop::create("crop.plist", width, height); // 默认无纹理
@@ -283,4 +355,24 @@ void FarmScene::on_mouse_click(cocos2d::Event* event)
         CCLOG("Mouse Position reset to: (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
         }, 1.5f, "reset_mouse_pos_key");
 }
+
+void FarmScene::add_goods(ValueMap dict, getable_goods* sprite, std::string name)
+{
+    float posX = dict["x"].asFloat();
+    float posY = dict["y"].asFloat();
+    float width = dict["width"].asFloat();
+    float height = dict["height"].asFloat();
+
+    // 创建透明纹理的精灵
+    sprite->set_info(name, Size(width * MapSize, height * MapSize));
+    sprite->setPosition(Vec2(posX, posY));        // 设置位置
+    sprite->setAnchorPoint(Vec2(0, 0));     // 设置锚点
+    sprite->setContentSize(Size(width, height));  // 设置大小
+    tileMap->addChild(sprite, 2);  // 添加到瓦片地图
+    sprite->init_mouselistener();
+    sprite->setImag();
+
+}
+
+
 /*------------------------------------------------------renew-------------------------------------------------------------*/

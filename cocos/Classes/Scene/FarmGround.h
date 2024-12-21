@@ -7,10 +7,12 @@
 #include "Global/Global.h"
 #include "GetableItem/crop.h"
 #include "GetableItem/animals.h"
+#include "GetableItem/getable_goods.h"
 
 #define MapSize 4
-#define TOOL_WIDTH 40
-#define TOOL_HEIGHT 60
+/*----------------------------------------------------------------RENEW2-----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------RENEW2-----------------------------------------------------------------------------*/
+
 
 struct Crops {
     std::string name;        // 物品名称
@@ -47,11 +49,13 @@ private:
     // 瓦片地图
     cocos2d::TMXTiledMap* tilemap;
     /*------------------------------------------------------renew-------------------------------------------------------------*/
-        // 初始化鼠标监听器
+    // 初始化鼠标监听器
     void init_mouselistener();
 
     // 鼠标回调
     void on_mouse_click(cocos2d::Event* event);
+
+    void add_goods(ValueMap dict, getable_goods* sprite, std::string name);
     /*------------------------------------------------------renew-------------------------------------------------------------*/
 };
 

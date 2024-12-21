@@ -6,6 +6,8 @@
 #include <unordered_set>
 
 #define SPEED 35.0f
+#define TOOL_WIDTH 40
+#define TOOL_HEIGHT 60
 
 class moveable_sprite_key : public cocos2d::Sprite
 {
@@ -71,10 +73,11 @@ private:
 
 public:
     ~moveable_sprite_key_tool() {}
-
-    //创建一个moveable_sprite_key_tool的实例
-    static moveable_sprite_key_tool* create(const std::string& plist_name, float width, float height);
-
+    /*----------------------------------------------------------------RENEW2-----------------------------------------------------------------------------*/
+        //创建一个moveable_sprite_key_tool的实例
+    static moveable_sprite_key_tool* create(const std::string& plist_name);
+    /*----------------------------------------------------------------RENEW2-----------------------------------------------------------------------------*/
+    
     //生成移动指令
     void moveable_sprite_key_tool::move_act(int direction) override;
 
