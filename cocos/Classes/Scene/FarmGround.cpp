@@ -1,5 +1,6 @@
 #include "FarmGround.h"
 
+
 USING_NS_CC;
 
 FarmScene* FarmScene::instance = nullptr;
@@ -59,22 +60,14 @@ bool FarmScene::init() {
 
     //Board界面，显示时间日期天气钱财
     //--------------renew（dxn）-------------------------------------------------------------------------
-    //----------------------------------------------------
-    // 功能：添加Board面板
-    // 说明：添加Board 对象，初始天气为 "normal"，初始金钱为 0
-    // 图层：
-    //----------------------------------------------------
+      // 1. 创建 Board 对象，初始天气为 "normal"，初始金钱为 0
     auto board = Board::createBoard("normal", 0, 0);
     board->setScale(6);
     //board->setPosition(1050, 1050);
     //board->setPosition(Vec2(visibleSize.width / 4, visibleSize.height - 150));
     this->addChild(board);
 
-    //----------------------------------------------------
-    // 功能：添加时间系统
-    // 说明：添加时间系统到当前场景，初始化时间系统，判断是否为节日
-    // 图层：
-    //----------------------------------------------------
+    // 添加时间系统
     timeSystem = TimeSystem::getInstance();
     Node* parentNode = this;
     parentNode->addChild(timeSystem);
@@ -83,19 +76,16 @@ bool FarmScene::init() {
         timeSystem->checkForHoliday();
         }, "time_check_key");
 
-    //----------------------------------------------------
-    // 功能：添加NPC
-    // 说明：添加NPC。设置对话文本，位置
-    // 图层：
-    //----------------------------------------------------
 
+    //初始化NPC
+    //这里修改一下设置的位置
     npc1 = NPC::create(cocos2d::Vec2(1050, 1050), "Bouncer", 50, {
         "Hello, traveler!",
         "My name is Bouncer.",
         "Could you please give me a favor?",
         "Check the taskbar please"
         });
-
+    // 6. 将 NPC 对象添加到当前场景中
     npc1->setScale(4); // 放大四倍
     this->addChild(npc1);
 
@@ -106,19 +96,15 @@ bool FarmScene::init() {
     "Bye~"
         });
     npc2->setScale(4); // 放大四倍
-
+    // 6. 将 NPC 对象添加到当前场景中
     this->addChild(npc2);
 
+    // 7. 设置定时更新函数
     this->schedule([this](float deltaTime) {
         // 8. 每帧调用更新函数
         this->update(deltaTime);
         }, "update_key");
 
-    //----------------------------------------------------
-     // 功能：添加任务栏
-     // 说明：添加任务栏到当前场景，初始隐藏
-     // 图层：Taskbarlayer
-     //----------------------------------------------------
     auto taskBarScene = TaskBarLayer::create();
     tileMap->addChild(taskBarScene, 16);
 

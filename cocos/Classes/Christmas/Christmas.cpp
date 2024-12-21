@@ -37,14 +37,17 @@ bool ChristmasScene::init() {
     if (_background) {
         // 设置背景图片位置为屏幕中央
         _background->setPosition(Director::getInstance()->getVisibleSize() / 2);
+        _background->setScale(0.8);
+
         this->addChild(_background); // 将背景添加到当前场景
     }
 
     // 加载对话框背景
     _talkBoard = Sprite::create("TalkBoard.png"); // 加载对话框图片资源
     if (_talkBoard) {
-        // 设置对话框位置为屏幕中央
-        _talkBoard->setPosition(Director::getInstance()->getVisibleSize() / 2);
+        // 设置对话框位置为屏幕下方
+        _talkBoard->setPosition(Vec2(Director::getInstance()->getVisibleSize().width / 2, _talkBoard->getContentSize().height ));
+        _talkBoard->setScale(2.0f);
         this->addChild(_talkBoard); // 将对话框添加到当前场景
 
         // 创建文字标签并添加到对话框
@@ -62,10 +65,11 @@ bool ChristmasScene::init() {
     );
     if (_getButton) {
         // 设置按钮位置
-        _getButton->setPosition(Vec2(Director::getInstance()->getVisibleSize().width / 2, 150));
+        _getButton->setPosition(Vec2(Director::getInstance()->getVisibleSize().width / 2, _getButton->getContentSize().height/2));
         // 创建菜单对象，将按钮加入菜单
         auto menu = Menu::create(_getButton, nullptr);
         menu->setPosition(Vec2::ZERO); // 将菜单位置设为零点
+        //_talkBoard->setScale(0.5f);
         this->addChild(menu); // 将菜单添加到场景中
     }
 
@@ -77,15 +81,15 @@ bool ChristmasScene::init() {
 // 创建滚动文本
 void ChristmasScene::createFixedText() {
     // 使用系统字体创建空的文本标签
-    _scrollingText = Label::createWithSystemFont("", "Arial", 30);
+    _scrollingText = Label::createWithSystemFont("", "Arial", 15);
     if (_scrollingText) {
         // 偏移量（可以根据需求调整）
-        float offsetX = -180.0f;  // X 轴偏移量
+        float offsetX = -200.0f;  // X 轴偏移量
         float offsetY = 0.0f; // Y 轴偏移量
 
         // 设置文字标签位置，并加上偏移量
         _scrollingText->setPosition(Vec2(
-            _talkBoard->getContentSize().width / 2 + offsetX,   // X 坐标
+            _talkBoard->getContentSize().width /32*10,   // X 坐标
             _talkBoard->getContentSize().height / 2 + offsetY   // Y 坐标
         ));
 

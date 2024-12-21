@@ -107,7 +107,7 @@ void TimeSystem::checkForHoliday() {
     }
 
     // 检查时间条件
-    if (year == 2024 && season == 1 && day == 1 && hour == 1) {
+    if (year == 2024 && season == 1 && day == 1 && hour == 0) {
         // 设置标志为 true，防止再次触发
         hasEnteredChristmasScene = true;
 

@@ -28,18 +28,18 @@ bool TaskBar::init(const std::string& taskDescription, const std::string& npcNam
 
     // 创建任务栏背景图片
     auto background = cocos2d::Sprite::create("HelpWanted.png");
-    //background->setScale(2.0f);
+    background->setScale(0.5);
     this->addChild(background); // 添加到节点树
 
     // 创建任务描述标签
    // descriptionLabel = cocos2d::Label::createWithSystemFont(taskDescription, "Arial", 24);
 
-    descriptionLabel = cocos2d::Label::createWithTTF(taskDescription, "fonts/Marker Felt.ttf", 24);
+    descriptionLabel = cocos2d::Label::createWithTTF(taskDescription, "fonts/Marker Felt.ttf", 15);
     // 设置字体颜色为黑色
     descriptionLabel->setTextColor(cocos2d::Color4B::BLACK);
 
     descriptionLabel->setPosition(cocos2d::Vec2(background->getContentSize().width / 2,
-        background->getContentSize().height / 1.5)); // 设置标签位置
+        background->getContentSize().height / 3*2));
     descriptionLabel->setLocalZOrder(10); // 设置标签的 Z-order 高于背景
     background->addChild(descriptionLabel); // 将标签添加到背景
 
@@ -75,7 +75,7 @@ void TaskBar::onCompleteTask() {
         if (completeTaskCallback) {
             completeTaskCallback(); // 执行完成任务的回调函数
         }
-        descriptionLabel->setString("任务完成！"); // 更新任务描述为“任务完成！”
+        descriptionLabel->setString("Done!"); // 更新任务描述为“任务完成！”
     }
 }
 

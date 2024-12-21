@@ -42,22 +42,23 @@ bool Board::init(const std::string& weather, int money, int experience) {
     weatherSprite = Sprite::create();
     this->addChild(weatherSprite);
     setWeatherSprite(weather);  // 设置初始天气图片
-    weatherSprite->setPosition(background->getPosition() + Vec2(0, 10));
+    weatherSprite->setPosition(background->getPosition()+ Vec2(background->getContentSize().height /16, background->getContentSize().height / 8));
 
     // 3. 添加玩家钱财标签（背景下方）
-    moneyLabel = Label::createWithTTF("Money: " + std::to_string(player->playerproperty.getMoney()), "fonts/arial.ttf", 24);
-    moneyLabel->setPosition(background->getPosition() - Vec2(0, background->getContentSize().height / 2 - 10));
+    moneyLabel = Label::createWithTTF(std::to_string(player->playerproperty.getMoney()), "fonts/arial.ttf", 12);
+    moneyLabel->setPosition(background->getPosition() - Vec2(0, background->getContentSize().height /8*3));
     moneyLabel->setColor(Color3B::BLACK);
     moneyLabel->setScale(0.5);
     this->addChild(moneyLabel);
     // 每秒更新一次钱财标签
     schedule([this](float dt) {
+        // 每秒更新一次钱财标签
         this->updateMoneyLabel();
         }, 1.0f, "money_update_key");
 
 
     // 4. 添加时间标签（背景上方）
-    timeLabel = Label::createWithTTF("", "fonts/arial.ttf", 24);
+    timeLabel = Label::createWithTTF("", "fonts/arial.ttf", 12);
     // timeLabel = Label::createWithTTF(std::to_string(timeSystem->getYear())+"-"+ std::to_string(timeSystem->getSeason()) + "-" + std::to_string(timeSystem->getDay()) + "-" + std::to_string(timeSystem->getHour()), "fonts/arial.ttf", 24);
     timeLabel->setPosition(background->getPosition() + Vec2(8, -3));
     timeLabel->setColor(Color3B::BLACK);
@@ -70,8 +71,8 @@ bool Board::init(const std::string& weather, int money, int experience) {
         }, 1.0f, "time_update_key");
 
     //4.5 添加经验值标签
-    experienceLabel = Label::createWithTTF("Experience: " + std::to_string(player->playerproperty.getExperience()), "fonts/arial.ttf", 24);
-    experienceLabel->setPosition(background->getPosition() + Vec2(10, background->getContentSize().height / 2 - 10));
+    experienceLabel = Label::createWithTTF("Exp: " + std::to_string(player->playerproperty.getExperience()), "fonts/arial.ttf", 11);
+    experienceLabel->setPosition(background->getPosition() + Vec2(10- background->getContentSize().height / 8, background->getContentSize().height / 8*3-2.5));
     experienceLabel->setColor(Color3B::BLACK);
     experienceLabel->setScale(0.4);
     this->addChild(experienceLabel);
@@ -126,7 +127,7 @@ void Board::updateMoneyLabel() {
     //人物初始化
     Player* player = Player::getInstance("me");
     // 更新 moneyLabel 的文本
-    moneyLabel->setString("Money: " + std::to_string(player->playerproperty.getMoney()));
+    moneyLabel->setString( std::to_string(player->playerproperty.getMoney()));
 }
 
 
@@ -135,5 +136,5 @@ void Board::updateExperienceLabel() {
     //人物初始化
     Player* player = Player::getInstance("me");
     // 更新 moneyLabel 的文本
-    experienceLabel->setString("Experience: " + std::to_string(player->playerproperty.getExperience()));
+    experienceLabel->setString("Exp: " + std::to_string(player->playerproperty.getExperience()));
 }
