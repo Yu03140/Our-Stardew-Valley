@@ -11,37 +11,13 @@ TimeSystem::TimeSystem() {
     day = 1;                   // 初始日期为1日
     hour = 0;                  // 初始小时为0点
     season = 1;                // 初始季节为春季（1表示春季）
-    droughtDay = false;        // 初始时，不是干旱日
-
-    
-    // 初始化时间显示标签
-    timeLabel = Label::createWithSystemFont("", "Arial", 30);
-    droughtLabel = Label::createWithSystemFont("", "Arial", 30);
-
-	//获得屏幕大小
-	auto visibleSize = Director::getInstance()->getVisibleSize();
-
-    timeLabel->setPosition(Vec2(visibleSize.width*0.8, visibleSize.height*0.8));  // 标签显示位置
-    //droughtLabel->setPosition(Vec2(2400, 1380));  // 干旱日状态标签位置
-
-    timeLabel->setMaxLineWidth(500);  // 设置最大宽度
-    //droughtLabel->setMaxLineWidth(500);  // 设置最大宽度
-
-    timeLabel->setTextColor(Color4B::WHITE);
-    //droughtLabel->setTextColor(Color4B::BLACK);
-    
-
-    this->addChild(timeLabel,2);  // 添加到场景
-    this->addChild(droughtLabel,2); // 添加到场景
+    weather = "normal";        // 初始时，不是干旱日
 
     Node::onEnter();
     schedule([this](float deltaTime) {
         update(deltaTime);
         }, 10.0f, "update_key");  // 设置每 5 秒调用一次 update
     this->scheduleUpdate();
-
-
-
 }
 
 // 析构函数
@@ -58,7 +34,7 @@ TimeSystem* TimeSystem::getInstance() {
     // 确保 TimeSystem 实例被添加到当前运行的场景
     auto currentScene = Director::getInstance()->getRunningScene();
     if (instance->getParent() != currentScene) {
-        currentScene->addChild(instance);
+        //currentScene->addChild(instance);
     }
 
     return instance;
@@ -76,16 +52,14 @@ void TimeSystem::update(float deltaTime) {
         hour -= 24;  // 重置小时数
         changeDay();  // 改变一天
     }
-   
-    // 更新屏幕上的时间显示
-    updateDisplay(); 
-   
+
+
 }
 
 // 天数更新
 void TimeSystem::changeDay() {
     day++;  // 日期增加
-    randomDroughtDay();  // 随机决定是否是干旱日
+    randomWeather();  // 随机决定是否是干旱日
 
     // 如果日期超过了一个月的最大天数，重置为1，并改变月份
     if (day > MAX_DAYS_IN_MONTH) {
@@ -109,35 +83,36 @@ void TimeSystem::changeYear() {
 }
 
 // 随机决定是否是干旱日，使用DROUGHT_DAY_PROBABILITY的概率
-void TimeSystem::randomDroughtDay() {
-    if ((rand() % 100) < (DROUGHT_DAY_PROBABILITY * 100)) {
-        droughtDay = true;  // 如果概率符合，设置为干旱日
+void TimeSystem::randomWeather() {
+    // 生成一个 0 到 99 之间的随机数
+    int randomValue = rand() % 100;
+
+    if (randomValue < 60) {
+        weather = "normal";  // 60% 概率是正常天气
+    }
+    else if (randomValue < 80) {
+        weather = "rain";    // 20% 概率是雨天
     }
     else {
-        droughtDay = false;  // 否则，设置为非干旱日
+        weather = "dry";     // 20% 概率是干旱天气
     }
 }
 
-// 更新显示的时间信息
-void TimeSystem::updateDisplay() {
-    //log("TimeSystemDisplay"); // 调试日志
 
-    // 创建显示的时间字符串
-    std::string timeText = "Year: " + std::to_string(year) + "\n";
-    timeText += "Season: " + std::to_string(season) + "\n";
-    timeText += "Day: " + std::to_string(day) + "\n";
-    timeText += "Hour: " + std::to_string(hour) + "\n";
 
-    // 更新已有的 timeLabel 内容
-    timeLabel->setString(timeText);
+void TimeSystem::checkForHoliday() {
+    // 如果已经进入过圣诞场景，不再触发
+    if (hasEnteredChristmasScene) {
+        return;
+    }
 
-    // 创建显示干旱日状态的字符串
-    std::string droughtText = "Drought Day: " + std::string(droughtDay ? "Yes" : "No");
-    //log("TimeLabel Updated: %s", timeText.c_str()); // 调试日志
+    // 检查时间条件
+    if (year == 2024 && season == 1 && day == 5 && hour == 0) {
+        // 设置标志为 true，防止再次触发
+        hasEnteredChristmasScene = true;
 
-    // 更新干旱日标签的内容
-    droughtLabel->setString(droughtText);
-
-    //log("TimeLabel Position: x = %f, y = %f", timeLabel->getPositionX(), timeLabel->getPositionY());
+        // 切换到圣诞场景
+        auto christmasScene = ChristmasScene::createScene();
+        cocos2d::Director::getInstance()->pushScene(christmasScene);
+    }
 }
-

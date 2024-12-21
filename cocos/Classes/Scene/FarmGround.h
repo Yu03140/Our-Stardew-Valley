@@ -7,6 +7,7 @@
 #include "Global/Global.h"
 #include "GetableItem/Crop.h"
 #include "GetableItem/Animals.h"
+#include "NPC/NPC.h"
 #include "MinesScene.h"
 #include "HomeScene.h"
 #include "ShedScene.h"
@@ -60,6 +61,15 @@
         void checkForButtonClick(Vec2 mousePosition);
 
         void FarmScene::onEnter();
+
+        NPC* npc1;                      // NPC对象
+        NPC* npc2;
+        // 检查玩家是否与NPC接近并触发互动
+        void update(float delta);
+        void checkNPCInteraction();
+
+		Board* board;
+		TaskBarLayer* taskBarLayer;
 
     };
 

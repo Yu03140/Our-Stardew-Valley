@@ -42,6 +42,13 @@ bool FarmScene::init() {
     //----------------------------------------------------
     Player* player = Player::getInstance("me");
 
+
+
+
+
+
+
+
     //----------------------------------------------------
     // 功能：添加背包图层
     // 说明：添加背包图层到当前场景，初始化背包
@@ -56,16 +63,9 @@ bool FarmScene::init() {
         CCLOG("Failed to load the backpack layer");
 
 
-    //----------------------------------------------------
-    // 功能：添加时间系统
-    // 说明：添加时间系统到当前场景，初始化时间系统
-    // 图层：Timesystemlayer
-    //----------------------------------------------------
-    timeSystem = TimeSystem::getInstance();
-    Node* parentNode = this;
-    if (timeSystem->getParent() == nullptr) {
-        parentNode->addChild(timeSystem, Timesystemlayer);
-    }
+
+
+   
 
     //----------------------------------------------------
     // 功能：添加移动主角
@@ -102,13 +102,7 @@ bool FarmScene::init() {
     }
 
 
-    //----------------------------------------------------
-    // 功能：添加任务栏
-    // 说明：添加任务栏到当前场景
-    // 图层：Taskbarlayer
-    //----------------------------------------------------
-    auto taskBarScene = TaskBarLayer::create();
-    tileMap->addChild(taskBarScene, 3);
+    
 
     //----------------------------------------------------
     // 功能：作物模块
@@ -154,6 +148,62 @@ bool FarmScene::init() {
             }, "update_crop");
 
     }
+
+    //Board界面，显示时间日期天气钱财
+  //--------------renew（dxn）-------------------------------------------------------------------------
+
+    taskBarLayer = TaskBarLayer::create();
+    this->addChild(taskBarLayer, Backpacklayer);
+    
+    board = Board::createBoard("normal", 0, 0);
+    board->setScale(6);
+    board->setPosition(0, 0);
+    //board->setPosition(Vec2(visibleSize.width / 4, visibleSize.height - 150));
+    this->addChild(board, Backpacklayer);
+
+    // 添加时间系统
+    timeSystem = TimeSystem::getInstance();
+    Node* parentNode = this;
+    parentNode->addChild(timeSystem);
+    // 每帧更新时检查时间
+    schedule([this](float deltaTime) {
+        timeSystem->checkForHoliday();
+        }, "time_check_key");
+
+    //初始化NPC
+    //这里修改一下设置的位置
+    npc1 = NPC::create(cocos2d::Vec2(1050, 1050), "Bouncer", 50, {
+        "Hello, traveler!",
+        "My name is Bouncer.",
+        "Could you please give me a favor?",
+        "Check the taskbar please"
+        });
+    // 6. 将 NPC 对象添加到当前场景中
+    npc1->setScale(4); // 放大四倍
+    this->addChild(npc1, Playerlayer);
+
+    npc2 = NPC::create(cocos2d::Vec2(500, 500), "May", 80, {
+    "Hello, traveler!",
+    "How can I help you today?",
+    "I hope you're having a good day!",
+    "Bye~"
+        });
+    npc2->setScale(4); // 放大四倍
+    // 6. 将 NPC 对象添加到当前场景中
+    this->addChild(npc2, Playerlayer);
+
+    // 7. 设置定时更新函数
+    this->schedule([this](float deltaTime) {
+        // 8. 每帧调用更新函数
+        this->update(deltaTime);
+        }, "update_key");
+
+   
+    //tileMap->removeChild(taskBarLayer);  // 先移除
+    //tileMap->addChild(taskBarLayer, Backpacklayer);  // 重新添加，并设置较高层级
+
+
+    //-----------end-----------------------------------------------------------------------------
     return true;
 }
 
@@ -252,15 +302,17 @@ void FarmScene::updateCameraPosition(float dt, Node* player)
     // 设置摄像头位置
     if (camera) {
         camera->setPosition3D(Vec3(cameraX, cameraY, camera->getPosition3D().z));
+		float Posx = cameraX - visibleSize.width / 2;
+		float Posy = cameraY - visibleSize.height / 2;
         //CCLOG("Camera position: (%f, %f)", cameraX, cameraY);
-        if (backpackLayer) {
-            // 获取屏幕的可见大小
-            float backpackX = cameraX - visibleSize.width / 2;
-            float backpackY = cameraY - visibleSize.height / 2;
+        if (backpackLayer) 
+            backpackLayer->setPosition(Vec2(Posx, Posy));
+        
+        if (board)
+            board->setPosition(Vec2(Posx, Posy));
 
-            // 设置背包层的位置
-            backpackLayer->setPosition(Vec2(backpackX, backpackY));
-        }
+		if (taskBarLayer)
+			taskBarLayer->setPosition(Vec2(Posx, Posy));
     }
 }
 
@@ -291,12 +343,14 @@ void FarmScene::on_mouse_click(cocos2d::Event* event)
     CCLOG("Mouse Position(global): (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
     checkForButtonClick(mouse_pos);
 
+
     // 0.1秒后将 MOUSE_POS 置为 (0, 0)，并且不影响其他程序运行
     this->scheduleOnce([this](float dt) {
         MOUSE_POS = Vec2::ZERO;
         CCLOG("Mouse Position reset to: (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
         }, 1.5f, "reset_mouse_pos_key");
 }
+
 
 // 功能：检测是否点击了Button并切换场景
 void FarmScene::checkForButtonClick(Vec2 mousePosition)
@@ -321,13 +375,11 @@ void FarmScene::checkForButtonClick(Vec2 mousePosition)
     float posY = object["y"].asFloat();
     float width = object["width"].asFloat() * MapSize;
     float height = object["height"].asFloat() * MapSize;
-
     auto sprite = Sprite::create();
     sprite->setPosition(Vec2(posX, posY));
     sprite->setAnchorPoint(Vec2(0, 0)); 
     sprite->setContentSize(Size(width, height));
     tileMap->addChild(sprite);
-
     Vec2 pos = sprite->convertToWorldSpace(Vec2(0, 0));
     CCLOG("POS: %f, %f", pos.x, pos.y);
 
@@ -361,8 +413,6 @@ void FarmScene::checkForButtonClick(Vec2 mousePosition)
             Director::getInstance()->pushScene(nextScene);
         }
 
-        
-
         return ;
         }
     }
@@ -381,6 +431,42 @@ void FarmScene::onEnter()
 
 }
 
+void FarmScene::update(float delta) {
+    // 检查玩家与NPC的交互
+    checkNPCInteraction();
+    // Player* player = Player::getInstance("me");
+     // 检查玩家与NPC的距离，并更新按钮的显示状态
+    if (character_pos.distance(npc1->getPosition()) < 50) {
+        npc1->showChatButton(true);  // 在范围内时显示按钮
+    }
+    else {
+        npc1->showChatButton(false);  // 不在范围内时隐藏按钮
+    }
+    if (character_pos.distance(npc2->getPosition()) < 50) {
+        npc2->showChatButton(true);  // 在范围内时显示按钮
+    }
+    else {
+        npc2->showChatButton(false);  // 不在范围内时隐藏按钮
+    }
+}
+
+void FarmScene::checkNPCInteraction() {
+    // 检查玩家和NPC之间的距离是否小于100单位。
+    // 100是触发交互的范围阈值，即玩家与NPC的距离小于100时，才有可能与NPC互动。
+    //Player* player = Player::getInstance("me");
+    if (character_pos.distance(npc1->getPosition()) < 50) {
+
+        // 如果NPC当前不在聊天状态（即NPC没有正在与玩家对话），则显示互动提示。
+        if (!npc1->isChattingStatus()) {
+            // 输出日志，提示玩家按下“Chat”键与NPC互动。
+            CCLOG("Press 'Chat' to interact with NPC.");
+        }
+        if (!npc2->isChattingStatus()) {
+            // 输出日志，提示玩家按下“Chat”键与NPC互动。
+            CCLOG("Press 'Chat' to interact with NPC.");
+        }
+    }
+}
 
 
 

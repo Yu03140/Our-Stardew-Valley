@@ -197,7 +197,7 @@ void crop::clear()
     develop_day = 0;
     develop_level = 0;
     crop_name = "";
-    watered_today = 2 + timeSystem->isDroughtDay();
+    watered_today = 2 + timeSystem->getweather();
     this->initWithTexture(transparent_texture);
 }
 
@@ -232,6 +232,6 @@ void crop::update_day(float deltaTime)
             }
         }
         now_day = timeSystem->getDay();
-        watered_today = WATER_PRED + timeSystem->isDroughtDay();
+        watered_today = WATER_PRED + timeSystem->getweather();
     }
 }

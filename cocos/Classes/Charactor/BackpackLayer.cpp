@@ -45,6 +45,7 @@ bool BackpackLayer::init() {
     X0 = (visibleSize.width - mapSize.width) / 2;  // 居中
     Y0 = visibleSize.height * 0.05f;              // 距底部偏移一点
     tilemap->setPosition(Vec2(X0, Y0));
+	CCLOG("X0: %f, Y0: %f", X0, Y0);
 
     // 获取对象层（每个背包格子的位置）
     auto objectGroup = tilemap->getObjectGroup("Slots");  // 假设名为 "Slots"

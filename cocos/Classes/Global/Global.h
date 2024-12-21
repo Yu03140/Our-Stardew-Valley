@@ -7,8 +7,8 @@
 #include "Charactor/BackpackLayer.h"
 #include "TimeSystem/TimeSystem.h"
 #include "Attribute/attribute.h"
-#include "TaskBar/TaskBarScene.h"
-
+#include "TaskBar/TaskBarLayer.h"
+#include "Board/Board.h"
 
 
 //全局定义

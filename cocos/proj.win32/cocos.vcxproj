@@ -814,11 +814,14 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate\AppDelegate.h" />
     <ClInclude Include="..\Classes\Attribute\attribute.h" />
+    <ClInclude Include="..\Classes\Board\Board.h" />
     <ClInclude Include="..\Classes\Charactor\BackpackLayer.h" />
+    <ClInclude Include="..\Classes\Christmas\Christmas.h" />
     <ClInclude Include="..\Classes\GetableItem\Animals.h" />
     <ClInclude Include="..\Classes\GetableItem\Crop.h" />
     <ClInclude Include="..\Classes\Global\Global.h" />
     <ClInclude Include="..\Classes\Moveable\moveable_sprite_key.h" />
+    <ClInclude Include="..\Classes\NPC\NPC.h" />
     <ClInclude Include="..\Classes\Player\Multiplayer.h" />
     <ClInclude Include="..\Classes\Player\PlayerAccount.h" />
     <ClInclude Include="..\Classes\Scene\HomeScene.h" />
@@ -828,20 +831,23 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\Scene\ShedScene.h" />
     <ClInclude Include="..\Classes\Scene\SubScene.h" />
     <ClInclude Include="..\Classes\TaskBar\TaskBar.h" />
-    <ClInclude Include="..\Classes\TaskBar\TaskBarScene.h" />
+    <ClInclude Include="..\Classes\TaskBar\TaskBarLayer.h" />
     <ClInclude Include="..\Classes\TimeSystem\TimeSystem.h" />
     <ClInclude Include="D:\Our Stardew Valley\cocos\proj.win32\resource.h" />
     <ClCompile Include="..\Classes\AppDelegate\AppDelegate.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">D:\Our Stardew Valley\cocos\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="..\Classes\Attribute\attribute.cpp" />
+    <ClCompile Include="..\Classes\Board\Board.cpp" />
     <ClCompile Include="..\Classes\Charactor\BackpackLayer.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">D:\Our Stardew Valley\cocos\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <ClCompile Include="..\Classes\Christmas\Christmas.cpp" />
     <ClCompile Include="..\Classes\GetableItem\Animals.cpp" />
     <ClCompile Include="..\Classes\GetableItem\Crop.cpp" />
     <ClCompile Include="..\Classes\Global\Global.cpp" />
     <ClCompile Include="..\Classes\Moveable\moveable_sprite_key.cpp" />
+    <ClCompile Include="..\Classes\NPC\NPC.cpp" />
     <ClCompile Include="..\Classes\Player\Multiplayer.cpp" />
     <ClCompile Include="..\Classes\Player\PlayerAccount.cpp" />
     <ClCompile Include="..\Classes\Scene\HomeScene.cpp" />
@@ -850,7 +856,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\Scene\MenuScene.cpp" />
     <ClCompile Include="..\Classes\Scene\ShedScene.cpp" />
     <ClCompile Include="..\Classes\TaskBar\TaskBar.cpp" />
-    <ClCompile Include="..\Classes\TaskBar\TaskBarScene.cpp" />
+    <ClCompile Include="..\Classes\TaskBar\TaskBarLayer.cpp" />
     <ClCompile Include="..\Classes\TimeSystem\TimeSystem.cpp" />
     <ClCompile Include="Gamemain.cpp" />
     <ResourceCompile Include="D:\Our Stardew Valley\cocos\proj.win32\game.rc" />

@@ -43,7 +43,7 @@
     <ClCompile Include="..\Classes\TaskBar\TaskBar.cpp">
       <Filter>Source Files\Classes\TaskBar</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\TaskBar\TaskBarScene.cpp">
+    <ClCompile Include="..\Classes\TaskBar\TaskBarLayer.cpp">
       <Filter>Source Files\Classes\TaskBar</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GetableItem\Crop.cpp">
@@ -57,6 +57,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Scene\ShedScene.cpp">
       <Filter>Source Files\Classes\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NPC\NPC.cpp">
+      <Filter>Source Files\Classes\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Board\Board.cpp">
+      <Filter>Source Files\Classes\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Christmas\Christmas.cpp">
+      <Filter>Source Files\Classes\Christmas</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -117,7 +126,7 @@
     <ClInclude Include="..\Classes\TaskBar\TaskBar.h">
       <Filter>Source Files\Classes\TaskBar</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\TaskBar\TaskBarScene.h">
+    <ClInclude Include="..\Classes\TaskBar\TaskBarLayer.h">
       <Filter>Source Files\Classes\TaskBar</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GetableItem\Crop.h">
@@ -134,6 +143,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scene\ShedScene.h">
       <Filter>Source Files\Classes\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NPC\NPC.h">
+      <Filter>Source Files\Classes\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Board\Board.h">
+      <Filter>Source Files\Classes\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Christmas\Christmas.h">
+      <Filter>Source Files\Classes\Christmas</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +210,15 @@
     </Filter>
     <Filter Include="Source Files\Classes\GetableItem">
       <UniqueIdentifier>{898add44-8acc-4d91-a4ab-b22207cd7f28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\NPC">
+      <UniqueIdentifier>{bd7df525-1d71-4274-879f-369b6500f739}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\Board">
+      <UniqueIdentifier>{ff68ec62-e631-4c64-96b6-0b472add38c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\Christmas">
+      <UniqueIdentifier>{39a0dc51-e440-4d67-b55d-0f397d6cfaf8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
