@@ -90,7 +90,6 @@ void MinesScene::changeScene(Event* event)
 
     // 获取点击位置
     Vec2 clickLocation = mouseEvent->getLocationInView();
-    CCLOG("clickLocation: ( %f , %f )", clickLocation.x, clickLocation.y);
 
     // 获取对象层
     auto objectGroup = tileMap->getObjectGroup("Button");
@@ -125,10 +124,6 @@ void MinesScene::changeScene(Event* event)
     // 检查点击点是否在对象范围内
     if (doorRect.containsPoint(clickLocation))
     {
-        /*
-        if (backpackLayer)
-            this->removeChild(backpackLayer);  // 移除背包层
-        */
         CCLOG("Door clicked! Switching scenes...");
         Director::getInstance()->popScene();
     }

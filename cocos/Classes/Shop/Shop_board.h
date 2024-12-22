@@ -31,7 +31,7 @@ public:
 
 private:
 
-    bool isOpen=0; ///< 任务是否完成的标志。
+    bool isOpen = 0; ///< 任务是否完成的标志。
     cocos2d::Label* descriptionLabel; ///< 显示商品价格描述的标签。
 
     cocos2d::MenuItemImage* item_strawberry; ///<商品1。

@@ -9,22 +9,18 @@ animals::animals()
     ID = ++count;
 }
 
-//保存基本信息
+// 保存基本信息
 void animals::set_info(std::string name, cocos2d::Vec2 pos, cocos2d::Size size)
 {
-    //设置基本信息
+    // 设置基本信息
     animals_name = name;
     produce_size = size;
     produce_pos = pos;
     produce_day = ANIMAL_MAP.at(animals_name);
-    // 创建透明的内存块，设置为全透明 (RGBA8888 格式)
-    int dataSize = size.width * size.height * 4;  // 每个像素 4 字节（RGBA 格式）
+    // 创建透明的内存块
+    int dataSize = size.width * size.height * 4; 
     unsigned char* transparentData = new unsigned char[dataSize];
-
-    // 填充透明数据 (每个像素的 4 个通道值都为 0)
     memset(transparentData, 0, dataSize);
-
-    // 创建透明纹理
     cocos2d::Texture2D* transparentTexture = new cocos2d::Texture2D();
     transparentTexture->initWithData(transparentData, dataSize, cocos2d::backend::PixelFormat::RGBA8888, size.width, size.height, size);
     transparent_texture = transparentTexture;
@@ -37,12 +33,9 @@ void animals::set_info(std::string name, cocos2d::Vec2 pos, cocos2d::Size size)
 animals* animals::create(const std::string& plist_name)
 {
 
-    //加载plist文件
     cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(plist_name);
-
-    //创建实例
     animals* animals_sprite = new animals();
-    //判断是否能成功创建
+    
     if (animals_sprite)
     {
         CCLOG("Creation animal successfully!");
@@ -55,6 +48,7 @@ animals* animals::create(const std::string& plist_name)
     return nullptr;
 }
 
+// 图片生成
 void animals::set_imag()
 {
     if (produce && transparent_texture) {
@@ -68,13 +62,8 @@ void animals::set_imag()
 // 初始化鼠标监听器
 void animals::init_mouselistener()
 {
-    // 创建鼠标监听器
     auto listener = cocos2d::EventListenerMouse::create();
-
-    // 鼠标按下时的回调
     listener->onMouseDown = CC_CALLBACK_1(animals::on_mouse_click, this);
-
-    // 获取事件分发器，添加监听器
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 }
 
@@ -85,12 +74,11 @@ void animals::on_mouse_click(cocos2d::Event* event)
     auto mouse_pos = this->getParent()->convertToNodeSpace(mouse_event->getLocationInView());
     auto animals_pos = this->getPosition();
     auto animals_size = this->getContentSize();
-    CCLOG("mouse:%f,%f", mouse_pos.x, mouse_pos.y);
     if (is_in_control) {
         if (mouse_pos.x > animals_pos.x - 5 &&
             mouse_pos.x < animals_pos.x + animals_size.width + 5 &&
             mouse_pos.y > animals_pos.y - 5 &&
-            mouse_pos.y < animals_pos.y + animals_size.height + 5)//点击动物
+            mouse_pos.y < animals_pos.y + animals_size.height + 5)
         {
             CCLOG("animals clicked");
             if (backpackLayer->getSelectedItem() == FOOD) {
@@ -100,7 +88,7 @@ void animals::on_mouse_click(cocos2d::Event* event)
         else if (mouse_pos.x > produce_pos.x - produce_size.width / 2 &&
             mouse_pos.x < produce_pos.x + produce_size.width / 2 &&
             mouse_pos.y > produce_pos.y - produce_size.height / 2 &&
-            mouse_pos.y < produce_pos.y + produce_size.height / 2)//点击生成物放置区
+            mouse_pos.y < produce_pos.y + produce_size.height / 2)
         {
             CCLOG("produce clicked");
             if (is_produce) {
@@ -113,12 +101,11 @@ void animals::on_mouse_click(cocos2d::Event* event)
     }
 }
 
-//喂养
+// 喂养
 void animals::feed()
 {
     if (feed_today) {
         feed_today--;
-        //背包食物-1
         backpackLayer->removeItem(FOOD);
         CCLOG("feed successfully");
     }
@@ -126,7 +113,7 @@ void animals::feed()
         CCLOG("couldn't feed today");
 }
 
-//生成附属品
+// 生成附属品
 void animals::create_produce()
 {
     if (feed_count % produce_day == 0 && feed_count)
@@ -137,12 +124,11 @@ void animals::create_produce()
     }
 }
 
-//收获功能
+// 收获功能
 void animals::harvest()
 {
-    //把生成物加入背包
+    //把生成物加入背包,并获得经验值
     backpackLayer->addItem(PRODUCE_MAP.at(animals_name));
-    //任务经验增加EXPERIENCE
     Player* player = Player::getInstance("me");
     player->playerproperty.addExperience(EXPERIENCE);
     produce->setTexture(transparent_texture);
@@ -150,7 +136,7 @@ void animals::harvest()
 }
 
 
-//游荡
+// 游荡
 void animals::randmove(cocos2d::TMXTiledMap* tileMap)
 {
     unsigned int timestamp = static_cast<unsigned int>(time(0)) * 1000 + static_cast<unsigned int>(clock()) / (CLOCKS_PER_SEC / 1000);
@@ -164,18 +150,14 @@ void animals::randmove(cocos2d::TMXTiledMap* tileMap)
     // 结合时间戳、进程ID、线程ID来生成一个复杂的种子
     unsigned int seed = timestamp ^ pid ^ tid;
 
-    // 使用这个随机种子
     srand(seed + ID);
-
-    // 随机选择一个方向
     dic = (rand() % rand() + ID) % 4;
-
-    // 将 movement[dic] 设置为 1
     movement[dic] = 1;
+
     // 定时调用 move_act，每秒调用一次
     this->schedule([this, tileMap](float) {
         move_act(tileMap);
-        }, 0.1f, "move_act_key");  // 0.1秒间隔调用一次 move_act
+        }, 0.1f, "move_act_key");  
 
     // 2秒后执行回调函数一次
     this->scheduleOnce([this](float dt) {
@@ -184,24 +166,20 @@ void animals::randmove(cocos2d::TMXTiledMap* tileMap)
 
 }
 
+// 移动动作
 void animals::move_act(cocos2d::TMXTiledMap* tileMap)
 {
     for (int i = 0; i < 4; i++) {
         is_hit_edge[i] = false;
     }
+
     //获取精灵的位置
     auto sprite_pos = this->getPosition();
     cocos2d::Size spriteSize = this->getContentSize();
-
-    //获取窗口的大小信息
- // 获取窗口大小
     cocos2d::Size mapSize = tileMap->getMapSize();
-    // 获取每个瓦片的大小
     cocos2d::Size tileSize = tileMap->getTileSize();
-
     mapSize.width *= tileSize.width;
     mapSize.height *= tileSize.height;
-
     cocos2d::Vec2 origin = cocos2d::Director::getInstance()->getVisibleOrigin();
 
     // 判断精灵是否超出边界
@@ -237,7 +215,7 @@ void animals::move_act(cocos2d::TMXTiledMap* tileMap)
 
 }
 
-//不定时游荡
+// 不定时游荡
 void animals::scheduleRandomMove(cocos2d::TMXTiledMap* tileMap) {
 
     // 每5秒随机移动一次
@@ -247,7 +225,7 @@ void animals::scheduleRandomMove(cocos2d::TMXTiledMap* tileMap) {
 
 }
 
-//新一天的更新
+// 新一天的更新
 void animals::update_day(float deltaTime)
 {
     if (timeSystem->getDay() != now_day)//今天结束了
@@ -265,8 +243,6 @@ void animals::update_day(float deltaTime)
     }
 }
 
-/*-------------------------------------------------------------------renew ------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------AnimalsManager ------------------------------------------------------------------------*/
 AnimalsManager* AnimalsManager::create()
 {
     AnimalsManager* ret = new (std::nothrow) AnimalsManager();
@@ -290,9 +266,9 @@ void AnimalsManager::schedule_animals()
 {
     // 迭代器遍历访问精灵
     for (auto it = animals_list.begin(); it != animals_list.end(); ++it) {
-        auto animal = *it;  // 获取指针，指向精灵
-        animal->schedule([animal](float dt) {  // 捕获指针 animal
-            animal->update(dt);  // 调用 update
+        auto animal = *it;                      // 获取指针，指向精灵
+        animal->schedule([animal](float dt) {   // 捕获指针 animal
+            animal->update(dt); 
             }, "update_animal");
     }
 }

@@ -136,7 +136,6 @@ void getable_goods::show_click_bar()
 
     // 计算当前的进度百分比
     float progressValue = (float)click_count / (float)GOODS_CLICK_MAP.at(sprite_name) * 100.0f;
-    CCLOG("@@@@@click_count:%d", click_count);
 
     click_bar->update_progress_bar(progressValue);
 
@@ -160,6 +159,8 @@ void getable_goods::update()
         this->hide_click_bar();
         //把生成物加入背包 
         backpackLayer->addItem(GOODS_MAP.at(sprite_name).at("get"));
+		if (sprite_name == "bigstone")
+            backpackLayer->addItem(GOODS_MAP.at(sprite_name).at("get"));
         //人物经验增加
         Player* player = Player::getInstance("me");
         player->playerproperty.addExperience(EXPERIENCE * GOODS_CLICK_MAP.at(sprite_name));
@@ -191,11 +192,7 @@ void getable_goods::add_in(ValueMap dict, getable_goods* sprite, std::string nam
     sprite->init_mouselistener();
     sprite->setImag();
 }
-/*----------------------------------------------------------WarmHouse----------------------------------------------------------------------*/
 
-
-
-/*----------------------------------------------------------GoodsManager----------------------------------------------------------------------*/
 GoodsManager* GoodsManager::create()
 {
     GoodsManager* ret = new (std::nothrow) GoodsManager();
@@ -242,7 +239,6 @@ void GoodsManager::random_access()
 }
 
 void GoodsManager::start_scheduler() {
-    CCLOG("%%%%START");
 
     // 使用定时器，每 60 秒调用一次 randomAccess
     this->schedule([this](float delta) {

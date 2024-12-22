@@ -19,7 +19,7 @@ bool Board::init(const std::string& weather, int money, int experience) {
         return false;
     }
 
-    //人物初始化
+    // 人物初始化
     Player* player = Player::getInstance("me");
     background = Sprite::create("Board.png");
     auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -30,13 +30,13 @@ bool Board::init(const std::string& weather, int money, int experience) {
     background->setPosition(X, Y);
     this->addChild(background);
 
-    // 2. 添加天气图片
+    // 添加天气图片
     weatherSprite = Sprite::create();
     this->addChild(weatherSprite);
-    setWeatherSprite(weather);  // 设置初始天气图片
+    setWeatherSprite(weather); 
     weatherSprite->setPosition(background->getPosition()+ Vec2(background->getContentSize().height /16, background->getContentSize().height / 8));
 
-    // 3. 添加玩家钱财标签（背景下方）
+    // 添加玩家钱财标签（背景下方）
     moneyLabel = Label::createWithTTF(std::to_string(player->playerproperty.getMoney()), "fonts/arial.ttf", 12);
     moneyLabel->setPosition(background->getPosition() - Vec2(0, background->getContentSize().height /8*3));
     moneyLabel->setColor(Color3B::BLACK);
@@ -49,9 +49,8 @@ bool Board::init(const std::string& weather, int money, int experience) {
         }, 1.0f, "money_update_key");
 
 
-    // 4. 添加时间标签（背景上方）
+    // 添加时间标签（背景上方）
     timeLabel = Label::createWithTTF("", "fonts/arial.ttf", 12);
-    // timeLabel = Label::createWithTTF(std::to_string(timeSystem->getYear())+"-"+ std::to_string(timeSystem->getSeason()) + "-" + std::to_string(timeSystem->getDay()) + "-" + std::to_string(timeSystem->getHour()), "fonts/arial.ttf", 24);
     timeLabel->setPosition(background->getPosition() + Vec2(8, -3));
     timeLabel->setColor(Color3B::BLACK);
     timeLabel->setScale(0.4);
@@ -62,7 +61,7 @@ bool Board::init(const std::string& weather, int money, int experience) {
         this->updateTimeLabel(dt);
         }, 1.0f, "time_update_key");
 
-    //4.5 添加经验值标签
+    // 添加经验值标签
     experienceLabel = Label::createWithTTF("Exp: " + std::to_string(player->playerproperty.getExperience()), "fonts/arial.ttf", 11);
     experienceLabel->setPosition(background->getPosition() + Vec2(10- background->getContentSize().height / 8, background->getContentSize().height / 8*3-2.5));
     experienceLabel->setColor(Color3B::BLACK);
@@ -79,7 +78,6 @@ bool Board::init(const std::string& weather, int money, int experience) {
 }
 
 void Board::updateTimeLabel(float dt) {
-    // _timeSystem->updateTime();  // 更新游戏内的时间
     std::string timeStr = std::to_string(timeSystem->getYear()) + "-" +
         std::to_string(timeSystem->getSeason()) + "-" +
         std::to_string(timeSystem->getDay()) + "-" +

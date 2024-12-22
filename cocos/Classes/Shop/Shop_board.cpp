@@ -38,7 +38,7 @@ bool Shop_Board::init(std::function<void()>Shop_BoardCallback) {
     // 设置字体颜色为黑色
     descriptionLabel->setTextColor(cocos2d::Color4B::BLACK);
 
-    descriptionLabel->setPosition(cocos2d::Vec2(background->getContentSize().width / 3*2,background->getContentSize().height / 3 ));
+    descriptionLabel->setPosition(cocos2d::Vec2(background->getContentSize().width / 3 * 2, background->getContentSize().height / 3));
     descriptionLabel->setLocalZOrder(10); // 设置标签的 Z-order 高于背景
     background->addChild(descriptionLabel); // 将标签添加到背景
 
@@ -50,14 +50,14 @@ bool Shop_Board::init(std::function<void()>Shop_BoardCallback) {
         CC_CALLBACK_0(Shop_Board::buyitem_strawberry, this)); // 设置按钮回调函数
     item_strawberry->setScale(5);
     item_strawberry->setPosition(cocos2d::Vec2(background->getContentSize().width / 10,
-        background->getContentSize().height / 6*5));
+        background->getContentSize().height / 6 * 5));
 
     //创建商品2 南瓜种子
     item_pumpkin = cocos2d::MenuItemImage::create(
         "pumpkin.png", "pumpkin.png",
         CC_CALLBACK_0(Shop_Board::buyitem_pumpkin, this)); // 设置按钮回调函数
     item_pumpkin->setScale(5);
-    item_pumpkin->setPosition(cocos2d::Vec2(background->getContentSize().width /4,
+    item_pumpkin->setPosition(cocos2d::Vec2(background->getContentSize().width / 4,
         background->getContentSize().height / 6 * 5));
 
 
@@ -70,7 +70,7 @@ bool Shop_Board::init(std::function<void()>Shop_BoardCallback) {
         background->getContentSize().height - 30)); // 设置按钮位置
 
     // 创建菜单并添加按钮
-    auto menu = cocos2d::Menu::create(item_strawberry, item_pumpkin,closeButton, nullptr);
+    auto menu = cocos2d::Menu::create(item_strawberry, item_pumpkin, closeButton, nullptr);
     menu->setPosition(cocos2d::Vec2::ZERO); // 设置菜单位置
     background->addChild(menu); // 将菜单添加到背景
 
@@ -78,12 +78,12 @@ bool Shop_Board::init(std::function<void()>Shop_BoardCallback) {
 }
 
 // 买商品1——草莓种子的回调函数
- void Shop_Board::buyitem_strawberry() {
-     Player* player = Player::getInstance("me");
-    if (isOpen==1 && player->playerproperty.getMoney()> judgePrice()) { // 如果任务未完成
+void Shop_Board::buyitem_strawberry() {
+    Player* player = Player::getInstance("me");
+    if (isOpen == 1 && player->playerproperty.getMoney() > judgePrice()) { // 如果任务未完成
         player->playerproperty.addExperience(50);
         player->playerproperty.addReputation(50);
-        player->playerproperty.addMoney((-1)*judgePrice());
+        player->playerproperty.addMoney((-1) * judgePrice());
         backpackLayer->removeItem("strawberry", -1);
         cocos2d::log("玩家财产已更新！");
         if (Shop_BoardCallback) {
@@ -91,25 +91,25 @@ bool Shop_Board::init(std::function<void()>Shop_BoardCallback) {
 
         }
         //descriptionLabel->setString("Done!"); // 更新任务描述为“任务完成！”
-    } 
- }
+    }
+}
 
- // 买商品2——南瓜种子的回调函数
- void Shop_Board::buyitem_pumpkin() {
-     Player* player = Player::getInstance("me");
-     if (isOpen == 1 && player->playerproperty.getMoney() > judgePrice()) { // 如果任务未完成
-         player->playerproperty.addExperience(50);
-         player->playerproperty.addReputation(50);
-         player->playerproperty.addMoney((-1) * judgePrice());
-         backpackLayer->removeItem("pumpkin", -1);
-         cocos2d::log("玩家财产已更新！");
-         if (Shop_BoardCallback) {
-             Shop_BoardCallback(); // 执行完成任务的回调函数
+// 买商品2——南瓜种子的回调函数
+void Shop_Board::buyitem_pumpkin() {
+    Player* player = Player::getInstance("me");
+    if (isOpen == 1 && player->playerproperty.getMoney() > judgePrice()) { // 如果任务未完成
+        player->playerproperty.addExperience(50);
+        player->playerproperty.addReputation(50);
+        player->playerproperty.addMoney((-1) * judgePrice());
+        backpackLayer->removeItem("pumpkin", -1);
+        cocos2d::log("玩家财产已更新！");
+        if (Shop_BoardCallback) {
+            Shop_BoardCallback(); // 执行完成任务的回调函数
 
-         }
-         //descriptionLabel->setString("Done!"); // 更新任务描述为“任务完成！”
-     }
- }
+        }
+        //descriptionLabel->setString("Done!"); // 更新任务描述为“任务完成！”
+    }
+}
 
 
 

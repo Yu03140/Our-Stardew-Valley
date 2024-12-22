@@ -25,9 +25,6 @@ public:
     // 使用CREATE_FUNC宏定义create方法
     CREATE_FUNC(ShedScene);
 
-    //void onEnter();
-    //void onExit();
-
 protected:
     static ShedScene* instance;
     AnimalsManager* animals_manager;

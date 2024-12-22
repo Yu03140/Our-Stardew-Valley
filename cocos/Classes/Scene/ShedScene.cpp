@@ -112,10 +112,6 @@ void ShedScene::changeScene(Event* event)
     // 检查点击点是否在对象范围内
     if (doorRect.containsPoint(clickLocation))
     {
-        /*
-        if (backpackLayer)
-            this->removeChild(backpackLayer);  // 移除背包层
-        */
         CCLOG("Door clicked! Switching scenes...");
         Director::getInstance()->popScene();
     }

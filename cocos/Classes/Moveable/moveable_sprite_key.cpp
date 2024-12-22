@@ -173,8 +173,8 @@ void moveable_sprite_key::onExit() {
     Sprite::onExit();  // 保证基类的 onExit 被调用
 }
 
-/*----------------------------------------------------------------walk-----------------------------------------------------------------------------*/
-////创建moveable_sprite_key_walk实例
+
+//创建moveable_sprite_key_walk实例
 moveable_sprite_key_walk* moveable_sprite_key_walk::create(const std::string& plist_name, const std::string& sprite_framename)
 
 {
@@ -244,9 +244,6 @@ cocos2d::Vec2 moveable_sprite_key_walk::get_pos()
     return pos;
 }
 
-/*----------------------------------------------------------------tool-----------------------------------------------------------------------------*/
-//创建moveable_sprite_key_tool实例
-/*----------------------------------------------------------------RENEW2-----------------------------------------------------------------------------*/
 moveable_sprite_key_tool* moveable_sprite_key_tool::create(const std::string& plist_name)
 
 {
@@ -267,7 +264,7 @@ moveable_sprite_key_tool* moveable_sprite_key_tool::create(const std::string& pl
     cocos2d::Texture2D* transparentTexture = new cocos2d::Texture2D();
     transparentTexture->initWithData(transparentData, dataSize, cocos2d::backend::PixelFormat::RGBA8888, TOOL_WIDTH, TOOL_HEIGHT, cocos2d::Size(TOOL_WIDTH, TOOL_HEIGHT));
     transparent_texture = transparentTexture;
-    /*----------------------------------------------------------------RENEW2-----------------------------------------------------------------------------*/
+
     // 释放内存
     delete[] transparentData;
 
@@ -341,8 +338,7 @@ void moveable_sprite_key_tool::init_mouselistener()
 // 鼠标按下时的回调
 void moveable_sprite_key_tool::on_mouse_click(cocos2d::Event* event)
 {
-    /*------------------------------------------------------renew-------------------------------------------------------------*/
-    CCLOG("tool:mouse click");
+    
     auto tool_pos = this->getPosition();
     auto tool_size = this->getContentSize();
     Vec2 mouse_pos;
@@ -354,8 +350,6 @@ void moveable_sprite_key_tool::on_mouse_click(cocos2d::Event* event)
         auto mouse_event = dynamic_cast<cocos2d::EventMouse*>(event);
         mouse_pos = this->getParent()->convertToNodeSpace(mouse_event->getLocationInView());
     }
-
-    /*------------------------------------------------------renew-------------------------------------------------------------*/
 
     if (mouse_pos.x > character_pos.x - CONTROL_RANGE &&
         mouse_pos.x < character_pos.x + CONTROL_RANGE &&

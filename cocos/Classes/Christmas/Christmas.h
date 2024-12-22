@@ -17,7 +17,6 @@ public:
     virtual bool init();
 
 
-
     // 领取奖励按钮点击事件
     void onGetRewardClicked(cocos2d::Ref* sender);
 

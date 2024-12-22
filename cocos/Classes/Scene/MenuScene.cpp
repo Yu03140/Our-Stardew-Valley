@@ -1,13 +1,3 @@
-/****************************************************************************
- * 功能介绍:
- * 这是一个简单的 Cocos2d-x 游戏场景，展示了如何使用精灵、菜单和鼠标事件来制作互动界面。
- * 主要功能包括：
- * - 显示一个背景图片和标题图片
- * - 创建一个按钮，并根据鼠标悬停状态更改按钮的图片和大小
- * - 点击按钮时切换到另一个场景
- * - 提供关闭按钮退出程序
- ****************************************************************************/
-
 #include "MenuScene.h"
 #include "FarmGround.h"
 
@@ -137,9 +127,4 @@ void MenuScene::menuCloseCallback(Ref* pSender)
     // 关闭 Cocos2d-x 游戏场景并退出应用程序
     Director::getInstance()->end();
 
-    /*如果是在 iOS 平台并且希望返回原生 iOS 界面，不能直接调用 Director::getInstance()->end()，
-    * 需要触发一个自定义事件，像下面这样：
-    // EventCustom customEndEvent("game_scene_close_event");
-    // _eventDispatcher->dispatchEvent(&customEndEvent);
-    */
 }

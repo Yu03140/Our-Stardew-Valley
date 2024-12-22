@@ -34,7 +34,6 @@ public:
     void showChatButton(bool show);
 
 
-
 private:
     cocos2d::Sprite* npcSprite; // NPC¾«Áé
     std::string npcName;        // NPCÃû×Ö

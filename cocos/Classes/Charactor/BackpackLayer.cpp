@@ -54,7 +54,7 @@ bool BackpackLayer::init() {
 
     // 获取瓦片地图背景
     auto visibleSize = Director::getInstance()->getVisibleSize();
-    tilemap = TMXTiledMap::create("backpack_map.tmx");  // 假设背包是瓦片地图的一部分
+    tilemap = TMXTiledMap::create("backpack_map.tmx");  
     if (!tilemap) {
         CCLOG("Failed to load backpack_map.tmx");
         return false;
@@ -64,12 +64,12 @@ bool BackpackLayer::init() {
     auto mapSize = tilemap->getContentSize();
 
     // 设置瓦片地图位置
-    X0 = (visibleSize.width - mapSize.width) / 2;  // 居中
-    Y0 = visibleSize.height * 0.05f;              // 距底部偏移一点
+    X0 = (visibleSize.width - mapSize.width) / 2;  
+    Y0 = visibleSize.height * 0.05f;              
     tilemap->setPosition(Vec2(X0, Y0));
 
     // 获取对象层（每个背包格子的位置）
-    auto objectGroup = tilemap->getObjectGroup("Slots");  // 假设名为 "Slots"
+    auto objectGroup = tilemap->getObjectGroup("Slots");  
     if (!objectGroup) {
         CCLOG("Failed to get object group 'Slots'");
         return false;
@@ -82,24 +82,24 @@ bool BackpackLayer::init() {
         itemSlots[i].quantity = 0;   // 物品数量
 
         // 获取对象层中每个格子的坐标
-        auto object = objectGroup->getObject("Slot" + std::to_string(i + 1));  // 获取第 i+1 个格子
+        auto object = objectGroup->getObject("Slot" + std::to_string(i + 1));  
         float posX = object["x"].asFloat();
         float posY = object["y"].asFloat();
         float width = object["width"].asFloat();
         float height = object["height"].asFloat();
 
         // 创建透明纹理的精灵
-        auto sprite = Sprite::create();  // 默认无纹理
-		sprite->setPosition(Vec2(posX, posY));        // 设置位置
-		sprite->setAnchorPoint(Vec2(0, 0));     // 设置锚点
-		sprite->setContentSize(Size(width, height));  // 设置大小
-        tilemap->addChild(sprite, 1);  // 添加到瓦片地图
+        auto sprite = Sprite::create();                                              
+		sprite->setPosition(Vec2(posX, posY));                                    
+		sprite->setAnchorPoint(Vec2(0, 0));                                       
+		sprite->setContentSize(Size(width, height));                              
+        tilemap->addChild(sprite, 1);                                             
         itemSlots[i].sprite = sprite;
     }
 
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("bag.plist");        //传入纹理图集
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("bag.plist");        //传入背包纹理图集
 
-	// 初始添加五件工具
+	// 初始添加物品
     addItem("Axe1");
     addItem("Can1");
     addItem("Hoe1");
@@ -110,6 +110,7 @@ bool BackpackLayer::init() {
     addItem("Rod1");
     addItem("pumpkin_fruit");
 	addItem("chicken_egg");
+	addItem("fertilizer1",5);
 
 
     // 添加点击事件监听器
@@ -125,12 +126,10 @@ void BackpackLayer::onMouseDown(Event* event) {
     EventMouse* mouseEvent = static_cast<EventMouse*>(event);
     Vec2 clickPosition = mouseEvent->getLocation();  // 获取鼠标点击位置
 
-    // 获取屏幕的高度
+	// 获得鼠标的Tiled坐标
     auto visibleSize = Director::getInstance()->getVisibleSize();
     float visibleHeight = visibleSize.height;
-
-    // 转换为 Tiled 坐标
-    clickPosition.y = visibleHeight - clickPosition.y;  // Tiled 的 y 坐标需要反转
+    clickPosition.y = visibleHeight - clickPosition.y; 
 
     // 遍历每个背包格子，检查是否点击了物品
     for (int i = 0; i < itemSlots.size(); ++i) {
@@ -138,7 +137,6 @@ void BackpackLayer::onMouseDown(Event* event) {
         Rect slotRect(slot.sprite->getPositionX() + X0, slot.sprite->getPositionY() + Y0 - slot.sprite->getContentSize().height,
             slot.sprite->getContentSize().width * 3, slot.sprite->getContentSize().height * 3);
 
-        // 如果点击的位置在当前格子内
         if (slotRect.containsPoint(clickPosition)) {
             selectedItem = slot.name;
             break;  
@@ -154,7 +152,7 @@ bool BackpackLayer::addItem(const std::string& itemName, const int num) {
             // 如果物品已存在，增加数量并更新显示
             itemSlots[i].quantity+=num;
             updateItemTexture(i);
-			return true;// 添加物品成功
+			return true;
         }
     }
     for (int i = 0; i < itemSlots.size(); ++i) {
@@ -163,10 +161,10 @@ bool BackpackLayer::addItem(const std::string& itemName, const int num) {
             itemSlots[i].name = itemName;
             itemSlots[i].quantity = num;
             updateItemTexture(i);
-			return true; // 添加物品成功
+			return true; 
         }
     }
-	return false; // 添加物品失败
+	return false; 
 }
 
 // 减少物品
@@ -191,17 +189,18 @@ bool BackpackLayer::removeItem(const std::string& itemName, const int num) {
     return false;
 }
 
+// 获取选中物品
 std::string BackpackLayer::getSelectedItem() const {
     if (selectedItem.empty()) {
-        // 如果 selectedItem 为空，返回一个默认值或日志
-        return "";  // 或者你可以返回其他默认值
+        return "";  
     }
     else 
         return selectedItem;
 }
 
-void BackpackLayer::updateItemTexture(int slotIndex) {
+
 // 更新物品显示纹理
+void BackpackLayer::updateItemTexture(int slotIndex) {
     if (slotIndex < 0 || slotIndex >= itemSlots.size()) return;
 
     auto& slot = itemSlots[slotIndex];
@@ -209,7 +208,7 @@ void BackpackLayer::updateItemTexture(int slotIndex) {
         std::string spriteFrameName = slot.name + ".png";  
         auto spriteFrame = SpriteFrameCache::getInstance()->getSpriteFrameByName(spriteFrameName);
         if (spriteFrame) {
-            slot.sprite->setSpriteFrame(spriteFrame);  // 使用spriteFrame更新纹理
+            slot.sprite->setSpriteFrame(spriteFrame); 
             slot.sprite->setScale(3.0f);
         }
         else {
@@ -217,7 +216,6 @@ void BackpackLayer::updateItemTexture(int slotIndex) {
         }
 
         if (slot.sprite->getChildByTag(1001)) {
-            // 如果存在子节点，则移除该子节点
             slot.sprite->removeChildByTag(1001);
         }
 

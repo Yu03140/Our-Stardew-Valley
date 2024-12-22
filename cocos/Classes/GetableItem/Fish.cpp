@@ -38,10 +38,8 @@ fish* fish::create(const std::string& plist_name, float width, float height)
 
         fish_sprite->autorelease();
         fish_sprite->init_mouselistener();
-        CCLOG("Creation fishhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh successfully!");
         return fish_sprite;
     }
-    CCLOG("Creation fishhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh unsuccessfully!");
     CC_SAFE_DELETE(fish_sprite);
     return nullptr;
 }

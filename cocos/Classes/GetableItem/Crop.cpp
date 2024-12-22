@@ -99,14 +99,14 @@ void crop::on_mouse_click(cocos2d::Event* event)
                     CCLOG("water this crop");
                     this->water(backpackLayer->getSelectedItem());
                 }
-                else if (backpackLayer->getSelectedItem().find("Fertilizer") != std::string::npos)//手上的工具为肥料，执行施肥
+                else if (backpackLayer->getSelectedItem().find("fertilizer") != std::string::npos)//手上的工具为肥料，执行施肥
                 {
                     CCLOG("fertilize this crop");
                     this->fertilize(backpackLayer->getSelectedItem());
                 }
                 else
                 {
-                    CCLOG("couldn't do anything to the crop");
+                    CCLOG("%s couldn't do anything to the crop", backpackLayer->getSelectedItem().c_str());
                 }
                 break;
             default:

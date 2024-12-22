@@ -88,10 +88,9 @@ private:
 
 public:
     ~moveable_sprite_key_tool() { CCLOG("~moveable_sprite_key_tool"); }
-    /*----------------------------------------------------------------RENEW2-----------------------------------------------------------------------------*/
-        //创建一个moveable_sprite_key_tool的实例
+
+    //创建一个moveable_sprite_key_tool的实例
     static moveable_sprite_key_tool* create(const std::string& plist_name);
-    /*----------------------------------------------------------------RENEW2-----------------------------------------------------------------------------*/
 
     //生成移动指令
     void moveable_sprite_key_tool::move_act(int direction) override;

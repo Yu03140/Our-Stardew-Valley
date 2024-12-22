@@ -56,26 +56,25 @@ bool RecipeLayer::init()
 
 void RecipeLayer::createFoodSprites()
 {
-    // 先加载 bag.plist 文件
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("bag.plist");
 
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("bag.plist");
     Vec2 Pos = Director::getInstance()->getVisibleSize() / 2;
 
-    // 创建冰淇淋精灵
+    // 创造icecream精灵
     Sprite* icecream = Sprite::createWithSpriteFrameName("ice_cream.png");
     icecream->setPosition(Vec2(Pos.x-120,Pos.y));
     icecream->setTag(1);
     this->addChild(icecream, Taskbarlayer);
     icecream->setScale(MapSize * 2);
 
-    // 创建蛋糕精灵
-    Sprite* cake = Sprite::createWithSpriteFrameName("french_fries.png");
-    cake->setPosition(Vec2(Pos.x, Pos.y));
-    cake->setTag(2);
-    this->addChild(cake, Taskbarlayer);
-	cake->setScale(MapSize * 2);
+    // 创建frenchfries精灵
+    Sprite* frenchfries = Sprite::createWithSpriteFrameName("french_fries.png");
+    frenchfries->setPosition(Vec2(Pos.x, Pos.y));
+    frenchfries->setTag(2);
+    this->addChild(frenchfries, Taskbarlayer);
+	frenchfries->setScale(MapSize * 2);
 
-    // 创建比萨精灵
+    // 创建pizza精灵
     Sprite* pizza = Sprite::createWithSpriteFrameName("pizza.png");
     pizza->setPosition(Vec2(Pos.x + 120, Pos.y));
     pizza->setTag(3);
@@ -120,7 +119,7 @@ void RecipeLayer::createFoodSprites()
 
     // 为每个精灵添加事件监听器
     icecream->getEventDispatcher()->addEventListenerWithSceneGraphPriority(icecreamListener, icecream);
-    cake->getEventDispatcher()->addEventListenerWithSceneGraphPriority(cakeListener, cake);
+    frenchfries->getEventDispatcher()->addEventListenerWithSceneGraphPriority(cakeListener, frenchfries);
     pizza->getEventDispatcher()->addEventListenerWithSceneGraphPriority(pizzaListener, pizza);
 
 }
@@ -146,6 +145,8 @@ void RecipeLayer::onFoodSpriteClicked(Ref* sender)
     }
 }
 
+
+// 更新食物原材料提示
 void RecipeLayer::updateIngredientLabel(const std::string& foodName)
 {
     auto it = foodRecipes.find(foodName);
@@ -160,6 +161,7 @@ void RecipeLayer::updateIngredientLabel(const std::string& foodName)
     }
 }
 
+// 判断是否可以制作某个食物
 void RecipeLayer::canCookFood(const std::string& foodName)
 {
 	//判断是否有足够的原材料
@@ -179,6 +181,7 @@ void RecipeLayer::canCookFood(const std::string& foodName)
     return;
 }
 
+// 创建关闭按钮
 void RecipeLayer::createCloseButton()
 {
     closeBtn = MenuItemImage::create("XforTaskBar.png", "XforTaskBar.png", CC_CALLBACK_0(RecipeLayer::closeRecipe, this));
