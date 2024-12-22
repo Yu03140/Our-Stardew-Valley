@@ -86,8 +86,6 @@ void animals::on_mouse_click(cocos2d::Event* event)
     auto animals_pos = this->getPosition();
     auto animals_size = this->getContentSize();
     CCLOG("mouse:%f,%f", mouse_pos.x, mouse_pos.y);
-    CCLOG("animal:%f - %f;%f - %f", animals_pos.x - 5, animals_pos.x + animals_size.width + 5, animals_pos.y - 5, animals_pos.y + animals_size.height + 5);
-    CCLOG("if:%d - %d;%d - %d", (mouse_pos.x > animals_pos.x - 5), (mouse_pos.x < animals_pos.x + animals_size.width + 5), (mouse_pos.y > animals_pos.y - 5), (mouse_pos.y < animals_pos.y + animals_size.height + 5));
     if(is_in_control){
         if (mouse_pos.x > animals_pos.x - 5&&
             mouse_pos.x < animals_pos.x + animals_size.width + 5 &&

@@ -4,11 +4,14 @@
 
 USING_NS_CC;
 
+BackpackLayer* BackpackLayer::instance = nullptr;
+
 BackpackLayer::BackpackLayer()
-    : selectedItemImage(""), tilemap(nullptr), X0(0), Y0(0) {}
+    : selectedItem(""), tilemap(nullptr), X0(0), Y0(0) {}
 
 BackpackLayer::~BackpackLayer() {
     itemSlots.clear();
+    CCLOG("BackpackLayer destroy"); 
 }
 
 // 创建背包界面
@@ -16,6 +19,7 @@ BackpackLayer* BackpackLayer::create() {
     BackpackLayer* ret = new BackpackLayer();
     if (ret && ret->init()) {
         ret->autorelease();
+        ret->retain();
         return ret;
     }
     else {
@@ -23,6 +27,24 @@ BackpackLayer* BackpackLayer::create() {
         return nullptr;
     }
 }
+
+
+BackpackLayer* BackpackLayer::getInstance() {
+    if (!instance) {
+        CCLOG("Recreate instance");
+        instance = BackpackLayer::create();
+    }
+    return instance;
+}
+
+// 销毁实例
+void BackpackLayer::destroyInstance() {
+    if (instance) {
+        instance->removeFromParent();
+        instance = nullptr;
+    }
+}
+
 
 // 初始化函数
 bool BackpackLayer::init() {
@@ -79,7 +101,7 @@ bool BackpackLayer::init() {
 
 	// 初始添加五件工具
     addItem("Axe1");
-    addItem("Can1",10);
+    addItem("Can1");
     addItem("Hoe1");
     addItem("Pick1");
     addItem("Rod1");
@@ -107,20 +129,16 @@ void BackpackLayer::onMouseDown(Event* event) {
 
     // 转换为 Tiled 坐标
     clickPosition.y = visibleHeight - clickPosition.y;  // Tiled 的 y 坐标需要反转
-    CCLOG("Click position: (%f, %f)", clickPosition.x, clickPosition.y);
 
     // 遍历每个背包格子，检查是否点击了物品
     for (int i = 0; i < itemSlots.size(); ++i) {
         auto& slot = itemSlots[i];
-        Rect slotRect(slot.sprite->getPositionX()+X0, slot.sprite->getPositionY()+Y0- slot.sprite->getContentSize().height,
-            slot.sprite->getContentSize().width*3, slot.sprite->getContentSize().height*3);
-
-        //CCLOG("Slot %d: (%f, %f, %f, %f)", i, slotRect.origin.x, slotRect.origin.y, slotRect.size.width, slotRect.size.height);
+        Rect slotRect(slot.sprite->getPositionX() + X0, slot.sprite->getPositionY() + Y0 - slot.sprite->getContentSize().height,
+            slot.sprite->getContentSize().width * 3, slot.sprite->getContentSize().height * 3);
 
         // 如果点击的位置在当前格子内
         if (slotRect.containsPoint(clickPosition)) {
             selectedItem = slot.name;
-            CCLOG("Clicked item: %s", selectedItem.c_str());
             break;  
         }
     }
@@ -160,6 +178,7 @@ bool BackpackLayer::removeItem(const std::string& itemName, const int num) {
                 itemSlots[i].name = "";
 				selectedItem = "";
                 clearItemTexture(i);
+
             }
             else {
                 updateItemTexture(i);
@@ -171,11 +190,16 @@ bool BackpackLayer::removeItem(const std::string& itemName, const int num) {
 }
 
 std::string BackpackLayer::getSelectedItem() const {
-    return selectedItem; 
+    if (selectedItem.empty()) {
+        // 如果 selectedItem 为空，返回一个默认值或日志
+        return "";  // 或者你可以返回其他默认值
+    }
+    else 
+        return selectedItem;
 }
 
-// 更新物品显示纹理
 void BackpackLayer::updateItemTexture(int slotIndex) {
+// 更新物品显示纹理
     if (slotIndex < 0 || slotIndex >= itemSlots.size()) return;
 
     auto& slot = itemSlots[slotIndex];
@@ -190,8 +214,10 @@ void BackpackLayer::updateItemTexture(int slotIndex) {
             CCLOG("Failed to find sprite frame: %s", spriteFrameName.c_str());
         }
 
-		// 移除之前的数量标签
-        slot.sprite->removeChildByTag(1001);
+        if (slot.sprite->getChildByTag(1001)) {
+            // 如果存在子节点，则移除该子节点
+            slot.sprite->removeChildByTag(1001);
+        }
 
         // 更新数量显示
         auto label = Label::createWithSystemFont(std::to_string(slot.quantity), "Arial", 6);
@@ -220,7 +246,6 @@ void BackpackLayer::clearItemTexture(int slotIndex) {
     transparentTexture->initWithData(transparentData, dataSize, cocos2d::backend::PixelFormat::RGBA8888, spriteSize.width, spriteSize.width, cocos2d::Size(spriteSize.width, spriteSize.width));
     slot.sprite->setTexture(transparentTexture);  
     delete[] transparentData;
-
 }
 
 

@@ -46,26 +46,6 @@ public:
         // 开启update函数
         this->scheduleUpdate();
 
-        /*
-        //----------------------------------------------------
-        // 功能：添加背包图层
-        // 说明：添加背包图层到当前场景，初始化背包
-        // 图层：Backpacklayer
-        //----------------------------------------------------
-        backpackLayer = BackpackLayer::create();
-        if (backpackLayer) {
-            this->addChild(backpackLayer, Backpacklayer);
-            backpackLayer->setName("backpackLayer");
-        }
-        else
-            CCLOG("Failed to load the backpack layer");
-
-        CCLOG("BackpackLayer position: (%f, %f)", backpackLayer->getPositionX(), backpackLayer->getPositionY());
-        CCLOG("BackpackLayer size: (%f, %f)", backpackLayer->getContentSize().width, backpackLayer->getContentSize().height);
-
-       
-       */
-
         //----------------------------------------------------
         // 功能：添加移动主角
         // 说明：添加主角，主角位于地图中央
@@ -87,22 +67,25 @@ public:
             }
             }, "update_key_person");
         
-        //// 计算经过缩放后的实际尺寸
-        //Size originalSize = sprite_move->getContentSize();
-        //float scale = sprite_move->getScale();
-        //Size scaledSize = Size(originalSize.width * scale, originalSize.height * scale);
-        //auto sprite_tool = moveable_sprite_key_tool::create("Tools.plist");
-        //if (sprite_tool)
-        //{
-        //    sprite_tool->setPosition(Vec2(visibleSize.width / 2 + origin.x + scaledSize.width / 2, visibleSize.height / 2 + origin.y));
-        //    this->addChild(sprite_tool, 1);
-        //    sprite_tool->init_keyboardlistener();
-        //    sprite_tool->init_mouselistener();
-        //    sprite_tool->schedule([sprite_tool](float dt) {
-        //        sprite_tool->update(dt);
-        //        }, "update_key_tool");
-        //    main_char_tool = sprite_tool;
-        //}
+        // 计算经过缩放后的实际尺寸
+        Size originalSize = sprite_move->getContentSize();
+        float scale = sprite_move->getScale();
+        Size scaledSize = Size(originalSize.width * scale, originalSize.height * scale);
+        auto sprite_tool = moveable_sprite_key_tool::create("Tools.plist");
+        if (sprite_tool)
+        {
+            sprite_tool->setPosition(Vec2(visibleSize.width / 2 + origin.x + scaledSize.width / 2, visibleSize.height / 2 + origin.y));
+            this->addChild(sprite_tool, Playerlayer);
+            sprite_tool->init_keyboardlistener();
+            sprite_tool->init_mouselistener();
+        }
+        main_tool = sprite_tool;
+        this->schedule([this](float dt) {
+            if (main_tool)
+            {
+                main_tool->update(dt); // 更新物品移动逻辑
+            }
+            }, "update_key_tool");
 
         return true;
     }
@@ -115,31 +98,61 @@ public:
 
     // 鼠标点击事件处理
     virtual void changeScene(cocos2d::Event* event){}
+
     void onEnter() {
         Scene::onEnter();
+
+        //----------------------------------------------------
+        // 功能：添加背包图层
+        // 说明：添加背包图层到当前场景，初始化背包
+        // 图层：Backpacklayer
+        //----------------------------------------------------
+        auto backpacklayer = BackpackLayer::getInstance();
+        if (!backpacklayer->getParent()) {
+            this->addChild(backpacklayer, Backpacklayer);
+            backpacklayer->setPosition(Vec2(0, 0));
+            backpacklayer->setName("backpacklayer");
+            CCLOG("Success to load the backpack layer");
+        }
+        else
+            CCLOG("Failed to load the backpack layer");
+
         // 在场景进入时添加键盘监听器
         main_char->init_keyboardlistener();
-        //main_char_tool->init_keyboardlistener();
-        //main_char_tool->init_mouselistener();
         this->schedule([this](float dt) {
-            if (main_char /* && main_char_tool*/)
+            if (main_char)
             {
                 main_char->update(dt); // 更新人物移动逻辑
-                //main_char_tool->update(dt);
             }
             }, "update_key_person");
+
+        // 在场景进入时添加鼠标和键盘监听器
+        main_tool->init_keyboardlistener();
+        main_tool->init_mouselistener();
+        this->schedule([this](float dt) {
+            if (main_tool)
+            {
+                main_tool->update(dt); // 更新物品移动逻辑
+            }
+            }, "update_key_tool");
     }
 
     void onExit() {
         Scene::onExit();  // 调用基类的 onExit，确保场景的基本退出流程
         _eventDispatcher->removeEventListenersForTarget(main_char);
+        if (backpackLayer) {
+            CCLOG("!!Begin to remove");
+            // 从当前场景中移除背包层，但不销毁它的内存
+            backpackLayer->removeFromParent();
+            CCLOG("!!remove backpackLayer successfully!");
+        }
     }
 
 protected:
     // 瓦片地图的指针
     cocos2d::TMXTiledMap* tileMap;
     moveable_sprite_key_walk* main_char;
-    //moveable_sprite_key_tool* main_char_tool;
+    moveable_sprite_key_tool* main_tool;
 };
 
 #endif // __SUB_SCENE_H__

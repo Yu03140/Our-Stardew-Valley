@@ -72,18 +72,33 @@ void getable_goods::on_mouse_click(cocos2d::Event* event)
 {
     //获取物品位置
     Vec2 goods_pos = this->convertToWorldSpace(Vec2(0, 0));
+    Vec2 mouse_pos;
+    if (is_infarm)
+    {
+        mouse_pos = MOUSE_POS;
+    }
+    else {
+        auto mouse_event = dynamic_cast<cocos2d::EventMouse*>(event);
+        mouse_pos = this->getParent()->convertToNodeSpace(mouse_event->getLocationInView());
+        goods_pos = this->getPosition();
+    }
     // 计算点击的有效范围
     float min_x = goods_pos.x;
     float max_x = goods_pos.x + sprite_size.width ;
     float min_y = goods_pos.y;
     float max_y = goods_pos.y + sprite_size.height;
+
     if (is_getable && is_in_control) {
+        CCLOG("mouse_pos:%f,%f", mouse_pos.x, mouse_pos.y);
+        CCLOG("%f-%f,%f-%f", min_x, max_x, min_y, max_y);
         //鼠标点击位置在有效范围
-        if ((MOUSE_POS.x > min_x &&
-            MOUSE_POS.x < max_x &&
-            MOUSE_POS.y > min_y &&
-            MOUSE_POS.y < max_y))
+        if ((mouse_pos.x > min_x &&
+            mouse_pos.x < max_x &&
+            mouse_pos.y > min_y &&
+            mouse_pos.y < max_y))
         {
+            CCLOG("good click");
+            CCLOG("%s", sprite_name.c_str());
             if (backpackLayer->getSelectedItem().find(GOODS_MAP.at(sprite_name).at("tool")) != std::string::npos)//手上那个工具与物品匹配
             {
                 char last_char = backpackLayer->getSelectedItem()[backpackLayer->getSelectedItem().size() - 1];
@@ -93,6 +108,8 @@ void getable_goods::on_mouse_click(cocos2d::Event* event)
                 this->show_click_bar();
                 this->update();
             }
+            else
+                CCLOG("wrong tool");
         }
     }
 }
@@ -105,7 +122,7 @@ void getable_goods::show_click_bar()
         // 如果进度条尚未创建，则创建并显示它
         click_bar = progress_bar::create();
         click_bar->show_progress_bar(cocos2d::Vec2(this->getPositionX(), this->getPositionY() + this->getContentSize().height / 2 + 5));
-        this->getParent()->addChild(click_bar);
+        this->getParent()->addChild(click_bar,3);
     }
     else {
         click_bar->show_progress_bar(cocos2d::Vec2(this->getPositionX(), this->getPositionY() + this->getContentSize().height / 2 + 5));
@@ -146,7 +163,7 @@ void getable_goods::update()
     }
 }
 
-void getable_goods::add_goods(ValueMap dict, getable_goods* sprite, std::string name, cocos2d::TMXTiledMap* tileMap)
+void getable_goods::add_in(ValueMap dict, getable_goods* sprite, std::string name, cocos2d::TMXTiledMap* tileMap)
 {
     float posX = dict["x"].asFloat();
     float posY = dict["y"].asFloat();

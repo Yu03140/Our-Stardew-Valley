@@ -124,21 +124,19 @@ void moveable_sprite_key::update(float deltaTime)
     //获取窗口的大小信息
     cocos2d::Size visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
     cocos2d::Vec2 origin = cocos2d::Director::getInstance()->getVisibleOrigin();
-
-    // 判断精灵是否超出边界
-    if (sprite_pos.y + this->getContentSize().height * 2 >= SceneHeight / 2) {
+    if (sprite_pos.y + this->getContentSize().height * MapSize >= SceneHeight / 2 + visibleSize.height / 2) {
         is_hit_edge[0] = true;
         CCLOG("Sprite hit the top edge");
     }
-    else  if (sprite_pos.y - this->getContentSize().height * 2 <= visibleSize.height - SceneHeight / 2) {
+    else  if (sprite_pos.y - this->getContentSize().height * MapSize <= visibleSize.height / 2 - SceneHeight / 2) {
         is_hit_edge[1] = true;
         CCLOG("Sprite hit the bottom edge");
     }
-    if (sprite_pos.x - this->getContentSize().width * 2 <= visibleSize.width - SceneWidth / 2) {
+    if (sprite_pos.x - this->getContentSize().width * MapSize <= visibleSize.width / 2 - SceneWidth / 2) {
         is_hit_edge[2] = true;
         CCLOG("Sprite hit the left edge");
     }
-    else if (sprite_pos.x + this->getContentSize().width * 2 >= SceneWidth / 2) {
+    else if (sprite_pos.x + this->getContentSize().width * MapSize >= SceneWidth / 2 + visibleSize.width / 2) {
         is_hit_edge[3] = true;
         CCLOG("Sprite hit the right edge");
     }
@@ -344,18 +342,28 @@ void moveable_sprite_key_tool::init_mouselistener()
 void moveable_sprite_key_tool::on_mouse_click(cocos2d::Event* event)
 {
     /*------------------------------------------------------renew-------------------------------------------------------------*/
-
+    CCLOG("tool:mouse click");
     auto tool_pos = this->getPosition();
     auto tool_size = this->getContentSize();
+    Vec2 mouse_pos;
+    if (is_infarm) 
+    {
+        mouse_pos = MOUSE_POS;
+    }
+    else{
+        auto mouse_event = dynamic_cast<cocos2d::EventMouse*>(event);
+        mouse_pos = this->getParent()->convertToNodeSpace(mouse_event->getLocationInView());
+    }
 
     /*------------------------------------------------------renew-------------------------------------------------------------*/
 
-    if (MOUSE_POS.x > character_pos.x - CONTROL_RANGE &&
-        MOUSE_POS.x < character_pos.x + CONTROL_RANGE &&
-        MOUSE_POS.y > character_pos.y - CONTROL_RANGE &&
-        MOUSE_POS.y < character_pos.y + CONTROL_RANGE)
+    if (mouse_pos.x > character_pos.x - CONTROL_RANGE &&
+        mouse_pos.x < character_pos.x + CONTROL_RANGE &&
+        mouse_pos.y > character_pos.y - CONTROL_RANGE &&
+        mouse_pos.y < character_pos.y + CONTROL_RANGE)
     {
         is_in_control = 1;
+        CCLOG("IN CONTROL");
         if(TOOLS_MAP.count(sprite_name_tool)){
             CCLOG("tool click!");
             // 切换纹理

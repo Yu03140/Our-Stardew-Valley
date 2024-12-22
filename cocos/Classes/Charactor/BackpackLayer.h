@@ -15,6 +15,8 @@ public:
     virtual ~BackpackLayer();
 
     static BackpackLayer* create();
+    static BackpackLayer* getInstance();
+    void BackpackLayer::destroyInstance();
     virtual bool init();
 
     // 鼠标点击事件处理函数
@@ -33,6 +35,8 @@ public:
 
 private:
 
+    static BackpackLayer* instance;
+
     float X0;
     float Y0;
     std::string selectedItem;
@@ -42,9 +46,6 @@ private:
 
     // 背包格子数据
     std::vector<ItemSlot> itemSlots;
-
-    // 保存选择的物品
-    std::string selectedItemImage;
 };
 
 #endif // BACKPACK_LAYER_H

@@ -16,14 +16,14 @@
 const std::unordered_map<std::string, std::unordered_map<std::string, std::string>> GOODS_MAP =
 {
 	{"grass",{{"get","straw"},{"tool","Hoe"}}},
-	{"SmallStone_in",{{"get","stone"},{"tool","Pick"}}},
-	{"BigStone_in",{{"get","stone"},{"tool","Pick"}}},
-	{"Rock_in",{{"get","copper"},{"tool","Pick"}}},
-	{"tree",{{"develop_day","wood"},{"season","Axe"}}}
+	{"stones",{{"get","stone"},{"tool","Pick"}}},
+	{"bigstone",{{"get","stone"},{"tool","Pick"}}},
+	{"mine",{{"get","copper"},{"tool","Pick"}}},
+	{"tree",{{"get","wood"},{"tool","Axe"}}}
 };
 const std::unordered_map<std::string, int> GOODS_CLICK_MAP =
 {
-	{"grass",5 * 2},{"SmallStone_in",3 * 2},{"BigStone_in",5 * 2},{"Rock_in",10 * 2},{"tree",8 * 2}
+	{"grass",3 * 2},{"stones",5 * 2},{"bigstone",10 * 2},{"mine",15 * 2},{"tree",10 * 2}
 };
 
 class getable_goods : public cocos2d::Sprite
@@ -51,7 +51,7 @@ public:
 	void show_click_bar();
 	void hide_click_bar();
 	void update();
-	void add_goods(ValueMap dict, getable_goods* sprite, std::string name, cocos2d::TMXTiledMap* tileMap);
+	void add_in(ValueMap dict, getable_goods* sprite, std::string name, cocos2d::TMXTiledMap* tileMap);
 
 };
 

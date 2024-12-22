@@ -62,7 +62,6 @@ bool ShedScene::init()
         animal->schedule([animal](float dt) {
             animal->update_day(dt);
             }, "update_animal");
-        break;
     }
     return true;
 }

@@ -64,7 +64,8 @@ private:
     
     void checkForButtonClick(Vec2 mousePosition);
 
-    void FarmScene::onEnter();
+    void onEnter();
+    void onExit();
     
  /*------------------------------------------------------renew-------------------------------------------------------------*/
 };

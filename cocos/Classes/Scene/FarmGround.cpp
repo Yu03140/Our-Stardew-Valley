@@ -67,9 +67,10 @@ bool FarmScene::init() {
     // 说明：添加背包图层到当前场景，初始化背包
     // 图层：Backpacklayer
     //----------------------------------------------------
-    backpackLayer = BackpackLayer::create();
+    backpackLayer = BackpackLayer::getInstance();
     if (backpackLayer) {
         this->addChild(backpackLayer, Backpacklayer);
+        backpackLayer->setName("backpackLayer");
     }
     else
         CCLOG("Failed to load the backpack layer");
@@ -108,13 +109,13 @@ bool FarmScene::init() {
     // 图层：Taskbarlayer
     //----------------------------------------------------
     taskBarScene = TaskBarLayer::create(); 
-    tileMap->addChild(taskBarScene,3);     
+    this->addChild(taskBarScene,3);     
 
     Vec2 map_pos = tileMap->getPosition();  // 获取瓦片地图的偏移位置
     Size tileSize = tileMap->getTileSize(); // 获取瓦片尺寸
     float mapscale = tileMap->getScale();      // 获取瓦片地图的缩放因子（如果有的话）
     /*--------------------------------------------renew2----------------------------------------*/
-    /*
+    
     //----------------------------------------------------
     // 功能：树模块
     // 说明：在地图上添加树格子，用于生成树
@@ -129,17 +130,17 @@ bool FarmScene::init() {
 
     // 树格子管理
     GoodsManager* tree_manager = GoodsManager::create();
-    auto objects = objectGroup_tree->getObjects();
+    auto objects_tree = objectGroup_tree->getObjects();
 
-    for (const auto& object : objects) {
+    for (const auto& object : objects_tree) {
         // 通过 object 中的数据判断是否是名称为 'tree' 的对象
         auto dict = object.asValueMap();
         std::string objectName = dict["name"].asString();
-        //处理所有名称为草的对象
+        //处理所有名称为树的对象
         if (objectName == "trees") {
-            auto sprite = getable_goods::create("goos_test.plist");
-            add_goods(dict, sprite, "tree");
-            //加入草格子管理器
+            auto sprite = getable_goods::create("goods.plist");
+            sprite->add_in(dict, sprite, "tree", tileMap);
+            //加入树格子管理器
             tree_manager->add_goods(sprite);
         }
     }
@@ -148,8 +149,6 @@ bool FarmScene::init() {
         tree_manager->random_access();
         }, 6.0f, "RandomAccessSchedulerKey");
    
- */
-
     //----------------------------------------------------
     // 功能：草模块
     // 说明：在地图上添加草格子，用于生成草
@@ -164,16 +163,16 @@ bool FarmScene::init() {
 
     // 草格子管理
     GoodsManager* grass_manager = GoodsManager::create();
-    auto objects = objectGroup_grass->getObjects();
+    auto objects_grass = objectGroup_grass->getObjects();
 
-    for (const auto& object : objects) {
+    for (const auto& object : objects_grass) {
         // 通过 object 中的数据判断是否是名称为 'grass' 的对象
         auto dict = object.asValueMap();
         std::string objectName = dict["name"].asString();
         //处理所有名称为草的对象
         if (objectName == "grass") {
-            auto sprite = getable_goods::create("goos_test.plist");
-            sprite->add_goods(dict, sprite,"grass",tileMap);
+            auto sprite = getable_goods::create("goods.plist");
+            sprite->add_in(dict, sprite,"grass",tileMap);
             //加入草格子管理器
             grass_manager->add_goods(sprite);
         }
@@ -303,8 +302,8 @@ void FarmScene::updateCameraPosition(float dt, Node* player)
     auto visibleSize = Director::getInstance()->getVisibleSize();
 
     // 镜头位置要保持在地图边界内
-    float cameraX = clamp(playerPosition.x, visibleSize.width / 2 - SceneWidth, SceneWidth - visibleSize.width / 2);
-    float cameraY = clamp(playerPosition.y, visibleSize.height / 2 - SceneHeight, SceneHeight - visibleSize.height / 2);
+    float cameraX = clamp(playerPosition.x, visibleSize.width - SceneWidth / 2, SceneWidth / 2);
+    float cameraY = clamp(playerPosition.y, visibleSize.height - SceneHeight / 2, SceneHeight / 2);
 
     // 获取默认摄像头
     auto camera = Director::getInstance()->getRunningScene()->getDefaultCamera();
@@ -350,9 +349,10 @@ void FarmScene::on_mouse_click(cocos2d::Event* event)
     Vec2 windowOrigin = camera->getPosition() - Vec2(visibleSize.width / 2, visibleSize.height / 2);
     Vec2 mouse_pos = mousePosition + windowOrigin;
     MOUSE_POS = mouse_pos;
+
     checkForButtonClick(MOUSE_POS);
     CCLOG("Mouse Position(global): (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
-    // 0.1秒后将 MOUSE_POS 置为 (0, 0)，并且不影响其他程序运行
+    // 1.5秒后将 MOUSE_POS 置为 (0, 0)，并且不影响其他程序运行
     this->scheduleOnce([this](float dt) {
         MOUSE_POS = Vec2::ZERO;
         CCLOG("Mouse Position reset to: (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
@@ -396,9 +396,9 @@ void FarmScene::checkForButtonClick(Vec2 mousePosition)
         if (mousePosition.x >= pos.x && mousePosition.x <= pos.x + width &&
             mousePosition.y >= pos.y && mousePosition.y <= pos.y + height) {
 
-            // if (backpackLayer) 
-            //     this->removeChild(backpackLayer);  // 移除背包层
-            // CCLOG("remove backpacklayer successfully!");
+            if (backpackLayer) 
+                this->removeChild(backpackLayer);  // 移除背包层
+            CCLOG("remove backpacklayer successfully!");
             CCLOG("Door clicked! Switching to MinesScene...");
 
             switch (i) {
@@ -430,12 +430,22 @@ void FarmScene::checkForButtonClick(Vec2 mousePosition)
 void FarmScene::onEnter()
 {
     Scene::onEnter();
-
+    is_infarm = 1;
+    CCLOG("IN FARM");
     // 如果背包层不存在于当前场景，重新添加
-    //if (backpackLayer && !this->getChildByName("backpackLayer")) {
-    //    this->addChild(backpackLayer, Backpacklayer);
-    //    CCLOG("readd backpacklayer");
-    //}
+    if (backpackLayer && !this->getChildByName("backpackLayer")) {
+        this->addChild(backpackLayer, Backpacklayer);
+        backpackLayer->setName("backpackLayer");
+        CCLOG("readd backpacklayer");
+    }
+}
+void FarmScene::onExit()
+{
+    Scene::onExit();
+    is_infarm = 0;
+    CCLOG("LEAVE FARM");
 
 }
+
+
 /*------------------------------------------------------renew-------------------------------------------------------------*/

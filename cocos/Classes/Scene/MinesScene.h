@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "FarmGround.h"
 #include "SubScene.h"
+#include "GetableItem/getable_goods.h"
 
 class MinesScene : public SubScene
 {
