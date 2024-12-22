@@ -1,67 +1,67 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
 
-#include <string>      // ÓÃÓÚ std::string ÀàĞÍ
-#include "cocos2d.h"   // Cocos2d Ö÷ÒªÍ·ÎÄ¼ş£¬°üº¬ËùÓĞºËĞÄÀà
+#include <string>      // ç”¨äº std::string ç±»å‹
+#include "cocos2d.h"   // Cocos2d ä¸»è¦å¤´æ–‡ä»¶ï¼ŒåŒ…å«æ‰€æœ‰æ ¸å¿ƒç±»
 
-// Íæ¼Ò»ù±¾ĞÅÏ¢£¨ÈçÓÃ»§Ãû¡¢ID¡¢ÊÖ»úºÅµÈ£©
+// ç©å®¶åŸºæœ¬ä¿¡æ¯ï¼ˆå¦‚ç”¨æˆ·åã€IDã€æ‰‹æœºå·ç­‰ï¼‰
 class PlayerInformation {
 public:
     PlayerInformation(const std::string& username, int playerId, const std::string& phoneNumber)
         : username(username), playerId(playerId), phoneNumber(phoneNumber) {}
 
-    // »ñÈ¡Íæ¼ÒĞÅÏ¢
+    // è·å–ç©å®¶ä¿¡æ¯
     std::string getUsername() const { return username; }
     int getPlayerId() const { return playerId; }
     std::string getPhoneNumber() const { return phoneNumber; }
 
 private:
-    std::string username;    // Íæ¼ÒÓÃ»§Ãû
-    int playerId;            // Íæ¼ÒID
-    std::string phoneNumber; // Íæ¼ÒÊÖ»úºÅ
+    std::string username;    // ç©å®¶ç”¨æˆ·å
+    int playerId;            // ç©å®¶ID
+    std::string phoneNumber; // ç©å®¶æ‰‹æœºå·
 };
 
-// Íæ¼Ò²Æ²úÊôĞÔ£¨¾­Ñé¡¢Ç®²Æ¡¢ÉùÍûµÈ£©
+// ç©å®¶è´¢äº§å±æ€§ï¼ˆç»éªŒã€é’±è´¢ã€å£°æœ›ç­‰ï¼‰
 class PlayerProperty {
 public:
-    // ¹¹Ôìº¯Êı
+    // æ„é€ å‡½æ•°
     PlayerProperty(const std::string& playerName)
         : experience(0), money(0), reputation(0) {}
 
-    // Ôö¼Ó¾­Ñé¡¢Ç®²ÆºÍÉùÍû
+    // å¢åŠ ç»éªŒã€é’±è´¢å’Œå£°æœ›
     void addExperience(int exp);
     void addMoney(int mon);
     void addReputation(int reputation_change);
 
-    // »ñÈ¡²Æ²úÊôĞÔ
+    // è·å–è´¢äº§å±æ€§
     int getExperience() const { return experience; }
     int getMoney() const { return money; }
     int getReputation() const { return reputation; }
 
 private:
-    int experience;   // ¾­ÑéÖµ
-    int money;        // Ç®²Æ
-    int reputation;   // ÉùÍû
+    int experience;   // ç»éªŒå€¼
+    int money;        // é’±è´¢
+    int reputation;   // å£°æœ›
 };
 
-// Íæ¼ÒÀà£º¹ÜÀíÍæ¼ÒµÄ²Æ²úÊôĞÔºÍĞÅÏ¢
+// ç©å®¶ç±»ï¼šç®¡ç†ç©å®¶çš„è´¢äº§å±æ€§å’Œä¿¡æ¯
 class Player {
 public:
-    // »ñÈ¡ Player µÄµ¥ÀıÊµÀı
+    // è·å– Player çš„å•ä¾‹å®ä¾‹
     static Player* getInstance(const std::string& username = "");
 
-    // É¾³ı¿½±´¹¹Ôìº¯ÊıºÍ¸³Öµ²Ù×÷·û£¬È·±£µ¥Àı²»±»¸´ÖÆ
+    // åˆ é™¤æ‹·è´æ„é€ å‡½æ•°å’Œèµ‹å€¼æ“ä½œç¬¦ï¼Œç¡®ä¿å•ä¾‹ä¸è¢«å¤åˆ¶
     Player(const Player&) = delete;
     Player& operator=(const Player&) = delete;
 
-    // Íæ¼Ò²Æ²úÊôĞÔ
+    // ç©å®¶è´¢äº§å±æ€§
     PlayerProperty playerproperty;
 
 private:
-    // Ë½ÓĞ¹¹Ôìº¯Êı£¬·ÀÖ¹Íâ²¿Ö±½Ó´´½¨ÊµÀı
+    // ç§æœ‰æ„é€ å‡½æ•°ï¼Œé˜²æ­¢å¤–éƒ¨ç›´æ¥åˆ›å»ºå®ä¾‹
     Player(const std::string& username);
 
-    // ¾²Ì¬³ÉÔ±±äÁ¿£¬ÓÃÓÚ±£´æÎ¨Ò»µÄ Player ÊµÀı
+    // é™æ€æˆå‘˜å˜é‡ï¼Œç”¨äºä¿å­˜å”¯ä¸€çš„ Player å®ä¾‹
     static Player* player;
 
 };
