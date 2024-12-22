@@ -387,5 +387,261 @@ void FarmScene::addItem(const std::string& itemName) {
     }
 }
 
+//----------------------------------------------------
+// FarmScene::updateItemTexture()
+// 功能：更新物品显示纹理
+//----------------------------------------------------
+void FarmScene::updateItemTexture(int slotIndex) {
+    // 检查槽位索引范围是否合法
+    if (slotIndex < 0 || slotIndex >= crops.size()) {
+        CCLOG("Invalid slot index: %d", slotIndex);
+        return;
+    }
+    auto& slot = crops[slotIndex];
+    // 检查槽位的精灵是否为空
+    if (!slot.sprite) {
+        CCLOG("Slot sprite is null for slot index: %d", slotIndex);
+        return;
+    }
+    // 如果槽位没有物品名称，直接返回
+    if (slot.name.empty()) {
+        CCLOG("Slot %d is empty.", slotIndex);
+        return;
+    }
+    // 拼接图片路径
+    std::string texturePath = slot.name + ".png"; 
+    // 从纹理缓存加载纹理
+    auto texture = Director::getInstance()->getTextureCache()->addImage(texturePath);
+    if (texture) {
+        // 更新精灵的纹理
+        slot.sprite->setTexture(texture);
+        slot.sprite->setScale(3.0f);
+        CCLOG("Updated texture for slot %d: %s", slotIndex, texturePath.c_str());
+    }
+    else {
+        CCLOG("Failed to load texture: %s", texturePath.c_str());
+    }
+}
+
+//----------------------------------------------------
+// FarmScene::updateItemTexture()
+// 功能：清除物品显示纹理
+//----------------------------------------------------
+void FarmScene::clearItemTexture(int slotIndex) {
+    if (slotIndex < 0 || slotIndex >= crops.size())
+        return;
+    auto& slot = crops[slotIndex];
+    // 清空纹理
+    slot.sprite->setTexture(nullptr);  
+    // 清空子节点
+    slot.sprite->removeAllChildren();  
+}
+
+//限制值的范围，使其保持在指定的最小值和最大值之间
+template <typename T>
+T clamp(T value, T low, T high) {
+    if (value < low) return low;
+    if (value > high) return high;
+    return value;
+}
+
+//----------------------------------------------------
+// FarmScene::updateCameraPosition()
+// 功能：更新摄像机跟踪位置
+//----------------------------------------------------
+void FarmScene::updateCameraPosition(float dt, Node* player)
+{
+    auto playerPosition = player->getPosition();
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    // 镜头位置要保持在地图边界内
+    float cameraX = clamp(playerPosition.x, visibleSize.width - SceneWidth / 2, SceneWidth / 2);
+    float cameraY = clamp(playerPosition.y, visibleSize.height - SceneHeight / 2, SceneHeight / 2);
+    // 获取默认摄像头
+    auto camera = Director::getInstance()->getRunningScene()->getDefaultCamera();
+    // 设置摄像头位置
+    if (camera) {
+        camera->setPosition3D(Vec3(cameraX, cameraY, camera->getPosition3D().z));
+		float Posx = cameraX - visibleSize.width / 2;
+		float Posy = cameraY - visibleSize.height / 2;
+        if (backpackLayer)
+            backpackLayer->setPosition(Vec2(Posx, Posy));
+        if (board)
+            board->setPosition(Vec2(Posx, Posy));
+		if (taskBarLayer)
+			taskBarLayer->setPosition(Vec2(Posx, Posy));
+    }
+}
+
+//----------------------------------------------------
+// FarmScene::init_mouselistener()
+// 功能：初始化鼠标监听器
+//----------------------------------------------------
+void FarmScene::init_mouselistener()
+{
+    // 创建鼠标监听器
+    auto listener = cocos2d::EventListenerMouse::create();
+
+    // 鼠标回调
+    listener->onMouseDown = CC_CALLBACK_1(FarmScene::on_mouse_click, this);
+
+    // 获取事件分发器，添加监听器
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+}
+
+//----------------------------------------------------
+// FarmScene::on_mouse_click()
+// 功能：鼠标按下时的回调
+//----------------------------------------------------
+void FarmScene::on_mouse_click(cocos2d::Event* event)
+{
+    //获取鼠标在窗口中的位置,转换到地图坐标
+    auto mouse_event = dynamic_cast<cocos2d::EventMouse*>(event);
+    Vec2 mousePosition = mouse_event->getLocationInView();
+    auto camera = Director::getInstance()->getRunningScene()->getDefaultCamera();
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 windowOrigin = camera->getPosition() - Vec2(visibleSize.width / 2, visibleSize.height / 2);
+    Vec2 mouse_pos = mousePosition + windowOrigin;
+    MOUSE_POS = mouse_pos;
+    CCLOG("Mouse Position(global): (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
+    checkForButtonClick(mouse_pos);
+    // 0.1秒后将 MOUSE_POS 置为 (0, 0)，并且不影响其他程序运行
+    this->scheduleOnce([this](float dt) {
+        MOUSE_POS = Vec2::ZERO;
+        CCLOG("Mouse Position reset to: (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
+        }, 1.5f, "reset_mouse_pos_key");
+}
+
+//----------------------------------------------------
+// FarmScene::checkForButtonClick()
+// 功能：检测是否点击了Button并切换场景
+//----------------------------------------------------
+void FarmScene::checkForButtonClick(Vec2 mousePosition)
+{
+    // 获取 Button 对象层
+    auto objectGroup = tileMap->getObjectGroup("Button");
+    if (!objectGroup) {
+        CCLOG("Failed to get object group 'Button'");
+        return ;
+    }
+    // 获取 Door 对象的坐标和尺寸
+    std::string Objectname[3] = { "Mines_Door","Home_Door","Shed_Door" };
+    Scene* nextScene = nullptr;
+    for(int i=0;i<3;i++){
+    auto object = objectGroup->getObject(Objectname[i]);
+    float posX = object["x"].asFloat();
+    float posY = object["y"].asFloat();
+    float width = object["width"].asFloat() * MapSize;
+    float height = object["height"].asFloat() * MapSize;
+    auto sprite = Sprite::create();
+    sprite->setPosition(Vec2(posX, posY));
+    sprite->setAnchorPoint(Vec2(0, 0)); 
+    sprite->setContentSize(Size(width, height));
+    tileMap->addChild(sprite);
+    Vec2 pos = sprite->convertToWorldSpace(Vec2(0, 0));
+    CCLOG("POS: %f, %f", pos.x, pos.y);
+    // 判断点击位置是否在 Door 区域内
+    if (mousePosition.x >= pos.x && mousePosition.x <= pos.x + width &&
+        mousePosition.y >= pos.y && mousePosition.y <= pos.y + height) {
+        if (backpackLayer) {
+            // 从当前场景中移除背包层，但不销毁它的内存
+            backpackLayer->removeFromParent();
+            CCLOG("remove backpackLayer successfully!");
+        }
+        CCLOG("Door clicked! Switching to MinesScene...");
+        switch (i) {
+        case 0:
+            // 切换到 MinesScene
+            nextScene = MinesScene::createScene();
+            break;
+        case 1:
+            // 切换到 HomeScene
+            nextScene = HomeScene::createScene();
+            break;
+        case 2:
+			// 切换到 ShedScene
+			nextScene = ShedScene::createScene();
+			break;
+        }
+        // 如果我们成功获取到下一个场景，就推入栈中
+        if (nextScene) {
+            // 保留场景，避免被销毁
+            nextScene->retain();  
+            Director::getInstance()->pushScene(nextScene);
+        }
+        return ;
+        }
+    }
+}
+
+//----------------------------------------------------
+// FarmScene::update()
+// 功能：更新玩家与NPC交互的状态
+//----------------------------------------------------
+void FarmScene::update(float delta) {
+	// 检查玩家与NPC的交互
+    checkNPCInteraction();
+     // 检查玩家与NPC的距离，并更新按钮的显示状态
+    if (character_pos.distance(npc1->getPosition()) < 50) {
+        // 在范围内时显示按钮
+        npc1->showChatButton(true); 
+    }
+    else {
+        // 不在范围内时隐藏按钮
+        npc1->showChatButton(false); 
+    }
+    if (character_pos.distance(npc2->getPosition()) < 50) {
+        // 在范围内时显示按钮
+        npc2->showChatButton(true);  
+    }
+    else {
+        // 不在范围内时隐藏按钮
+        npc2->showChatButton(false); 
+    }
+}
+
+//----------------------------------------------------
+// FarmScene::checkNPCInteraction()
+// 功能：检查玩家和NPC之间的距离是否小于100单位
+// 说明：100是触发交互的范围阈值，即玩家与NPC的距离小于100时，才有可能与NPC互动
+//----------------------------------------------------
+void FarmScene::checkNPCInteraction() {
+    if (character_pos.distance(npc1->getPosition()) < 50) {
+        // 如果NPC当前不在聊天状态（即NPC没有正在与玩家对话），则显示互动提示。
+        if (!npc1->isChattingStatus()) {
+            // 输出日志，提示玩家按下“Chat”键与NPC互动。
+            CCLOG("Press 'Chat' to interact with NPC.");
+        }
+        if (!npc2->isChattingStatus()) {
+            // 输出日志，提示玩家按下“Chat”键与NPC互动。
+            CCLOG("Press 'Chat' to interact with NPC.");
+        }
+    }
+}
+
+//----------------------------------------------------
+// FarmScene::onEnter()
+// 功能：当场景进入时调用的初始化函数
+//       主要用于确保背包层存在并添加到当前场景中
+//----------------------------------------------------
+void FarmScene::onEnter() {
+    Scene::onEnter();
+    is_infarm = 1;
+    CCLOG("IN FARM");
+    // 如果背包层不存在于当前场景，重新添加
+    if (backpackLayer && !this->getChildByName("backpackLayer")) {
+        this->addChild(backpackLayer, Backpacklayer);
+        backpackLayer->setName("backpackLayer");
+        CCLOG("readd backpacklayer");
+    }
+}
+
+void FarmScene::onExit()
+{
+    Scene::onExit();
+    is_infarm = 0;
+    CCLOG("LEAVE FARM");
+
+}
+
 
 
