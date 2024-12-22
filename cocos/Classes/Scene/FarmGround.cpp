@@ -154,7 +154,10 @@ bool FarmScene::init() {
 
     taskBarLayer = TaskBarLayer::create();
     this->addChild(taskBarLayer, Backpacklayer);
-
+//--------------------------------------------------------------------------------------------------------------
+    shop_board_layer = Shop_Board_Layer::create();
+    this->addChild(shop_board_layer, Backpacklayer);
+//----------------------------------------------------------------------------------------------------------
     board = Board::createBoard("normal", 0, 0);
     board->setScale(6);
     board->setPosition(0, 0);
@@ -197,10 +200,6 @@ bool FarmScene::init() {
         // 8. 每帧调用更新函数
         this->update(deltaTime);
         }, "update_key");
-
-
-    //tileMap->removeChild(taskBarLayer);  // 先移除
-    //tileMap->addChild(taskBarLayer, Backpacklayer);  // 重新添加，并设置较高层级
 
 
     //-----------end-----------------------------------------------------------------------------

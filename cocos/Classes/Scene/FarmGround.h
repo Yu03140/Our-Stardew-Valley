@@ -11,6 +11,8 @@
 #include "MinesScene.h"
 #include "HomeScene.h"
 #include "ShedScene.h"
+#include"Shop/Shop_board_Layer.h"
+
 
 #define MapSize 4
 #define TOOL_WIDTH 40
@@ -70,6 +72,8 @@ private:
 
     Board* board;
     TaskBarLayer* taskBarLayer;
+    Shop_Board_Layer* shop_board_layer;
+
 
 };
 
