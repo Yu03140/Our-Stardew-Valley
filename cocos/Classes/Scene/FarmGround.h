@@ -38,6 +38,8 @@ public:
     void addItem(const std::string& itemName);
     //  void removeItem(const std::string& itemName);
 
+    moveable_sprite_key_tool* main_tool;
+
       // 宏定义，用于创建场景
     CREATE_FUNC(FarmScene);
 

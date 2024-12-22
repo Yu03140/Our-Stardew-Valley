@@ -48,6 +48,7 @@ getable_goods* getable_goods::create(const std::string& plist_name)
 
 void getable_goods::setImag()
 {
+    CCLOG("getable_goods::setImag");
     // 获取指定精灵帧
     cocos2d::SpriteFrame* frame = cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName(sprite_name + ".png");
     this->initWithSpriteFrame(frame);
@@ -73,24 +74,29 @@ void getable_goods::on_mouse_click(cocos2d::Event* event)
     //获取物品位置
     Vec2 goods_pos = this->convertToWorldSpace(Vec2(0, 0));
     Vec2 mouse_pos;
+    float min_x;
+    float max_x;
+    float min_y;
+    float max_y;
+
     if (is_infarm)
     {
         mouse_pos = MOUSE_POS;
+        min_x = goods_pos.x;
+        max_x = goods_pos.x + sprite_size.width;
+        min_y = goods_pos.y;
+        max_y = goods_pos.y + sprite_size.height;
     }
     else {
         auto mouse_event = dynamic_cast<cocos2d::EventMouse*>(event);
         mouse_pos = this->getParent()->convertToNodeSpace(mouse_event->getLocationInView());
         goods_pos = this->getPosition();
+        min_x = goods_pos.x;
+        max_x = goods_pos.x + sprite_size.width / MapSize;
+        min_y = goods_pos.y;
+        max_y = goods_pos.y + sprite_size.height / MapSize;
     }
-    // 计算点击的有效范围
-    float min_x = goods_pos.x;
-    float max_x = goods_pos.x + sprite_size.width ;
-    float min_y = goods_pos.y;
-    float max_y = goods_pos.y + sprite_size.height;
-
     if (is_getable && is_in_control) {
-        CCLOG("mouse_pos:%f,%f", mouse_pos.x, mouse_pos.y);
-        CCLOG("%f-%f,%f-%f", min_x, max_x, min_y, max_y);
         //鼠标点击位置在有效范围
         if ((mouse_pos.x > min_x &&
             mouse_pos.x < max_x &&
@@ -99,7 +105,7 @@ void getable_goods::on_mouse_click(cocos2d::Event* event)
         {
             CCLOG("good click");
             CCLOG("%s", sprite_name.c_str());
-            if (backpackLayer->getSelectedItem().find(GOODS_MAP.at(sprite_name).at("tool")) != std::string::npos)//手上那个工具与物品匹配
+            if (GOODS_MAP.at(sprite_name).at("tool") == "" || (backpackLayer->getSelectedItem().find(GOODS_MAP.at(sprite_name).at("tool"))) != std::string::npos)//手上那个工具与物品匹配
             {
                 char last_char = backpackLayer->getSelectedItem()[backpackLayer->getSelectedItem().size() - 1];
                 int level = last_char - '0';
@@ -157,9 +163,16 @@ void getable_goods::update()
         //人物经验增加
         Player* player = Player::getInstance("me");
         player->playerproperty.addExperience(EXPERIENCE * GOODS_CLICK_MAP.at(sprite_name));
-        this->setTexture(transparent_texture);//设为透明
-        click_count = 0;//清空
-        is_getable = 0;
+        if (sprite_name == "badGreenhouse") {
+            CCLOG("111111111111111111111111111111111111111111111111111111111111111111111111111");
+            this->setSpriteFrame("newGreenhouse.png");
+            is_getable = 0;
+        }
+        else{
+            this->setTexture(transparent_texture);//设为透明
+            click_count = 0;//清空
+            is_getable = 0;
+        }
     }
 }
 
@@ -179,6 +192,9 @@ void getable_goods::add_in(ValueMap dict, getable_goods* sprite, std::string nam
     sprite->init_mouselistener();
     sprite->setImag();
 }
+/*----------------------------------------------------------WarmHouse----------------------------------------------------------------------*/
+
+
 
 /*----------------------------------------------------------GoodsManager----------------------------------------------------------------------*/
 GoodsManager* GoodsManager::create()

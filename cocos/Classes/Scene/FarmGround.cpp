@@ -37,6 +37,23 @@ bool FarmScene::init() {
     }    
     main_char = sprite_move;
 
+    // 计算经过缩放后的实际尺寸
+    Size originalSize = sprite_move->getContentSize();
+    float scale = sprite_move->getScale();
+    Size scaledSize = Size(originalSize.width * scale, originalSize.height * scale);
+    auto sprite_tool = moveable_sprite_key_tool::create("Tools.plist");
+    if (sprite_tool)
+    {
+        sprite_tool->setPosition(Vec2(visibleSize.width / 2 + origin.x + scaledSize.width / 2, visibleSize.height / 2 + origin.y));
+        this->addChild(sprite_tool, 1);
+        sprite_tool->init_keyboardlistener();
+        sprite_tool->init_mouselistener();
+        sprite_tool->schedule([sprite_tool](float dt) {
+            sprite_tool->update(dt);
+            }, "update_key_tool");
+    }
+    main_tool = sprite_tool;
+
     tileMap = TMXTiledMap::create("Myfarm.tmx");
     if (tileMap) {
         tileMap->setAnchorPoint(Vec2(0.5, 0.5));
@@ -87,21 +104,6 @@ bool FarmScene::init() {
         parentNode->addChild(timeSystem, Timesystemlayer);
     }
 
-    // 计算经过缩放后的实际尺寸
-    Size originalSize = sprite_move->getContentSize();
-    float scale = sprite_move->getScale();
-    Size scaledSize = Size(originalSize.width * scale, originalSize.height * scale);
-    auto sprite_tool = moveable_sprite_key_tool::create("Tools.plist");
-    if (sprite_tool)
-    {
-        sprite_tool->setPosition(Vec2(visibleSize.width / 2 + origin.x + scaledSize.width / 2, visibleSize.height / 2 + origin.y));
-        this->addChild(sprite_tool, 1);
-        sprite_tool->init_keyboardlistener();
-        sprite_tool->init_mouselistener();
-        sprite_tool->schedule([sprite_tool](float dt) {
-            sprite_tool->update(dt);
-            }, "update_key_tool");
-    }
 
     //----------------------------------------------------
     // 功能：添加任务栏
@@ -115,7 +117,7 @@ bool FarmScene::init() {
     Size tileSize = tileMap->getTileSize(); // 获取瓦片尺寸
     float mapscale = tileMap->getScale();      // 获取瓦片地图的缩放因子（如果有的话）
     /*--------------------------------------------renew2----------------------------------------*/
-    
+    /*
     //----------------------------------------------------
     // 功能：树模块
     // 说明：在地图上添加树格子，用于生成树
@@ -183,7 +185,7 @@ bool FarmScene::init() {
         }, 6.0f, "RandomAccessSchedulerKey");
 
     /*--------------------------------------------renew2----------------------------------------*/
-    
+    /*
     //----------------------------------------------------
     // 功能：作物模块
     // 说明：在地图上添加作物格子，用于种植作物
@@ -196,9 +198,10 @@ bool FarmScene::init() {
         return false;
     }
 
-
     // 作物格子管理（假设最大36格）
     crops.resize(36);
+   
+
     for (int i = 0; i < 36; ++i) {
 
         crops[i].name = "";      // 作物名
@@ -224,6 +227,21 @@ bool FarmScene::init() {
             sprite->update_day(dt);
             }, "update_crop");
 
+    } */
+    auto objectGroup_gh = tileMap->getObjectGroup("warmhouse");
+    if (!objectGroup_gh) {
+        CCLOG("Failed to get object group 'warmhouse'");
+        return false;
+    }
+    auto objects_gh = objectGroup_gh->getObjects();
+    for (const auto& object : objects_gh) {
+        // 通过 object 中的数据判断是否是名称为 'warmhouse' 的对象
+        auto dict = object.asValueMap();
+        std::string objectName = dict["name"].asString();
+        if (objectName == "warmhouse") {
+            auto sprite = getable_goods::create("goods.plist");
+            sprite->add_in(dict, sprite, "badGreenhouse", tileMap);
+        }
     }
     return true;
 }
@@ -432,13 +450,16 @@ void FarmScene::onEnter()
     Scene::onEnter();
     is_infarm = 1;
     CCLOG("IN FARM");
+
     // 如果背包层不存在于当前场景，重新添加
     if (backpackLayer && !this->getChildByName("backpackLayer")) {
         this->addChild(backpackLayer, Backpacklayer);
         backpackLayer->setName("backpackLayer");
         CCLOG("readd backpacklayer");
     }
+    main_tool->init_mouselistener();
 }
+
 void FarmScene::onExit()
 {
     Scene::onExit();

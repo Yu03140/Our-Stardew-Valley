@@ -19,29 +19,29 @@ const std::unordered_map<std::string, std::unordered_map<std::string, std::strin
 	{"stones",{{"get","stone"},{"tool","Pick"}}},
 	{"bigstone",{{"get","stone"},{"tool","Pick"}}},
 	{"mine",{{"get","copper"},{"tool","Pick"}}},
-	{"tree",{{"get","wood"},{"tool","Axe"}}}
+	{"tree",{{"get","wood"},{"tool","Axe"}}},
+	{"badGreenhouse",{{"get",""},{"tool",""}}}
 };
 const std::unordered_map<std::string, int> GOODS_CLICK_MAP =
 {
-	{"grass",3 * 2},{"stones",5 * 2},{"bigstone",10 * 2},{"mine",15 * 2},{"tree",10 * 2}
+	{"grass",3 * 2},{"stones",5 * 2},{"bigstone",10 * 2},{"mine",15 * 2},{"tree",10 * 2},{"badGreenhouse", 30 * 2}
 };
 
 class getable_goods : public cocos2d::Sprite
 {
 private:
-	
-	std::string sprite_name;
 	Size sprite_size;
-	int click_count = 0;
 	static cocos2d::Texture2D* transparent_texture;
 	progress_bar* click_bar = nullptr;
+protected:
+	std::string sprite_name;
+	int click_count = 0;
 	bool is_getable = 0;//1->有可获取；0->已经被获取，此处为空
-
 public:
 	// 创建实例
 	void set_info(std::string name, Size size);
 	static getable_goods* create(const std::string& plist_name);
-	void setImag();
+	virtual void setImag();
 
 	bool get_is_getable() { return is_getable; }
 	// 初始化鼠标监听器
@@ -50,10 +50,12 @@ public:
 	void on_mouse_click(cocos2d::Event* event);
 	void show_click_bar();
 	void hide_click_bar();
-	void update();
+	virtual void update();
 	void add_in(ValueMap dict, getable_goods* sprite, std::string name, cocos2d::TMXTiledMap* tileMap);
-
+	virtual ~getable_goods() {}
 };
+
+
 
 /*----------------------------------------------------------GoodsManager----------------------------------------------------------------------*/
 

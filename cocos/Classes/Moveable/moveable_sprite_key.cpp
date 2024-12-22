@@ -348,9 +348,11 @@ void moveable_sprite_key_tool::on_mouse_click(cocos2d::Event* event)
     Vec2 mouse_pos;
     if (is_infarm) 
     {
+        CCLOG("in");
         mouse_pos = MOUSE_POS;
     }
     else{
+        CCLOG("out");
         auto mouse_event = dynamic_cast<cocos2d::EventMouse*>(event);
         mouse_pos = this->getParent()->convertToNodeSpace(mouse_event->getLocationInView());
     }
