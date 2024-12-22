@@ -43,7 +43,10 @@ crop* crop::create(const std::string& plist_name, float width, float height)
     }
     CCLOG("Creation cope unsuccessfully!");
     CC_SAFE_DELETE(crop_sprite);
+
+
     return nullptr;
+	
 }
 
 // ³õÊ¼»¯Êó±ê¼àÌıÆ÷

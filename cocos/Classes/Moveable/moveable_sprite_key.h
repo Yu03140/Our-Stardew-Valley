@@ -41,7 +41,6 @@ public:
 
     //生成移动指令
     virtual void move_act(int direction);
-
 };
 
 class moveable_sprite_key_walk : public moveable_sprite_key

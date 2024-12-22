@@ -45,6 +45,7 @@ moveable_sprite_key* moveable_sprite_key::create(const std::string& plist_name, 
     }
     CCLOG("Creation moveable_sprite_key unsuccessfully!");
     CC_SAFE_DELETE(sprite);
+
     return nullptr;
 }
 

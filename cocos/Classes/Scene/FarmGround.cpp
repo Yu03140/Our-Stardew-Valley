@@ -43,18 +43,13 @@ bool FarmScene::init() {
     Player* player = Player::getInstance("me");
 
 
-
-
-
-
-
-
     //----------------------------------------------------
     // 功能：添加背包图层
     // 说明：添加背包图层到当前场景，初始化背包
     // 图层：Backpacklayer
     //----------------------------------------------------
-    backpackLayer = BackpackLayer::create();
+    backpackLayer = BackpackLayer::getInstance();
+
     if (backpackLayer) {
         this->addChild(backpackLayer, Backpacklayer);
         backpackLayer->setName("backpackLayer");
@@ -62,10 +57,6 @@ bool FarmScene::init() {
     else
         CCLOG("Failed to load the backpack layer");
 
-
-
-
-   
 
     //----------------------------------------------------
     // 功能：添加移动主角
@@ -198,10 +189,6 @@ bool FarmScene::init() {
         this->update(deltaTime);
         }, "update_key");
 
-   
-    //tileMap->removeChild(taskBarLayer);  // 先移除
-    //tileMap->addChild(taskBarLayer, Backpacklayer);  // 重新添加，并设置较高层级
-
 
     //-----------end-----------------------------------------------------------------------------
     return true;
@@ -304,8 +291,7 @@ void FarmScene::updateCameraPosition(float dt, Node* player)
         camera->setPosition3D(Vec3(cameraX, cameraY, camera->getPosition3D().z));
 		float Posx = cameraX - visibleSize.width / 2;
 		float Posy = cameraY - visibleSize.height / 2;
-        //CCLOG("Camera position: (%f, %f)", cameraX, cameraY);
-        if (backpackLayer) 
+        if (backpackLayer)
             backpackLayer->setPosition(Vec2(Posx, Posy));
         
         if (board)
@@ -387,9 +373,12 @@ void FarmScene::checkForButtonClick(Vec2 mousePosition)
     if (mousePosition.x >= pos.x && mousePosition.x <= pos.x + width &&
         mousePosition.y >= pos.y && mousePosition.y <= pos.y + height) {
 
-       // if (backpackLayer) 
-       //     this->removeChild(backpackLayer);  // 移除背包层
-       // CCLOG("remove backpacklayer successfully!");
+        if (backpackLayer) {
+            // 从当前场景中移除背包层，但不销毁它的内存
+            backpackLayer->removeFromParent();
+            CCLOG("remove backpackLayer successfully!");
+        }
+        
         CCLOG("Door clicked! Switching to MinesScene...");
 
         switch (i) {
@@ -416,19 +405,6 @@ void FarmScene::checkForButtonClick(Vec2 mousePosition)
         return ;
         }
     }
-}
-
-// 进入场景时重新加入背包层
-void FarmScene::onEnter()
-{
-    Scene::onEnter();
-
-    // 如果背包层不存在于当前场景，重新添加
-    if (backpackLayer && !this->getChildByName("backpackLayer")) {
-        this->addChild(backpackLayer, Backpacklayer);
-        CCLOG("readd backpacklayer");
-    }
-
 }
 
 void FarmScene::update(float delta) {
@@ -469,4 +445,12 @@ void FarmScene::checkNPCInteraction() {
 }
 
 
+void FarmScene::onEnter() {
+    Scene::onEnter();  // 调用父类的 onEnter 方法
 
+    // 如果背包层不存在于当前场景，重新添加
+    if (backpackLayer && !this->getChildByName("backpackLayer")) {
+        this->addChild(backpackLayer, Backpacklayer);
+        CCLOG("readd backpacklayer");
+    }
+}

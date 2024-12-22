@@ -13,10 +13,12 @@
 
 //全局定义
 #define CONTROL_RANGE 150 
+#define TOOL_WIDTH 40
+#define TOOL_HEIGHT 60
 
-extern BackpackLayer* backpackLayer;
 extern TimeSystem* timeSystem;
 extern cocos2d::Vec2 character_pos;
+extern BackpackLayer* backpackLayer;
 extern bool is_in_control;
 extern float SceneWidth;
 extern float SceneHeight;

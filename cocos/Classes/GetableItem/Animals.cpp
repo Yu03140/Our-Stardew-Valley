@@ -54,6 +54,7 @@ animals* animals::create(const std::string& plist_name, std::string name, cocos2
     }
     CCLOG("Creation animal unsuccessfully!");
     CC_SAFE_DELETE(animals_sprite);
+
     return nullptr;
 }
 

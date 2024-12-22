@@ -21,6 +21,62 @@ void MinesScene::initTileMap()
 {
     // 加载Mines.tmx瓦片地图
     tileMap = TMXTiledMap::create("Mines.tmx");
+
+    //----------------------------------------------------
+    // 功能：矿石模块
+    // 说明：在地图上添加矿石格子，用于生成矿石
+    // 图层：Playerlayer
+    //----------------------------------------------------
+    // 获取对象层（每个作物格子的位置）
+    auto objectGroup_stone = tileMap->getObjectGroup("stone");
+    if (!objectGroup_stone) {
+        CCLOG("Failed to get object group 'stone'");
+    }
+
+    // 石头格子管理
+    GoodsManager* stone_manager = GoodsManager::create();
+    GoodsManager* mine_manager = GoodsManager::create();
+    GoodsManager* bigstone_manager = GoodsManager::create();
+    auto objects = objectGroup_stone->getObjects();
+
+    for (const auto& object : objects) {
+        // 通过 object 中的数据判断是否是名称为 'stone' 的对象
+        auto dict = object.asValueMap();
+        std::string objectName = dict["name"].asString();
+        auto sprite = getable_goods::create("material.plist");
+		CCLOG("objectName: %s", objectName.c_str());
+        //处理石头
+        if (objectName == "stone") {
+            sprite->add_goods(dict, sprite, "stones", tileMap);
+            //加入石头格子管理器
+            stone_manager->add_goods(sprite);
+        }
+		//处理矿石
+		else if (objectName == "mine") {
+			sprite->add_goods(dict, sprite, "mine", tileMap);
+			//加入矿石格子管理器
+			mine_manager->add_goods(sprite);
+		}
+		//处理大石头
+        else if (objectName == "big_stone") {
+            sprite->add_goods(dict, sprite, "bigstone", tileMap);
+            //加入大石头格子管理器
+            bigstone_manager->add_goods(sprite);
+        }
+    }
+    this->addChild(stone_manager);
+    stone_manager->schedule([stone_manager](float delta) {
+        stone_manager->random_access();
+        }, 6.0f, "RandomAccessSchedulerKey");
+    this->addChild(mine_manager);
+    mine_manager->schedule([mine_manager](float delta) {
+        mine_manager->random_access();
+        }, 6.0f, "RandomAccessSchedulerKey");
+    this->addChild(bigstone_manager);
+    bigstone_manager->schedule([bigstone_manager](float delta) {
+        bigstone_manager->random_access();
+        }, 6.0f, "RandomAccessSchedulerKey");
+
 }
 
 void MinesScene::changeScene(Event* event)

@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include <string>
+#include "Charactor/BackpackLayer.h"
 
 /**
  * @brief TaskBar 类用于实现游戏中的任务栏。

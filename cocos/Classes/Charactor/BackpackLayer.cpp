@@ -4,11 +4,14 @@
 
 USING_NS_CC;
 
+BackpackLayer* BackpackLayer::instance = nullptr;
+
 BackpackLayer::BackpackLayer()
     : selectedItem(""), tilemap(nullptr), X0(0), Y0(0) {}
 
 BackpackLayer::~BackpackLayer() {
     itemSlots.clear();
+    CCLOG("BackpackLayer destroy"); 
 }
 
 // 创建背包界面
@@ -16,6 +19,7 @@ BackpackLayer* BackpackLayer::create() {
     BackpackLayer* ret = new BackpackLayer();
     if (ret && ret->init()) {
         ret->autorelease();
+        ret->retain();
         return ret;
     }
     else {
@@ -23,6 +27,24 @@ BackpackLayer* BackpackLayer::create() {
         return nullptr;
     }
 }
+
+
+BackpackLayer* BackpackLayer::getInstance() {
+    if (!instance) {
+        CCLOG("Recreate instance");
+        instance = BackpackLayer::create();
+    }
+    return instance;
+}
+
+// 销毁实例
+void BackpackLayer::destroyInstance() {
+    if (instance) {
+        instance->removeFromParent();
+        instance = nullptr;
+    }
+}
+
 
 // 初始化函数
 bool BackpackLayer::init() {
@@ -45,7 +67,6 @@ bool BackpackLayer::init() {
     X0 = (visibleSize.width - mapSize.width) / 2;  // 居中
     Y0 = visibleSize.height * 0.05f;              // 距底部偏移一点
     tilemap->setPosition(Vec2(X0, Y0));
-	CCLOG("X0: %f, Y0: %f", X0, Y0);
 
     // 获取对象层（每个背包格子的位置）
     auto objectGroup = tilemap->getObjectGroup("Slots");  // 假设名为 "Slots"

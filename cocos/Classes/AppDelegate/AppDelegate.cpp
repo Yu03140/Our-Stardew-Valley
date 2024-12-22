@@ -1,6 +1,6 @@
 #include "AppDelegate.h"   // 引入应用程序委托类头文件
 #include "Scene/MenuScene.h"  // 引入场景类头文件
-#include "Scene/FarmGround.h"
+#include "Global/Global.h"
 
 
 // 是否启用音频引擎

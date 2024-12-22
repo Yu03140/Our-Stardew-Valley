@@ -31,12 +31,14 @@
         virtual bool init();
         // 添加或移除物品
         void addItem(const std::string& itemName);
-        //  void removeItem(const std::string& itemName);
 
         CREATE_FUNC(FarmScene); // 使用 CREATE_FUNC 宏
 
         // 瓦片地图
         cocos2d::TMXTiledMap* tileMap;
+
+
+		// 鼠标点击事件处理函数
 
 
     private:
@@ -60,7 +62,7 @@
 
         void checkForButtonClick(Vec2 mousePosition);
 
-        void FarmScene::onEnter();
+        void onEnter();
 
         NPC* npc1;                      // NPC对象
         NPC* npc2;

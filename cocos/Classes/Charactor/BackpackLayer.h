@@ -15,6 +15,8 @@ public:
     virtual ~BackpackLayer();
 
     static BackpackLayer* create();
+    static BackpackLayer* getInstance();
+    void BackpackLayer::destroyInstance();
     virtual bool init();
 
     // 鼠标点击事件处理函数
@@ -32,6 +34,8 @@ public:
     cocos2d::TMXTiledMap* tilemap;
 
 private:
+
+    static BackpackLayer* instance;
 
     float X0;
     float Y0;
