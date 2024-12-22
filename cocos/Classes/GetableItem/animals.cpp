@@ -1,29 +1,20 @@
 #include "animals.h"
 
-std::string animals::animals_name = "";
-int animals::produce_day = 0;
-cocos2d::Sprite animals::produce;
 cocos2d::Texture2D* animals::transparent_texture = nullptr;
-cocos2d::Size animals::produce_size = cocos2d::Size(0, 0);
-cocos2d::Vec2 animals::produce_pos = cocos2d::Vec2(0, 0);
 
-
-// 创建实例
-animals* animals::create(const std::string& plist_name, std::string name, cocos2d::Vec2 pos, cocos2d::Size size)
+animals::animals()
 {
-    //加载plist文件
-    cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(plist_name);
-    
+    produce = new Sprite();
+}
+
+//保存基本信息
+void animals::set_info(std::string name, cocos2d::Vec2 pos, cocos2d::Size size)
+{
     //设置基本信息
     animals_name = name;
     produce_size = size;
     produce_pos = pos;
-    produce_day = ANIMAL_MAP.at(name);
-
-    //创建实例
-    animals* animals_sprite = new animals();
-    Sprite* produce_sprite = new Sprite();
-
+    produce_day = ANIMAL_MAP.at(animals_name);
     // 创建透明的内存块，设置为全透明 (RGBA8888 格式)
     int dataSize = size.width * size.height * 4;  // 每个像素 4 字节（RGBA 格式）
     unsigned char* transparentData = new unsigned char[dataSize];
@@ -38,23 +29,43 @@ animals* animals::create(const std::string& plist_name, std::string name, cocos2
 
     // 释放内存
     delete[] transparentData;
+}
+
+// 创建实例
+animals* animals::create(const std::string& plist_name)
+{
+    CCLOG("cccccccccccccccccccccccccccccccccccccccreate animal");
+
+    //加载plist文件
+    cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(plist_name);
+    CCLOG("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    //创建实例
+    animals* animals_sprite = new animals();
+    CCLOG("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
     //判断是否能成功创建
-    if (transparentTexture && animals_sprite && produce_sprite)
+    if (animals_sprite)
     {
-        animals_sprite->setSpriteFrame(animals_name + "-front.png");
+        CCLOG("Creation animal successfully!");
         animals_sprite->autorelease();
         animals_sprite->init_mouselistener();
         animals_sprite->setScale(2.0f);  // 将精灵放大 2 倍
-        produce_sprite->initWithTexture(transparentTexture);
-        produce_sprite->autorelease();
-        produce_sprite->setScale(2.0f);  // 将精灵放大 2 倍
-        produce.setPosition(pos);
-        CCLOG("Creation animal successfully!");
+
         return animals_sprite;
     }
     CCLOG("Creation animal unsuccessfully!");
     CC_SAFE_DELETE(animals_sprite);
     return nullptr;
+}
+
+void animals::set_imag()
+{
+    if(produce && transparent_texture){
+        this->setSpriteFrame(animals_name + "-front.png");
+        produce->initWithTexture(transparent_texture);
+        produce->autorelease();
+        produce->setScale(2.0f);  // 将精灵放大 2 倍
+        produce->setPosition(produce_pos);
+    }
 }
 
 // 初始化鼠标监听器
@@ -118,7 +129,7 @@ void animals::create_produce()
 {
     if (feed_count % produce_day == 0 && feed_count) 
     {
-        produce.setSpriteFrame(animals_name + "-produce.png");//显示生成物
+        produce->setSpriteFrame(animals_name + "-produce.png");//显示生成物
         is_produce = 1;
         CCLOG("create produce");
     }
@@ -132,7 +143,7 @@ void animals::harvest()
     //任务经验增加EXPERIENCE
     Player* player = Player::getInstance("me");
     player->playerproperty.addExperience(EXPERIENCE);
-    produce.setTexture(transparent_texture);
+    produce->setTexture(transparent_texture);
     is_produce = 0;
 }
 
@@ -206,5 +217,37 @@ void animals::update_day(float deltaTime)
         }
         now_day = timeSystem->getDay();
         feed_today = 1;
+    }
+}
+
+/*-------------------------------------------------------------------renew ------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------AnimalsManager ------------------------------------------------------------------------*/
+AnimalsManager* AnimalsManager::create()
+{
+    AnimalsManager* ret = new (std::nothrow) AnimalsManager();
+    if (ret && ret->init())
+    {
+        ret->autorelease();
+        return ret;
+    }
+    else
+    {
+        delete ret;
+        return nullptr;
+    }
+}
+// 添加精灵到容器
+void AnimalsManager::add_animals(animals* sprite) {
+    animals_list.push_back(sprite);
+}
+
+void AnimalsManager::schedule_animals()
+{
+    // 迭代器遍历访问精灵
+    for (auto it = animals_list.begin(); it != animals_list.end(); ++it) {
+        auto animal = *it;  // 获取指针，指向精灵
+        animal->schedule([animal](float dt) {  // 捕获指针 animal
+            animal->update(dt);  // 调用 update
+            }, "update_animal");
     }
 }

@@ -1,4 +1,4 @@
-//auto animal = animals::create("Animals.plist", "Pig", Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y),Size(100,100));
+//auto animal = animals::create("Animals.plist""Pig", Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y),Size(100,100));
 //if (animal)
 //{
 //    animal->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
@@ -30,22 +30,26 @@ const std::unordered_map<std::string, std::string> PRODUCE_MAP = { {"Pig","truff
 class animals : public cocos2d::Sprite
 {
 private:
-    static Sprite produce;
+    Sprite* produce;
     int now_day = 0;                             //当前日期
-    static std::string animals_name;                //动物的名称
-    static int produce_day;                      //每次生成附属品所需要的天数
+    std::string animals_name;                //动物的名称
+    int produce_day;                      //每次生成附属品所需要的天数
     bool is_produce = 0;                         //是否生成附属品
 
     int feed_count = 0;                         //喂养总天数
     int feed_today = 1;                         //今天剩余喂养次数
 
     static cocos2d::Texture2D* transparent_texture;
-    static cocos2d::Size produce_size;
-    static cocos2d::Vec2 produce_pos;
+    cocos2d::Size produce_size;
+    cocos2d::Vec2 produce_pos;
 
 public:
+    animals();
+    //保存基本信息
+    void set_info(std::string name, cocos2d::Vec2 pos, cocos2d::Size size);
     // 创建实例
-    static animals* create(const std::string& plist_name, std::string name, cocos2d::Vec2 pos, cocos2d::Size size);
+    static animals* create(const std::string& plist_name);
+    void set_imag();
 
     // 初始化鼠标监听器
     void init_mouselistener();
@@ -70,6 +74,24 @@ public:
     //新一天的更新
     void update_day(float deltaTime);
 };
+
+/*-------------------------------------------------------------------renew ------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------AnimalsManager ------------------------------------------------------------------------*/
+class AnimalsManager :public Node
+{
+private:
+    std::vector<animals*> animals_list;
+public:
+    static AnimalsManager* create();
+    // 添加精灵到容器
+    void add_animals(animals* sprite);
+
+    // 迭代器遍历访问精灵
+    void schedule_animals();
+
+};
+
+
 
 #endif __ANIMALS_H__
 

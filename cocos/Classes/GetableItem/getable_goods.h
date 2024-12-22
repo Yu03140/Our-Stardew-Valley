@@ -32,12 +32,9 @@ private:
 	
 	std::string sprite_name;
 	Size sprite_size;
-	
 	int click_count = 0;
-
 	static cocos2d::Texture2D* transparent_texture;
 	progress_bar* click_bar = nullptr;
-
 	bool is_getable = 0;//1->有可获取；0->已经被获取，此处为空
 
 public:
@@ -54,6 +51,7 @@ public:
 	void show_click_bar();
 	void hide_click_bar();
 	void update();
+	void add_goods(ValueMap dict, getable_goods* sprite, std::string name, cocos2d::TMXTiledMap* tileMap);
 
 };
 
@@ -77,6 +75,7 @@ public:
 	void random_access();
 	void start_scheduler();
 	void stop_scheduler();
+
 };
 
 

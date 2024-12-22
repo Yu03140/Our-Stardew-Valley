@@ -74,9 +74,9 @@ void getable_goods::on_mouse_click(cocos2d::Event* event)
     Vec2 goods_pos = this->convertToWorldSpace(Vec2(0, 0));
     // 计算点击的有效范围
     float min_x = goods_pos.x;
-    float max_x = goods_pos.x + sprite_size.width * MapSize;
+    float max_x = goods_pos.x + sprite_size.width ;
     float min_y = goods_pos.y;
-    float max_y = goods_pos.y + sprite_size.height * MapSize;
+    float max_y = goods_pos.y + sprite_size.height;
     if (is_getable && is_in_control) {
         //鼠标点击位置在有效范围
         if ((MOUSE_POS.x > min_x &&
@@ -144,6 +144,23 @@ void getable_goods::update()
         click_count = 0;//清空
         is_getable = 0;
     }
+}
+
+void getable_goods::add_goods(ValueMap dict, getable_goods* sprite, std::string name, cocos2d::TMXTiledMap* tileMap)
+{
+    float posX = dict["x"].asFloat();
+    float posY = dict["y"].asFloat();
+    float width = dict["width"].asFloat();
+    float height = dict["height"].asFloat();
+
+    // 创建透明纹理的精灵
+    sprite->set_info(name, Size(width * MapSize, height * MapSize));
+    sprite->setPosition(Vec2(posX, posY));        // 设置位置
+    sprite->setAnchorPoint(Vec2(0, 0));     // 设置锚点
+    sprite->setContentSize(Size(width, height));  // 设置大小
+    tileMap->addChild(sprite, 2);  // 添加到瓦片地图
+    sprite->init_mouselistener();
+    sprite->setImag();
 }
 
 /*----------------------------------------------------------GoodsManager----------------------------------------------------------------------*/

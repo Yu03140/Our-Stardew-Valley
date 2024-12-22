@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 #include "Global/Global.h"
-
+#include"Moveable/moveable_sprite_key.h"
 
 class SubScene : public cocos2d::Scene
 {
@@ -12,13 +12,12 @@ public:
     static Scene* createScene() {};
 
     // 初始化场景
-    bool init() {
+    virtual bool init() {
         // 调用父类初始化方法
         if (!Scene::init())
         {
             return false;
         }
-
         // 初始化瓦片地图
         initTileMap();
 
@@ -65,7 +64,7 @@ public:
         CCLOG("BackpackLayer size: (%f, %f)", backpackLayer->getContentSize().width, backpackLayer->getContentSize().height);
 
        
-
+       */
 
         //----------------------------------------------------
         // 功能：添加移动主角
@@ -79,11 +78,15 @@ public:
             this->addChild(sprite_move, Playerlayer);
             sprite_move->init_keyboardlistener();
 
-            sprite_move->schedule([this, sprite_move](float dt) { // 捕获 `this` 和 `sprite_move`
-                sprite_move->update(dt);                         // 更新人物移动逻辑
-                }, "update_key_person");
-
         }
+        main_char = sprite_move;
+        this->schedule([this](float dt) {
+            if (main_char)
+            {
+                main_char->update(dt); // 更新人物移动逻辑
+            }
+            }, "update_key_person");
+        /*
         // 计算经过缩放后的实际尺寸
         Size originalSize = sprite_move->getContentSize();
         float scale = sprite_move->getScale();
@@ -117,11 +120,27 @@ public:
 
     // 鼠标点击事件处理
     virtual void changeScene(cocos2d::Event* event){}
+    void onEnter() {
+        Scene::onEnter();
+        // 在场景进入时添加键盘监听器
+        main_char->init_keyboardlistener();
+        this->schedule([this](float dt) {
+            if (main_char)
+            {
+                main_char->update(dt); // 更新人物移动逻辑
+            }
+            }, "update_key_person");
+    }
+
+    void onExit() {
+        Scene::onExit();  // 调用基类的 onExit，确保场景的基本退出流程
+        _eventDispatcher->removeEventListenersForTarget(main_char);
+    }
 
 protected:
     // 瓦片地图的指针
     cocos2d::TMXTiledMap* tileMap;
-
+    moveable_sprite_key_walk* main_char;
 };
 
 #endif // __SUB_SCENE_H__

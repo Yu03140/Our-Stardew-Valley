@@ -163,6 +163,18 @@ void moveable_sprite_key::move_act(int direction)
     this->runAction(move_action);
 }
 
+// 确保在 onEnter 中重新添加监听器
+void moveable_sprite_key::onEnter() {
+    Sprite::onEnter();  // 保证基类的 onEnter 被调用
+    init_keyboardlistener();  // 重新初始化监听器
+}
+
+// 确保在 onExit 中移除监听器
+void moveable_sprite_key::onExit() {
+    _eventDispatcher->removeEventListenersForTarget(this);  // 移除监听器
+    Sprite::onExit();  // 保证基类的 onExit 被调用
+}
+
 /*----------------------------------------------------------------walk-----------------------------------------------------------------------------*/
 ////创建moveable_sprite_key_walk实例
 moveable_sprite_key_walk* moveable_sprite_key_walk::create(const std::string& plist_name, const std::string& sprite_framename)

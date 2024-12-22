@@ -16,6 +16,27 @@ bool FarmScene::init() {
     // 加载地图，放在中间
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    //----------------------------------------------------
+    // 功能：添加移动主角
+    // 说明：添加主角，主角位于地图中央
+    // 图层：Playerlayer
+    //----------------------------------------------------
+    auto sprite_move = moveable_sprite_key_walk::create("Jas_Winter.plist", "Jas_Winter");
+    if (sprite_move)
+    {
+        sprite_move->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+        this->addChild(sprite_move, Playerlayer);
+
+        sprite_move->init_keyboardlistener();
+
+        sprite_move->schedule([this, sprite_move](float dt) { // 捕获 `this` 和 `sprite_move`
+            sprite_move->update(dt);                         // 更新人物移动逻辑
+            updateCameraPosition(dt, sprite_move);                 // 更新相机位置
+            }, "update_key_person");
+
+    }    
+    main_char = sprite_move;
+
     tileMap = TMXTiledMap::create("Myfarm.tmx");
     if (tileMap) {
         tileMap->setAnchorPoint(Vec2(0.5, 0.5));
@@ -65,25 +86,6 @@ bool FarmScene::init() {
         parentNode->addChild(timeSystem, Timesystemlayer);
     }
 
-    //----------------------------------------------------
-    // 功能：添加移动主角
-    // 说明：添加主角，主角位于地图中央
-    // 图层：Playerlayer
-    //----------------------------------------------------
-    auto sprite_move = moveable_sprite_key_walk::create("Jas_Winter.plist", "Jas_Winter");
-    if (sprite_move)
-    {
-        sprite_move->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-        this->addChild(sprite_move, Playerlayer);
-
-        sprite_move->init_keyboardlistener();
-
-        sprite_move->schedule([this, sprite_move](float dt) { // 捕获 `this` 和 `sprite_move`
-            sprite_move->update(dt);                         // 更新人物移动逻辑
-            updateCameraPosition(dt, sprite_move);                 // 更新相机位置
-            }, "update_key_person");
-
-    }    
     // 计算经过缩放后的实际尺寸
     Size originalSize = sprite_move->getContentSize();
     float scale = sprite_move->getScale();
@@ -171,7 +173,7 @@ bool FarmScene::init() {
         //处理所有名称为草的对象
         if (objectName == "grass") {
             auto sprite = getable_goods::create("goos_test.plist");
-            add_goods(dict, sprite,"grass");
+            sprite->add_goods(dict, sprite,"grass",tileMap);
             //加入草格子管理器
             grass_manager->add_goods(sprite);
         }
@@ -348,6 +350,7 @@ void FarmScene::on_mouse_click(cocos2d::Event* event)
     Vec2 windowOrigin = camera->getPosition() - Vec2(visibleSize.width / 2, visibleSize.height / 2);
     Vec2 mouse_pos = mousePosition + windowOrigin;
     MOUSE_POS = mouse_pos;
+    checkForButtonClick(MOUSE_POS);
     CCLOG("Mouse Position(global): (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
     // 0.1秒后将 MOUSE_POS 置为 (0, 0)，并且不影响其他程序运行
     this->scheduleOnce([this](float dt) {
@@ -356,23 +359,83 @@ void FarmScene::on_mouse_click(cocos2d::Event* event)
         }, 1.5f, "reset_mouse_pos_key");
 }
 
-void FarmScene::add_goods(ValueMap dict, getable_goods* sprite, std::string name)
+// 功能：检测是否点击了Button并切换场景
+void FarmScene::checkForButtonClick(Vec2 mousePosition)
 {
-    float posX = dict["x"].asFloat();
-    float posY = dict["y"].asFloat();
-    float width = dict["width"].asFloat();
-    float height = dict["height"].asFloat();
+    // 获取 Button 对象层（Button 层的名称为 "Button"）
+    auto objectGroup = tileMap->getObjectGroup("Button");
+    if (!objectGroup) {
+        CCLOG("Failed to get object group 'Button'");
+        return;
+    }
 
-    // 创建透明纹理的精灵
-    sprite->set_info(name, Size(width * MapSize, height * MapSize));
-    sprite->setPosition(Vec2(posX, posY));        // 设置位置
-    sprite->setAnchorPoint(Vec2(0, 0));     // 设置锚点
-    sprite->setContentSize(Size(width, height));  // 设置大小
-    tileMap->addChild(sprite, 2);  // 添加到瓦片地图
-    sprite->init_mouselistener();
-    sprite->setImag();
+    CCLOG("Successed to get object grouo 'Button'");
 
+    // 获取 Door 对象的坐标和尺寸
+
+    std::string Objectname[3] = { "Mines_Door","Home_Door","Shed_Door" };
+    Scene* nextScene = nullptr;
+
+    for (int i = 0; i < 3; i++) {
+        auto object = objectGroup->getObject(Objectname[i]);
+        float posX = object["x"].asFloat();
+        float posY = object["y"].asFloat();
+        float width = object["width"].asFloat() * MapSize;
+        float height = object["height"].asFloat() * MapSize;
+
+        auto sprite = Sprite::create();
+        sprite->setPosition(Vec2(posX, posY));
+        sprite->setAnchorPoint(Vec2(0, 0));
+        sprite->setContentSize(Size(width, height));
+        tileMap->addChild(sprite);
+
+        Vec2 pos = sprite->convertToWorldSpace(Vec2(0, 0));
+        CCLOG("POS: %f, %f", pos.x, pos.y);
+
+        // 判断点击位置是否在 Door 区域内
+        if (mousePosition.x >= pos.x && mousePosition.x <= pos.x + width &&
+            mousePosition.y >= pos.y && mousePosition.y <= pos.y + height) {
+
+            // if (backpackLayer) 
+            //     this->removeChild(backpackLayer);  // 移除背包层
+            // CCLOG("remove backpacklayer successfully!");
+            CCLOG("Door clicked! Switching to MinesScene...");
+
+            switch (i) {
+            case 0:
+                // 切换到 MinesScene
+                nextScene = MinesScene::createScene();
+                break;
+            case 1:
+                // 切换到 HomeScene
+                nextScene = HomeScene::createScene();
+                break;
+            case 2:
+                // 切换到 ShedScene
+                nextScene = ShedScene::createScene();
+                break;
+            }
+
+            // 如果我们成功获取到下一个场景，就推入栈中
+            if (nextScene) {
+                nextScene->retain();  // 保留场景，避免被销毁
+                Director::getInstance()->pushScene(nextScene);
+            }
+            return;
+        }
+    }
 }
 
+// 进入场景时重新加入背包层
+void FarmScene::onEnter()
+{
+    Scene::onEnter();
 
+    // 如果背包层不存在于当前场景，重新添加
+    //if (backpackLayer && !this->getChildByName("backpackLayer")) {
+    //    this->addChild(backpackLayer, Backpacklayer);
+    //    CCLOG("readd backpacklayer");
+    //}
+
+}
 /*------------------------------------------------------renew-------------------------------------------------------------*/

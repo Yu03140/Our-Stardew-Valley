@@ -8,6 +8,12 @@
 #include "GetableItem/crop.h"
 #include "GetableItem/animals.h"
 #include "GetableItem/getable_goods.h"
+/*----------------------------------------------------------------RENEW2-----------------------------------------------------------------------------*/
+#include "MinesScene.h"
+#include "HomeScene.h"
+#include "ShedScene.h"
+
+/*----------------------------------------------------------------RENEW2-----------------------------------------------------------------------------*/
 
 #define MapSize 4
 /*----------------------------------------------------------------RENEW2-----------------------------------------------------------------------------*/
@@ -49,14 +55,18 @@ private:
     // 瓦片地图
     cocos2d::TMXTiledMap* tilemap;
     /*------------------------------------------------------renew-------------------------------------------------------------*/
+    moveable_sprite_key_walk* main_char = nullptr;
     // 初始化鼠标监听器
     void init_mouselistener();
 
     // 鼠标回调
     void on_mouse_click(cocos2d::Event* event);
+    
+    void checkForButtonClick(Vec2 mousePosition);
 
-    void add_goods(ValueMap dict, getable_goods* sprite, std::string name);
-    /*------------------------------------------------------renew-------------------------------------------------------------*/
+    void FarmScene::onEnter();
+    
+ /*------------------------------------------------------renew-------------------------------------------------------------*/
 };
 
 #endif // __FARM_GROUND_H__

@@ -24,7 +24,7 @@ private:
     bool is_passable = 1;
     cocos2d::Vec2 sprite_pos;
 public:
-    virtual ~moveable_sprite_key(){}
+    virtual ~moveable_sprite_key() { CCLOG("~moveable_sprite_key"); }
 
     //创建一个moveable_sprite_key的实例
     static moveable_sprite_key* create(const std::string& plist_name, float width, float height);
@@ -44,6 +44,11 @@ public:
     //生成移动指令
     virtual void move_act(int direction);
 
+    // 确保在 onEnter 中重新添加监听器
+    void onEnter();
+
+    // 确保在 onExit 中移除监听器
+    void onExit();
 };
 
 class moveable_sprite_key_walk : public moveable_sprite_key
@@ -53,7 +58,7 @@ private:
     static cocos2d::Texture2D* transparent_texture;
 
 public:
-    ~moveable_sprite_key_walk() {}
+    ~moveable_sprite_key_walk() { CCLOG("~moveable_sprite_key_walk"); }
 
     //创建一个moveable_sprite_key的实例
     static moveable_sprite_key_walk* create(const std::string& plist_name, const std::string& sprite_framename);
@@ -62,6 +67,16 @@ public:
     void move_act(int direction) override;
 
     cocos2d::Vec2 get_pos();
+
+    void moveable_sprite_key_walk::onEnter() {
+        moveable_sprite_key::onEnter();  // 调用基类的 onEnter
+        // 子类的其他初始化逻辑
+    }
+
+    void moveable_sprite_key_walk::onExit() {
+        moveable_sprite_key::onExit();  // 调用基类的 onExit
+        // 子类的其他清理逻辑
+    }
 };
 
 class moveable_sprite_key_tool : public moveable_sprite_key
@@ -72,7 +87,7 @@ private:
     static cocos2d::Texture2D* transparent_texture;
 
 public:
-    ~moveable_sprite_key_tool() {}
+    ~moveable_sprite_key_tool() { CCLOG("~moveable_sprite_key_tool"); }
     /*----------------------------------------------------------------RENEW2-----------------------------------------------------------------------------*/
         //创建一个moveable_sprite_key_tool的实例
     static moveable_sprite_key_tool* create(const std::string& plist_name);
