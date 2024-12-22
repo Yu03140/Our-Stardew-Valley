@@ -31,26 +31,26 @@ public:
 
 private:
 
-    bool isOpen=0; ///< ÈÎÎñÊÇ·ñÍê³ÉµÄ±êÖ¾¡£
-    cocos2d::Label* descriptionLabel; ///< ÏÔÊ¾ÉÌÆ·¼Û¸ñÃèÊöµÄ±êÇ©¡£
+    bool isOpen=0; ///< ä»»åŠ¡æ˜¯å¦å®Œæˆçš„æ ‡å¿—ã€‚
+    cocos2d::Label* descriptionLabel; ///< æ˜¾ç¤ºå•†å“ä»·æ ¼æè¿°çš„æ ‡ç­¾ã€‚
 
-    cocos2d::MenuItemImage* item_strawberry; ///<ÉÌÆ·1¡£
-    cocos2d::MenuItemImage* item_pumpkin; ///<ÉÌÆ·2¡£
-
-
+    cocos2d::MenuItemImage* item_strawberry; ///<å•†å“1ã€‚
+    cocos2d::MenuItemImage* item_pumpkin; ///<å•†å“2ã€‚
 
 
-    cocos2d::MenuItemImage* closeButton; ///< ¡°¹Ø±Õ¡±°´Å¥¡£
-    std::function<void()> Shop_BoardCallback; ///< Íê³ÉÈÎÎñµÄ»Øµ÷º¯Êý¡£
+
+
+    cocos2d::MenuItemImage* closeButton; ///< â€œå…³é—­â€æŒ‰é’®ã€‚
+    std::function<void()> Shop_BoardCallback; ///< å®Œæˆä»»åŠ¡çš„å›žè°ƒå‡½æ•°ã€‚
 
     /**
-     * @brief ¡°Íê³ÉÈÎÎñ¡±°´Å¥µÄ»Øµ÷º¯Êý¡£
+     * @brief â€œå®Œæˆä»»åŠ¡â€æŒ‰é’®çš„å›žè°ƒå‡½æ•°ã€‚
      */
     void buyitem_strawberry();
     void buyitem_pumpkin();
 
     /**
-     * @brief ¡°¹Ø±Õ¡±°´Å¥µÄ»Øµ÷º¯Êý¡£
+     * @brief â€œå…³é—­â€æŒ‰é’®çš„å›žè°ƒå‡½æ•°ã€‚
      */
     void onClose();
 };
