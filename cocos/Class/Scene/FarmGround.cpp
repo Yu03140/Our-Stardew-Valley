@@ -4,8 +4,8 @@ FarmScene* FarmScene::instance = nullptr;
 
 //----------------------------------------------------
 // FarmScene::init()
-// ¹¦ÄÜ£º³õÊ¼»¯³¡¾°
-// ËµÃ÷£ºÖ÷³¡¾°£¬°üº¬ÁËÅ©³¡µÄËùÓĞ¹¦ÄÜ
+// åŠŸèƒ½ï¼šåˆå§‹åŒ–åœºæ™¯
+// è¯´æ˜ï¼šä¸»åœºæ™¯ï¼ŒåŒ…å«äº†å†œåœºçš„æ‰€æœ‰åŠŸèƒ½
 //----------------------------------------------------
 bool FarmScene::init() {
 
@@ -14,8 +14,8 @@ bool FarmScene::init() {
     }
     init_mouselistener();
     //----------------------------------------------------
-    // ¹¦ÄÜ£º¼ÓÔØÍßÆ¬µØÍ¼
-    // ËµÃ÷£º·ÅÓÚÆÁÄ»ÖĞÑë
+    // åŠŸèƒ½ï¼šåŠ è½½ç“¦ç‰‡åœ°å›¾
+    // è¯´æ˜ï¼šæ”¾äºå±å¹•ä¸­å¤®
     //----------------------------------------------------
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -37,29 +37,29 @@ bool FarmScene::init() {
     }
 
     //----------------------------------------------------
-    // ¹¦ÄÜ£ºÌí¼Ó½¨ÖşÎï¾«Áé
-    // ËµÃ÷£º±ãÓÚºóĞøÉèÖÃÍ¸Ã÷¶È
+    // åŠŸèƒ½ï¼šæ·»åŠ å»ºç­‘ç‰©ç²¾çµ
+    // è¯´æ˜ï¼šä¾¿äºåç»­è®¾ç½®é€æ˜åº¦
     //----------------------------------------------------
-    // Ìí¼Ó·¿×Ó
+    // æ·»åŠ æˆ¿å­
     house = Sprite::create("houses.png"); 
     house->setPosition(Vec2(600, 600)); 
     house->setScale(MapSize);
     this->addChild(house);
-    // Ìí¼ÓÅïÎİ
+    // æ·»åŠ æ£šå±‹
     shed = Sprite::create("Big Shed.png"); 
     shed->setPosition(Vec2(0, 1100));
     shed->setScale(MapSize);
     this->addChild(shed);
 
     //----------------------------------------------------
-    // ¹¦ÄÜ£ºÈËÎï³õÊ¼»¯
-    // ËµÃ÷£º´´½¨ÈËÎï¶ÔÏó£¬³õÊ¼»¯ÈËÎïÊôĞÔ
+    // åŠŸèƒ½ï¼šäººç‰©åˆå§‹åŒ–
+    // è¯´æ˜ï¼šåˆ›å»ºäººç‰©å¯¹è±¡ï¼Œåˆå§‹åŒ–äººç‰©å±æ€§
     //----------------------------------------------------
     Player* player = Player::getInstance("me");
 
     //----------------------------------------------------
-    // ¹¦ÄÜ£ºÌí¼Ó±³°üÍ¼²ã
-    // ËµÃ÷£ºÌí¼Ó±³°üÍ¼²ãµ½µ±Ç°³¡¾°£¬³õÊ¼»¯±³°ü
+    // åŠŸèƒ½ï¼šæ·»åŠ èƒŒåŒ…å›¾å±‚
+    // è¯´æ˜ï¼šæ·»åŠ èƒŒåŒ…å›¾å±‚åˆ°å½“å‰åœºæ™¯ï¼Œåˆå§‹åŒ–èƒŒåŒ…
     //----------------------------------------------------
     backpackLayer = BackpackLayer::getInstance();
     if (backpackLayer) {
@@ -70,8 +70,8 @@ bool FarmScene::init() {
         CCLOG("Failed to load the backpack layer");
 
     //----------------------------------------------------
-    // ¹¦ÄÜ£ºÌí¼ÓÒÆ¶¯Ö÷½Ç
-    // ËµÃ÷£ºÌí¼ÓÖ÷½Ç£¬Ö÷½ÇÎ»ÓÚµØÍ¼ÖĞÑë
+    // åŠŸèƒ½ï¼šæ·»åŠ ç§»åŠ¨ä¸»è§’
+    // è¯´æ˜ï¼šæ·»åŠ ä¸»è§’ï¼Œä¸»è§’ä½äºåœ°å›¾ä¸­å¤®
     //----------------------------------------------------
     auto sprite_move = moveable_sprite_key_walk::create("Jas_Winter.plist", "Jas_Winter");
     if (sprite_move)
@@ -79,7 +79,7 @@ bool FarmScene::init() {
         sprite_move->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
         this->addChild(sprite_move, Playerlayer);
         sprite_move->init_keyboardlistener();
-        // ¸üĞÂÈËÎïÒÆ¶¯Âß¼­ºÍÏà»úÎ»ÖÃ
+        // æ›´æ–°äººç‰©ç§»åŠ¨é€»è¾‘å’Œç›¸æœºä½ç½®
         sprite_move->schedule([this, sprite_move](float dt) {
             sprite_move->update(dt);                         
             updateCameraPosition(dt, sprite_move);        
@@ -96,8 +96,8 @@ bool FarmScene::init() {
     Size scaledSize = Size(originalSize.width * scale, originalSize.height * scale);
 
     //----------------------------------------------------
-    // ¹¦ÄÜ£ºÌí¼Ó¹¤¾ß
-    // ËµÃ÷£ºÌí¼ÓËæÈËÎïÒÆ¶¯µÄ¹¤¾ß
+    // åŠŸèƒ½ï¼šæ·»åŠ å·¥å…·
+    // è¯´æ˜ï¼šæ·»åŠ éšäººç‰©ç§»åŠ¨çš„å·¥å…·
     //----------------------------------------------------
     auto sprite_tool = moveable_sprite_key_tool::create("Tools.plist");
     if (sprite_tool)
@@ -112,30 +112,30 @@ bool FarmScene::init() {
     }
 
     //----------------------------------------------------
-    // ¹¦ÄÜ£ºÊ÷Ä£¿é
-    // ËµÃ÷£ºÔÚµØÍ¼ÉÏÌí¼ÓÊ÷¸ñ×Ó£¬ÓÃÓÚÉú³ÉÊ÷
-    // Í¼²ã£ºPlayerlayer
+    // åŠŸèƒ½ï¼šæ ‘æ¨¡å—
+    // è¯´æ˜ï¼šåœ¨åœ°å›¾ä¸Šæ·»åŠ æ ‘æ ¼å­ï¼Œç”¨äºç”Ÿæˆæ ‘
+    // å›¾å±‚ï¼šPlayerlayer
     //----------------------------------------------------
-    // »ñÈ¡¶ÔÏó²ã£¨Ã¿¸ö×÷Îï¸ñ×ÓµÄÎ»ÖÃ£©
+    // è·å–å¯¹è±¡å±‚ï¼ˆæ¯ä¸ªä½œç‰©æ ¼å­çš„ä½ç½®ï¼‰
     auto objectGroup_tree = tileMap->getObjectGroup("forest");
     if (!objectGroup_tree) {
         CCLOG("Failed to get object group 'tree'");
         return false;
     }
 
-    // Ê÷¸ñ×Ó¹ÜÀí
+    // æ ‘æ ¼å­ç®¡ç†
     GoodsManager* tree_manager = GoodsManager::create();
     auto objects_tree = objectGroup_tree->getObjects();
 
     for (const auto& object : objects_tree) {
-        // Í¨¹ı object ÖĞµÄÊı¾İÅĞ¶ÏÊÇ·ñÊÇÃû³ÆÎª 'tree' µÄ¶ÔÏó
+        // é€šè¿‡ object ä¸­çš„æ•°æ®åˆ¤æ–­æ˜¯å¦æ˜¯åç§°ä¸º 'tree' çš„å¯¹è±¡
         auto dict = object.asValueMap();
         std::string objectName = dict["name"].asString();
-        //´¦ÀíËùÓĞÃû³ÆÎªÊ÷µÄ¶ÔÏó
+        //å¤„ç†æ‰€æœ‰åç§°ä¸ºæ ‘çš„å¯¹è±¡
         if (objectName == "trees") {
             auto sprite = getable_goods::create("goods.plist");
             sprite->add_in(dict, sprite, "tree", tileMap);
-            //¼ÓÈëÊ÷¸ñ×Ó¹ÜÀíÆ÷
+            //åŠ å…¥æ ‘æ ¼å­ç®¡ç†å™¨
             tree_manager->add_goods(sprite);
         }
     }
@@ -145,30 +145,30 @@ bool FarmScene::init() {
         }, 6.0f, "RandomAccessSchedulerKey");
 
     //----------------------------------------------------
-    // ¹¦ÄÜ£º²İÄ£¿é
-    // ËµÃ÷£ºÔÚµØÍ¼ÉÏÌí¼Ó²İ¸ñ×Ó£¬ÓÃÓÚÉú³É²İ
-    // Í¼²ã£ºPlayerlayer
+    // åŠŸèƒ½ï¼šè‰æ¨¡å—
+    // è¯´æ˜ï¼šåœ¨åœ°å›¾ä¸Šæ·»åŠ è‰æ ¼å­ï¼Œç”¨äºç”Ÿæˆè‰
+    // å›¾å±‚ï¼šPlayerlayer
     //----------------------------------------------------
-    // »ñÈ¡¶ÔÏó²ã£¨Ã¿¸ö×÷Îï¸ñ×ÓµÄÎ»ÖÃ£©
+    // è·å–å¯¹è±¡å±‚ï¼ˆæ¯ä¸ªä½œç‰©æ ¼å­çš„ä½ç½®ï¼‰
     auto objectGroup_grass = tileMap->getObjectGroup("grass");
     if (!objectGroup_grass) {
         CCLOG("Failed to get object group 'grass'");
         return false;
     }
 
-    // ²İ¸ñ×Ó¹ÜÀí
+    // è‰æ ¼å­ç®¡ç†
     GoodsManager* grass_manager = GoodsManager::create();
     auto objects_grass = objectGroup_grass->getObjects();
 
     for (const auto& object : objects_grass) {
-        // Í¨¹ı object ÖĞµÄÊı¾İÅĞ¶ÏÊÇ·ñÊÇÃû³ÆÎª 'grass' µÄ¶ÔÏó
+        // é€šè¿‡ object ä¸­çš„æ•°æ®åˆ¤æ–­æ˜¯å¦æ˜¯åç§°ä¸º 'grass' çš„å¯¹è±¡
         auto dict = object.asValueMap();
         std::string objectName = dict["name"].asString();
-        //´¦ÀíËùÓĞÃû³ÆÎª²İµÄ¶ÔÏó
+        //å¤„ç†æ‰€æœ‰åç§°ä¸ºè‰çš„å¯¹è±¡
         if (objectName == "grass") {
             auto sprite = getable_goods::create("goods.plist");
             sprite->add_in(dict, sprite, "grass", tileMap);
-            //¼ÓÈë²İ¸ñ×Ó¹ÜÀíÆ÷
+            //åŠ å…¥è‰æ ¼å­ç®¡ç†å™¨
             grass_manager->add_goods(sprite);
         }
     }
@@ -179,8 +179,8 @@ bool FarmScene::init() {
 
 
 	//----------------------------------------------------
-	// ¹¦ÄÜ£ºĞŞ¸´ÎÂÊÒ
-	// ËµÃ÷£ºÔÚµØÍ¼ÉÏĞŞ¸´ÆÆ°ÜµÄ½¨ÖşÎÂÊÒ
+	// åŠŸèƒ½ï¼šä¿®å¤æ¸©å®¤
+	// è¯´æ˜ï¼šåœ¨åœ°å›¾ä¸Šä¿®å¤ç ´è´¥çš„å»ºç­‘æ¸©å®¤
     //----------------------------------------------------
     auto objectGroup_gh = tileMap->getObjectGroup("warmhouse");
     if (!objectGroup_gh) {
@@ -189,7 +189,7 @@ bool FarmScene::init() {
     }
     auto objects_gh = objectGroup_gh->getObjects();
     for (const auto& object : objects_gh) {
-        // Í¨¹ı object ÖĞµÄÊı¾İÅĞ¶ÏÊÇ·ñÊÇÃû³ÆÎª 'warmhouse' µÄ¶ÔÏó
+        // é€šè¿‡ object ä¸­çš„æ•°æ®åˆ¤æ–­æ˜¯å¦æ˜¯åç§°ä¸º 'warmhouse' çš„å¯¹è±¡
         auto dict = object.asValueMap();
         std::string objectName = dict["name"].asString();
         if (objectName == "warmhouse") {
@@ -199,8 +199,8 @@ bool FarmScene::init() {
     }
 
     //----------------------------------------------------
-    // ¹¦ÄÜ£º×÷ÎïÄ£¿é
-    // ËµÃ÷£ºÍ¨¹ı»ñÈ¡¶ÔÏó²ã£¬ÔÚµØÍ¼ÉÏÌí¼Ó×÷Îï¸ñ×Ó£¬ÓÃÓÚÖÖÖ²×÷Îï
+    // åŠŸèƒ½ï¼šä½œç‰©æ¨¡å—
+    // è¯´æ˜ï¼šé€šè¿‡è·å–å¯¹è±¡å±‚ï¼Œåœ¨åœ°å›¾ä¸Šæ·»åŠ ä½œç‰©æ ¼å­ï¼Œç”¨äºç§æ¤ä½œç‰©
     //----------------------------------------------------
     auto objectGroup = tileMap->getObjectGroup("crops_layer"); 
     if (!objectGroup) {
@@ -208,19 +208,19 @@ bool FarmScene::init() {
         return false;
     }
     Vec2 map_pos = tileMap->getPosition();
-    // ×÷Îï¸ñ×Ó¹ÜÀí£¨¹²36¸ñ£©
+    // ä½œç‰©æ ¼å­ç®¡ç†ï¼ˆå…±36æ ¼ï¼‰
     crops.resize(36);
     for (int i = 0; i < 36; ++i) {
-        // ×÷ÎïÃû 
+        // ä½œç‰©å 
         crops[i].name = "";     
-        // »ñÈ¡µÚ i+1 ¸ö¸ñ×Ó
+        // è·å–ç¬¬ i+1 ä¸ªæ ¼å­
         auto object = objectGroup->getObject("crop" + std::to_string(i + 1)); 
-        // »ñÈ¡¶ÔÏó²ãÖĞÃ¿¸ö¸ñ×ÓµÄ×ø±ê
+        // è·å–å¯¹è±¡å±‚ä¸­æ¯ä¸ªæ ¼å­çš„åæ ‡
         float posX = object["x"].asFloat(); 
         float posY = object["y"].asFloat();
         float width = object["width"].asFloat();
         float height = object["height"].asFloat();
-        // ´´½¨Í¸Ã÷ÎÆÀíµÄ¾«Áé
+        // åˆ›å»ºé€æ˜çº¹ç†çš„ç²¾çµ
         auto sprite = crop::create("crop_m.plist", width, height);  
         sprite->setPosition(Vec2(posX, posY));     
         sprite->setAnchorPoint(Vec2(0, 0));   
@@ -236,8 +236,8 @@ bool FarmScene::init() {
     }
 
     //----------------------------------------------------
-    // ¹¦ÄÜ£ºÈÎÎñÀ¸ºÍÉÌµêÄ£¿é
-    // ËµÃ÷£ºÈÎÎñÀ¸...
+    // åŠŸèƒ½ï¼šä»»åŠ¡æ å’Œå•†åº—æ¨¡å—
+    // è¯´æ˜ï¼šä»»åŠ¡æ ...
     //----------------------------------------------------
     taskBarLayer = TaskBarLayer::create();
     this->addChild(taskBarLayer, Backpacklayer);
@@ -251,22 +251,22 @@ bool FarmScene::init() {
     
 
 	//----------------------------------------------------
-	// ¹¦ÄÜ£ºÊ±¼äÏµÍ³
-	// ËµÃ÷£ºÌí¼ÓÊ±¼äÏµÍ³µ½µ±Ç°³¡¾°
+	// åŠŸèƒ½ï¼šæ—¶é—´ç³»ç»Ÿ
+	// è¯´æ˜ï¼šæ·»åŠ æ—¶é—´ç³»ç»Ÿåˆ°å½“å‰åœºæ™¯
 	//----------------------------------------------------
     timeSystem = TimeSystem::getInstance();
     Node* parentNode = this;
     parentNode->addChild(timeSystem);
-    // Ã¿Ö¡¸üĞÂÊ±¼ì²éÊ±¼ä
+    // æ¯å¸§æ›´æ–°æ—¶æ£€æŸ¥æ—¶é—´
     schedule([this](float deltaTime) {
         timeSystem->checkForHoliday();
         }, "time_check_key");
 
     //----------------------------------------------------
-    // ¹¦ÄÜ£º³õÊ¼»¯NPC
-    // ËµÃ÷£º³õÊ¼»¯NPC²¢Ìí¼Óµ½³¡¾°ÖĞ
+    // åŠŸèƒ½ï¼šåˆå§‹åŒ–NPC
+    // è¯´æ˜ï¼šåˆå§‹åŒ–NPCå¹¶æ·»åŠ åˆ°åœºæ™¯ä¸­
     //----------------------------------------------------
-    // NPC1µÄ³õÊ¼»¯
+    // NPC1çš„åˆå§‹åŒ–
     npc1 = NPC::create(cocos2d::Vec2(1050, 1050), "Bouncer", 50, {
         "Hello, traveler!",
         "My name is Bouncer.",
@@ -275,7 +275,7 @@ bool FarmScene::init() {
         });
     npc1->setScale(4);
     this->addChild(npc1);
-    // NPC2µÄ³õÊ¼»¯
+    // NPC2çš„åˆå§‹åŒ–
     npc2 = NPC::create(cocos2d::Vec2(500, 500), "May", 80, {
     "Hello, traveler!",
     "How can I help you today?",
@@ -284,23 +284,23 @@ bool FarmScene::init() {
         });
     npc2->setScale(4); 
     this->addChild(npc2);
-    //ÉèÖÃ¶¨Ê±¸üĞÂº¯Êı
+    //è®¾ç½®å®šæ—¶æ›´æ–°å‡½æ•°
     this->schedule([this](float deltaTime) {
-    //Ã¿Ö¡µ÷ÓÃ¸üĞÂº¯Êı
+    //æ¯å¸§è°ƒç”¨æ›´æ–°å‡½æ•°
         this->update(deltaTime);
         }, "update_key");
 
     //----------------------------------------------------
-    // ¹¦ÄÜ£ºµöÓãÄ£¿é
-    // ËµÃ÷£ºÍ¨¹ı»ñÈ¡¶ÔÏó²ã£¬ÅĞ¶Ï¿ÉµöÓãµÄÎ»ÖÃ
+    // åŠŸèƒ½ï¼šé’“é±¼æ¨¡å—
+    // è¯´æ˜ï¼šé€šè¿‡è·å–å¯¹è±¡å±‚ï¼Œåˆ¤æ–­å¯é’“é±¼çš„ä½ç½®
     //----------------------------------------------------
-    //»ñÈ¡¶ÔÏó²ã
+    //è·å–å¯¹è±¡å±‚
     auto barrierobjectGroup = tileMap->getObjectGroup("barriers");
     if (!barrierobjectGroup) {
         CCLOG("Failed to get object group 'barriers'");
         return false;
     }
-    //»ñÈ¡¶ÔÏó²ãÖĞË®³ØµÄ×ø±ê
+    //è·å–å¯¹è±¡å±‚ä¸­æ°´æ± çš„åæ ‡
     fish.resize(1);
     fish[0].name = ""; 
     auto object = barrierobjectGroup->getObject("barrier9");
@@ -308,9 +308,9 @@ bool FarmScene::init() {
     float posY = object["y"].asFloat();
     float width = object["width"].asFloat();
     float height = object["height"].asFloat();
-    //´´½¨Í¸Ã÷ÎÆÀíµÄ¾«Áé
+    //åˆ›å»ºé€æ˜çº¹ç†çš„ç²¾çµ
     auto sprite1 = fish::create("crop_m.plist", width, height); 
-    //ÉèÖÃÎ»ÖÃ
+    //è®¾ç½®ä½ç½®
     sprite1->setPosition(Vec2(posX, posY));       
     sprite1->setAnchorPoint(Vec2(0, 0)); 
     sprite1->setContentSize(Size(width, height));
@@ -323,39 +323,39 @@ bool FarmScene::init() {
 
 //----------------------------------------------------
 // FarmScene::update()
-// ¹¦ÄÜ£º¼ì²âÈËÎïÒÆ¶¯½ø¶øĞŞ¸ÄÍ¸Ã÷¶È
-// ËµÃ÷£º¸ù¾İÈËÎïÊÇ·ñÔÚ·¿ÎİÇøÓòÄÚ£¬µ÷Õû·¿×ÓµÄÍ¸Ã÷¶È
+// åŠŸèƒ½ï¼šæ£€æµ‹äººç‰©ç§»åŠ¨è¿›è€Œä¿®æ”¹é€æ˜åº¦
+// è¯´æ˜ï¼šæ ¹æ®äººç‰©æ˜¯å¦åœ¨æˆ¿å±‹åŒºåŸŸå†…ï¼Œè°ƒæ•´æˆ¿å­çš„é€æ˜åº¦
 //----------------------------------------------------
 void FarmScene::update(float dt, moveable_sprite_key_walk* sprite_move) {
 
-    // »ñÈ¡·¿×ÓÖĞĞÄÎ»ÖÃ
+    // è·å–æˆ¿å­ä¸­å¿ƒä½ç½®
     Vec2 housePos = house->getPosition();  
-    // ·¿×ÓµÄ³ß´ç
+    // æˆ¿å­çš„å°ºå¯¸
     Size houseSize = house->getContentSize() * MapSize;  
-    // »ñÈ¡ÈËÎïµÄÖĞĞÄÎ»ÖÃ
+    // è·å–äººç‰©çš„ä¸­å¿ƒä½ç½®
     Vec2 playerPos = sprite_move->getPosition();
-    // ÅĞ¶ÏÈËÎïÊÇ·ñÔÚ·¿ÎİµÄ¾ØĞÎÇøÓòÄÚ
+    // åˆ¤æ–­äººç‰©æ˜¯å¦åœ¨æˆ¿å±‹çš„çŸ©å½¢åŒºåŸŸå†…
     bool isPlayerInsideHouse = playerPos.x > housePos.x - houseSize.width / 2 &&
         playerPos.x < housePos.x + houseSize.width / 2 &&
         playerPos.y > housePos.y - houseSize.height / 2 &&
         playerPos.y < housePos.y + houseSize.height / 2;
-    // »ñÈ¡·¿×ÓÖĞĞÄÎ»ÖÃ
+    // è·å–æˆ¿å­ä¸­å¿ƒä½ç½®
     Vec2 shedPos = shed->getPosition(); 
-    // ·¿×ÓµÄ³ß´ç
+    // æˆ¿å­çš„å°ºå¯¸
     Size shedSize = shed->getContentSize() * MapSize;  
-    // ÅĞ¶ÏÈËÎïÊÇ·ñÔÚÅïÎİµÄ¾ØĞÎÇøÓòÄÚ
+    // åˆ¤æ–­äººç‰©æ˜¯å¦åœ¨æ£šå±‹çš„çŸ©å½¢åŒºåŸŸå†…
     bool isPlayerInsideshed = playerPos.x > shedPos.x - shedSize.width / 2 &&
         playerPos.x < shedPos.x + shedSize.width / 2 &&
         playerPos.y > shedPos.y - shedSize.height / 2 &&
         playerPos.y < shedPos.y + shedSize.height / 2;
-    //Í¸Ã÷¶ÈĞŞ¸Ä
+    //é€æ˜åº¦ä¿®æ”¹
     house->setOpacity(isPlayerInsideHouse ? 128 : 255);
     shed->setOpacity(isPlayerInsideshed ? 128 : 255);
 }
 
 //----------------------------------------------------
 // FarmScene::getInstance()
-// ¹¦ÄÜ£º»ñÈ¡È«¾ÖÎ¨Ò»µ¥Àı
+// åŠŸèƒ½ï¼šè·å–å…¨å±€å”¯ä¸€å•ä¾‹
 //----------------------------------------------------
 FarmScene* FarmScene::getInstance() {
     if (instance == nullptr) {
@@ -366,7 +366,7 @@ FarmScene* FarmScene::getInstance() {
 
 //----------------------------------------------------
 // FarmScene::createScene()
-// ¹¦ÄÜ£º´´½¨²¢·µ»ØÒ»¸ö FarmScene ³¡¾°µÄÊµÀı
+// åŠŸèƒ½ï¼šåˆ›å»ºå¹¶è¿”å›ä¸€ä¸ª FarmScene åœºæ™¯çš„å®ä¾‹
 //----------------------------------------------------
 Scene* FarmScene::createScene() {
     return getInstance();
@@ -374,12 +374,12 @@ Scene* FarmScene::createScene() {
 
 //----------------------------------------------------
 // FarmScene::addItem()
-// ¹¦ÄÜ£ºÔÚ±³°üÖĞÌí¼ÓÎïÆ·
+// åŠŸèƒ½ï¼šåœ¨èƒŒåŒ…ä¸­æ·»åŠ ç‰©å“
 //----------------------------------------------------
 void FarmScene::addItem(const std::string& itemName) {
     for (int i = 0; i < crops.size(); ++i) {
         if (crops[i].name == "") {
-            // ÕÒµ½¿Õ¸ñ×Ó£¬·ÅÈëÎïÆ·
+            // æ‰¾åˆ°ç©ºæ ¼å­ï¼Œæ”¾å…¥ç‰©å“
             crops[i].name = itemName;
             updateItemTexture(i);
             return;
@@ -387,259 +387,5 @@ void FarmScene::addItem(const std::string& itemName) {
     }
 }
 
-//----------------------------------------------------
-// FarmScene::updateItemTexture()
-// ¹¦ÄÜ£º¸üĞÂÎïÆ·ÏÔÊ¾ÎÆÀí
-//----------------------------------------------------
-void FarmScene::updateItemTexture(int slotIndex) {
-    // ¼ì²é²ÛÎ»Ë÷Òı·¶Î§ÊÇ·ñºÏ·¨
-    if (slotIndex < 0 || slotIndex >= crops.size()) {
-        CCLOG("Invalid slot index: %d", slotIndex);
-        return;
-    }
-    auto& slot = crops[slotIndex];
-    // ¼ì²é²ÛÎ»µÄ¾«ÁéÊÇ·ñÎª¿Õ
-    if (!slot.sprite) {
-        CCLOG("Slot sprite is null for slot index: %d", slotIndex);
-        return;
-    }
-    // Èç¹û²ÛÎ»Ã»ÓĞÎïÆ·Ãû³Æ£¬Ö±½Ó·µ»Ø
-    if (slot.name.empty()) {
-        CCLOG("Slot %d is empty.", slotIndex);
-        return;
-    }
-    // Æ´½ÓÍ¼Æ¬Â·¾¶
-    std::string texturePath = slot.name + ".png"; 
-    // ´ÓÎÆÀí»º´æ¼ÓÔØÎÆÀí
-    auto texture = Director::getInstance()->getTextureCache()->addImage(texturePath);
-    if (texture) {
-        // ¸üĞÂ¾«ÁéµÄÎÆÀí
-        slot.sprite->setTexture(texture);
-        slot.sprite->setScale(3.0f);
-        CCLOG("Updated texture for slot %d: %s", slotIndex, texturePath.c_str());
-    }
-    else {
-        CCLOG("Failed to load texture: %s", texturePath.c_str());
-    }
-}
 
-//----------------------------------------------------
-// FarmScene::updateItemTexture()
-// ¹¦ÄÜ£ºÇå³ıÎïÆ·ÏÔÊ¾ÎÆÀí
-//----------------------------------------------------
-void FarmScene::clearItemTexture(int slotIndex) {
-    if (slotIndex < 0 || slotIndex >= crops.size())
-        return;
-    auto& slot = crops[slotIndex];
-    // Çå¿ÕÎÆÀí
-    slot.sprite->setTexture(nullptr);  
-    // Çå¿Õ×Ó½Úµã
-    slot.sprite->removeAllChildren();  
-}
-
-//ÏŞÖÆÖµµÄ·¶Î§£¬Ê¹Æä±£³ÖÔÚÖ¸¶¨µÄ×îĞ¡ÖµºÍ×î´óÖµÖ®¼ä
-template <typename T>
-T clamp(T value, T low, T high) {
-    if (value < low) return low;
-    if (value > high) return high;
-    return value;
-}
-
-//----------------------------------------------------
-// FarmScene::updateCameraPosition()
-// ¹¦ÄÜ£º¸üĞÂÉãÏñ»ú¸ú×ÙÎ»ÖÃ
-//----------------------------------------------------
-void FarmScene::updateCameraPosition(float dt, Node* player)
-{
-    auto playerPosition = player->getPosition();
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    // ¾µÍ·Î»ÖÃÒª±£³ÖÔÚµØÍ¼±ß½çÄÚ
-    float cameraX = clamp(playerPosition.x, visibleSize.width - SceneWidth / 2, SceneWidth / 2);
-    float cameraY = clamp(playerPosition.y, visibleSize.height - SceneHeight / 2, SceneHeight / 2);
-    // »ñÈ¡Ä¬ÈÏÉãÏñÍ·
-    auto camera = Director::getInstance()->getRunningScene()->getDefaultCamera();
-    // ÉèÖÃÉãÏñÍ·Î»ÖÃ
-    if (camera) {
-        camera->setPosition3D(Vec3(cameraX, cameraY, camera->getPosition3D().z));
-		float Posx = cameraX - visibleSize.width / 2;
-		float Posy = cameraY - visibleSize.height / 2;
-        if (backpackLayer)
-            backpackLayer->setPosition(Vec2(Posx, Posy));
-        if (board)
-            board->setPosition(Vec2(Posx, Posy));
-		if (taskBarLayer)
-			taskBarLayer->setPosition(Vec2(Posx, Posy));
-    }
-}
-
-//----------------------------------------------------
-// FarmScene::init_mouselistener()
-// ¹¦ÄÜ£º³õÊ¼»¯Êó±ê¼àÌıÆ÷
-//----------------------------------------------------
-void FarmScene::init_mouselistener()
-{
-    // ´´½¨Êó±ê¼àÌıÆ÷
-    auto listener = cocos2d::EventListenerMouse::create();
-
-    // Êó±ê»Øµ÷
-    listener->onMouseDown = CC_CALLBACK_1(FarmScene::on_mouse_click, this);
-
-    // »ñÈ¡ÊÂ¼ş·Ö·¢Æ÷£¬Ìí¼Ó¼àÌıÆ÷
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-}
-
-//----------------------------------------------------
-// FarmScene::on_mouse_click()
-// ¹¦ÄÜ£ºÊó±ê°´ÏÂÊ±µÄ»Øµ÷
-//----------------------------------------------------
-void FarmScene::on_mouse_click(cocos2d::Event* event)
-{
-    //»ñÈ¡Êó±êÔÚ´°¿ÚÖĞµÄÎ»ÖÃ,×ª»»µ½µØÍ¼×ø±ê
-    auto mouse_event = dynamic_cast<cocos2d::EventMouse*>(event);
-    Vec2 mousePosition = mouse_event->getLocationInView();
-    auto camera = Director::getInstance()->getRunningScene()->getDefaultCamera();
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 windowOrigin = camera->getPosition() - Vec2(visibleSize.width / 2, visibleSize.height / 2);
-    Vec2 mouse_pos = mousePosition + windowOrigin;
-    MOUSE_POS = mouse_pos;
-    CCLOG("Mouse Position(global): (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
-    checkForButtonClick(mouse_pos);
-    // 0.1Ãëºó½« MOUSE_POS ÖÃÎª (0, 0)£¬²¢ÇÒ²»Ó°ÏìÆäËû³ÌĞòÔËĞĞ
-    this->scheduleOnce([this](float dt) {
-        MOUSE_POS = Vec2::ZERO;
-        CCLOG("Mouse Position reset to: (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
-        }, 1.5f, "reset_mouse_pos_key");
-}
-
-//----------------------------------------------------
-// FarmScene::checkForButtonClick()
-// ¹¦ÄÜ£º¼ì²âÊÇ·ñµã»÷ÁËButton²¢ÇĞ»»³¡¾°
-//----------------------------------------------------
-void FarmScene::checkForButtonClick(Vec2 mousePosition)
-{
-    // »ñÈ¡ Button ¶ÔÏó²ã
-    auto objectGroup = tileMap->getObjectGroup("Button");
-    if (!objectGroup) {
-        CCLOG("Failed to get object group 'Button'");
-        return ;
-    }
-    // »ñÈ¡ Door ¶ÔÏóµÄ×ø±êºÍ³ß´ç
-    std::string Objectname[3] = { "Mines_Door","Home_Door","Shed_Door" };
-    Scene* nextScene = nullptr;
-    for(int i=0;i<3;i++){
-    auto object = objectGroup->getObject(Objectname[i]);
-    float posX = object["x"].asFloat();
-    float posY = object["y"].asFloat();
-    float width = object["width"].asFloat() * MapSize;
-    float height = object["height"].asFloat() * MapSize;
-    auto sprite = Sprite::create();
-    sprite->setPosition(Vec2(posX, posY));
-    sprite->setAnchorPoint(Vec2(0, 0)); 
-    sprite->setContentSize(Size(width, height));
-    tileMap->addChild(sprite);
-    Vec2 pos = sprite->convertToWorldSpace(Vec2(0, 0));
-    CCLOG("POS: %f, %f", pos.x, pos.y);
-    // ÅĞ¶Ïµã»÷Î»ÖÃÊÇ·ñÔÚ Door ÇøÓòÄÚ
-    if (mousePosition.x >= pos.x && mousePosition.x <= pos.x + width &&
-        mousePosition.y >= pos.y && mousePosition.y <= pos.y + height) {
-        if (backpackLayer) {
-            // ´Óµ±Ç°³¡¾°ÖĞÒÆ³ı±³°ü²ã£¬µ«²»Ïú»ÙËüµÄÄÚ´æ
-            backpackLayer->removeFromParent();
-            CCLOG("remove backpackLayer successfully!");
-        }
-        CCLOG("Door clicked! Switching to MinesScene...");
-        switch (i) {
-        case 0:
-            // ÇĞ»»µ½ MinesScene
-            nextScene = MinesScene::createScene();
-            break;
-        case 1:
-            // ÇĞ»»µ½ HomeScene
-            nextScene = HomeScene::createScene();
-            break;
-        case 2:
-			// ÇĞ»»µ½ ShedScene
-			nextScene = ShedScene::createScene();
-			break;
-        }
-        // Èç¹ûÎÒÃÇ³É¹¦»ñÈ¡µ½ÏÂÒ»¸ö³¡¾°£¬¾ÍÍÆÈëÕ»ÖĞ
-        if (nextScene) {
-            // ±£Áô³¡¾°£¬±ÜÃâ±»Ïú»Ù
-            nextScene->retain();  
-            Director::getInstance()->pushScene(nextScene);
-        }
-        return ;
-        }
-    }
-}
-
-//----------------------------------------------------
-// FarmScene::update()
-// ¹¦ÄÜ£º¸üĞÂÍæ¼ÒÓëNPC½»»¥µÄ×´Ì¬
-//----------------------------------------------------
-void FarmScene::update(float delta) {
-	// ¼ì²éÍæ¼ÒÓëNPCµÄ½»»¥
-    checkNPCInteraction();
-     // ¼ì²éÍæ¼ÒÓëNPCµÄ¾àÀë£¬²¢¸üĞÂ°´Å¥µÄÏÔÊ¾×´Ì¬
-    if (character_pos.distance(npc1->getPosition()) < 50) {
-        // ÔÚ·¶Î§ÄÚÊ±ÏÔÊ¾°´Å¥
-        npc1->showChatButton(true); 
-    }
-    else {
-        // ²»ÔÚ·¶Î§ÄÚÊ±Òş²Ø°´Å¥
-        npc1->showChatButton(false); 
-    }
-    if (character_pos.distance(npc2->getPosition()) < 50) {
-        // ÔÚ·¶Î§ÄÚÊ±ÏÔÊ¾°´Å¥
-        npc2->showChatButton(true);  
-    }
-    else {
-        // ²»ÔÚ·¶Î§ÄÚÊ±Òş²Ø°´Å¥
-        npc2->showChatButton(false); 
-    }
-}
-
-//----------------------------------------------------
-// FarmScene::checkNPCInteraction()
-// ¹¦ÄÜ£º¼ì²éÍæ¼ÒºÍNPCÖ®¼äµÄ¾àÀëÊÇ·ñĞ¡ÓÚ100µ¥Î»
-// ËµÃ÷£º100ÊÇ´¥·¢½»»¥µÄ·¶Î§ãĞÖµ£¬¼´Íæ¼ÒÓëNPCµÄ¾àÀëĞ¡ÓÚ100Ê±£¬²ÅÓĞ¿ÉÄÜÓëNPC»¥¶¯
-//----------------------------------------------------
-void FarmScene::checkNPCInteraction() {
-    if (character_pos.distance(npc1->getPosition()) < 50) {
-        // Èç¹ûNPCµ±Ç°²»ÔÚÁÄÌì×´Ì¬£¨¼´NPCÃ»ÓĞÕıÔÚÓëÍæ¼Ò¶Ô»°£©£¬ÔòÏÔÊ¾»¥¶¯ÌáÊ¾¡£
-        if (!npc1->isChattingStatus()) {
-            // Êä³öÈÕÖ¾£¬ÌáÊ¾Íæ¼Ò°´ÏÂ¡°Chat¡±¼üÓëNPC»¥¶¯¡£
-            CCLOG("Press 'Chat' to interact with NPC.");
-        }
-        if (!npc2->isChattingStatus()) {
-            // Êä³öÈÕÖ¾£¬ÌáÊ¾Íæ¼Ò°´ÏÂ¡°Chat¡±¼üÓëNPC»¥¶¯¡£
-            CCLOG("Press 'Chat' to interact with NPC.");
-        }
-    }
-}
-
-//----------------------------------------------------
-// FarmScene::onEnter()
-// ¹¦ÄÜ£ºµ±³¡¾°½øÈëÊ±µ÷ÓÃµÄ³õÊ¼»¯º¯Êı
-//       Ö÷ÒªÓÃÓÚÈ·±£±³°ü²ã´æÔÚ²¢Ìí¼Óµ½µ±Ç°³¡¾°ÖĞ
-//----------------------------------------------------
-void FarmScene::onEnter() {
-    Scene::onEnter();
-    is_infarm = 1;
-    CCLOG("IN FARM");
-    // Èç¹û±³°ü²ã²»´æÔÚÓÚµ±Ç°³¡¾°£¬ÖØĞÂÌí¼Ó
-    if (backpackLayer && !this->getChildByName("backpackLayer")) {
-        this->addChild(backpackLayer, Backpacklayer);
-        backpackLayer->setName("backpackLayer");
-        CCLOG("readd backpacklayer");
-    }
-}
-
-void FarmScene::onExit()
-{
-    Scene::onExit();
-    is_infarm = 0;
-    CCLOG("LEAVE FARM");
-
-}
 
