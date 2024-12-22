@@ -1,37 +1,37 @@
 #include "Fish.h"
 #define MAG_TIME_CROP 1.5f
-// ¶¨Òå¾²Ì¬³ÉÔ±±äÁ¿²¢³õÊ¼»¯
+// å®šä¹‰é™æ€æˆå‘˜å˜é‡å¹¶åˆå§‹åŒ–
 cocos2d::Texture2D* fish::transparent_texture = nullptr;
 cocos2d::Size fish::fish_size = cocos2d::Size(0, 0);
 
-// ´´½¨ÊµÀý
+// åˆ›å»ºå®žä¾‹
 fish* fish::create(const std::string& plist_name, float width, float height)
 {
-    //¼ÓÔØplistÎÄ¼þ
+    //åŠ è½½plistæ–‡ä»¶
     cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(plist_name);
     fish_size.width = width;
     fish_size.height = height;
 
-    //´´½¨ÊµÀý
+    //åˆ›å»ºå®žä¾‹
     fish* fish_sprite = new fish();
 
-    // ´´½¨Í¸Ã÷µÄÄÚ´æ¿é£¬ÉèÖÃÎªÈ«Í¸Ã÷ (RGBA8888 ¸ñÊ½)
-    int dataSize = width * height * 4;  // Ã¿¸öÏñËØ 4 ×Ö½Ú£¨RGBA ¸ñÊ½£©
+    // åˆ›å»ºé€æ˜Žçš„å†…å­˜å—ï¼Œè®¾ç½®ä¸ºå…¨é€æ˜Ž (RGBA8888 æ ¼å¼)
+    int dataSize = width * height * 4;  // æ¯ä¸ªåƒç´  4 å­—èŠ‚ï¼ˆRGBA æ ¼å¼ï¼‰
     unsigned char* transparentData = new unsigned char[dataSize];
 
-    // Ìî³äÍ¸Ã÷Êý¾Ý (Ã¿¸öÏñËØµÄ 4 ¸öÍ¨µÀÖµ¶¼Îª 0)
+    // å¡«å……é€æ˜Žæ•°æ® (æ¯ä¸ªåƒç´ çš„ 4 ä¸ªé€šé“å€¼éƒ½ä¸º 0)
     memset(transparentData, 0, dataSize);
 
-    // ´´½¨Í¸Ã÷ÎÆÀí
+    // åˆ›å»ºé€æ˜Žçº¹ç†
     cocos2d::Texture2D* transparentTexture = new cocos2d::Texture2D();
     transparentTexture->initWithData(transparentData, dataSize, cocos2d::backend::PixelFormat::RGBA8888, width, height, cocos2d::Size(width, height));
     transparent_texture = transparentTexture;
 
-    // ÊÍ·ÅÄÚ´æ
+    // é‡Šæ”¾å†…å­˜
     delete[] transparentData;
 
 
-    //ÅÐ¶ÏÊÇ·ñÄÜ³É¹¦´´½¨
+    //åˆ¤æ–­æ˜¯å¦èƒ½æˆåŠŸåˆ›å»º
     if (transparentTexture)
     {
         fish_sprite->initWithTexture(transparentTexture);
@@ -46,39 +46,39 @@ fish* fish::create(const std::string& plist_name, float width, float height)
     return nullptr;
 }
 
-// ³õÊ¼»¯Êó±ê¼àÌýÆ÷
+// åˆå§‹åŒ–é¼ æ ‡ç›‘å¬å™¨
 void fish::init_mouselistener()
 {
-    // ´´½¨Êó±ê¼àÌýÆ÷
+    // åˆ›å»ºé¼ æ ‡ç›‘å¬å™¨
     auto listener = cocos2d::EventListenerMouse::create();
-    // Êó±ê°´ÏÂÊ±µÄ»Øµ÷
+    // é¼ æ ‡æŒ‰ä¸‹æ—¶çš„å›žè°ƒ
     listener->onMouseDown = CC_CALLBACK_1(fish::on_mouse_click, this);
-    // »ñÈ¡ÊÂ¼þ·Ö·¢Æ÷£¬Ìí¼Ó¼àÌýÆ÷
+    // èŽ·å–äº‹ä»¶åˆ†å‘å™¨ï¼Œæ·»åŠ ç›‘å¬å™¨
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 }
-// Êó±ê°´ÏÂÊ±µÄ»Øµ÷
+// é¼ æ ‡æŒ‰ä¸‹æ—¶çš„å›žè°ƒ
 void fish::on_mouse_click(cocos2d::Event* event)
 {
-    //»ñÈ¡×÷ÎïÎ»ÖÃ
+    //èŽ·å–ä½œç‰©ä½ç½®
     Vec2 fish_pos = this->convertToWorldSpace(Vec2(0, 0));
-    // ¼ÆËãµã»÷µÄÓÐÐ§·¶Î§
+    // è®¡ç®—ç‚¹å‡»çš„æœ‰æ•ˆèŒƒå›´
     float min_x = fish_pos.x;
     float max_x = fish_pos.x + fish_size.width * MapSize;
     float min_y = fish_pos.y;
     float max_y = fish_pos.y + fish_size.height * MapSize;
     if (is_in_control) {
-        //Êä³öÊó±êµã»÷Î»ÖÃºÍÓÐÐ§·¶Î§
+        //è¾“å‡ºé¼ æ ‡ç‚¹å‡»ä½ç½®å’Œæœ‰æ•ˆèŒƒå›´
         if ((MOUSE_POS.x > min_x &&
             MOUSE_POS.x < max_x &&
             MOUSE_POS.y > min_y &&
             MOUSE_POS.y < max_y))
         {
-                if (backpackLayer->getSelectedItem().find("Can") != std::string::npos) //ÊÖÉÏµÄ¹¤¾ßÎªË®ºø£¬Ö´ÐÐ½½Ë®
+                if (backpackLayer->getSelectedItem().find("Can") != std::string::npos) //æ‰‹ä¸Šçš„å·¥å…·ä¸ºæ°´å£¶ï¼Œæ‰§è¡Œæµ‡æ°´
                 {
                     CCLOG("water this crop");
                     this->water(backpackLayer->getSelectedItem());
                 }
-                else if (backpackLayer->getSelectedItem().find("Rod") != std::string::npos)//ÊÖÉÏµÄ¹¤¾ßÎªÓã¸Í
+                else if (backpackLayer->getSelectedItem().find("Rod") != std::string::npos)//æ‰‹ä¸Šçš„å·¥å…·ä¸ºé±¼ç«¿
                 {
                     CCLOG("doing fishing");
                     this->fishing(backpackLayer->getSelectedItem());
@@ -92,37 +92,37 @@ void fish::on_mouse_click(cocos2d::Event* event)
     }
 }
 
-//È¡Ë®
+//å–æ°´
 void fish::water(std::string name)
 {
     this->setSpriteFrame("water.png");
 
-    //±³°üË®+1
+    //èƒŒåŒ…æ°´+1
     backpackLayer->addItem(name);
     CCLOG("water successfully");
 }
   
-//µöÓã
+//é’“é±¼
 void fish::fishing(std::string name)
 {
 
     auto sprite = cocos2d::Sprite::create("menu.png");
     if (sprite) {
-        // ÉèÖÃ¾«ÁéµÄÎ»ÖÃ£¨ÆÁÄ»ÖÐÐÄÎªÀý£©
+        // è®¾ç½®ç²¾çµçš„ä½ç½®ï¼ˆå±å¹•ä¸­å¿ƒä¸ºä¾‹ï¼‰
         auto visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
         auto origin = cocos2d::Director::getInstance()->getVisibleOrigin();
         sprite->setPosition(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
 
-        // È·±£¾«ÁéÔÚ×îÉÏ²ã
-        sprite->setGlobalZOrder(1000); // ½Ï´óµÄÖµÈÃËüÔÚ¸üÉÏ²ãÏÔÊ¾
+        // ç¡®ä¿ç²¾çµåœ¨æœ€ä¸Šå±‚
+        sprite->setGlobalZOrder(1000); // è¾ƒå¤§çš„å€¼è®©å®ƒåœ¨æ›´ä¸Šå±‚æ˜¾ç¤º
 
-        // Ìí¼Óµ½µ±Ç°³¡¾°
+        // æ·»åŠ åˆ°å½“å‰åœºæ™¯
         this->addChild(sprite);
         CCLOG("create sprite.");
 
-   // // ÑÓ³ÙÒ»ÃëºóÒþ²Ø¾«Áé
+   // // å»¶è¿Ÿä¸€ç§’åŽéšè—ç²¾çµ
    // this->scheduleOnce([sprite](float dt) {
-   //     sprite->setVisible(false); // »òÕßÖ±½ÓÓÃ removeFromParent()
+   //     sprite->setVisible(false); // æˆ–è€…ç›´æŽ¥ç”¨ removeFromParent()
    //     }, 1.0f, "hide_sprite");
     }
     else {
@@ -132,16 +132,16 @@ void fish::fishing(std::string name)
     this->setSpriteFrame(framename);
 
     CCLOG("%s", HARVEST_FISH_MAP.at(fish_name));
-    //°ÑÉú³ÉÎï¼ÓÈë±³°ü 
+    //æŠŠç”Ÿæˆç‰©åŠ å…¥èƒŒåŒ… 
     backpackLayer->addItem(fish_name,1);
-    //ÈËÎï¾­ÑéÔö¼Ó10
+    //äººç‰©ç»éªŒå¢žåŠ 10
     Player* player = Player::getInstance("me");
     player->playerproperty.addExperience(EXPERIENCE);
     CCLOG("fishing successfully");
 
 }
 
-//Çå³ý
+//æ¸…é™¤
 void fish::clear()
 {
     fish_name = "";
