@@ -3,10 +3,10 @@
 
 class NightTransitionScene : public cocos2d::Scene {
 public:
-    // ¹¹Ôìº¯Êý
+    // æž„é€ å‡½æ•°
     NightTransitionScene() {}
 
-    // ´´½¨³¡¾°
+    // åˆ›å»ºåœºæ™¯
     static NightTransitionScene* createScene() {
         NightTransitionScene* ret = new NightTransitionScene();
         if (ret && ret->init()) {
@@ -19,42 +19,42 @@ public:
         }
     }
 
-    // ³õÊ¼»¯º¯Êý
+    // åˆå§‹åŒ–å‡½æ•°
     bool init() {
         if (!Scene::init()) {
             return false;
         }
 
-        // »ñÈ¡ÆÁÄ»³ß´ç
+        // èŽ·å–å±å¹•å°ºå¯¸
         auto visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
 
-        // ´´½¨È«ÆÁµÄ night.png Í¼Æ¬
+        // åˆ›å»ºå…¨å±çš„ night.png å›¾ç‰‡
         auto nightOverlay = cocos2d::Sprite::create("night.png");
         if (!nightOverlay) {
             CCLOG("Failed to load night.png");
             return false;
         }
 
-        // µ÷ÕûÍ¼Æ¬´óÐ¡ÒÔÊÊÓ¦Õû¸öÆÁÄ»
+        // è°ƒæ•´å›¾ç‰‡å¤§å°ä»¥é€‚åº”æ•´ä¸ªå±å¹•
         nightOverlay->setContentSize(visibleSize);
-        nightOverlay->setPosition(visibleSize.width, visibleSize.height / 2);  // ³õÊ¼Î»ÖÃÔÚÆÁÄ»ÓÒ²àÍâÃæ
+        nightOverlay->setPosition(visibleSize.width, visibleSize.height / 2);  // åˆå§‹ä½ç½®åœ¨å±å¹•å³ä¾§å¤–é¢
 
-        // ½«Í¼Æ¬Ìí¼Óµ½³¡¾°ÖÐ
+        // å°†å›¾ç‰‡æ·»åŠ åˆ°åœºæ™¯ä¸­
         this->addChild(nightOverlay, 100);
 
-        // ´´½¨´ÓÓÒÖÁ×óµÄ¶¯»­
-        auto moveLeft = cocos2d::MoveBy::create(2.0f, cocos2d::Vec2(-visibleSize.width/2, 0));  // Ïò×óÒÆ¶¯Õû¸öÆÁÄ»¿í¶È
-        auto delay = cocos2d::DelayTime::create(3.0f);  // Í£Áô3Ãë
+        // åˆ›å»ºä»Žå³è‡³å·¦çš„åŠ¨ç”»
+        auto moveLeft = cocos2d::MoveBy::create(2.0f, cocos2d::Vec2(-visibleSize.width/2, 0));  // å‘å·¦ç§»åŠ¨æ•´ä¸ªå±å¹•å®½åº¦
+        auto delay = cocos2d::DelayTime::create(3.0f);  // åœç•™3ç§’
         auto removeOverlay = cocos2d::CallFunc::create([nightOverlay]() {
-            nightOverlay->removeFromParent();  // ÒÆ³ýÒ¹ÍíÕÚÕÖ
+            nightOverlay->removeFromParent();  // ç§»é™¤å¤œæ™šé®ç½©
             });
 
-        // ¶¯»­ÐòÁÐ£ºÒ¹ÍíÍ¼Æ¬Ïò×ó¹ö¶¯ -> Í£Áô3Ãë -> ÒÆ³ýÍ¼Æ¬
+        // åŠ¨ç”»åºåˆ—ï¼šå¤œæ™šå›¾ç‰‡å‘å·¦æ»šåŠ¨ -> åœç•™3ç§’ -> ç§»é™¤å›¾ç‰‡
         nightOverlay->runAction(cocos2d::Sequence::create(moveLeft, delay, removeOverlay, nullptr));
 
-        // ÔÚ3ÃëÑÓ³Ùºó·µ»Øµ½Ô­³¡¾°
+        // åœ¨3ç§’å»¶è¿ŸåŽè¿”å›žåˆ°åŽŸåœºæ™¯
         this->scheduleOnce([this](float dt) {
-            // ÔÚ×ª³¡½áÊøºó·µ»ØÔ­³¡¾°
+            // åœ¨è½¬åœºç»“æŸåŽè¿”å›žåŽŸåœºæ™¯
             cocos2d::Director::getInstance()->popScene();
             }, 5.0f, "return_scene_key");
 
