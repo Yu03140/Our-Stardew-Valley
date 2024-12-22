@@ -1,4 +1,5 @@
 ﻿#include "attribute.h"
+#include "cocos2d.h"  // 用于日志输出
 
 // 初始化 Player 的单例实例为 nullptr
 Player* Player::player = nullptr;

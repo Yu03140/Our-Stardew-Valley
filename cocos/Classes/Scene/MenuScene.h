@@ -1,14 +1,12 @@
-
-#ifndef __HELLOWORLD_SCENE_H__
-#define __HELLOWORLD_SCENE_H__
-#include "FarmGround.h"
-#include "moveable_sprite_key.h"
-#include "hover_button.h"
-
+#ifndef __MENUSCENE_SCENE_H__
+#define __MENUSCENE_SCENE_H__
 
 #include "cocos2d.h"
+#include "Charactor/BackpackLayer.h"
+#include "Global/Global.h"
 
-class HelloWorld : public cocos2d::Scene
+
+class MenuScene : public cocos2d::Scene
 {
 public:
     static cocos2d::Scene* createScene();
@@ -19,7 +17,7 @@ public:
     void menuCloseCallback(cocos2d::Ref* pSender);
     void onMenuItemClicked(cocos2d::Ref* sender);
     // implement the "static create()" method manually
-    CREATE_FUNC(HelloWorld);
+    CREATE_FUNC(MenuScene);
 };
 
 #endif // __HELLOWORLD_SCENE_H__

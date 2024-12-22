@@ -2,18 +2,10 @@
 #define __MOVEABLE_SPRITE_KEY_H__
 
 #include "cocos2d.h"
-#include "Global.h"
-#define SPEED 30.0f
+#include "Global/Global.h"
+#include <unordered_set>
 
-
-struct Barrier {
-    bool is_obstacles;         // 是否种植了作物
-    std::string name;        // 物品名称
-};
-
-
-
-
+#define SPEED 35.0f
 
 class moveable_sprite_key : public cocos2d::Sprite
 {
@@ -22,20 +14,28 @@ protected:
     //数组各位置分别表示上、下、左、右方位
     float move_vecx[4] = { 0,0,-speed * 0.1f,speed * 0.1f };
     float move_vecy[4] = { speed * 0.1f,-speed * 0.1f ,0,0 };
-    bool movement[4] = { false, false, false, false };
+    //===================================12.21==================================================================================
+
+    //bool movement[4] = { false, false, false, false };
+    //===================================12.21==================================================================================
+
     bool isAnimating = false;
 private:
     static std::string sprite_name;
     static cocos2d::Texture2D* transparent_texture;
     bool is_passable = 1;
     cocos2d::Vec2 sprite_pos;
-    //=======================================================================================================================================
-    std::vector<Barrier> barrier;
 
-    bool isCollidingWithBorder(const Vec2& playerPos);
-    //=======================================================================================================================================
+
+//===================================12.21==================================================================================
+    TMXLayer* barrierLayer; // 障碍物图层
+    Size tileSize;          // 图块大小
+    Size mapSize;           // 地图尺寸
+//===================================12.21==================================================================================
+
+
 public:
-    virtual ~moveable_sprite_key(){}
+    virtual ~moveable_sprite_key() {}
 
     //创建一个moveable_sprite_key的实例
     static moveable_sprite_key* create(const std::string& plist_name, float width, float height);
@@ -54,24 +54,33 @@ public:
 
     //生成移动指令
     virtual void move_act(int direction);
+//===================================12.21==================================================================================
+    bool movement[4];  // 存储各方向的移动状态
+ //===================================12.21==================================================================================
 
 };
 
 class moveable_sprite_key_walk : public moveable_sprite_key
 {
-private:    
+private:
     static std::string sprite_name_walk;
     static cocos2d::Texture2D* transparent_texture;
-
+//===========================================================================================================================
 public:
+
+    float getPlayerY();
+//===========================================================================================================================
+
+
     ~moveable_sprite_key_walk() {}
 
     //创建一个moveable_sprite_key的实例
     static moveable_sprite_key_walk* create(const std::string& plist_name, const std::string& sprite_framename);
-   
+
     //生成带有移动动画的移动指令
     void move_act(int direction) override;
 
+    cocos2d::Vec2 get_pos();
 };
 
 class moveable_sprite_key_tool : public moveable_sprite_key
@@ -80,7 +89,6 @@ private:
     static std::string sprite_name_tool;
     cocos2d::Vec2 click_pos;
     std::string direc = "-front";
-    int range = 50;
     static cocos2d::Texture2D* transparent_texture;
 
 public:
@@ -99,7 +107,7 @@ public:
     void on_mouse_click(cocos2d::Event* event);
 
     void update(float deltaTime) override;
-    
+
 };
 
 #endif __MOVEABLE_SPRITE_KEY_H__

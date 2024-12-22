@@ -1,8 +1,9 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
-#include "cocos2d.h"
 
 #include <string>      // 用于 std::string 类型
+#include "cocos2d.h"   // Cocos2d 主要头文件，包含所有核心类
+
 // 玩家基本信息（如用户名、ID、手机号等）
 class PlayerInformation {
 public:

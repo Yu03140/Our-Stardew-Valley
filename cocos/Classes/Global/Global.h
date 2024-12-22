@@ -4,21 +4,29 @@
 #include <string>
 #include <vector>
 #include "cocos2d.h"
-#include "BackpackLayer.h"
-#include "TimeSystem.h"
-#include "attribute.h"
-#include "TaskBarScene.h"
+#include "Charactor/BackpackLayer.h"
+#include "TimeSystem/TimeSystem.h"
+#include "Attribute/attribute.h"
+#include "TaskBar/TaskBarScene.h"
+
+
+
+//全局定义
+#define CONTROL_RANGE 150 
 
 extern BackpackLayer* backpackLayer;
 extern TimeSystem* timeSystem;
+extern cocos2d::Vec2 character_pos;
+extern bool is_in_control;
 extern float SceneWidth;
 extern float SceneHeight;
-extern TMXTiledMap* tileMap;
-extern TMXLayer* borderLayer;
+extern cocos2d::Vec2 MOUSE_POS;
+
 #define Playerlayer 1
 #define Backpacklayer 2
 #define Timesystemlayer 3
 #define Taskbarlayer 4
+#define MapSize 4
 
 #endif // GLOBAL_H
 

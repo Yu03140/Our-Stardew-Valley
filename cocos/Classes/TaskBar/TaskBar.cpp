@@ -38,7 +38,7 @@ bool TaskBar::init(const std::string& taskDescription, const std::string& npcNam
     // 设置字体颜色为黑色
     descriptionLabel->setTextColor(cocos2d::Color4B::BLACK);
 
-    descriptionLabel->setPosition(cocos2d::Vec2(background->getContentSize().width / 2+20,
+    descriptionLabel->setPosition(cocos2d::Vec2(background->getContentSize().width / 2,
         background->getContentSize().height / 1.5)); // 设置标签位置
     descriptionLabel->setLocalZOrder(10); // 设置标签的 Z-order 高于背景
     background->addChild(descriptionLabel); // 将标签添加到背景

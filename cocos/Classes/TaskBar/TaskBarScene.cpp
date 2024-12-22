@@ -1,5 +1,5 @@
 #include "TaskBarScene.h"
-#include "Global.h"
+#include "Global/Global.h"
 
 cocos2d::Scene* TaskBarLayer::createScene() {
     auto scene = cocos2d::Scene::create(); // 创建一个新场景
