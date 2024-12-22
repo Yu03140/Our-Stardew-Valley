@@ -3,20 +3,20 @@
 #include "Scene/Farmground.h"
 
 cocos2d::Scene* TaskBarLayer::createScene() {
-    auto scene = cocos2d::Scene::create(); // ´´½¨Ò»¸öĞÂ³¡¾°
-    auto layer = TaskBarLayer::create();  // ´´½¨ÈÎÎñÀ¸²ã
-    scene->addChild(layer); // ½«ÈÎÎñÀ¸²ãÌí¼Óµ½³¡¾°ÖĞ
-    return scene; // ·µ»Ø³¡¾°
+    auto scene = cocos2d::Scene::create(); // åˆ›å»ºä¸€ä¸ªæ–°åœºæ™¯
+    auto layer = TaskBarLayer::create();  // åˆ›å»ºä»»åŠ¡æ å±‚
+    scene->addChild(layer); // å°†ä»»åŠ¡æ å±‚æ·»åŠ åˆ°åœºæ™¯ä¸­
+    return scene; // è¿”å›åœºæ™¯
 }
 
 bool TaskBarLayer::init() {
-    if (!Layer::init()) { // µ÷ÓÃ¸¸Àà³õÊ¼»¯·½·¨
-        return false; // Èç¹ûÊ§°Ü£¬Ôò·µ»Ø false
+    if (!Layer::init()) { // è°ƒç”¨çˆ¶ç±»åˆå§‹åŒ–æ–¹æ³•
+        return false; // å¦‚æœå¤±è´¥ï¼Œåˆ™è¿”å› false
     }
 
-    // ´´½¨ TaskBar
+    // åˆ›å»º TaskBar
     taskBar = TaskBar::create();
-    //µÚÒ»¸ö
+    //ç¬¬ä¸€ä¸ª
     taskBar->addTask("Collect one strawberry\nfor Fizzer.", [this]() {
         if (backpackLayer->removeItem("strawberry", 1)) {
             auto player = Player::getInstance();
@@ -24,8 +24,8 @@ bool TaskBarLayer::init() {
             player->playerproperty.addMoney(50);
             cocos2d::log("First task completed: 50 XP and 50$ added.");
 
-            // ±ê¼ÇÈÎÎñÍê³É
-            taskBar->taskCompleted = true; // ÏÔÊ½ÉèÖÃÈÎÎñÍê³É±êÖ¾
+            // æ ‡è®°ä»»åŠ¡å®Œæˆ
+            taskBar->taskCompleted = true; // æ˜¾å¼è®¾ç½®ä»»åŠ¡å®Œæˆæ ‡å¿—
         }
         else {
             cocos2d::log("Failed to complete the first task: Strawberry not found!");
@@ -39,39 +39,39 @@ bool TaskBarLayer::init() {
             player->playerproperty.addExperience(50);
             player->playerproperty.addMoney(50);
 
-            this->taskBar->taskCompleted = true; // Ê¹ÓÃ this ²¶»ñºó·ÃÎÊ³ÉÔ±±äÁ¿
+            this->taskBar->taskCompleted = true; // ä½¿ç”¨ this æ•è·åè®¿é—®æˆå‘˜å˜é‡
             cocos2d::log("Second task completed: 50 XP and 50$ added.");
         }
 
         });
 
 
-    // ÉèÖÃÈÎÎñÀ¸µ½ÆÁÄ»ÖĞĞÄ
+    // è®¾ç½®ä»»åŠ¡æ åˆ°å±å¹•ä¸­å¿ƒ
     auto visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
     taskBar->setAnchorPoint(Vec2(0.5, 0.5));
     taskBar->setPosition(cocos2d::Vec2(visibleSize.width / 2 - visibleSize.width * (0.1), visibleSize.height / 2 - visibleSize.height * (0.05)));
-    taskBar->setVisible(false); // ³õÊ¼²»¿É¼û
+    taskBar->setVisible(false); // åˆå§‹ä¸å¯è§
     taskBar->setScale(4.0);
-    this->addChild(taskBar, 2); // ½«ÈÎÎñÀ¸Ìí¼Óµ½µ±Ç°²ãÖĞ
+    this->addChild(taskBar, 2); // å°†ä»»åŠ¡æ æ·»åŠ åˆ°å½“å‰å±‚ä¸­
 
-    // ´´½¨°´Å¥£¬ÓÃÓÚÏÔÊ¾ÈÎÎñÀ¸
+    // åˆ›å»ºæŒ‰é’®ï¼Œç”¨äºæ˜¾ç¤ºä»»åŠ¡æ 
     auto showTaskBarButton = cocos2d::MenuItemImage::create(
-        "TaskBarOrigin.png", // °´Å¥µÄÕı³£×´Ì¬Í¼Ïñ
-        "TaskBarOrigin.png", // °´Å¥µÄÑ¡ÖĞ×´Ì¬Í¼Ïñ
-        [this](Ref* sender) { // Ê¹ÓÃ [this] ²¶»ñµ±Ç°ÀàÊµÀıÖ¸Õë
-            this->taskBar->show(); // ÏÔÊ¾ÈÎÎñÀ¸
+        "TaskBarOrigin.png", // æŒ‰é’®çš„æ­£å¸¸çŠ¶æ€å›¾åƒ
+        "TaskBarOrigin.png", // æŒ‰é’®çš„é€‰ä¸­çŠ¶æ€å›¾åƒ
+        [this](Ref* sender) { // ä½¿ç”¨ [this] æ•è·å½“å‰ç±»å®ä¾‹æŒ‡é’ˆ
+            this->taskBar->show(); // æ˜¾ç¤ºä»»åŠ¡æ 
         });
 
     showTaskBarButton->setScale(1.5);
-    showTaskBarButton->setPosition(cocos2d::Vec2(visibleSize.width * 0.72, visibleSize.height * 0.6)); // ÉèÖÃ°´Å¥Î»ÖÃ
-    showTaskBarButton->setOpacity(255); // ÉèÖÃÍêÈ«²»Í¸Ã÷
+    showTaskBarButton->setPosition(cocos2d::Vec2(visibleSize.width * 0.72, visibleSize.height * 0.6)); // è®¾ç½®æŒ‰é’®ä½ç½®
+    showTaskBarButton->setOpacity(255); // è®¾ç½®å®Œå…¨ä¸é€æ˜
 
 
-    // ´´½¨²Ëµ¥²¢½«°´Å¥Ìí¼Óµ½²Ëµ¥ÖĞ
+    // åˆ›å»ºèœå•å¹¶å°†æŒ‰é’®æ·»åŠ åˆ°èœå•ä¸­
     auto menu = cocos2d::Menu::create(showTaskBarButton, nullptr);
-    menu->setPosition(cocos2d::Vec2::ZERO + Vec2(visibleSize.width * (-0.01), visibleSize.width * (-0.05))); // ÉèÖÃ²Ëµ¥Î»ÖÃÎªÔ­µã
+    menu->setPosition(cocos2d::Vec2::ZERO + Vec2(visibleSize.width * (-0.01), visibleSize.width * (-0.05))); // è®¾ç½®èœå•ä½ç½®ä¸ºåŸç‚¹
     menu->setScale(1.5);
-    this->addChild(menu, 2); // ½«²Ëµ¥Ìí¼Óµ½µ±Ç°²ãÖĞ
+    this->addChild(menu, 2); // å°†èœå•æ·»åŠ åˆ°å½“å‰å±‚ä¸­
 
-    return true; // ³õÊ¼»¯³É¹¦
+    return true; // åˆå§‹åŒ–æˆåŠŸ
 }
