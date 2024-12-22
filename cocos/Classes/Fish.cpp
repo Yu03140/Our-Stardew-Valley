@@ -1,176 +1,153 @@
 #include "Fish.h"
 #define MAG_TIME_CROP 1.5f
 // 定义静态成员变量并初始化
-//cocos2d::Texture2D* crop::transparent_texture = nullptr;
-//cocos2d::Size crop::crop_size = cocos2d::Size(0, 0);
+cocos2d::Texture2D* fish::transparent_texture = nullptr;
+cocos2d::Size fish::fish_size = cocos2d::Size(0, 0);
 
-Fish* Fish::create(const std::string& spriteName) {
-    Fish* fish = new Fish();
-    if (fish && fish->initWithFile(spriteName)) {
-        fish->autorelease();
-        CCLOG("Fishhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh created successfully.");
+// 创建实例
+fish* fish::create(const std::string& plist_name, float width, float height)
+{
+    //加载plist文件
+    cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile(plist_name);
+    fish_size.width = width;
+    fish_size.height = height;
 
-        return fish;
+    //创建实例
+    fish* fish_sprite = new fish();
+
+    // 创建透明的内存块，设置为全透明 (RGBA8888 格式)
+    int dataSize = width * height * 4;  // 每个像素 4 字节（RGBA 格式）
+    unsigned char* transparentData = new unsigned char[dataSize];
+
+    // 填充透明数据 (每个像素的 4 个通道值都为 0)
+    memset(transparentData, 0, dataSize);
+
+    // 创建透明纹理
+    cocos2d::Texture2D* transparentTexture = new cocos2d::Texture2D();
+    transparentTexture->initWithData(transparentData, dataSize, cocos2d::backend::PixelFormat::RGBA8888, width, height, cocos2d::Size(width, height));
+    transparent_texture = transparentTexture;
+
+    // 释放内存
+    delete[] transparentData;
+
+
+    //判断是否能成功创建
+    if (transparentTexture)
+    {
+        fish_sprite->initWithTexture(transparentTexture);
+
+        fish_sprite->autorelease();
+        fish_sprite->init_mouselistener();
+        CCLOG("Creation fishhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh successfully!");
+        return fish_sprite;
     }
-    CCLOG("DELETEDELETEDELETEDELETEDELETEDELETEDELETEDELETEDELETEDELETEDELETEDELETEDELETEDELETEDELETEDELETE.");
-
-    CC_SAFE_DELETE(fish);
+    CCLOG("Creation fishhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh unsuccessfully!");
+    CC_SAFE_DELETE(fish_sprite);
     return nullptr;
 }
 
-//// 设置 barrier 的位置和尺寸
-//void Fish::setBarrierProperties(cocos2d::Vec2 pos, float width, float height) {
-//    barrierPos = pos;
-//    barrierWidth = width;
-//    barrierHeight = height;
-//}
-//moveable_sprite_key_walk* sprite_move = nullptr;
-
-//void Fish::finishFishing(cocos2d::Layer* parentLayer) {
-//    // 检查主角是否存在
-//    if (!sprite_move) {
-//        CCLOG("Player is null. Cannot create fish sprite.");
-//        return;
-//    }
-//
-//    // 获取主角位置
-//    cocos2d::Vec2 playerPosition = sprite_move->getPosition();
-//
-//    // 创建鱼精灵
-//    auto fishSprite = cocos2d::Sprite::create("fish.png");
-//    if (fishSprite) {
-//        // 设置精灵位置为主角位置
-//        fishSprite->setPosition(playerPosition);
-//
-//        // 添加精灵到层中
-//        parentLayer->addChild(fishSprite);
-//
-//        // 播放动画效果
-//        auto scaleUp = cocos2d::ScaleTo::create(0.3f, 1.5f);
-//        auto scaleDown = cocos2d::ScaleTo::create(0.3f, 1.0f);
-//        auto sequence = cocos2d::Sequence::create(scaleUp, scaleDown, nullptr);
-//        fishSprite->runAction(sequence);
-//
-//        CCLOG("Fish sprite created at position: (%f, %f)", playerPosition.x, playerPosition.y);
-//    }
-//    else {
-//        CCLOG("Failed to create fish sprite.");
-//    }
-
-
-
-
-
-//
-//// 初始化鼠标监听器
-//void Fish::init_mouselistener()
-//{
-//    // 创建鼠标监听器
-//    auto listener = cocos2d::EventListenerMouse::create();
-//
-//    // 鼠标按下时的回调
-//    listener->onMouseDown = CC_CALLBACK_1(Fish::on_mouse_click, this);
-//    // 获取事件分发器，添加监听器
-//    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-//}
-// 鼠标按下时的回调
-//void Fish::on_mouse_click(cocos2d::Event* event)
-//{
-//
-//    //获取鼠标在窗口中的位置,转换到地图坐标
-//    auto mouse_event = dynamic_cast<cocos2d::EventMouse*>(event);
-//    Vec2 mousePosition = mouse_event->getLocationInView();
-//    auto camera = Director::getInstance()->getRunningScene()->getDefaultCamera();
-//    auto visibleSize = Director::getInstance()->getVisibleSize();
-//    Vec2 windowOrigin = camera->getPosition() - Vec2(visibleSize.width / 2, visibleSize.height / 2);
-//    Vec2 mouse_pos = mousePosition + windowOrigin;
-//    MOUSE_POS = mouse_pos;
-//    CCLOG("Mouse Position(global): (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
-//
-//    checkForPoolClick(mouse_pos);
-//
-//
-//    // 0.1秒后将 MOUSE_POS 置为 (0, 0)，并且不影响其他程序运行
-//    this->scheduleOnce([this](float dt) {
-//        MOUSE_POS = Vec2::ZERO;
-//        CCLOG("Mouse Position reset to: (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
-//        }, 1.5f, "reset_mouse_pos_key");
-//
-//    
-//}
-//
-void Fish::carry_fishing(Vec2 mousePosition)
+// 初始化鼠标监听器
+void fish::init_mouselistener()
 {
-    if (!this) {
-        CCLOG("Fish object is nullptr. Cannot proceed.");
-        return;
-    }
-    CCLOG("Mouse Positioncarry_fishingcarry_fishingcarry_fishingcarry_fishingcarry_fishingcarry_fishingcarry_fishingcarry_fishing: (%f, %f)", mousePosition.x, mousePosition.y);
+    // 创建鼠标监听器
+    auto listener = cocos2d::EventListenerMouse::create();
 
-    // 执行工具检查和操作
-    if (backpackLayer->getSelectedItem().find("Can1") != std::string::npos) {
-        CCLOG("Waterrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-        this->takewater(backpackLayer->getSelectedItem());
-    }
-    else if (backpackLayer->getSelectedItem().find("Rod1") != std::string::npos) {
-        CCLOG("Fishingggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg");
-        Sprite* fish_sprite = Sprite::create("bluefish.png");
-        fish_sprite->setPosition(mousePosition);  // 设置鱼的位置为点击位置
-        this->addChild(fish_sprite);
+    // 鼠标按下时的回调
+    listener->onMouseDown = CC_CALLBACK_1(fish::on_mouse_click, this);
+    // 获取事件分发器，添加监听器
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+}
+// 鼠标按下时的回调
+void fish::on_mouse_click(cocos2d::Event* event)
+{
+    //获取作物位置
+    Vec2 fish_pos = this->convertToWorldSpace(Vec2(0, 0));
+    // 计算点击的有效范围
+    float min_x = fish_pos.x;
+    float max_x = fish_pos.x + fish_size.width * MapSize;
+    float min_y = fish_pos.y;
+    float max_y = fish_pos.y + fish_size.height * MapSize;
+    if (is_in_control) {
+        //输出鼠标点击位置和有效范围
+        if ((MOUSE_POS.x > min_x &&
+            MOUSE_POS.x < max_x &&
+            MOUSE_POS.y > min_y &&
+            MOUSE_POS.y < max_y))
+        {
+                if (backpackLayer->getSelectedItem().find("Can") != std::string::npos) //手上的工具为水壶，执行浇水
+                {
+                    CCLOG("water this crop");
+                    this->water(backpackLayer->getSelectedItem());
+                }
+                else if (backpackLayer->getSelectedItem().find("Rod") != std::string::npos)//手上的工具为鱼竿
+                {
+                    CCLOG("doing fishing");
+                    this->fishing(backpackLayer->getSelectedItem());
+                }
+                else
+                {
+                    CCLOG("couldn't do anything to the crop");
+                }
 
-        this->fishing(backpackLayer->getSelectedItem());
+        }
+    }
+}
+
+//浇水,根据工具等级，工具等级越高，浇一次水的有效次数越多
+void fish::water(std::string name)
+{
+    this->setSpriteFrame("water.png");
+
+
+    //背包水+1
+    backpackLayer->addItem(name);
+    CCLOG("water successfully");
+}
+  
+//钓鱼
+void fish::fishing(std::string name)
+{
+
+
+    auto sprite = cocos2d::Sprite::create("menu.png");
+    if (sprite) {
+        // 设置精灵的位置（屏幕中心为例）
+        auto visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
+        auto origin = cocos2d::Director::getInstance()->getVisibleOrigin();
+        sprite->setPosition(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2);
+
+        // 确保精灵在最上层
+        sprite->setGlobalZOrder(1000); // 较大的值让它在更上层显示
+
+        // 添加到当前场景
+        this->addChild(sprite);
+        CCLOG("create sprite.");
+
+   // // 延迟一秒后隐藏精灵
+   // this->scheduleOnce([sprite](float dt) {
+   //     sprite->setVisible(false); // 或者直接用 removeFromParent()
+   //     }, 1.0f, "hide_sprite");
     }
     else {
-        CCLOG("Couldn't do anything to the pool");
+        CCLOG("Failed to create sprite.");
     }
-
-
-}
-
-//接水
-void Fish::takewater(std::string name)
-{
-        char last_char = name[name.size() - 1];
-        int level = last_char - '0';
-     //   watered_today = std::min(watered_today - level, 0);
-        this->setSpriteFrame("water.png");
-
- //  // 在 0.2 秒后恢复原图
- //  this->scheduleOnce([this](float dt) {
- //      this->setSpriteFrame(crop_name + "-" + std::to_string(this->develop_level) + ".png");
- //      }, 0.2f, "reset_texture_crop");
-
-        //背包水+1
-        backpackLayer->addItem(name);
-        CCLOG("take water successfully");
-}
-
-//钓鱼
-void Fish::fishing(std::string name) {
-
-
-
-    fish_name = name;
-//  develop_level = 1;
-//  develop_day = CROP_MAP.at(name).at("develop_day");
-    std::string framename = "load1.png";//显示鱼图片，表示钓鱼成功
+    std::string framename = "bluefish.png";
     this->setSpriteFrame(framename);
-    this->setScale(MAG_TIME_CROP);
 
-    //背包里鱼+1
-    CCLOG("fish successfully");
+    CCLOG("%s", HARVEST_FISH_MAP.at(fish_name));
+    //把生成物加入背包 
+    backpackLayer->addItem(fish_name,1);
+    //人物经验增加10
+    Player* player = Player::getInstance("me");
+    player->playerproperty.addExperience(EXPERIENCE);
+    CCLOG("fishing successfully");
+
 }
 
 
-//丰收，每次收获增加EXPERIENCE经验值
-void Fish::harvest()
+//清除
+void fish::clear()
 {
-// CCLOG("%s", HARVEST_MAP.at(crop_name));
-// backpackLayer->addItem(name);
-// //人物经验增加10
-// Player* player = Player::getInstance("me");
-// player->playerproperty.addExperience(EXPERIENCE);
-
+    fish_name = "";
+    this->initWithTexture(transparent_texture);
 }
-
-

@@ -207,54 +207,48 @@ bool FarmScene::init() {
     // 说明：
     // 图层：
     //----------------------------------------------------
-    // 获取对象层（每个的位置）
-    auto barriersobjectGroup = tileMap->getObjectGroup("barriers");
-    if (!objectGroup) {
+    // 
+        // 获取对象层
+    auto barrierobjectGroup = tileMap->getObjectGroup("barriers");
+    if (!barrierobjectGroup) {
         CCLOG("Failed to get object group 'barriers'");
         return false;
     }
 
-   // Vec2 map_pos = tileMap->getPosition();
+    // 障碍物格子管理（假设最大36格）
+    fish.resize(1);
+    //   for (int i = 0; i < 36; ++i) {
 
-    auto object = barriersobjectGroup->getObject("barrier9");
+    fish[0].name = "";      // 作物名
+
+    // 获取对象层中每个格子的坐标
+    auto object = barrierobjectGroup->getObject("barrier9");
+
     float posX = object["x"].asFloat();
     float posY = object["y"].asFloat();
-    float width = object["width"].asFloat() * MapSize;
-    float height = object["height"].asFloat() * MapSize;
-    // 创建 barrier 精灵
-    auto sprite = Sprite::create();
-    sprite->setPosition(Vec2(posX, posY));
-    sprite->setAnchorPoint(Vec2(0, 0));
-    sprite->setContentSize(Size(width, height));
-    tileMap->addChild(sprite);
-    Vec2 pos = sprite->convertToWorldSpace(Vec2(0, 0));
-    CCLOG("POS: %f, %f", pos.x, pos.y);
+    float width = object["width"].asFloat();
+    float height = object["height"].asFloat();
 
-    // 创建 Fish 类实例
-    Fish* fish = Fish::create("bluefish.png");
-
-    if (fish) {
-        // 确保鱼的实例成功创建
-        CCLOG("Fish created successfully.");
-        // 输出更多信息，查看对象内存地址
-        CCLOG("Fish instance address: %p", fish); // 输出fish对象的内存地址
-
-        // 检查是否有正确的Sprite
-        CCLOG("Fish sprite texture: %s", fish->getTexture());
-
-        // 设定并添加到场景
-        // fish->setBarrierProperties(Vec2(posX, posY), width, height);  // 设置 barrier 的位置和大小
-        this->addChild(fish);
-    }
-    else {
-        // 如果没有成功创建鱼的实例
-        CCLOG("Failed to create fish.");
-    }
-
-    // 输出fish指针的状态
-    CCLOG("Fish pointer address after creation: %p", fish);
+    CCLOG("fish %d: x=%f, y=%f, width=%f, height=%f", 0, posX, posY, width, height);
 
 
+    // 创建透明纹理的精灵
+    auto sprite1 = fish::create("crop_m.plist", width, height); // 默认无纹理
+
+    sprite1->setPosition(Vec2(posX, posY));        // 设置位置
+    sprite1->setAnchorPoint(Vec2(0, 0));     // 设置锚点
+    sprite1->setContentSize(Size(width, height));  // 设置大小
+    tileMap->addChild(sprite1, 2);  // 添加到瓦片地图
+    sprite1->init_mouselistener();
+    fish[0].sprite = sprite1;
+    //Vec2 worldPos = sprite->convertToWorldSpace(Vec2(0, 0));
+    //log("World Position: x=%f, y=%f", worldPos.x, worldPos.y);
+
+
+ // sprite1->schedule([sprite1](float dt) {
+ //     sprite1->update_day(dt);
+ //     }, "update_fish");
+ //
     return true;
 }
 
@@ -297,27 +291,6 @@ void FarmScene::update(float dt,moveable_sprite_key_walk* sprite_move) {
     shed->setOpacity(isPlayerInsideshed ? 128 : 255);
 
 }
-//void FarmScene::startFishing(Vec2 fishingPosition) {
-//    // 初始化 Fish 对象，如果没有的话        
-//    CCLOG("jinlailejinlailejinlailejinlailejinlailejinlailejinlailejinlailejinlailejinlailejinlailejinlailejinlailejinlailejinlailejinlailejinlailejinlailejinlailejinlaile");
-//
-//    if (fish->isFishing()) {
-//        CCLOG("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffish");
-//
-//        fish->startFishingAtPosition(fishingPosition);
-//        CCLOG("diaoyonglediaoyonglediaoyonglediaoyonglediaoyonglediaoyonglediaoyonglediaoyonglediaoyonglediaoyonglediaoyonglediaoyonglediaoyonglediaoyongle");
-//
-//        isFishing = true;
-//    }
-//}
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-
 
 // 初始化鼠标监听器
 void FarmScene::init_mouselistener()
@@ -346,7 +319,7 @@ void FarmScene::on_mouse_click(cocos2d::Event* event)
     CCLOG("Mouse Position(global): (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
     checkForwarmhouseClick(mouse_pos);
    // fish->checkForPoolClick(mouse_pos);
-    checkForPoolClick(mouse_pos);
+   // checkForPoolClick(mouse_pos);
     //CCLOG("Fish barrier properties: Pos(%f, %f), Width: %f, Height: %f", fish->barrierPos.x, fish->barrierPos.y, fish->barrierWidth, fish->barrierHeight);
 
     // 0.1秒后将 MOUSE_POS 置为 (0, 0)，并且不影响其他程序运行
@@ -358,14 +331,10 @@ void FarmScene::on_mouse_click(cocos2d::Event* event)
 
 
 // 功能：检测是否点击了warmhouse并切换场景
-void FarmScene::checkForwarmhouseClick(Vec2 mousePosition)
+bool FarmScene::checkForwarmhouseClick(Vec2 mousePosition)
 {
     // 获取 warmhouse 对象层（warmhouse 层的名称为 "warmhouse"）
     auto objectGroup = tileMap->getObjectGroup("warmhouse");
-    if (!objectGroup) {
-        CCLOG("Failed to get object group 'warmhouse'");
-        return;
-    }
 
     CCLOG("Successed to get object group 'warmhouse'");
 
@@ -394,69 +363,70 @@ void FarmScene::checkForwarmhouseClick(Vec2 mousePosition)
         replaceHouseImage();
 
 
-        return;
+        return true;
     }
 
+    return false;
 
 
 }
 
-
-// 功能：检测是否点击了Pool并切换场景
-void FarmScene::checkForPoolClick(Vec2 mousePosition)
-{
-   // Vec2 playerPos = sprite_move->getPosition();
-
-    // 获取 barriers 对象层（barriers 层的名称为 "barriers"）
-    auto objectGroup = tileMap->getObjectGroup("barriers");
-    if (!objectGroup) {
-        CCLOG("Failed to get object group 'barriers'");
-        return;
-    }
-
-    CCLOG("Successed to get object group 'barriers'");
-
-
-    std::string Objectname = "barrier9";
-    // Sprite* new_warmhouse = nullptr;
-//    CCLOG("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-
-
-    auto object = objectGroup->getObject(Objectname);
-    float posX = object["x"].asFloat();
-    float posY = object["y"].asFloat();
-    float width = object["width"].asFloat() * MapSize;
-    float height = object["height"].asFloat() * MapSize;
-    auto sprite = Sprite::create();
-    sprite->setPosition(Vec2(posX, posY));
-    sprite->setAnchorPoint(Vec2(0, 0));
-    sprite->setContentSize(Size(width, height));
-    tileMap->addChild(sprite);
-    Vec2 pos = sprite->convertToWorldSpace(Vec2(0, 0));
-    CCLOG("POS: %f, %f", pos.x, pos.y);
-
-    // 判断点击位置是否在区域内
-    if (mousePosition.x >= pos.x && mousePosition.x <= pos.x + width &&
-        mousePosition.y >= pos.y && mousePosition.y <= pos.y + height) {
-        // 获取选中的物品
-        std::string selectedItem = backpackLayer->getSelectedItem();
-        if (selectedItem == "Rod1") {
-            // 开始钓鱼
-            CCLOG("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-            CCLOG("%d",fish);
-
-            fish->carry_fishing(mousePosition);
-            CCLOG("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-
-        }
-        else {
-            CCLOG("Please select a fishing rod first.");
-        }
-        return;
-    }
-    
-}
-
+//
+//// 功能：检测是否点击了Pool并切换场景
+//void FarmScene::checkForPoolClick(Vec2 mousePosition)
+//{
+//   // Vec2 playerPos = sprite_move->getPosition();
+//
+//    // 获取 barriers 对象层（barriers 层的名称为 "barriers"）
+//    auto objectGroup = tileMap->getObjectGroup("barriers");
+//    if (!objectGroup) {
+//        CCLOG("Failed to get object group 'barriers'");
+//        return;
+//    }
+//
+//    CCLOG("Successed to get object group 'barriers'");
+//
+//
+//    std::string Objectname = "barrier9";
+//    // Sprite* new_warmhouse = nullptr;
+////    CCLOG("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+//
+//
+//    auto object = objectGroup->getObject(Objectname);
+//    float posX = object["x"].asFloat();
+//    float posY = object["y"].asFloat();
+//    float width = object["width"].asFloat() * MapSize;
+//    float height = object["height"].asFloat() * MapSize;
+//    auto sprite = Sprite::create();
+//    sprite->setPosition(Vec2(posX, posY));
+//    sprite->setAnchorPoint(Vec2(0, 0));
+//    sprite->setContentSize(Size(width, height));
+//    tileMap->addChild(sprite);
+//    Vec2 pos = sprite->convertToWorldSpace(Vec2(0, 0));
+//    CCLOG("POS: %f, %f", pos.x, pos.y);
+//
+//    // 判断点击位置是否在区域内
+//    if (mousePosition.x >= pos.x && mousePosition.x <= pos.x + width &&
+//        mousePosition.y >= pos.y && mousePosition.y <= pos.y + height) {
+//        // 获取选中的物品
+//        std::string selectedItem = backpackLayer->getSelectedItem();
+//        if (selectedItem == "Rod1") {
+//            // 开始钓鱼
+//            CCLOG("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+//            CCLOG("%d",fish);
+//
+//            fish->carry_fishing(mousePosition);
+//            CCLOG("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+//
+//        }
+//        else {
+//            CCLOG("Please select a fishing rod first.");
+//        }
+//        return;
+//    }
+//    
+//}
+//
 
 
 // 替换精灵的图片
@@ -515,13 +485,19 @@ Scene* FarmScene::createScene() {
 }
 
 void FarmScene::addItem(const std::string& itemName) {
-    for (int i = 0; i < crops.size(); ++i) {
-        if (crops[i].name == "") {
+    for (int i = 0; i < fish.size(); ++i) {
+        if (fish[i].name == "") {
             // 找到空格子，放入物品
-            crops[i].name = itemName;
+            fish[i].name = itemName;
             updateItemTexture(i);
             return;
         }
+    }
+    if (fish[0].name == "") {
+        // 找到空格子，放入物品
+        fish[0].name = itemName;
+        updatefishTexture(0);
+        return;
     }
 }
 
@@ -565,11 +541,60 @@ void FarmScene::updateItemTexture(int slotIndex) {
 
 }
 
+// 更新物品显示纹理
+void FarmScene::updatefishTexture(int slotIndex) {
+    // 检查槽位索引范围是否合法
+    if (slotIndex < 0 || slotIndex >= fish.size()) {
+        CCLOG("Invalid slot index: %d", slotIndex);
+        return;
+    }
+
+    auto& slot = fish[slotIndex];
+
+    // 检查槽位的精灵是否为空
+    if (!slot.sprite) {
+        CCLOG("Slot sprite is null for slot index: %d", slotIndex);
+        return;
+    }
+
+    // 如果槽位没有物品名称，直接返回
+    if (slot.name.empty()) {
+        CCLOG("Slot %d is empty.", slotIndex);
+        return;
+    }
+
+    // 拼接图片路径
+    std::string texturePath = slot.name + ".png"; // 假设图片在 Resources 文件夹
+
+    // 尝试从纹理缓存加载纹理
+    auto texture = Director::getInstance()->getTextureCache()->addImage(texturePath);
+    if (texture) {
+        // 更新精灵的纹理
+        slot.sprite->setTexture(texture);
+        slot.sprite->setScale(3.0f); // 根据需要调整缩放
+        CCLOG("Updated texture for slot %d: %s", slotIndex, texturePath.c_str());
+    }
+    else {
+        CCLOG("Failed to load texture: %s", texturePath.c_str());
+    }
+
+
+}
+
+// 清除fish纹理
+void FarmScene::clearfishTexture(int slotIndex) {
+    if (slotIndex < 0 || slotIndex >= fish.size()) return;
+
+    auto& slot = fish[slotIndex];
+    slot.sprite->setTexture(nullptr);  // 清空纹理
+    slot.sprite->removeAllChildren();  // 清空子节点（如数量标签）
+}
+
 // 清除物品纹理
 void FarmScene::clearItemTexture(int slotIndex) {
-    if (slotIndex < 0 || slotIndex >= crops.size()) return;
+    if (slotIndex < 0 || slotIndex >= fish.size()) return;
 
-    auto& slot = crops[slotIndex];
+    auto& slot = fish[slotIndex];
     slot.sprite->setTexture(nullptr);  // 清空纹理
     slot.sprite->removeAllChildren();  // 清空子节点（如数量标签）
 }

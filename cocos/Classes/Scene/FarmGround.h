@@ -18,9 +18,9 @@
         std::string name;        // 物品名称
         crop* sprite; // 显示物品的精灵
     };
-    struct Barrier {
+    struct Fish {
         std::string name;        // 障碍物名称
-        Sprite* sprite; // 显示物品的精灵
+        fish* sprite; // 显示物品的精灵
     };
 
     class FarmScene : public cocos2d::Scene {
@@ -49,13 +49,10 @@
 
         // 精灵指针
         cocos2d::Sprite* badWarmHouse;
-        void checkForwarmhouseClick(Vec2 mousePosition);
+        bool checkForwarmhouseClick(Vec2 mousePosition);
      //   void createFish(Vec2 mousePosition);
 
-        void checkForPoolClick(Vec2 mousePosition);
-
-        // 启动钓鱼的方法
-     //   void startFishing(Vec2 fishingPosition);
+      //  void checkForPoolClick(Vec2 mousePosition);
 
 //===========================================================================================================================
 
@@ -64,9 +61,9 @@
 //===========================================================================================================================
         cocos2d::Sprite* house;                   // 房子精灵
         cocos2d::Sprite* shed;                   // 棚屋精灵
-        bool isFishing = false;  // 是否正在钓鱼
+  //      bool isFishing = false;  // 是否正在钓鱼
       //  cocos2d::Vec2 fishingTarget;  // 钓鱼目标位置
-        Fish* fish;
+       // Fish* fish;
         // 创建鱼实例
        moveable_sprite_key_walk* sprite_move;  // 人物控制类的引用
 //===========================================================================================================================
@@ -76,13 +73,17 @@
         void updateItemTexture(int slotIndex);
         void clearItemTexture(int slotIndex);
 
+        void updatefishTexture(int slotIndex);
+        void clearfishTexture(int slotIndex);
+
+
         // 更新摄像机位置
         void updateCameraPosition(float dt, Node* player);
 
         // 农作物数据
         std::vector<Crops> crops;
 //===========================================================================================================================
-        std::vector<Barrier> barrier;
+        std::vector<Fish> fish;
 //===========================================================================================================================
 
         static FarmScene* instance;
