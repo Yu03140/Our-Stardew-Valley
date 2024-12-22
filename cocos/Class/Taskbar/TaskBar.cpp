@@ -2,7 +2,7 @@
 #include "Charactor/BackpackLayer.h"
 #include "Global/Global.h"
 
-// ´´½¨ÈÎÎñÀ¸¶ÔÏó
+// åˆ›å»ºä»»åŠ¡æ å¯¹è±¡
 TaskBar* TaskBar::create() {
     TaskBar* taskBar = new (std::nothrow) TaskBar();
     if (taskBar && taskBar->init()) {
@@ -13,7 +13,7 @@ TaskBar* TaskBar::create() {
     return nullptr;
 }
 
-// ³õÊ¼»¯ÈÎÎñÀ¸
+// åˆå§‹åŒ–ä»»åŠ¡æ 
 bool TaskBar::init() {
     if (!Node::init()) {
         return false;
@@ -21,12 +21,12 @@ bool TaskBar::init() {
 
     this->taskCompleted = false;
 
-    // ´´½¨ÈÎÎñÀ¸±³¾°Í¼Æ¬
+    // åˆ›å»ºä»»åŠ¡æ èƒŒæ™¯å›¾ç‰‡
     auto background = cocos2d::Sprite::create("HelpWanted.png");
     background->setScale(0.5);
     this->addChild(background);
 
-    // ´´½¨ÈÎÎñÃèÊö±êÇ©
+    // åˆ›å»ºä»»åŠ¡æè¿°æ ‡ç­¾
     descriptionLabel = cocos2d::Label::createWithTTF("", "fonts/Marker Felt.ttf", 15);
     descriptionLabel->setTextColor(cocos2d::Color4B::BLACK);
     descriptionLabel->setPosition(cocos2d::Vec2(background->getContentSize().width / 2,
@@ -34,21 +34,21 @@ bool TaskBar::init() {
     descriptionLabel->setLocalZOrder(10);
     background->addChild(descriptionLabel);
 
-    // ´´½¨¡°Íê³ÉÈÎÎñ¡±°´Å¥
+    // åˆ›å»ºâ€œå®Œæˆä»»åŠ¡â€æŒ‰é’®
     completeTaskButton = cocos2d::MenuItemImage::create(
         "done_button.png", "done_button.png",
         CC_CALLBACK_0(TaskBar::onCompleteTask, this));
     completeTaskButton->setPosition(cocos2d::Vec2(background->getContentSize().width / 2,
         background->getContentSize().height / 3));
 
-    // ´´½¨¡°¹Ø±Õ¡±°´Å¥
+    // åˆ›å»ºâ€œå…³é—­â€æŒ‰é’®
     closeButton = cocos2d::MenuItemImage::create(
         "XforTaskBar.png", "XforTaskBar.png",
         CC_CALLBACK_0(TaskBar::onClose, this));
     closeButton->setPosition(cocos2d::Vec2(background->getContentSize().width - 30,
         background->getContentSize().height - 30));
 
-    // ´´½¨²Ëµ¥²¢Ìí¼Ó°´Å¥
+    // åˆ›å»ºèœå•å¹¶æ·»åŠ æŒ‰é’®
     auto menu = cocos2d::Menu::create(completeTaskButton, closeButton, nullptr);
     menu->setPosition(cocos2d::Vec2::ZERO);
     background->addChild(menu);
@@ -56,64 +56,64 @@ bool TaskBar::init() {
     return true;
 }
 
-// Ìí¼ÓÈÎÎñµ½ÈÎÎñ¶ÓÁĞ
+// æ·»åŠ ä»»åŠ¡åˆ°ä»»åŠ¡é˜Ÿåˆ—
 void TaskBar::addTask(const std::string& taskDescription, std::function<void()> completeTaskCallback) {
     taskQueue.push({ taskDescription, completeTaskCallback });
 
-    // Èç¹ûµ±Ç°Ã»ÓĞÈÎÎñÕıÔÚ½øĞĞ£¬ÔòÁ¢¼´ÏÔÊ¾µÚÒ»¸öÈÎÎñ
+    // å¦‚æœå½“å‰æ²¡æœ‰ä»»åŠ¡æ­£åœ¨è¿›è¡Œï¼Œåˆ™ç«‹å³æ˜¾ç¤ºç¬¬ä¸€ä¸ªä»»åŠ¡
     //if (taskQueue.size() == 1 && !taskCompleted) {
         //showNextTask();
     //}
 }
 
 
-// ÏÔÊ¾ÏÂÒ»¸öÈÎÎñ
+// æ˜¾ç¤ºä¸‹ä¸€ä¸ªä»»åŠ¡
 void TaskBar::showNextTask() {
     if (!taskQueue.empty()) {
-        // ´Ó¶ÓÁĞÖĞÈ¡³öÏÂÒ»¸öÈÎÎñ
+        // ä»é˜Ÿåˆ—ä¸­å–å‡ºä¸‹ä¸€ä¸ªä»»åŠ¡
         currentTask = taskQueue.front();
         taskQueue.pop();
 
-        // ¸üĞÂÈÎÎñÃèÊö
+        // æ›´æ–°ä»»åŠ¡æè¿°
         descriptionLabel->setString(currentTask.description);
-        taskCompleted = false; // ÖØÖÃÈÎÎñÍê³É±êÖ¾
-        completeTaskButton->setVisible(true); // È·±£°´Å¥¿É¼û
+        taskCompleted = false; // é‡ç½®ä»»åŠ¡å®Œæˆæ ‡å¿—
+        completeTaskButton->setVisible(true); // ç¡®ä¿æŒ‰é’®å¯è§
     }
     else {
-        // Èç¹ûÃ»ÓĞÈÎÎñÁË£¬ÏÔÊ¾Íê³É×´Ì¬
-        descriptionLabel->setString("Done!"); // ËùÓĞÈÎÎñÍê³É
-        completeTaskButton->setVisible(false); // Òş²ØÍê³É°´Å¥
+        // å¦‚æœæ²¡æœ‰ä»»åŠ¡äº†ï¼Œæ˜¾ç¤ºå®ŒæˆçŠ¶æ€
+        descriptionLabel->setString("Done!"); // æ‰€æœ‰ä»»åŠ¡å®Œæˆ
+        completeTaskButton->setVisible(false); // éšè—å®ŒæˆæŒ‰é’®
     }
 }
 
 
 void TaskBar::onCompleteTask() {
-    // Èç¹ûµ±Ç°ÈÎÎñÎ´Íê³É£¬Ö´ĞĞµ±Ç°ÈÎÎñµÄ»Øµ÷
+    // å¦‚æœå½“å‰ä»»åŠ¡æœªå®Œæˆï¼Œæ‰§è¡Œå½“å‰ä»»åŠ¡çš„å›è°ƒ
     if (!taskCompleted) {
         if (currentTask.completeCallback) {
-            currentTask.completeCallback(); // Ö´ĞĞÈÎÎñµÄ»Øµ÷
+            currentTask.completeCallback(); // æ‰§è¡Œä»»åŠ¡çš„å›è°ƒ
         }
-        taskCompleted = true; // ±ê¼Çµ±Ç°ÈÎÎñÍê³É
+        taskCompleted = true; // æ ‡è®°å½“å‰ä»»åŠ¡å®Œæˆ
     }
 
-    // Èç¹ûÈÎÎñÒÑÍê³É£¬ÇĞ»»µ½ÏÂÒ»¸öÈÎÎñ
+    // å¦‚æœä»»åŠ¡å·²å®Œæˆï¼Œåˆ‡æ¢åˆ°ä¸‹ä¸€ä¸ªä»»åŠ¡
     if (taskCompleted) {
-        showNextTask(); // ÏÔÊ¾ÏÂÒ»¸öÈÎÎñ
+        showNextTask(); // æ˜¾ç¤ºä¸‹ä¸€ä¸ªä»»åŠ¡
     }
 }
 
 
-// ¡°¹Ø±Õ¡±°´Å¥µÄ»Øµ÷º¯Êı
+// â€œå…³é—­â€æŒ‰é’®çš„å›è°ƒå‡½æ•°
 void TaskBar::onClose() {
     this->hide();
 }
 
-// ÏÔÊ¾ÈÎÎñÀ¸
+// æ˜¾ç¤ºä»»åŠ¡æ 
 void TaskBar::show() {
     this->setVisible(true);
 }
 
-// Òş²ØÈÎÎñÀ¸
+// éšè—ä»»åŠ¡æ 
 void TaskBar::hide() {
     this->setVisible(false);
 }
