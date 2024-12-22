@@ -1,36 +1,18 @@
-#pragma once
-#ifndef TASKBARSCENE_H
-#define TASKBARSCENE_H
+ï»¿#ifndef TASKBARLAYER_H
+#define TASKBARLAYER_H
 
 #include "cocos2d.h"
 #include "TaskBar.h"
-#include "Attribute/attribute.h" 
-/**
- * @brief TaskBarScene ÀàÓÃÓÚ¹ÜÀíÈÎÎñÀ¸µÄ³¡¾°¡£
- * ¸ÃÀà¼Ì³Ğ×Ô cocos2d::Layer£¬Ìá¹©ÏÔÊ¾ÈÎÎñÀ¸¡¢´¦ÀíÈÎÎñ½»»¥µÄ¹¦ÄÜ¡£
- */
+
 class TaskBarLayer : public cocos2d::Layer {
 public:
-    /**
-     * @brief ´´½¨²¢·µ»ØÈÎÎñÀ¸³¡¾°¡£
-     * @return Ò»¸ö°üº¬ÈÎÎñÀ¸µÄ cocos2d::Scene ¶ÔÏó¡£
-     */
+    virtual bool init();
+    CREATE_FUNC(TaskBarLayer);
     static cocos2d::Scene* createScene();
 
-    /**
-     * @brief ³õÊ¼»¯ÈÎÎñÀ¸³¡¾°¡£
-     * @return ³õÊ¼»¯ÊÇ·ñ³É¹¦¡£
-     */
-    virtual bool init();
-
-    /**
-     * @brief ÆôÓÃ CREATE_FUNC ºê£¬ÓÃÓÚ¼ò»¯´´½¨¶ÔÏóµÄ´úÂë¡£
-     * CREATE_FUNC »á×Ô¶¯Éú³É¾²Ì¬ create() ·½·¨¡£
-     */
-    CREATE_FUNC(TaskBarLayer);
-
 private:
-    // ÔÚ´Ë´¦Ìí¼ÓÈÎºÎĞèÒªµÄË½ÓĞ³ÉÔ±±äÁ¿»ò¸¨Öúº¯Êı¡£
+    TaskBar* taskBar;
+
 };
 
-#endif // TASKBARSCENE_H
+#endif // TASKBARLAYER_H

@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "Christmas/Christmas.h"
+#include "NightTransitionScene.h"
 #include <string>
 #include <cstdlib>
 #include <ctime>
@@ -51,6 +52,8 @@ public:
 
     //void TimeSystem::checkForHoliday();
     void checkForHoliday();
+
+    void triggerNightTransition();
 
 private:
     int year;               // 当前年份

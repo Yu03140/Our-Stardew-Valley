@@ -51,7 +51,6 @@ void fish::init_mouselistener()
 {
     // 创建鼠标监听器
     auto listener = cocos2d::EventListenerMouse::create();
-
     // 鼠标按下时的回调
     listener->onMouseDown = CC_CALLBACK_1(fish::on_mouse_click, this);
     // 获取事件分发器，添加监听器
@@ -93,11 +92,10 @@ void fish::on_mouse_click(cocos2d::Event* event)
     }
 }
 
-//浇水,根据工具等级，工具等级越高，浇一次水的有效次数越多
+//取水
 void fish::water(std::string name)
 {
     this->setSpriteFrame("water.png");
-
 
     //背包水+1
     backpackLayer->addItem(name);
@@ -107,7 +105,6 @@ void fish::water(std::string name)
 //钓鱼
 void fish::fishing(std::string name)
 {
-
 
     auto sprite = cocos2d::Sprite::create("menu.png");
     if (sprite) {
@@ -143,7 +140,6 @@ void fish::fishing(std::string name)
     CCLOG("fishing successfully");
 
 }
-
 
 //清除
 void fish::clear()

@@ -34,50 +34,47 @@ void HomeScene::changeScene(Event* event)
         return;
     }
 
-    // 获取点击位置
-    Vec2 clickLocation = mouseEvent->getLocationInView();
-    CCLOG("clickLocation: ( %f , %f )", clickLocation.x, clickLocation.y);
-
-    // 获取对象层
-    auto objectGroup = tileMap->getObjectGroup("Button");
+    Vec2 clickLocation = mouseEvent->getLocationInView();       // 获取点击位置
+    auto objectGroup = tileMap->getObjectGroup("Button");       // 获取对象层
     if (!objectGroup)
     {
         CCLOG("Button object layer not found.");
         return;
     }
-    // 获取名为 "Door" 的对象
+
     auto doorObject = objectGroup->getObject("Door");
-    if (doorObject.empty())
-    {
-        CCLOG("Door object not found.");
-        return;
-    }
-    // 获取对象的属性和范围
-    float x = doorObject["x"].asFloat();
-    float y = doorObject["y"].asFloat();
-    float width = doorObject["width"].asFloat() * MapSize;
-    float height = doorObject["height"].asFloat() * MapSize;
-    CCLOG("x:%f,y:%f", x, y);
-    auto sprite = Sprite::create();
-    sprite->setPosition(Vec2(x, y));
-    sprite->setAnchorPoint(Vec2(0, 0));
-    sprite->setContentSize(Size(width, height));
-    tileMap->addChild(sprite);
-    Vec2 pos = sprite->convertToWorldSpace(Vec2(0, 0));
-    CCLOG("POS: %f, %f,%f,%f", pos.x, pos.y, width, height);
+    auto kitchenObject = objectGroup->getObject("Kitchen");
 
-    Rect doorRect = Rect(pos.x, pos.y, width, height);
-
-    // 检查点击点是否在对象范围内
+    // 场景切换按钮
+    auto sprite1 = Sprite::create();
+    sprite1->setPosition(Vec2(doorObject["x"].asFloat(), doorObject["y"].asFloat()));
+    sprite1->setAnchorPoint(Vec2(0, 0));
+    sprite1->setContentSize(Size(doorObject["width"].asFloat() * MapSize, doorObject["height"].asFloat() * MapSize));
+    tileMap->addChild(sprite1);
+    Vec2 pos1 = sprite1->convertToWorldSpace(Vec2(0, 0));
+    CCLOG("POS: %f, %f,%f,%f", clickLocation.x, clickLocation.y, doorObject["width"].asFloat() * MapSize, doorObject["height"].asFloat() * MapSize);
+    Rect doorRect = Rect(pos1.x, pos1.y, doorObject["width"].asFloat() * MapSize, doorObject["height"].asFloat() * MapSize);
     if (doorRect.containsPoint(clickLocation))
     {
-        /*
-        if (backpackLayer)
-            this->removeChild(backpackLayer);  // 移除背包层
-        */
         CCLOG("Door clicked! Switching scenes...");
         Director::getInstance()->popScene();
     }
+
+    // 制作食物按钮
+    auto sprite2 = Sprite::create();
+    sprite2->setPosition(Vec2(kitchenObject["x"].asFloat(), kitchenObject["y"].asFloat()));
+    sprite2->setAnchorPoint(Vec2(0, 0));
+    sprite2->setContentSize(Size(kitchenObject["width"].asFloat() * MapSize, kitchenObject["height"].asFloat() * MapSize));
+    tileMap->addChild(sprite2);
+    Vec2 pos2 = sprite2->convertToWorldSpace(Vec2(0, 0));
+    //CCLOG("POS: %f, %f,%f,%f", pos.x, pos.y, width, height);
+    Rect kitchenRect = Rect(pos2.x, pos2.y, kitchenObject["width"].asFloat() * MapSize, kitchenObject["height"].asFloat() * MapSize);
+
+	if (kitchenRect.containsPoint(clickLocation))
+	{
+        auto recipeLayer = RecipeLayer::create();
+        this->addChild(recipeLayer, Taskbarlayer);
+	}
 }
 
 

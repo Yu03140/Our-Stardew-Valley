@@ -3,6 +3,7 @@
 
 #include "SubScene.h"
 #include "cocos2d.h"
+#include "Charactor/RecipeLayer.h"
 
 class HomeScene : public SubScene{
 public:

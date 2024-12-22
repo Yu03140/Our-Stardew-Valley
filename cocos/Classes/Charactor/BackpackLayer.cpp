@@ -108,6 +108,8 @@ bool BackpackLayer::init() {
     addItem("strawberry", 5);
     addItem("pumpkin", 5);
     addItem("Rod1");
+    addItem("pumpkin_fruit");
+	addItem("chicken_egg");
 
 
     // 添加点击事件监听器

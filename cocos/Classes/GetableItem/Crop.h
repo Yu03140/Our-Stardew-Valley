@@ -30,10 +30,9 @@ const std::unordered_map<std::string, std::string> HARVEST_MAP =
 class crop : public cocos2d::Sprite
 {
 private:
-    int ID;
     int now_day = 0;                             //当前日期
-    std::string crop_name;                //作物的名称
-    int develop_day;                      //每成长一阶段所需要的天数
+    std::string crop_name;                       //作物的名称
+    int develop_day;                              //每成长一阶段所需要的天数
 
     int water_count = 0;                         //浇水总天数
     int unwater_count = 0;                       //没有浇水的连续天数
@@ -73,6 +72,5 @@ public:
     //除虫
     void deinsectization();
 
-    void set_ID(int i) { ID = i; }
 };
 #endif __CROP_H__

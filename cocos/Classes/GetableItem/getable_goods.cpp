@@ -48,6 +48,7 @@ getable_goods* getable_goods::create(const std::string& plist_name)
 
 void getable_goods::setImag()
 {
+    CCLOG("getable_goods::setImag");
     // 获取指定精灵帧
     cocos2d::SpriteFrame* frame = cocos2d::SpriteFrameCache::getInstance()->getSpriteFrameByName(sprite_name + ".png");
     this->initWithSpriteFrame(frame);
@@ -72,19 +73,39 @@ void getable_goods::on_mouse_click(cocos2d::Event* event)
 {
     //获取物品位置
     Vec2 goods_pos = this->convertToWorldSpace(Vec2(0, 0));
-    // 计算点击的有效范围
-    float min_x = goods_pos.x;
-    float max_x = goods_pos.x + sprite_size.width ;
-    float min_y = goods_pos.y;
-    float max_y = goods_pos.y + sprite_size.height;
+    Vec2 mouse_pos;
+    float min_x;
+    float max_x;
+    float min_y;
+    float max_y;
+
+    if (is_infarm)
+    {
+        mouse_pos = MOUSE_POS;
+        min_x = goods_pos.x;
+        max_x = goods_pos.x + sprite_size.width;
+        min_y = goods_pos.y;
+        max_y = goods_pos.y + sprite_size.height;
+    }
+    else {
+        auto mouse_event = dynamic_cast<cocos2d::EventMouse*>(event);
+        mouse_pos = this->getParent()->convertToNodeSpace(mouse_event->getLocationInView());
+        goods_pos = this->getPosition();
+        min_x = goods_pos.x;
+        max_x = goods_pos.x + sprite_size.width / MapSize;
+        min_y = goods_pos.y;
+        max_y = goods_pos.y + sprite_size.height / MapSize;
+    }
     if (is_getable && is_in_control) {
         //鼠标点击位置在有效范围
-        if ((MOUSE_POS.x > min_x &&
-            MOUSE_POS.x < max_x &&
-            MOUSE_POS.y > min_y &&
-            MOUSE_POS.y < max_y))
+        if ((mouse_pos.x > min_x &&
+            mouse_pos.x < max_x &&
+            mouse_pos.y > min_y &&
+            mouse_pos.y < max_y))
         {
-            if (backpackLayer->getSelectedItem().find(GOODS_MAP.at(sprite_name).at("tool")) != std::string::npos)//手上那个工具与物品匹配
+            CCLOG("good click");
+            CCLOG("%s", sprite_name.c_str());
+            if (GOODS_MAP.at(sprite_name).at("tool") == "" || (backpackLayer->getSelectedItem().find(GOODS_MAP.at(sprite_name).at("tool"))) != std::string::npos)//手上那个工具与物品匹配
             {
                 char last_char = backpackLayer->getSelectedItem()[backpackLayer->getSelectedItem().size() - 1];
                 int level = last_char - '0';
@@ -93,6 +114,8 @@ void getable_goods::on_mouse_click(cocos2d::Event* event)
                 this->show_click_bar();
                 this->update();
             }
+            else
+                CCLOG("wrong tool");
         }
     }
 }
@@ -105,7 +128,7 @@ void getable_goods::show_click_bar()
         // 如果进度条尚未创建，则创建并显示它
         click_bar = progress_bar::create();
         click_bar->show_progress_bar(cocos2d::Vec2(this->getPositionX(), this->getPositionY() + this->getContentSize().height / 2 + 5));
-        this->getParent()->addChild(click_bar);
+        this->getParent()->addChild(click_bar, 3);
     }
     else {
         click_bar->show_progress_bar(cocos2d::Vec2(this->getPositionX(), this->getPositionY() + this->getContentSize().height / 2 + 5));
@@ -140,13 +163,19 @@ void getable_goods::update()
         //人物经验增加
         Player* player = Player::getInstance("me");
         player->playerproperty.addExperience(EXPERIENCE * GOODS_CLICK_MAP.at(sprite_name));
-        this->setTexture(transparent_texture);//设为透明
-        click_count = 0;//清空
-        is_getable = 0;
+        if (sprite_name == "badGreenhouse") {
+            this->setSpriteFrame("newGreenhouse.png");
+            is_getable = 0;
+        }
+        else {
+            this->setTexture(transparent_texture);//设为透明
+            click_count = 0;//清空
+            is_getable = 0;
+        }
     }
 }
 
-void getable_goods::add_goods(ValueMap dict, getable_goods* sprite, std::string name, cocos2d::TMXTiledMap* tileMap)
+void getable_goods::add_in(ValueMap dict, getable_goods* sprite, std::string name, cocos2d::TMXTiledMap* tileMap)
 {
     float posX = dict["x"].asFloat();
     float posY = dict["y"].asFloat();
@@ -162,6 +191,9 @@ void getable_goods::add_goods(ValueMap dict, getable_goods* sprite, std::string 
     sprite->init_mouselistener();
     sprite->setImag();
 }
+/*----------------------------------------------------------WarmHouse----------------------------------------------------------------------*/
+
+
 
 /*----------------------------------------------------------GoodsManager----------------------------------------------------------------------*/
 GoodsManager* GoodsManager::create()
@@ -179,8 +211,8 @@ GoodsManager* GoodsManager::create()
     }
 }
 // 添加精灵到容器
-void GoodsManager::add_goods(getable_goods* sprite){
-    goods.push_back(sprite); 
+void GoodsManager::add_goods(getable_goods* sprite) {
+    goods.push_back(sprite);
 }
 
 void GoodsManager::get_getable_count()
@@ -197,7 +229,7 @@ void GoodsManager::random_access()
 {
     get_getable_count();
     //如果当前可获取的物品数量过少，则随机重新生成
-    if (!goods.empty() && getable_count <= goods.size() * PERCENT) 
+    if (!goods.empty() && getable_count <= goods.size() * PERCENT)
     {
         auto it = goods.begin();  // 获取容器的开始迭代器
 
@@ -205,7 +237,7 @@ void GoodsManager::random_access()
         if ((*it)->get_is_getable() == 0) {
             (*it)->setImag();
         }
-        
+
     }
 }
 
@@ -222,5 +254,3 @@ void GoodsManager::stop_scheduler() {
     // 停止定时器
     this->unschedule("RandomAccessSchedulerKey");
 }
-
-

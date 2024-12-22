@@ -43,23 +43,23 @@ void MinesScene::initTileMap()
         // 通过 object 中的数据判断是否是名称为 'stone' 的对象
         auto dict = object.asValueMap();
         std::string objectName = dict["name"].asString();
-        auto sprite = getable_goods::create("material.plist");
-		CCLOG("objectName: %s", objectName.c_str());
+        auto sprite = getable_goods::create("goods.plist");
+        CCLOG("objectName: %s", objectName.c_str());
         //处理石头
         if (objectName == "stone") {
-            sprite->add_goods(dict, sprite, "stones", tileMap);
+            sprite->add_in(dict, sprite, "stones", tileMap);
             //加入石头格子管理器
             stone_manager->add_goods(sprite);
         }
-		//处理矿石
-		else if (objectName == "mine") {
-			sprite->add_goods(dict, sprite, "mine", tileMap);
-			//加入矿石格子管理器
-			mine_manager->add_goods(sprite);
-		}
-		//处理大石头
+        //处理矿石
+        else if (objectName == "mine") {
+            sprite->add_in(dict, sprite, "mine", tileMap);
+            //加入矿石格子管理器
+            mine_manager->add_goods(sprite);
+        }
+        //处理大石头
         else if (objectName == "big_stone") {
-            sprite->add_goods(dict, sprite, "bigstone", tileMap);
+            sprite->add_in(dict, sprite, "bigstone", tileMap);
             //加入大石头格子管理器
             bigstone_manager->add_goods(sprite);
         }
@@ -133,6 +133,3 @@ void MinesScene::changeScene(Event* event)
         Director::getInstance()->popScene();
     }
 }
-
-
-

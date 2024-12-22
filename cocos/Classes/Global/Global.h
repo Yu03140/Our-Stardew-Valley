@@ -23,6 +23,7 @@ extern bool is_in_control;
 extern float SceneWidth;
 extern float SceneHeight;
 extern cocos2d::Vec2 MOUSE_POS;
+extern bool is_infarm;
 
 #define Playerlayer 1
 #define Backpacklayer 2

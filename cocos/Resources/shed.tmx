@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="19" height="17" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="15">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="19" height="17" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="39">
  <tileset firstgid="1" source="townInterior.tsx"/>
- <tileset firstgid="2177" source="1spring_outdoorsTileSheet..tsx"/>
  <layer id="2" name="back" width="19" height="17">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -19,14 +18,13 @@
 0,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,
 0,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,
 0,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,
-161,2147,2147,2147,2147,2147,2147,2147,3069,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,
-0,2147,2147,2147,2147,2147,2147,2147,3094,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147
+161,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,
+0,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147,2147
 </data>
  </layer>
  <objectgroup id="4" name="Button">
   <object id="12" name="Door" x="127.602" y="250.117" width="16.8072" height="21.2301"/>
   <object id="13" x="10.3939" y="-7.07671" width="19.461" height="5.30753"/>
-  <object id="14" x="152.149" y="47.1044" width="0.221147" height="0.442294"/>
  </objectgroup>
  <layer id="1" name="border" width="19" height="17">
   <data encoding="csv">
@@ -49,16 +47,16 @@
 1,1,1,1,1,1,1,65,0,69,1,1,1,1,1,1,1,1,1
 </data>
  </layer>
- <objectgroup id="3" name="object">
-  <object id="1" name="animal" x="32" y="79.3333" width="40" height="23.3333"/>
-  <object id="2" name="animal" x="31.3333" y="125.333" width="40.6667" height="21.3333"/>
-  <object id="3" name="animal" x="33.3333" y="177.333" width="42.6667" height="21.3333"/>
-  <object id="4" name="animal" x="98" y="82" width="43.3333" height="22"/>
-  <object id="5" name="animal" x="96.6667" y="126" width="46.6667" height="20.6667"/>
-  <object id="7" name="animal" x="98" y="175.333" width="47.3333" height="24.6667"/>
-  <object id="8" name="animal" x="172" y="75.3333" width="35.3333" height="28"/>
-  <object id="9" name="animal" x="231.333" y="74.6667" width="42" height="28.6667"/>
-  <object id="10" name="animal" x="174.667" y="114.667" width="36" height="30.6667"/>
-  <object id="11" name="animal" x="232" y="115.333" width="41.3333" height="28.6667"/>
+ <objectgroup id="3" name="animal">
+  <object id="19" name="Pig" x="92.8433" y="121.315" width="14.8549" height="17.3308"/>
+  <object id="20" name="Pig" x="170.213" y="115.126" width="14.8549" height="17.3308"/>
+  <object id="21" name="Pig" x="175.783" y="77.3694" width="14.8549" height="17.3308"/>
+  <object id="31" name="Goat" x="79.2263" y="172.07" width="16.0928" height="19.1876"/>
+  <object id="32" name="Goat" x="116.983" y="170.522" width="16.0928" height="19.1876"/>
+  <object id="33" name="Goat" x="50.7544" y="213.849" width="16.0928" height="19.1876"/>
+  <object id="34" name="Cow" x="240.155" y="90.3675" width="14.8549" height="21.0445"/>
+  <object id="36" name="Chicken" x="205.24" y="133.537" width="12.3791" height="17.9497"/>
+  <object id="37" name="Chicken" x="195.956" y="187.696" width="12.3791" height="17.9497"/>
+  <object id="38" name="Chicken" x="51.7386" y="103.518" width="12.3791" height="17.9497"/>
  </objectgroup>
 </map>

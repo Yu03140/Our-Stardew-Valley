@@ -45,7 +45,6 @@ moveable_sprite_key* moveable_sprite_key::create(const std::string& plist_name, 
     }
     CCLOG("Creation moveable_sprite_key unsuccessfully!");
     CC_SAFE_DELETE(sprite);
-
     return nullptr;
 }
 
@@ -125,21 +124,19 @@ void moveable_sprite_key::update(float deltaTime)
     //获取窗口的大小信息
     cocos2d::Size visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
     cocos2d::Vec2 origin = cocos2d::Director::getInstance()->getVisibleOrigin();
-
-    // 判断精灵是否超出边界
-    if (sprite_pos.y + this->getContentSize().height * 2 >= SceneHeight / 2) {
+    if (sprite_pos.y + this->getContentSize().height * MapSize >= SceneHeight / 2 + visibleSize.height / 2) {
         is_hit_edge[0] = true;
         CCLOG("Sprite hit the top edge");
     }
-    else  if (sprite_pos.y - this->getContentSize().height * 2 <= visibleSize.height - SceneHeight / 2) {
+    else  if (sprite_pos.y - this->getContentSize().height * MapSize <= visibleSize.height / 2 - SceneHeight / 2) {
         is_hit_edge[1] = true;
         CCLOG("Sprite hit the bottom edge");
     }
-    if (sprite_pos.x - this->getContentSize().width * 2 <= visibleSize.width - SceneWidth / 2) {
+    if (sprite_pos.x - this->getContentSize().width * MapSize <= visibleSize.width / 2 - SceneWidth / 2) {
         is_hit_edge[2] = true;
         CCLOG("Sprite hit the left edge");
     }
-    else if (sprite_pos.x + this->getContentSize().width * 2 >= SceneWidth / 2) {
+    else if (sprite_pos.x + this->getContentSize().width * MapSize >= SceneWidth / 2 + visibleSize.width / 2) {
         is_hit_edge[3] = true;
         CCLOG("Sprite hit the right edge");
     }
@@ -162,6 +159,18 @@ void moveable_sprite_key::move_act(int direction)
     //创建移动动作
     auto move_action = cocos2d::MoveBy::create(0.1f, cocos2d::Vec2(move_vecx[direction], move_vecy[direction]));
     this->runAction(move_action);
+}
+
+// 确保在 onEnter 中重新添加监听器
+void moveable_sprite_key::onEnter() {
+    Sprite::onEnter();  // 保证基类的 onEnter 被调用
+    init_keyboardlistener();  // 重新初始化监听器
+}
+
+// 确保在 onExit 中移除监听器
+void moveable_sprite_key::onExit() {
+    _eventDispatcher->removeEventListenersForTarget(this);  // 移除监听器
+    Sprite::onExit();  // 保证基类的 onExit 被调用
 }
 
 /*----------------------------------------------------------------walk-----------------------------------------------------------------------------*/
@@ -237,7 +246,8 @@ cocos2d::Vec2 moveable_sprite_key_walk::get_pos()
 
 /*----------------------------------------------------------------tool-----------------------------------------------------------------------------*/
 //创建moveable_sprite_key_tool实例
-moveable_sprite_key_tool* moveable_sprite_key_tool::create(const std::string& plist_name, float width, float height)
+/*----------------------------------------------------------------RENEW2-----------------------------------------------------------------------------*/
+moveable_sprite_key_tool* moveable_sprite_key_tool::create(const std::string& plist_name)
 
 {
     //加载plist文件
@@ -247,7 +257,7 @@ moveable_sprite_key_tool* moveable_sprite_key_tool::create(const std::string& pl
     moveable_sprite_key_tool* sprite = new moveable_sprite_key_tool();
 
     // 创建透明的内存块，设置为全透明 (RGBA8888 格式)
-    int dataSize = width * height * 4;  // 每个像素 4 字节（RGBA 格式）
+    int dataSize = TOOL_HEIGHT * TOOL_WIDTH * 4;  // 每个像素 4 字节（RGBA 格式）
     unsigned char* transparentData = new unsigned char[dataSize];
 
     // 填充透明数据 (每个像素的 4 个通道值都为 0)
@@ -255,9 +265,9 @@ moveable_sprite_key_tool* moveable_sprite_key_tool::create(const std::string& pl
 
     // 创建透明纹理
     cocos2d::Texture2D* transparentTexture = new cocos2d::Texture2D();
-    transparentTexture->initWithData(transparentData, dataSize, cocos2d::backend::PixelFormat::RGBA8888, width, height, cocos2d::Size(width, height));
+    transparentTexture->initWithData(transparentData, dataSize, cocos2d::backend::PixelFormat::RGBA8888, TOOL_WIDTH, TOOL_HEIGHT, cocos2d::Size(TOOL_WIDTH, TOOL_HEIGHT));
     transparent_texture = transparentTexture;
-
+    /*----------------------------------------------------------------RENEW2-----------------------------------------------------------------------------*/
     // 释放内存
     delete[] transparentData;
 
@@ -332,26 +342,36 @@ void moveable_sprite_key_tool::init_mouselistener()
 void moveable_sprite_key_tool::on_mouse_click(cocos2d::Event* event)
 {
     /*------------------------------------------------------renew-------------------------------------------------------------*/
-
+    CCLOG("tool:mouse click");
     auto tool_pos = this->getPosition();
     auto tool_size = this->getContentSize();
+    Vec2 mouse_pos;
+    if (is_infarm)
+    {
+        mouse_pos = MOUSE_POS;
+    }
+    else {
+        auto mouse_event = dynamic_cast<cocos2d::EventMouse*>(event);
+        mouse_pos = this->getParent()->convertToNodeSpace(mouse_event->getLocationInView());
+    }
 
     /*------------------------------------------------------renew-------------------------------------------------------------*/
 
-    if (MOUSE_POS.x > character_pos.x - CONTROL_RANGE &&
-        MOUSE_POS.x < character_pos.x + CONTROL_RANGE &&
-        MOUSE_POS.y > character_pos.y - CONTROL_RANGE &&
-        MOUSE_POS.y < character_pos.y + CONTROL_RANGE)
+    if (mouse_pos.x > character_pos.x - CONTROL_RANGE &&
+        mouse_pos.x < character_pos.x + CONTROL_RANGE &&
+        mouse_pos.y > character_pos.y - CONTROL_RANGE &&
+        mouse_pos.y < character_pos.y + CONTROL_RANGE)
     {
         is_in_control = 1;
-        if(TOOLS_MAP.count(sprite_name_tool)){
+        CCLOG("IN CONTROL");
+        if (TOOLS_MAP.count(sprite_name_tool)) {
             CCLOG("tool click!");
             // 切换纹理
             this->setSpriteFrame(sprite_name_tool + direc + "-clicked.png");
 
             // 在 0.2 秒后恢复原图
             this->scheduleOnce([this](float dt) {
-                if(sprite_name_tool != "")
+                if (sprite_name_tool != "")
                     this->setSpriteFrame(sprite_name_tool + direc + ".png");
                 }, 0.2f, "reset_texture_key");
         }

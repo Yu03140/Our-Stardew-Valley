@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 #include "SubScene.h"
-
+#include "GetableItem/animals.h"
 class ShedScene : public SubScene {
 public:
 
@@ -14,6 +14,8 @@ public:
     static ShedScene* getInstance();
     static cocos2d::Scene* createScene();
 
+    bool init();
+
     // 重写update方法，便于扩展动态逻辑
     virtual void update(float delta) override {}
 
@@ -23,8 +25,12 @@ public:
     // 使用CREATE_FUNC宏定义create方法
     CREATE_FUNC(ShedScene);
 
+    //void onEnter();
+    //void onExit();
+
 protected:
     static ShedScene* instance;
+    AnimalsManager* animals_manager;
 };
 
 #endif // __SHED_SCENE_H__

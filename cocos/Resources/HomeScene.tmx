@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="16" height="10" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="19">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="16" height="10" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="19">
  <properties>
   <property name="AmbientLight" value="110 110 110"/>
   <property name="Light" value="7 3 6 3 9 6 6 3 4 1 3 4 10 3 4 7 8 4"/>
@@ -26,14 +26,28 @@
 5,6,6,6,6,40,6,6,40,6,6,40,6,6,40,7,
 5,6,40,6,6,6,6,6,6,40,6,6,6,40,6,7,
 5,40,6,6,40,6,6,6,6,6,6,40,6,6,6,7,
-5,6,6,2163,6,6,6,6,40,6,6,6,40,6,6,7,
-39,39,10,2188,10,39,39,39,6,6,6,6,39,39,39,39
+5,6,6,40,6,6,6,6,40,6,6,6,40,6,6,7,
+39,39,10,6,10,39,39,39,6,6,6,6,39,39,39,39
 </data>
  </layer>
  <objectgroup id="12" name="Button">
   <object id="16" name="Door" x="47.116" y="140.789" width="17.5055" height="18.4367"/>
   <object id="17" name="Kitchen" x="128.126" y="55.4963" width="31.8452" height="13.4085"/>
  </objectgroup>
+ <layer id="14" name="Door" width="16" height="10" visible="0">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,2163,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,2188,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
  <layer id="2" name="Buildings" width="16" height="10">
   <data encoding="csv">
 1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,

@@ -19,12 +19,6 @@
     <ClCompile Include="..\Classes\Scene\MenuScene.cpp">
       <Filter>Source Files\Classes\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Player\Multiplayer.cpp">
-      <Filter>Source Files\Classes\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Player\PlayerAccount.cpp">
-      <Filter>Source Files\Classes\Player</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Charactor\BackpackLayer.cpp">
       <Filter>Source Files\Classes\Charactor</Filter>
     </ClCompile>
@@ -76,6 +70,15 @@
     <ClCompile Include="..\Classes\GetableItem\Fish.cpp">
       <Filter>Source Files\Classes\GetableItem</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Charactor\RecipeLayer.cpp">
+      <Filter>Source Files\Classes\Charactor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Shop\Shop_board.cpp">
+      <Filter>Source Files\Classes\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Shop\Shop_board_Layer.cpp">
+      <Filter>Source Files\Classes\Shop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D:\Our Stardew Valley\cocos\proj.win32\resource.h">
@@ -107,12 +110,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scene\FarmGround.h">
       <Filter>Source Files\Classes\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Player\Multiplayer.h">
-      <Filter>Source Files\Classes\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Player\PlayerAccount.h">
-      <Filter>Source Files\Classes\Player</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Scene\MenuScene.h">
       <Filter>Source Files\Classes\Scene</Filter>
@@ -171,6 +168,18 @@
     <ClInclude Include="..\Classes\GetableItem\Fish.h">
       <Filter>Source Files\Classes\GetableItem</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Charactor\RecipeLayer.h">
+      <Filter>Source Files\Classes\Charactor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Shop\Shop_board.h">
+      <Filter>Source Files\Classes\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Shop\Shop_board_Layer.h">
+      <Filter>Source Files\Classes\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TimeSystem\NightTransitionScene.h">
+      <Filter>Source Files\Classes\TimeSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="D:\Our Stardew Valley\cocos\CMakeLists.txt" />
@@ -205,9 +214,6 @@
     <Filter Include="Source Files\Classes\Scene">
       <UniqueIdentifier>{84438407-bede-4e33-8ac1-6d32dbca612d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Classes\Player">
-      <UniqueIdentifier>{e59f5c14-1259-4f02-a52a-042e5ac66c57}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Classes\Charactor">
       <UniqueIdentifier>{9d1b49a0-4fd4-4180-8b7c-222526dbbc47}</UniqueIdentifier>
     </Filter>
@@ -237,6 +243,9 @@
     </Filter>
     <Filter Include="Source Files\Classes\Christmas">
       <UniqueIdentifier>{39a0dc51-e440-4d67-b55d-0f397d6cfaf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\Shop">
+      <UniqueIdentifier>{5b3020e5-d811-4a3e-b6f2-90924ba5b88f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
