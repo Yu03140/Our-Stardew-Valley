@@ -2,7 +2,7 @@
 
 USING_NS_CC;
 
-// ´´½¨ Board ¶ÔÏó
+// åˆ›å»º Board å¯¹è±¡
 Board* Board::createBoard(const std::string& weather, int money, int experience) {
     Board* ret = new (std::nothrow) Board();
     if (ret && ret->init(weather, money, experience)) {
@@ -13,13 +13,13 @@ Board* Board::createBoard(const std::string& weather, int money, int experience)
     return nullptr;
 }
 
-// ³õÊ¼»¯º¯Êý
+// åˆå§‹åŒ–å‡½æ•°
 bool Board::init(const std::string& weather, int money, int experience) {
     if (!Layer::init()) {
         return false;
     }
 
-    //ÈËÎï³õÊ¼»¯
+    //äººç‰©åˆå§‹åŒ–
     Player* player = Player::getInstance("me");
     background = Sprite::create("Board.png");
     auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -30,26 +30,26 @@ bool Board::init(const std::string& weather, int money, int experience) {
     background->setPosition(X, Y);
     this->addChild(background);
 
-    // 2. Ìí¼ÓÌìÆøÍ¼Æ¬
+    // 2. æ·»åŠ å¤©æ°”å›¾ç‰‡
     weatherSprite = Sprite::create();
     this->addChild(weatherSprite);
-    setWeatherSprite(weather);  // ÉèÖÃ³õÊ¼ÌìÆøÍ¼Æ¬
+    setWeatherSprite(weather);  // è®¾ç½®åˆå§‹å¤©æ°”å›¾ç‰‡
     weatherSprite->setPosition(background->getPosition()+ Vec2(background->getContentSize().height /16, background->getContentSize().height / 8));
 
-    // 3. Ìí¼ÓÍæ¼ÒÇ®²Æ±êÇ©£¨±³¾°ÏÂ·½£©
+    // 3. æ·»åŠ çŽ©å®¶é’±è´¢æ ‡ç­¾ï¼ˆèƒŒæ™¯ä¸‹æ–¹ï¼‰
     moneyLabel = Label::createWithTTF(std::to_string(player->playerproperty.getMoney()), "fonts/arial.ttf", 12);
     moneyLabel->setPosition(background->getPosition() - Vec2(0, background->getContentSize().height /8*3));
     moneyLabel->setColor(Color3B::BLACK);
     moneyLabel->setScale(0.5);
     this->addChild(moneyLabel);
-    // Ã¿Ãë¸üÐÂÒ»´ÎÇ®²Æ±êÇ©
+    // æ¯ç§’æ›´æ–°ä¸€æ¬¡é’±è´¢æ ‡ç­¾
     schedule([this](float dt) {
-        // Ã¿Ãë¸üÐÂÒ»´ÎÇ®²Æ±êÇ©
+        // æ¯ç§’æ›´æ–°ä¸€æ¬¡é’±è´¢æ ‡ç­¾
         this->updateMoneyLabel();
         }, 1.0f, "money_update_key");
 
 
-    // 4. Ìí¼ÓÊ±¼ä±êÇ©£¨±³¾°ÉÏ·½£©
+    // 4. æ·»åŠ æ—¶é—´æ ‡ç­¾ï¼ˆèƒŒæ™¯ä¸Šæ–¹ï¼‰
     timeLabel = Label::createWithTTF("", "fonts/arial.ttf", 12);
     // timeLabel = Label::createWithTTF(std::to_string(timeSystem->getYear())+"-"+ std::to_string(timeSystem->getSeason()) + "-" + std::to_string(timeSystem->getDay()) + "-" + std::to_string(timeSystem->getHour()), "fonts/arial.ttf", 24);
     timeLabel->setPosition(background->getPosition() + Vec2(8, -3));
@@ -57,18 +57,18 @@ bool Board::init(const std::string& weather, int money, int experience) {
     timeLabel->setScale(0.4);
     this->addChild(timeLabel);
 
-    // ÉèÖÃ¸üÐÂÊ±¼äµÄµ÷¶È£¬Ã¿Ãëµ÷ÓÃÒ»´Î
+    // è®¾ç½®æ›´æ–°æ—¶é—´çš„è°ƒåº¦ï¼Œæ¯ç§’è°ƒç”¨ä¸€æ¬¡
     schedule([this](float dt) {
         this->updateTimeLabel(dt);
         }, 1.0f, "time_update_key");
 
-    //4.5 Ìí¼Ó¾­ÑéÖµ±êÇ©
+    //4.5 æ·»åŠ ç»éªŒå€¼æ ‡ç­¾
     experienceLabel = Label::createWithTTF("Exp: " + std::to_string(player->playerproperty.getExperience()), "fonts/arial.ttf", 11);
     experienceLabel->setPosition(background->getPosition() + Vec2(10- background->getContentSize().height / 8, background->getContentSize().height / 8*3-2.5));
     experienceLabel->setColor(Color3B::BLACK);
     experienceLabel->setScale(0.4);
     this->addChild(experienceLabel);
-    // Ã¿Ãë¸üÐÂÒ»´Î¾­Ñé±êÇ©
+    // æ¯ç§’æ›´æ–°ä¸€æ¬¡ç»éªŒæ ‡ç­¾
     schedule([this](float dt) {
         this->updateExperienceLabel();
         }, 1.0f, "experience_update_key");
@@ -79,22 +79,22 @@ bool Board::init(const std::string& weather, int money, int experience) {
 }
 
 void Board::updateTimeLabel(float dt) {
-    // _timeSystem->updateTime();  // ¸üÐÂÓÎÏ·ÄÚµÄÊ±¼ä
+    // _timeSystem->updateTime();  // æ›´æ–°æ¸¸æˆå†…çš„æ—¶é—´
     std::string timeStr = std::to_string(timeSystem->getYear()) + "-" +
         std::to_string(timeSystem->getSeason()) + "-" +
         std::to_string(timeSystem->getDay()) + "-" +
         std::to_string(timeSystem->getHour());
-    timeLabel->setString(timeStr);  // ¸üÐÂ±êÇ©ÏÔÊ¾
+    timeLabel->setString(timeStr);  // æ›´æ–°æ ‡ç­¾æ˜¾ç¤º
 }
 
 
 
-// ¸üÐÂÌìÆø
+// æ›´æ–°å¤©æ°”
 void Board::updateWeather(const std::string& weather) {
     setWeatherSprite(weather);
 }
 
-// ÉèÖÃÌìÆøÍ¼Æ¬
+// è®¾ç½®å¤©æ°”å›¾ç‰‡
 void Board::setWeatherSprite(const std::string& weather) {
     std::string imagePath;
     if (weather == "normal") {
@@ -114,19 +114,19 @@ void Board::setWeatherSprite(const std::string& weather) {
 }
 
 
-// ¸üÐÂÍæ¼ÒÇ®²Æ±êÇ©
+// æ›´æ–°çŽ©å®¶é’±è´¢æ ‡ç­¾
 void Board::updateMoneyLabel() {
-    //ÈËÎï³õÊ¼»¯
+    //äººç‰©åˆå§‹åŒ–
     Player* player = Player::getInstance("me");
-    // ¸üÐÂ moneyLabel µÄÎÄ±¾
+    // æ›´æ–° moneyLabel çš„æ–‡æœ¬
     moneyLabel->setString( std::to_string(player->playerproperty.getMoney()));
 }
 
 
-// ¸üÐÂÍæ¼Ò¾­Ñé±êÇ©
+// æ›´æ–°çŽ©å®¶ç»éªŒæ ‡ç­¾
 void Board::updateExperienceLabel() {
-    //ÈËÎï³õÊ¼»¯
+    //äººç‰©åˆå§‹åŒ–
     Player* player = Player::getInstance("me");
-    // ¸üÐÂ moneyLabel µÄÎÄ±¾
+    // æ›´æ–° moneyLabel çš„æ–‡æœ¬
     experienceLabel->setString("Exp: " + std::to_string(player->playerproperty.getExperience()));
 }
