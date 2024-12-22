@@ -28,4 +28,6 @@ extern cocos2d::Vec2 MOUSE_POS;
 #define Taskbarlayer 4
 #define MapSize 4
 
+
+
 #endif // GLOBAL_H

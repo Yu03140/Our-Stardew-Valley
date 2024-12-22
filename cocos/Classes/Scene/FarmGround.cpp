@@ -12,7 +12,11 @@ bool FarmScene::init() {
         return false;
     }
 
+
+
+
     init_mouselistener();
+
 
     // 加载地图，放在中间
     Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -83,8 +87,12 @@ bool FarmScene::init() {
             sprite_move->update(dt);                         // 更新人物移动逻辑
             updateCameraPosition(dt, sprite_move);           // 更新相机位置
             }, "update_key_person");
+        
+
+    
 
     }
+
     // 计算经过缩放后的实际尺寸
     Size originalSize = sprite_move->getContentSize();
     float scale = sprite_move->getScale();
@@ -466,3 +474,6 @@ void FarmScene::checkNPCInteraction() {
         }
     }
 }
+
+
+
