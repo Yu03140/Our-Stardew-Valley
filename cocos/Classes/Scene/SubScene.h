@@ -86,28 +86,23 @@ public:
                 main_char->update(dt); // 更新人物移动逻辑
             }
             }, "update_key_person");
-        /*
-        // 计算经过缩放后的实际尺寸
-        Size originalSize = sprite_move->getContentSize();
-        float scale = sprite_move->getScale();
-        Size scaledSize = Size(originalSize.width * scale, originalSize.height * scale);
-        auto sprite_tool = moveable_sprite_key_tool::create("Tools.plist", TOOL_WIDTH, TOOL_HEIGHT);
-        if (sprite_tool)
-        {
-            sprite_tool->setPosition(Vec2(visibleSize.width / 2 + origin.x + scaledSize.width / 2, visibleSize.height / 2 + origin.y));
-            this->addChild(sprite_tool, 1);
-            sprite_tool->init_keyboardlistener();
-            sprite_tool->init_mouselistener();
-            sprite_tool->schedule([sprite_tool](float dt) {
-                sprite_tool->update(dt);
-                }, "update_key_tool");
-        }
-
-
-        */
-
-
-
+        
+        //// 计算经过缩放后的实际尺寸
+        //Size originalSize = sprite_move->getContentSize();
+        //float scale = sprite_move->getScale();
+        //Size scaledSize = Size(originalSize.width * scale, originalSize.height * scale);
+        //auto sprite_tool = moveable_sprite_key_tool::create("Tools.plist");
+        //if (sprite_tool)
+        //{
+        //    sprite_tool->setPosition(Vec2(visibleSize.width / 2 + origin.x + scaledSize.width / 2, visibleSize.height / 2 + origin.y));
+        //    this->addChild(sprite_tool, 1);
+        //    sprite_tool->init_keyboardlistener();
+        //    sprite_tool->init_mouselistener();
+        //    sprite_tool->schedule([sprite_tool](float dt) {
+        //        sprite_tool->update(dt);
+        //        }, "update_key_tool");
+        //    main_char_tool = sprite_tool;
+        //}
 
         return true;
     }
@@ -124,10 +119,13 @@ public:
         Scene::onEnter();
         // 在场景进入时添加键盘监听器
         main_char->init_keyboardlistener();
+        //main_char_tool->init_keyboardlistener();
+        //main_char_tool->init_mouselistener();
         this->schedule([this](float dt) {
-            if (main_char)
+            if (main_char /* && main_char_tool*/)
             {
                 main_char->update(dt); // 更新人物移动逻辑
+                //main_char_tool->update(dt);
             }
             }, "update_key_person");
     }
@@ -141,6 +139,7 @@ protected:
     // 瓦片地图的指针
     cocos2d::TMXTiledMap* tileMap;
     moveable_sprite_key_walk* main_char;
+    //moveable_sprite_key_tool* main_char_tool;
 };
 
 #endif // __SUB_SCENE_H__

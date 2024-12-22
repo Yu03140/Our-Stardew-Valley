@@ -31,7 +31,7 @@ bool ShedScene::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    auto objectGroup_animals = tileMap->getObjectGroup("object");
+    auto objectGroup_animals = tileMap->getObjectGroup("animal");
     if (!objectGroup_animals) {
         CCLOG("Failed to get object group 'object'");
         return false;
@@ -40,33 +40,29 @@ bool ShedScene::init()
     auto objects = objectGroup_animals->getObjects();
 
     for (const auto& object : objects) {
-        CCLOG("cccccccccccccccccccccccccccccccccccccccreate animal");
-        // 通过 object 中的数据判断是否是名称为 'grass' 的对象
+        // 通过 object 中的数据判断是否是名称为 'animal' 的对象
         auto dict = object.asValueMap();
-        std::string objectName = dict["animal"].asString();
+        std::string objectName = dict["name"].asString();
         //处理所有名称为草的对象
-        if (objectName == "animal") {
-
-            float posX = dict["x"].asFloat();
-            float posY = dict["y"].asFloat();
-            float width = dict["width"].asFloat();
-            float height = dict["height"].asFloat();
-            //创建精灵
-            auto animal = animals::create("Animals.plist");
-            animal->set_info("Pig", Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y), Size(100, 100));
-            animal->set_imag();
-            animal->setPosition(Vec2(posX, posY));        // 设置位置
-            animal->setAnchorPoint(Vec2(0, 0));     // 设置锚点
-            animal->setContentSize(Size(width, height));  // 设置大小
-            tileMap->addChild(animal, 2);  // 添加到瓦片地图
-            animal->init_mouselistener();
-            animals_manager->add_animals(animal);
-            animal->schedule([animal](float dt) {
-                animal->update_day(dt);
-                }, "update_animal");
-
-        }
-
+        CCLOG("%s", objectName.c_str());
+        float posX = dict["x"].asFloat();
+        float posY = dict["y"].asFloat();
+        float width = dict["width"].asFloat();
+        float height = dict["height"].asFloat();
+        //创建精灵
+        auto animal = animals::create("Animals.plist");
+        animal->set_info(objectName, Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y), Size(100, 100));
+        animal->set_imag();
+        animal->setPosition(Vec2(posX, posY));        // 设置位置
+        animal->setAnchorPoint(Vec2(0, 0));     // 设置锚点
+        tileMap->addChild(animal, 2);  // 添加到瓦片地图
+        animal->init_mouselistener();
+        animals_manager->add_animals(animal);
+        animal->scheduleRandomMove(tileMap);
+        animal->schedule([animal](float dt) {
+            animal->update_day(dt);
+            }, "update_animal");
+        break;
     }
     return true;
 }

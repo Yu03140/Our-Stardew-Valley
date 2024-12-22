@@ -19,8 +19,10 @@
 #include "Global/Global.h"
 
 #define FOOD "straw"
-#define SPEED 0.5f
+#define SPEED 20.0f
 #define EXPERIENCE 10
+#define EDGE1 120
+#define EDGE0 10
 //动物的成长图鉴
 const std::unordered_map<std::string, int> ANIMAL_MAP = { {"Pig",5},{"Goat",5},{"Chicken",4} ,{"Cow",7} };
 //动物生成物
@@ -42,7 +44,15 @@ private:
     static cocos2d::Texture2D* transparent_texture;
     cocos2d::Size produce_size;
     cocos2d::Vec2 produce_pos;
-
+    static int count;
+    int ID;
+    //数组各位置分别表示上、下、左、右方位
+    float move_vecx[4] = { 0,0,-SPEED * 0.1f,SPEED * 0.1f };
+    float move_vecy[4] = { SPEED * 0.1f,-SPEED * 0.1f ,0,0 };
+    bool movement[4] = { false, false, false, false };
+    //保存是否到达边界的判断结果,分别为上下左右
+    bool is_hit_edge[4] = { false,false, false, false };
+    int dic;
 public:
     animals();
     //保存基本信息
@@ -58,8 +68,8 @@ public:
     void on_mouse_click(cocos2d::Event* event);
 
     //游荡
-    void updateDirection(const cocos2d::Vec2& movementDirection);
     void randmove(cocos2d::TMXTiledMap* tileMap);
+    void move_act(cocos2d::TMXTiledMap* tileMap);
     void scheduleRandomMove(cocos2d::TMXTiledMap* tileMap);
 
     //喂食
