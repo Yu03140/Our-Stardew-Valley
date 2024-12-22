@@ -9,20 +9,20 @@ public:
     static Board* createBoard(const std::string& weather, int money, int experience);
     virtual bool init(const std::string& weather, int money, int experience);
 
-    void updateWeather(const std::string& weather);  // ¸üĞÂÌìÆø
+    void updateWeather(const std::string& weather);  // æ›´æ–°å¤©æ°”
     void updateTimeLabel(float dt);
     void updateMoneyLabel();
     void updateExperienceLabel();
 
 private:
-    // Ë½ÓĞ³ÉÔ±±äÁ¿
-    cocos2d::Sprite* background;        // ±³¾°Í¼Æ¬
-    cocos2d::Sprite* weatherSprite;     // ÌìÆøÍ¼Æ¬
-    cocos2d::Label* moneyLabel;         // ÏÔÊ¾Íæ¼ÒÇ®²ÆµÄ±êÇ©
-    cocos2d::Label* timeLabel;          // ÏÔÊ¾ÄêÔÂÈÕÊ±¼äµÄ±êÇ©
-    cocos2d::Label* experienceLabel;    //ÏÔÊ¾Íæ¼Ò¾­ÑéÖµµÄ±êÇ©
+    // ç§æœ‰æˆå‘˜å˜é‡
+    cocos2d::Sprite* background;        // èƒŒæ™¯å›¾ç‰‡
+    cocos2d::Sprite* weatherSprite;     // å¤©æ°”å›¾ç‰‡
+    cocos2d::Label* moneyLabel;         // æ˜¾ç¤ºç©å®¶é’±è´¢çš„æ ‡ç­¾
+    cocos2d::Label* timeLabel;          // æ˜¾ç¤ºå¹´æœˆæ—¥æ—¶é—´çš„æ ‡ç­¾
+    cocos2d::Label* experienceLabel;    //æ˜¾ç¤ºç©å®¶ç»éªŒå€¼çš„æ ‡ç­¾
 
-    // ¹¤¾ßº¯Êı
+    // å·¥å…·å‡½æ•°
     void setWeatherSprite(const std::string& weather);
 
 };
