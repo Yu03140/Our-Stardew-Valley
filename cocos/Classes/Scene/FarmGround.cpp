@@ -34,6 +34,22 @@ bool FarmScene::init() {
         CCLOG("Failed to load the tile map");
     }
 
+    house = Sprite::create("houses.png"); // 替换为你的房子图片路径
+    house->setPosition(Vec2(600, 600)); // 设置房子的初始位置
+    house->setScale(MapSize);
+    this->addChild(house);
+
+    shed = Sprite::create("Big Shed.png"); // 替换为你的房子图片路径
+    shed->setPosition(Vec2(0, 1100)); // 设置房子的初始位置
+    shed->setScale(MapSize);
+    this->addChild(shed);
+
+    badWarmHouse = Sprite::create("badGreenhouse.png"); // 替换为你的房子图片路径
+    badWarmHouse->setPosition(Vec2(-330, 0)); // 设置房子的初始位置
+    badWarmHouse->setScale(MapSize);
+    this->addChild(badWarmHouse);
+
+
 
     //----------------------------------------------------
     // 功能：人物初始化
@@ -75,7 +91,14 @@ bool FarmScene::init() {
             updateCameraPosition(dt, sprite_move);           // 更新相机位置
             }, "update_key_person");
 
+        schedule([this, sprite_move](float dt) {
+            this->update(dt, sprite_move);  // 传递 sprite_move 作为参数
+            }, "update_key_scene");
+        CCLOG("diao yong cheng gong la");
+
     }
+
+
     // 计算经过缩放后的实际尺寸
     Size originalSize = sprite_move->getContentSize();
     float scale = sprite_move->getScale();
@@ -91,9 +114,6 @@ bool FarmScene::init() {
             sprite_tool->update(dt);
             }, "update_key_tool");
     }
-
-
-    
 
     //----------------------------------------------------
     // 功能：作物模块
@@ -191,8 +211,93 @@ bool FarmScene::init() {
 
 
     //-----------end-----------------------------------------------------------------------------
+
+    //----------------------------------------------------
+    // 功能：钓鱼模块
+    // 说明：
+    // 图层：
+    //----------------------------------------------------
+    // 
+        // 获取对象层
+    auto barrierobjectGroup = tileMap->getObjectGroup("barriers");
+    if (!barrierobjectGroup) {
+        CCLOG("Failed to get object group 'barriers'");
+        return false;
+    }
+
+    // 障碍物格子管理（假设最大36格）
+    fish.resize(1);
+    //   for (int i = 0; i < 36; ++i) {
+
+    fish[0].name = "";      // 作物名
+
+    // 获取对象层中每个格子的坐标
+    auto object = barrierobjectGroup->getObject("barrier9");
+
+    float posX = object["x"].asFloat();
+    float posY = object["y"].asFloat();
+    float width = object["width"].asFloat();
+    float height = object["height"].asFloat();
+
+    CCLOG("fish %d: x=%f, y=%f, width=%f, height=%f", 0, posX, posY, width, height);
+
+
+    // 创建透明纹理的精灵
+    auto sprite1 = fish::create("crop_m.plist", width, height); // 默认无纹理
+
+    sprite1->setPosition(Vec2(posX, posY));        // 设置位置
+    sprite1->setAnchorPoint(Vec2(0, 0));     // 设置锚点
+    sprite1->setContentSize(Size(width, height));  // 设置大小
+    tileMap->addChild(sprite1, 2);  // 添加到瓦片地图
+    sprite1->init_mouselistener();
+    fish[0].sprite = sprite1;
+    //Vec2 worldPos = sprite->convertToWorldSpace(Vec2(0, 0));
+    //log("World Position: x=%f, y=%f", worldPos.x, worldPos.y);
+
     return true;
 }
+
+void FarmScene::update(float dt, moveable_sprite_key_walk* sprite_move) {
+
+    if (!sprite_move) {
+        CCLOG("wandanla");
+        return;
+    }
+    // 获取房子的边界
+    Vec2 housePos = house->getPosition();  // 房子的中心位置
+    Size houseSize = house->getContentSize() * MapSize;  // 房子的尺寸
+
+    // 获取人物的中心位置
+    Vec2 playerPos = sprite_move->getPosition();
+
+    // 判断人物是否在房屋的矩形区域内
+    bool isPlayerInsideHouse = playerPos.x > housePos.x - houseSize.width / 2 &&
+        playerPos.x < housePos.x + houseSize.width / 2 &&
+        playerPos.y > housePos.y - houseSize.height / 2 &&
+        playerPos.y < housePos.y + houseSize.height / 2;
+
+
+    // 获取房子的边界
+    Vec2 shedPos = shed->getPosition();  // 房子的中心位置
+    Size shedSize = shed->getContentSize() * MapSize;  // 房子的尺寸
+
+
+    // 判断人物是否在棚屋的矩形区域内
+    bool isPlayerInsideshed = playerPos.x > shedPos.x - shedSize.width / 2 &&
+        playerPos.x < shedPos.x + shedSize.width / 2 &&
+        playerPos.y > shedPos.y - shedSize.height / 2 &&
+        playerPos.y < shedPos.y + shedSize.height / 2;
+
+    //====================================12.20=================================================================================
+    //===================================12.21==================================================================================
+
+        // 根据人物是否在房屋区域内，调整房子的透明度
+    house->setOpacity(isPlayerInsideHouse ? 128 : 255);
+    shed->setOpacity(isPlayerInsideshed ? 128 : 255);
+
+}
+
+
 
 FarmScene* FarmScene::getInstance() {
     if (instance == nullptr) {
@@ -328,6 +433,7 @@ void FarmScene::on_mouse_click(cocos2d::Event* event)
     MOUSE_POS = mouse_pos;
     CCLOG("Mouse Position(global): (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
     checkForButtonClick(mouse_pos);
+    checkForwarmhouseClick(mouse_pos);
 
 
     // 0.1秒后将 MOUSE_POS 置为 (0, 0)，并且不影响其他程序运行
@@ -335,6 +441,90 @@ void FarmScene::on_mouse_click(cocos2d::Event* event)
         MOUSE_POS = Vec2::ZERO;
         CCLOG("Mouse Position reset to: (%f, %f)", MOUSE_POS.x, MOUSE_POS.y);
         }, 1.5f, "reset_mouse_pos_key");
+}
+
+
+bool FarmScene::checkForwarmhouseClick(Vec2 mousePosition)
+{
+    // 获取 warmhouse 对象层（warmhouse 层的名称为 "warmhouse"）
+    auto objectGroup = tileMap->getObjectGroup("warmhouse");
+
+    CCLOG("Successed to get object group 'warmhouse'");
+
+
+    std::string Objectname = "warmhouse";
+    Sprite* new_warmhouse = nullptr;
+
+
+    auto object = objectGroup->getObject(Objectname);
+    float posX = object["x"].asFloat();
+    float posY = object["y"].asFloat();
+    float width = object["width"].asFloat() * MapSize;
+    float height = object["height"].asFloat() * MapSize;
+    auto sprite = Sprite::create();
+    sprite->setPosition(Vec2(posX, posY));
+    sprite->setAnchorPoint(Vec2(0, 0));
+    sprite->setContentSize(Size(width, height));
+    tileMap->addChild(sprite);
+    Vec2 pos = sprite->convertToWorldSpace(Vec2(0, 0));
+    CCLOG("POS: %f, %f", pos.x, pos.y);
+
+    // 判断点击位置是否在 Door 区域内
+    if (mousePosition.x >= pos.x && mousePosition.x <= pos.x + width &&
+        mousePosition.y >= pos.y && mousePosition.y <= pos.y + height) {
+
+        replaceHouseImage();
+
+
+        return true;
+    }
+
+    return false;
+
+
+}
+
+void FarmScene::replaceHouseImage() {
+    // 替换为新的精灵图片
+    badWarmHouse->setTexture("newGreenhouse.png");  // 替换为新的房子图片
+}
+
+bool FarmScene::checkCollisionWithBorder(cocos2d::Vec2 position) {
+    // 获取地图的图层数据
+    auto layer = tileMap->getLayer("Border");
+
+    // 检查图层是否有效
+    if (!layer) {
+        CCLOG("Failed to get Border layer!");
+        return false;
+    }
+    CCLOG("ok to get Border layer!");
+
+    // 获取地图的图层大小和单个瓦片的大小
+    cocos2d::Size layerSize = layer->getLayerSize();
+    cocos2d::Size tileSize = layer->getMapTileSize();
+
+    // 获取摄像机的偏移位置
+    auto camera = Director::getInstance()->getRunningScene()->getDefaultCamera();
+    cocos2d::Vec2 cameraPos = cocos2d::Vec2(camera->getPosition3D().x, camera->getPosition3D().y);  // 提取x, y坐标
+
+    // 将玩家位置转换为相对于摄像机的坐标
+    cocos2d::Vec2 relativePos = position - cameraPos;
+
+    // 将相对位置转换为 tile 坐标
+    cocos2d::Vec2 tileCoord = cocos2d::Vec2(relativePos.x / tileSize.width, relativePos.y / tileSize.height);
+
+    // 检查坐标是否在有效范围内
+    if (tileCoord.x < 0 || tileCoord.x >= layerSize.width || tileCoord.y < 0 || tileCoord.y >= layerSize.height) {
+        CCLOG("Position is out of bounds: (%f, %f)", relativePos.x, relativePos.y);
+        return false;  // 如果超出范围，返回 false
+    }
+
+    // 获取坐标对应的 tile GID
+    int tileGID = layer->getTileGIDAt(tileCoord);
+
+    // 判断该位置是否为障碍物
+    return tileGID != 0; // 如果 GID 不为 0，则说明该位置有障碍物
 }
 
 

@@ -819,6 +819,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\Christmas\Christmas.h" />
     <ClInclude Include="..\Classes\GetableItem\Animals.h" />
     <ClInclude Include="..\Classes\GetableItem\Crop.h" />
+    <ClInclude Include="..\Classes\GetableItem\Fish.h" />
     <ClInclude Include="..\Classes\GetableItem\getable_goods.h" />
     <ClInclude Include="..\Classes\GetableItem\progress_bar.h" />
     <ClInclude Include="..\Classes\Global\Global.h" />
@@ -847,6 +848,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\Christmas\Christmas.cpp" />
     <ClCompile Include="..\Classes\GetableItem\Animals.cpp" />
     <ClCompile Include="..\Classes\GetableItem\Crop.cpp" />
+    <ClCompile Include="..\Classes\GetableItem\Fish.cpp" />
     <ClCompile Include="..\Classes\GetableItem\getable_goods.cpp" />
     <ClCompile Include="..\Classes\GetableItem\progress_bar.cpp" />
     <ClCompile Include="..\Classes\Global\Global.cpp" />

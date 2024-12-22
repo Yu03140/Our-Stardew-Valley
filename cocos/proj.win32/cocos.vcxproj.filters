@@ -73,6 +73,9 @@
     <ClCompile Include="..\Classes\GetableItem\progress_bar.cpp">
       <Filter>Source Files\Classes\GetableItem</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GetableItem\Fish.cpp">
+      <Filter>Source Files\Classes\GetableItem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="D:\Our Stardew Valley\cocos\proj.win32\resource.h">
@@ -163,6 +166,9 @@
       <Filter>Source Files\Classes\GetableItem</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GetableItem\progress_bar.h">
+      <Filter>Source Files\Classes\GetableItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GetableItem\Fish.h">
       <Filter>Source Files\Classes\GetableItem</Filter>
     </ClInclude>
   </ItemGroup>

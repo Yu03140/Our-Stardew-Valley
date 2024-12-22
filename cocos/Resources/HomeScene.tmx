@@ -15,6 +15,7 @@
   <image source="Content/Maps/spring_outdoorsTileSheet2.png" width="256" height="1120"/>
  </tileset>
  <tileset firstgid="1241" source="farmhouse_tiles-0-0.tsx"/>
+ <tileset firstgid="1271" source="1spring_outdoorsTileSheet..tsx"/>
  <layer id="1" name="Back" width="16" height="10">
   <data encoding="csv">
 1,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3,
@@ -25,8 +26,8 @@
 5,6,6,6,6,40,6,6,40,6,6,40,6,6,40,7,
 5,6,40,6,6,6,6,6,6,40,6,6,6,40,6,7,
 5,40,6,6,40,6,6,6,6,6,6,40,6,6,6,7,
-5,6,6,40,6,6,6,6,40,6,6,6,40,6,6,7,
-39,39,10,6,10,39,39,39,6,6,6,6,39,39,39,39
+5,6,6,2163,6,6,6,6,40,6,6,6,40,6,6,7,
+39,39,10,2188,10,39,39,39,6,6,6,6,39,39,39,39
 </data>
  </layer>
  <objectgroup id="12" name="Button">
